@@ -117,3 +117,8 @@ function lbPlay() {
   if (playBtn) playBtn.style.display = 'none';
   startGame();
 }
+window.addEventListener('load', () => {
+  if (typeof lbLoadAndRender === 'function') {
+    lbLoadAndRender();
+  }
+});
