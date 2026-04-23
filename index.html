@@ -16,7 +16,56 @@
             <button id="start-game-btn">Start Game</button>
         </div>
         <div id="intro-system"></div>
-        <div id="leaderboard-ui"></div>
+       <div id="lb-overlay" style="
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+">
+
+  <div style="
+    width: 420px;
+    max-width: 90%;
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  ">
+
+    <h2 style="margin-top:0;">🏆 Leaderboard</h2>
+
+    <div id="lb-list" style="
+      max-height: 320px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+    ">
+      Loading leaderboard...
+    </div>
+
+    <button
+      id="lb-play"
+      onclick="lbPlay()"
+      style="
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        background: #d4af37;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+      "
+    >
+      ▶ Start Game
+    </button>
+
+  </div>
+</div>
     </div>
     <script src="js/config.js"></script>
     <script src="js/game.js"></script>
