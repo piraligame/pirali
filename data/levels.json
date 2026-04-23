@@ -1,0 +1,22 @@
+{
+  "levels": [
+    {
+      "level_id": 1,
+      "name": "Level 1",
+      "difficulty": "easy",
+      "description": "Initial level for new players."
+    },
+    {
+      "level_id": 2,
+      "name": "Level 2",
+      "difficulty": "medium",
+      "description": "A step up in challenge."
+    },
+    {
+      "level_id": 3,
+      "name": "Level 3",
+      "difficulty": "hard",
+      "description": "For experienced players."
+    }
+  ]
+}
