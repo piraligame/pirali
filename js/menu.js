@@ -39,5 +39,5 @@ class Menu {
     
 // Example of usage:
 const mainMenu = new Menu();
-mainMenu.backgroundImage = 'url-to-your-background-image.jpg';
+mainMenu.backgroundImage = 'mainMenu.backgroundImage = 'https://raw.githubusercontent.com/piraligame/pirali/main/assets/images/ui/menu-background.jpg';
 mainMenu.render();
