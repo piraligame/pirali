@@ -26,7 +26,7 @@ class Menu {
         const startButton = document.createElement('button');
         startButton.innerText = 'Start Game';
         startButton.disabled = this.isGameStarted;
-        startButton.onclick = () => this.startGame();
+        startButton.onclick = () => showIntro(startGame);
         menu.appendChild(startButton);
 
         document.body.appendChild(menu);
@@ -36,14 +36,7 @@ class Menu {
         this.language = this.language === 'en' ? 'es' : 'en';
         this.render(); // Re-render the menu with new language
     }
-
-    startGame() {
-        this.isGameStarted = true;
-        this.render(); // Update menu state
-        console.log('Game Started'); // Placeholder for actual game start logic
-    }
-}
-
+    
 // Example of usage:
 const mainMenu = new Menu();
 mainMenu.backgroundImage = 'url-to-your-background-image.jpg';
