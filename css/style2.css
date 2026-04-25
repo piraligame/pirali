@@ -1,4 +1,4 @@
-<style>
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;700;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -157,5 +157,3 @@ canvas{display:block;position:fixed;top:0;left:0;}
 .lb-lvl{font-size:10px;color:#6a4e1a;margin-left:8px;}
 #lb-play{padding:14px 44px;background:linear-gradient(180deg,#4a2c08,#281602);border:1px solid rgba(168,118,28,.72);border-radius:8px;color:#ecd658;font-size:16px;font-family:'Noto Sans Georgian',sans-serif;font-weight:700;letter-spacing:2px;cursor:pointer;z-index:1;box-shadow:0 0 28px rgba(0,0,0,.92);display:none;transition:all 0.15s;white-space:nowrap;margin-top:8px;margin-bottom:24px;}
 #lb-play:active{transform:scale(.93);}
-
-</style>
