@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
+  <meta name="apple-mobile-web-app-title" content="ფირალი">
+  <meta name="theme-color" content="#c89820">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <meta name="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>ფირალი — სიმონას გზა</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<div id="ui">
+  <div class="ui-panel"><div class="ui-lbl">სიცოცხლე</div><div id="hearts"></div></div>
+  <div class="ui-panel" style="text-align:right"><div class="ui-lbl">ქულა</div><div id="score-val">0</div></div>
+</div>
+<div id="progress-bar"><div id="prog-lbl">ეკლესიისკენ</div><div id="prog-track"><div id="prog-fill" style="width:0%"></div></div></div>
+<div id="dash-cd"><div id="dash-lbl">💨 დეში</div><div id="dash-cd-track"><div id="dash-fill" style="width:100%;height:100%;"></div></div></div>
+<div id="level-badge"></div>
+<div id="ammo-bar"><div class="ui-panel"><div id="ammo-lbl">ტყვია</div><div id="bullets"></div></div></div>
+<div id="boss-bar"><div id="boss-lbl">⚔ რუსი გენერალი — ბოსი</div><div id="boss-track"><div id="boss-fill" style="width:100%"></div></div></div>
+<div id="joy-zone"></div><div id="joy-base"></div><div id="joy-knob"></div>
+<button id="btn-pause" onclick="togglePause()">⏸</button>
+<div id="pause-overlay">
+  <h2>⏸ პაუზა</h2>
+  <p>თამაში შეჩერებულია</p>
+  <button class="pause-btn" onclick="togglePause()">▶ გაგრძელება</button>
+  <button class="pause-btn secondary" id="btn-go-menu" onclick="showMenuConfirm()">🏠 მთავარ მენიუში</button>
+  <div id="menu-confirm" style="display:none;flex-direction:column;align-items:center;gap:8px;margin-top:4px;">
+    <div style="font-size:11px;color:#a07828;letter-spacing:1px;margin-bottom:2px;">პროგრესი დაიკარგება. დარწმუნებული ხარ?</div>
+    <div style="display:flex;gap:10px;">
+      <button class="pause-btn secondary" style="width:90px;padding:10px 0;" onclick="goToMenu()">✔ კი</button>
+      <button class="pause-btn secondary" style="width:90px;padding:10px 0;" onclick="document.getElementById('menu-confirm').style.display='none'">✘ არა</button>
+    </div>
+  </div>
+</div>
+<div id="action-zone">
+  <div class="btn-row">
+    <div class="act-btn" id="btn-sword">⚔️</div>
+    <div class="act-btn" id="btn-dash">💨</div>
+  </div>
+  <div class="act-btn" id="btn-shoot">🔫</div>
+</div>
+<div id="dflash"></div><div id="sword-flash"></div><div id="dash-flash"></div><div id="parry-flash"></div>
+<div id="inventory">
+  <div class="inv-item" id="inv-herbs">🌿 <span id="inv-herbs-n">0</span></div>
+  <div class="inv-item" id="inv-medals">🏅 <span id="inv-medals-n">0</span></div>
+</div>
+<div id="lvlbanner"></div>
+<div id="lb-overlay">
+  <div id="lb-title">🏆 რეკორდები</div>
+  <div id="lb-sub">საუკეთესო მოთამაშეები</div>
+  <div id="lb-status" style="font-size:10px;color:#6a8a3a;letter-spacing:1px;margin-bottom:8px;z-index:1;min-height:14px;text-align:center;"></div>
+  <div id="lb-setup-row" style="display:none!important;"></div>
+  <div id="lb-name-row" style="display:none;">
+    <input id="lb-name" type="text" maxlength="14" placeholder="შეიყვანე სახელი..." autocomplete="off" spellcheck="false"/>
+    <button id="lb-save" onclick="lbSave()">შენახვა</button>
+  </div>
+  <div id="lb-list"></div>
+  <button id="lb-play" onclick="lbPlay()">თავიდან თამაში</button>
+</div>
+<div id="screen">
+  <div id="screen-overlay"></div>
+  <div class="tdeco" style="letter-spacing:8px;color:#c8a040;">— ქართული ლეგენდა —</div>
+  <h1 style="font-size:62px;letter-spacing:10px;text-shadow:0 0 60px rgba(224,168,32,.9),0 4px 0 #0a0500,0 0 120px rgba(200,140,20,.4);">ფირალი</h1>
+  <div style="font-size:11px;color:#a08030;letter-spacing:6px;text-transform:uppercase;margin-bottom:4px;z-index:1;position:relative;">Rise of the Outlaw</div>
+  <div class="tsub">სიმონას გზა</div>
+  <div class="sbox"><p>როცა სამართალი ხმას კარგავს,<br>ტყე ხდება თავშესაფარი.<br><br>სიმონა დალიძე —<br>კაცი, რომელმაც არჩევანი გააკეთა:<br>დაემორჩილოს… ან იბრძოლოს.<br><br>მოღალატედ შერაცხული,<br>მაგრამ ხალხისთვის — გმირი.<br><br>მისი გზა სიბნელიდან იწყება,<br>მაგრამ სინათლისკენ მიდის.<br><br>ეს არის ისტორია — ფირალი</p></div>
+  <button class="sbtn" onclick="bgmStop();document.getElementById('screen').style.display='none';showIntro(startGame)">თამაშის დაწყება</button>
+</div>
+
+<!-- ============ SCRIPTS ============ -->
+<!-- Firebase SDK (compat — გლობალური firebase ობიექტი) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+<!-- Firebase კონფიგი -->
+<script src="firebase/firebase-config.js"></script>
+
+<!-- კონსტანტები — ყველაფერზე ადრე -->
+<script src="js/config.js"></script>
+
+<!-- მოდულები -->
+<script src="js/intro.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/leaderboard.js"></script>
+<script src="js/game.js"></script>
+
+<!-- Entry point — ბოლოს -->
+<script src="js/main.js"></script>
+</body>
+</html>
