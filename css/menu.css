@@ -1,0 +1,78 @@
+/* PIRALI main-menu redesign — preserves the illustration and game UI. */
+#screen:not(.gameover-screen):not(.victory-screen){
+  align-items:flex-end;justify-content:center;
+  padding:clamp(16px,4vw,56px);padding-right:clamp(16px,7vw,112px);
+  background-position:center center;
+}
+#screen:not(.gameover-screen):not(.victory-screen) #screen-overlay{
+  background:linear-gradient(90deg,rgba(13,7,2,.03) 0%,rgba(11,7,3,.1) 42%,rgba(9,5,2,.64) 100%);
+}
+#screen .main-menu-panel{
+  box-sizing:border-box;position:relative;z-index:3;
+  width:min(390px,100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:1px solid rgba(242,180,62,.6);
+  border-radius:20px;
+  padding:clamp(17px,3vw,29px) clamp(17px,3vw,28px);
+  background:linear-gradient(153deg,rgba(26,16,8,.87),rgba(9,7,4,.93));
+  box-shadow:0 16px 65px rgba(0,0,0,.65),0 0 25px rgba(216,138,17,.16),inset 0 1px 0 rgba(255,211,91,.18);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+}
+#screen .main-menu-panel .tdeco{font-size:10px;color:#e3b66d;letter-spacing:4px;margin-bottom:8px;text-align:center;}
+#screen .main-menu-panel h1{font-size:clamp(48px,5vw,72px)!important;letter-spacing:5px!important;line-height:1.08;margin:0 0 7px;}
+#screen .main-menu-panel .tsub{color:#f4c45f;letter-spacing:3px;font-size:12px;margin:3px 0 16px;}
+#screen .main-menu-panel .sbox{
+  width:100%;max-width:none;
+  background:rgba(2,2,1,.27);border:1px solid rgba(229,172,62,.18);
+  box-shadow:none;padding:12px 14px;margin:0 0 17px;
+}
+#screen .main-menu-panel .sbox::before{display:none;}
+#screen .main-menu-panel .sbox p{color:#e1c798;font-size:clamp(11px,1.2vw,12px);line-height:1.55;}
+#screen .main-menu-panel .sbtn{
+  width:100%;min-height:54px;padding:13px 15px;margin:0;
+  background:linear-gradient(180deg,#f0bd55,#ac7123);
+  color:#251503;border:1px solid #ffd682;
+  box-shadow:0 7px 26px rgba(241,150,37,.28),inset 0 1px 0 rgba(255,255,255,.34);
+  font-weight:900;letter-spacing:1.5px;border-radius:11px;
+}
+#screen .main-menu-panel .sbtn:hover{background:linear-gradient(180deg,#ffcf72,#c78b34);box-shadow:0 6px 32px rgba(250,183,57,.53);}
+#screen .menu-actions{width:100%;margin-top:10px;display:grid;grid-template-columns:1fr;gap:9px;}
+#screen .menu-records{
+  width:100%;min-height:47px;cursor:pointer;border-radius:10px;
+  background:rgba(14,11,7,.85);border:1px solid rgba(236,185,89,.65);
+  color:#f9d88e;font:700 15px 'Noto Sans Georgian',sans-serif;letter-spacing:.4px;
+}
+#screen .menu-records:hover{background:rgba(92,61,16,.8);}
+#screen .menu-version{margin:12px 0 0;color:#e3bd77;font:700 10px sans-serif;letter-spacing:2px;opacity:.8;text-align:center;}
+#pirali-lb-close{
+  display:none;position:relative;z-index:5;margin:8px 0 20px;
+  padding:12px 24px;min-height:47px;border:1px solid #dfb25b;
+  border-radius:11px;background:#201308;color:#f1d082;
+  font:700 14px 'Noto Sans Georgian',sans-serif;cursor:pointer;
+}
+@media(max-width:700px){
+  #screen:not(.gameover-screen):not(.victory-screen){
+    align-items:center;justify-content:flex-end;
+    padding:16px 12px max(17px,env(safe-area-inset-bottom));
+    background-position:35% center;
+  }
+  #screen:not(.gameover-screen):not(.victory-screen) #screen-overlay{
+    background:linear-gradient(180deg,rgba(1,1,0,.06) 0%,rgba(4,3,1,.08) 23%,rgba(4,3,2,.76) 59%,rgba(4,3,2,.86) 100%);
+  }
+  #screen .main-menu-panel{
+    width:min(440px,100%);padding:15px 17px;
+    background:rgba(9,8,4,.86);border-radius:15px;
+  }
+  #screen .main-menu-panel h1{font-size:47px!important;}
+  #screen .main-menu-panel .sbox{max-height:115px;overflow-y:auto;margin-bottom:10px;}
+  #screen .main-menu-panel .sbox p{font-size:11px;line-height:1.5;}
+  #screen .main-menu-panel .tsub{margin-bottom:10px;}
+  #screen .menu-version{margin-top:8px;}
+}
+@media(max-height:690px) and (min-width:701px){
+  #screen .main-menu-panel{padding:13px 20px;}
+  #screen .main-menu-panel .sbox{max-height:118px;overflow-y:auto;}
+  #screen .main-menu-panel h1{font-size:46px!important;}
+  #screen .main-menu-panel .tsub{margin-bottom:8px;}
+}

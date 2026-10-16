@@ -1,44 +1,62 @@
-// js/menu.js
+/* PIRALI menu actions, independent of gameplay core. */
+(function(){
+  'use strict';
+  const screen=document.getElementById('screen');
+  const leaderboard=document.getElementById('lb-overlay');
+  if(!screen||!leaderboard)return;
 
-class Menu {
-    constructor() {
-        this.language = 'en';
-        this.backgroundImage = ''; // URL for background image
-        this.isGameStarted = false;
-    }
+  function addMenuPanel(){
+    if(screen.classList.contains('gameover-screen')||screen.classList.contains('victory-screen'))return;
+    if(screen.querySelector('.main-menu-panel'))return;
+    if(!screen.querySelector('.sbtn'))return;
 
-    render() {
-        const menu = document.createElement('div');
-        menu.className = 'main-menu';
+    const card=document.createElement('div');
+    card.className='main-menu-panel';
+    const existing=Array.from(screen.children).filter(x=>x.id!=='screen-overlay');
+    existing.forEach(x=>card.appendChild(x));
+    screen.appendChild(card);
 
-        // Background image support
-        if (this.backgroundImage) {
-            menu.style.backgroundImage = `url(${this.backgroundImage})`;
-        }
+    const actions=document.createElement('div');
+    actions.className='menu-actions';
+    const records=document.createElement('button');
+    records.type='button';
+    records.className='menu-records';
+    records.textContent='🏆 საუკეთესო მოთამაშეები';
+    records.addEventListener('click',function(){
+      if(typeof lbShow!=='function')return;
+      lbShow();
+      const play=document.getElementById('lb-play');
+      if(play)play.style.display='none';
+      back.style.display='block';
+    });
+    actions.appendChild(records);
+    card.appendChild(actions);
 
-        // Language toggle button
-        const langToggle = document.createElement('button');
-        langToggle.innerText = this.language === 'en' ? 'Switch to Spanish' : 'Cambiar a Inglés';
-        langToggle.onclick = () => this.toggleLanguage();
-        menu.appendChild(langToggle);
+    const version=document.createElement('div');
+    version.className='menu-version';
+    version.textContent='PIRALI • PREVIEW 0.2';
+    card.appendChild(version);
+  }
+  const back=document.createElement('button');
+  back.id='pirali-lb-close';
+  back.type='button';
+  back.textContent='← მთავარ მენიუში დაბრუნება';
+  back.addEventListener('click',function(){
+    leaderboard.style.display='none';
+    back.style.display='none';
+    screen.style.display='flex';
+    if(typeof bgmStop==='function')bgmStop();
+  });
+  leaderboard.appendChild(back);
 
-        // Start Game button
-        const startButton = document.createElement('button');
-        startButton.innerText = 'Start Game';
-        startButton.disabled = this.isGameStarted;
-        startButton.onclick = () => showIntro(startGame);
-        menu.appendChild(startButton);
-
-        document.body.appendChild(menu);
-    }
-
-    toggleLanguage() {
-        this.language = this.language === 'en' ? 'es' : 'en';
-        this.render(); // Re-render the menu with new language
-    }
-    
-// Example of usage:
-const mainMenu = new Menu();
-const mainMenu = new Menu();
-mainMenu.backgroundImage = 'https://raw.githubusercontent.com/piraligame/pirali/main/assets/images/ui/menu-background.jpg';
-mainMenu.render();
+  // Game code reconstructs the menu after exiting a level.
+  // Recreate only menu presentation after that built-in transition.
+  const observer=new MutationObserver(function(){
+    if(screen.querySelector('.main-menu-panel'))return;
+    if(screen.classList.contains('gameover-screen')||screen.classList.contains('victory-screen'))return;
+    if(!screen.querySelector('.sbtn'))return;
+    addMenuPanel();
+  });
+  observer.observe(screen,{childList:true});
+  addMenuPanel();
+})();
