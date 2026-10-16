@@ -38,8 +38,11 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-      - name: Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Verify runner Android SDK and accept licenses
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          sdkmanager --version
+          yes | sdkmanager --licenses >/dev/null 2>&1 || true
       - name: Install Android API 36
         run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
       - name: Install project packages
