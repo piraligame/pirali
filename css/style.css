@@ -78,6 +78,7 @@ canvas{display:block;position:fixed;top:0;left:0;}
 .act-btn::before{content:'';position:absolute;inset:-2px;border-radius:50%;opacity:0;transition:opacity 0.1s;}
 .act-btn:active,.act-btn.pressed{transform:scale(0.80)!important;}
 #btn-shoot{width:88px;height:88px;font-size:27px;background:radial-gradient(circle at 34% 32%,#8a1616,#340808);border:2px solid rgba(220,58,58,0.72);box-shadow:0 6px 28px rgba(0,0,0,0.9),0 0 20px rgba(180,32,32,0.28),inset 0 1px 0 rgba(255,80,80,0.12);}
+#btn-shoot .mauser-icon{display:block;width:94%;height:87%;object-fit:contain;pointer-events:none;user-select:none;-webkit-user-drag:none;filter:drop-shadow(0 3px 3px rgba(0,0,0,.80));}
 #btn-shoot.pressed{box-shadow:0 0 44px rgba(255,60,60,0.95)!important;border-color:rgba(255,95,95,1)!important;}
 #btn-sword{width:64px;height:64px;font-size:21px;background:radial-gradient(circle at 34% 32%,#4e3c08,#221806);border:2px solid rgba(210,165,58,0.65);box-shadow:0 5px 20px rgba(0,0,0,0.9),0 0 14px rgba(168,125,24,0.22),inset 0 1px 0 rgba(255,200,60,0.1);}
 #btn-sword.pressed{box-shadow:0 0 34px rgba(230,185,55,0.88)!important;}
