@@ -129,8 +129,8 @@ function lbRender(rows, highlightName){
     return;
   }
 
-  // Present TOP 10; personal record is shown separately, even below 10th place.
-  safe.slice(0, 10).forEach(function(r, i){
+  // Present TOP 20; personal record is shown separately, even below 20th place.
+  safe.slice(0, 20).forEach(function(r, i){
     const rank = i + 1;
     const row  = document.createElement('div');
     let cls = 'lb-row';
