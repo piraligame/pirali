@@ -98,7 +98,7 @@ canvas{display:block;position:fixed;top:0;left:0;}
 .pause-btn.secondary{background:linear-gradient(180deg,#180e04,#0c0602);border-color:rgba(120,80,16,.45);color:#a07828;font-size:13px;}
 
 /* ── OVERLAY SCREEN ── */
-#screen{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow-y:auto;padding-top:44px;padding-bottom:44px;background-image:url(assets/bg_title.jpg);background-size:cover;background-position:center top;z-index:200;padding:28px;pointer-events:all;}#screen-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,2,0,.55) 0%,rgba(4,2,0,.72) 50%,rgba(4,2,0,.92) 100%);z-index:0;pointer-events:none;border-radius:0;}
+#screen{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow-y:auto;padding-top:44px;padding-bottom:44px;background-image:url('../assets/images/ui/menu-background.jpg');background-size:cover;background-position:center center;z-index:200;padding:28px;pointer-events:all;}#screen-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,2,0,.27) 0%,rgba(4,2,0,.42) 50%,rgba(4,2,0,.66) 100%);z-index:0;pointer-events:none;border-radius:0;}
 #screen::before{content:'';position:absolute;top:8px;left:8px;right:8px;bottom:8px;border:1px solid rgba(180,120,30,0.38);border-radius:9px;pointer-events:none;}
 #screen::after{content:'';position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:1px solid rgba(160,108,28,0.16);border-radius:8px;pointer-events:none;}
 .tdeco{font-size:9px;letter-spacing:7px;color:#6a4820;text-transform:uppercase;margin-bottom:10px;z-index:1;position:relative;}
