@@ -88,6 +88,15 @@ function hitEnemy(e){
 
 function killEnemy(e){
   e.alive=false;
+  if(e.etype==='landlord'){
+    if(finalVictoryPending)return;
+    finalVictoryPending=true;
+    running=false; // stop incoming bullets while the victory screen is queued
+    score+=5000;updateScoreUI();playDeath();
+    for(let i=0;i<22;i++)spawnPart(e.x,e.y,(Math.random()-.5)*7,(Math.random()-.5)*7,27,'#f0b040',3);
+    setTimeout(showVictory,900);
+    return;
+  }
   // Kill streak bonus
   killStreak++;killStreakTimer=180;
   const bonus=killStreak>=5?300:killStreak>=3?200:100;
@@ -103,24 +112,25 @@ function killEnemy(e){
   if(bloodDecals.length>40)bloodDecals.shift();
   for(let i=0;i<16;i++) spawnPart(e.x,e.y,(Math.random()-.5)*8,(Math.random()-.5)*8,26,i%3===0?'#7a0808':'#cc1818',3+Math.random()*3.5);
   if(Math.random()>.35) pickups.push({x:e.x+(Math.random()-.5)*22,y:e.y+(Math.random()-.5)*22,bob:Math.random()*6.28,col:false,type:Math.random()>.8?'health':'ammo'});
-  if(e.etype==='landlord'){setTimeout(showVictory,900);}
+
 }
 
 function hitBoss(b,dmg=1){
   b.hp-=dmg;b.hf=10;
   playHit();
   for(let i=0;i<8;i++) spawnPart(b.x,b.y,(Math.random()-.5)*6,(Math.random()-.5)*6,14,'#cc2020',3+Math.random()*3);
-  if(!b.rageMode&&b.hp<=b.enrageHp){b.rageMode=true;showBanner('⚠ RAGE ⚠\nბოსი გააფთრდა!');}
+  // Phase 2 transition is handled by update() (one source of truth).
   updateBossUI();
   if(b.hp<=0){b.alive=false;score+=1000*level;updateScoreUI();hideBossUI();
     for(let i=0;i<30;i++) spawnPart(b.x,b.y,(Math.random()-.5)*10,(Math.random()-.5)*10,30,i%4===0?'#f0c020':'#cc1818',4+Math.random()*4);
     corpses.push({x:b.x,y:b.y,ang:b.ang,r:b.r,etype:'boss'});
+    if(level===5&&!finalLordSpawned)spawnLandlordNPC(b.x,b.y);
   }
 }
 
 function takeDmg(){
   if(invincible||dashing)return;
-  health--;invincible=true;setTimeout(()=>invincible=false,1800);
+  health--;invincible=true;setTimeout(()=>invincible=false,PIRALI_BALANCE.playerIFrameMs);
   playHurt();
   // Screen shake
   shakePow=10;

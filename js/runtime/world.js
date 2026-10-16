@@ -3,14 +3,8 @@ const SPD=1.42,BSPD=6.8,CAM_EASE=0.075;
 const DASH_FORCE=7.5,DASH_DUR=12,DASH_COOLDOWN=180;
 const CAM_ZOOM=0.72; // zoom in (lower = more zoomed in)
 
-// Level display names (shown on banner)
-const LEVEL_NAMES=['',
-  'პირველი ტური — ტყის გზა',
-  'მეორე ტური — შუა ამაღლება',
-  'მესამე ტური — უდაბნოს ასახვევი',
-  'მეოთხე ტური — უდაბნოს მონასტერი',
-  'მეხუთე ტური — გზა სამოთხემდე'
-];
+// Titles are configured in js/config/levels.js
+const LEVEL_NAMES=['',...PIRALI_LEVELS.map(l=>'ტური '+l.number+' — '+l.ka)];
 // Environment per level: {weather, groundColor, pathColor, skyTop, skyBot, treeStyle, timeLabel}
 const LEVEL_ENV=[null,
   {w:'clear', ground:'forest',  sky:['#6090b8','#a8c8d8','#c0d8b8'], tod:'დღე'},
@@ -28,6 +22,7 @@ let dashT=0,dashCD=0,dashDx=0,dashDy=0,dashing=false;
 let weatherTime=0;
 let weather='clear',weatherAlpha=0;
 let boss=null;
+let finalLordSpawned=false,finalVictoryPending=false,finalChurchNotice=false;
 const inventory={herbs:0,medals:0};
 let swordCombo=0,swordComboTimer=0;
 // Screen shake
@@ -63,7 +58,7 @@ function dpth(px,py){
 
 // ── WORLD GEN ──
 function genWorld(){
-  path=[];trees=[];enemies=[];bullets=[];parts=[];pickups=[];corpses=[];ambients=[];bloodDecals=[];_floats.length=0;done=false;boss=null;
+  path=[];trees=[];enemies=[];bullets=[];parts=[];pickups=[];corpses=[];ambients=[];bloodDecals=[];_floats.length=0;done=false;boss=null;finalLordSpawned=false;finalVictoryPending=false;finalChurchNotice=false;
   const env=LEVEL_ENV[Math.min(level,5)];
   weather=env.w;weatherAlpha=0;
 
@@ -123,9 +118,10 @@ function genWorld(){
   }
 
   // Enemies — evenly distributed, STOP 4 segments before church, +30% count
-  const ehp=level<=2?1:level<=4?2:3;
+  const ehp=level<=2?1:level<=4?2:PIRALI_BALANCE.finalBaseEnemyHp;
   const usableSegs=path.length-6; // skip first 2 (start) + last 4 (church approach)
-  const totalEnemies=Math.floor(usableSegs*(0.85+level*0.096));
+  const normalCount=Math.floor(usableSegs*(0.85+level*0.096));
+  const totalEnemies=level===5?Math.max(1,Math.ceil(normalCount*PIRALI_BALANCE.finalEnemyMultiplier)):normalCount;
   for(let e2=0;e2<totalEnemies;e2++){
     const segIdx=2+Math.floor((e2/totalEnemies)*usableSegs);
     const ep=path[Math.min(segIdx,path.length-5)]; // clamp away from church
@@ -148,10 +144,10 @@ function genWorld(){
   if(level===5){
     const bp=path[Math.floor(path.length*0.55)];
     boss={
-      x:bp.x,y:bp.y,r:24,hp:18,maxHp:18,
+      x:bp.x,y:bp.y,r:24,hp:PIRALI_BALANCE.finalBossHp,maxHp:PIRALI_BALANCE.finalBossHp,
       vx:0,vy:0,ang:0,alive:true,hf:0,wf:0,
-      sT:50,chargeT:0,charging:false,chargeDx:0,chargeDy:0,
-      rageMode:false,enrageHp:7,
+      sT:50*PIRALI_BALANCE.finalBossFireInterval,chargeT:0,charging:false,chargeDx:0,chargeDy:0,
+      rageMode:false,enrageHp:PIRALI_BALANCE.finalBossRageHp,
       phase:1, // phase 2 when hp<=enrageHp
       groundSlamCD:0,groundSlamActive:false,groundSlamT:0,groundSlamX:0,groundSlamY:0
     };

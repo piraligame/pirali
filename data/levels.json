@@ -1,22 +1,45 @@
 {
+  "description": "Mirror of js/config/levels.js for future Android tooling. Active game loads the JS version.",
   "levels": [
     {
-      "level_id": 1,
-      "name": "Level 1",
-      "difficulty": "easy",
-      "description": "Initial level for new players."
+      "number": 1,
+      "ka": "ჩოხატაური",
+      "en": "Chokhatauri",
+      "ru": "Чохатаури",
+      "zh": "乔哈陶里",
+      "environment": "forest"
     },
     {
-      "level_id": 2,
-      "name": "Level 2",
-      "difficulty": "medium",
-      "description": "A step up in challenge."
+      "number": 2,
+      "ka": "გოგოლესუბანი",
+      "en": "Gogolesubani",
+      "ru": "Гоголесубани",
+      "zh": "戈戈莱苏巴尼",
+      "environment": "forest"
     },
     {
-      "level_id": 3,
-      "name": "Level 3",
-      "difficulty": "hard",
-      "description": "For experienced players."
+      "number": 3,
+      "ka": "შუა განახლება",
+      "en": "Shua Ganakhleba",
+      "ru": "Шуа Ганахлеба",
+      "zh": "舒阿·加纳赫莱巴",
+      "environment": "desert"
+    },
+    {
+      "number": 4,
+      "ka": "უდაბნო",
+      "en": "Desert",
+      "ru": "Пустыня",
+      "zh": "沙漠",
+      "environment": "desert"
+    },
+    {
+      "number": 5,
+      "ka": "უდაბნოს ეკლესია",
+      "en": "Desert Church",
+      "ru": "Церковь в пустыне",
+      "zh": "沙漠教堂",
+      "environment": "night"
     }
   ]
 }

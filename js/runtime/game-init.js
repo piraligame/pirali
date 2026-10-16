@@ -1,17 +1,20 @@
-function spawnLandlordNPC(){
+function spawnLandlordNPC(fromX=P.x,fromY=P.y){
+  if(finalLordSpawned)return;
+  finalLordSpawned=true;
+  const lx=Math.max(30,Math.min(WW-30,fromX+55)),ly=Math.max(30,Math.min(WH-30,fromY));
   enemies.push({
-    x:player?player.x+130:P.x+130,
-    y:player?player.y:P.y,
-    r:13,hp:1,maxHp:1,
+    x:lx,
+    y:ly,
+    r:13,hp:PIRALI_BALANCE.landlordHp,maxHp:PIRALI_BALANCE.landlordHp,
     vx:0,vy:0,ang:Math.PI,
-    patrol:{cx:P.x+130,cy:P.y,radius:40,t:0,spd:0.1},
+    patrol:{cx:lx,cy:ly,radius:40,t:0,spd:0.1},
     sT:9999,alive:true,hf:0,wf:0,
     etype:'landlord',
     isNPC:true,
     alertTimer:0,state:'patrol',flankTimer:0,groupId:0,
     retreating:false,retreatTimer:0
   });
-  showBanner('მემამულე გამოჩნდა!\nმოკალი იგი!');
+  showBanner('ბატონი გამოჩნდა!\nერთი დარტყმით დაამარცხე!');
 }
 
 function startGame(){

@@ -53,13 +53,17 @@ function update(dt){
 
   // Church
   if(!done&&Math.hypot(P.x-CHURCH_X,P.y-CHURCH_Y)<120){
-    done=true;level++;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();
-    playLevelUp();
-    if(level>5)spawnLandlordNPC();
-    else{
+    if(level===5){
+      if(!finalChurchNotice&&!finalVictoryPending){
+        showBanner('ჯერ დაამარცხე გენერალი და ბატონი!');
+        finalChurchNotice=true;
+      }
+    }else{
+      done=true;level++;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();
+      playLevelUp();
       const nextLevel=level;
       showBanner(LEVEL_NAMES[nextLevel]);
-      setTimeout(()=>{genWorld();showBanner(LEVEL_NAMES[Math.min(nextLevel,5)]);},2800);
+      setTimeout(()=>{if(running&&level===nextLevel&&!P.dead){genWorld();showBanner(LEVEL_NAMES[nextLevel]);}},2800);
     }
   }
 
@@ -115,8 +119,8 @@ function update(dt){
       const dp=Math.hypot(e.x-P.x,e.y-P.y);
       if(dp<300){
         const fa=Math.atan2(e.y-P.y,e.x-P.x);
-        e.vx+=(Math.cos(fa)*0.32*dt-e.vx)*0.2;
-        e.vy+=(Math.sin(fa)*0.32*dt-e.vy)*0.2;
+        e.vx+=(Math.cos(fa)*PIRALI_BALANCE.landlordFleeSpeed*dt-e.vx)*0.2;
+        e.vy+=(Math.sin(fa)*PIRALI_BALANCE.landlordFleeSpeed*dt-e.vy)*0.2;
         e.ang=fa+Math.PI;
       } else {e.vx*=0.85;e.vy*=0.85;}
       e.x+=e.vx;e.y+=e.vy;
@@ -200,7 +204,7 @@ function update(dt){
       boss.rageMode=true;boss.phase=2;
       showBanner('⚠ PHASE 2 ⚠\nგენერალი გააფთრდა!');
       // Spawn 2 reinforcement enemies
-      for(let k=0;k<2;k++){
+      for(let k=0;k<PIRALI_BALANCE.finalBossReinforcements;k++){
         const ra=Math.random()*6.28;
         enemies.push({
           x:boss.x+Math.cos(ra)*80,y:boss.y+Math.sin(ra)*80,
@@ -228,9 +232,9 @@ function update(dt){
       }
     }
 
-    const bspd=(boss.rageMode?1.1:0.55)*dt;
+    const bspd=(boss.rageMode?1.1:0.55)*PIRALI_BALANCE.finalBossSpeed*dt;
     if(boss.charging){
-      boss.x+=boss.chargeDx*6*dt;boss.y+=boss.chargeDy*6*dt;
+      boss.x+=boss.chargeDx*6*PIRALI_BALANCE.finalBossChargeSpeed*dt;boss.y+=boss.chargeDy*6*PIRALI_BALANCE.finalBossChargeSpeed*dt;
       boss.chargeT-=dt;
       if(boss.chargeT<=0)boss.charging=false;
       if(!invincible&&!dashing&&Math.hypot(boss.x-P.x,boss.y-P.y)<P.r+boss.r)takeDmg();
@@ -240,7 +244,7 @@ function update(dt){
       boss.x+=boss.vx;boss.y+=boss.vy;boss.ang=ba;
       boss.sT-=dt;
       if(boss.sT<=0){
-        boss.sT=boss.rageMode?28:50;
+        boss.sT=(boss.rageMode?28:50)*PIRALI_BALANCE.finalBossFireInterval;
         const rng=Math.random();
         if(boss.rageMode&&rng<.35){
           // Charge
@@ -259,7 +263,7 @@ function update(dt){
           }
         } else {
           // Spread shot — more bullets in Phase 2
-          const spread=boss.rageMode?7:3;
+          const spread=Math.max(1,Math.ceil((boss.rageMode?7:3)*PIRALI_BALANCE.finalBossVolley));
           for(let s=0;s<spread;s++){
             const sa=ba+(s-(spread-1)/2)*.3;
             bullets.push({x:boss.x,y:boss.y,vx:Math.cos(sa)*4.4,vy:Math.sin(sa)*4.4,fp:false,alive:true,life:135});

@@ -89,28 +89,28 @@
   const gamePhrases={
     ka:{
       enemies:'მტრები',combo:'ჯარი',streak:'სერია!',church:'თამარის ეკლესია',midway:'შუა ამაღლება',
-      landlord:'მემამულე',landlordAppears:'მემამულე გამოჩნდა!\nმოკალი იგი!',
+      landlord:'ბატონი',landlordAppears:'ბატონი გამოჩნდა!\nერთი დარტყმით დაამარცხე!',churchBlocked:'ჯერ დაამარცხე გენერალი და ბატონი!',
       generalRage:'⚠ RAGE ⚠\nბოსი გააფთრდა!',generalPhase:'⚠ PHASE 2 ⚠\nგენერალი გააფთრდა!',
       parry:'✦ პარი! ✦',namePrompt:'შეიყვანე შენი სახელი (მაქს. 14 სიმბოლო):',
       anonymous:'ანონიმი'
     },
     en:{
       enemies:'Enemies',combo:'KILL STREAK',streak:'STREAK!',church:'Tamar’s Church',midway:'Midway Ascent',
-      landlord:'LANDLORD',landlordAppears:'The landlord appeared!\nDefeat him!',
+      landlord:'LANDLORD',landlordAppears:'The landlord appeared!\nDefeat him in one hit!',churchBlocked:'Defeat the General and the Landlord first!',
       generalRage:'⚠ RAGE ⚠\nThe boss is enraged!',generalPhase:'⚠ PHASE 2 ⚠\nThe general is enraged!',
       parry:'✦ PARRY! ✦',namePrompt:'Enter your name (max. 14 characters):',
       anonymous:'Anonymous'
     },
     ru:{
       enemies:'Враги',combo:'СЕРИЯ УБИЙСТВ',streak:'СЕРИЯ!',church:'Церковь Тамар',midway:'Средний подъём',
-      landlord:'ПОМЕЩИК',landlordAppears:'Помещик появился!\nПобедите его!',
+      landlord:'ПОМЕЩИК',landlordAppears:'Помещик появился!\nПобедите одним ударом!',churchBlocked:'Сначала победите генерала и помещика!',
       generalRage:'⚠ ЯРОСТЬ ⚠\nБосс разъярён!',generalPhase:'⚠ ФАЗА 2 ⚠\nГенерал разъярён!',
       parry:'✦ ПАРИРОВАНИЕ! ✦',namePrompt:'Введите ваше имя (до 14 символов):',
       anonymous:'Аноним'
     },
     zh:{
       enemies:'敌人',combo:'连续击杀',streak:'连击！',church:'塔玛尔教堂',midway:'半山坡',
-      landlord:'地主',landlordAppears:'地主出现了！\n击败他！',
+      landlord:'地主',landlordAppears:'地主出现了！\n一击即可击败！',churchBlocked:'先击败将军和地主！',
       generalRage:'⚠ 狂暴 ⚠\n首领已狂暴！',generalPhase:'⚠ 第二阶段 ⚠\n将军已狂暴！',
       parry:'✦ 格挡！ ✦',namePrompt:'请输入名字（最多14个字符）：',
       anonymous:'匿名'
@@ -125,19 +125,20 @@
     ru:{'დღე':'День','შუადღე':'Полдень','ცხელი სიცხე':'Жара','მწუხრი':'Сумерки','ღამე':'Ночь'},
     zh:{'დღე':'白天','შუადღე':'中午','ცხელი სიცხე':'酷暑','მწუხრი':'黄昏','ღამე':'夜晚'}
   };
-  const levelNames={
-    en:['','Level 1 — Forest Road','Level 2 — Midway Ascent','Level 3 — Desert Bend','Level 4 — Desert Monastery','Level 5 — Road to Paradise'],
-    ru:['','Уровень 1 — Лесная дорога','Уровень 2 — Средний подъём','Уровень 3 — Пустынный поворот','Уровень 4 — Пустынный монастырь','Уровень 5 — Дорога в рай'],
-    zh:['','第1关 — 森林之路','第2关 — 半山坡','第3关 — 荒漠弯道','第4关 — 荒漠修道院','第5关 — 通往天堂之路']
-  };
+  function getLevelName(n){
+    const entry=PIRALI_LEVELS[Number(n)-1];
+    return entry?(entry[current]||entry.ka):'';
+  }
+  function levelTitle(n){return t('level')+' '+n+' — '+getLevelName(n);}
   function translateTime(text){return (timeLabels[current]||{})[text]||text;}
   function translateBanner(text){
-    if(text==='მემამულე გამოჩნდა!\nმოკალი იგი!')return gameText('landlordAppears');
+    if(text==='ბატონი გამოჩნდა!\nერთი დარტყმით დაამარცხე!')return gameText('landlordAppears');
+    if(text==='ჯერ დაამარცხე გენერალი და ბატონი!')return gameText('churchBlocked');
     if(text==='⚠ RAGE ⚠\nბოსი გააფთრდა!')return gameText('generalRage');
     if(text==='⚠ PHASE 2 ⚠\nგენერალი გააფთრდა!')return gameText('generalPhase');
     if(typeof LEVEL_NAMES!=='undefined'){
       const index=LEVEL_NAMES.indexOf(text);
-      if(index>0&&levelNames[current])return levelNames[current][index]||text;
+      if(index>0)return levelTitle(index);
     }
     return text;
   }
@@ -243,6 +244,6 @@
     document.dispatchEvent(new CustomEvent('pirali:languagechange',{detail:{language:lang}}));
   }
   window.PiraliLanguage={getLanguage:()=>current,setLanguage,t,gameText,apply,applyIntro,applyOutcome,applyLeaderboard,translateBanner,
-    translateLevel:(n,desc)=>t('level')+' '+n+(desc?' — '+translateTime(desc):'')};
+    getLevelName,translateLevel:(n,desc)=>levelTitle(n)};
   apply();
 })();

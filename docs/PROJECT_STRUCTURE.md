@@ -9,11 +9,15 @@ PIRALI_piraligame_latest/
 ├── index.html                მთავარი გვერდი და კონტროლები
 ├── css/
 │   ├── style.css             საერთო თამაშის/HUD სტილები
-│   └── menu.css              მთავარი მენიუსა და TOP 20-ის დიზაინი
+│   ├── menu.css              მთავარი მენიუსა და TOP 20-ის დიზაინი
+│   └── levels.css            ხუთი ტურის წარწერების მობილური დიზაინი
 ├── js/
 │   ├── main.js               თამაშის გაშვების დარჩენილი კოდი
 │   ├── menu.js               მენიუ/ენა/ლიდერბორდის გახსნა
 │   ├── i18n.js               ქართული, ინგლისური (US), რუსული, ჩინური
+│   ├── config/
+│   │   ├── levels.js         ხუთი ტურის ოფიციალური სახელები ოთხ ენაზე
+│   │   └── balance.js        ბოლო ტურის, ბოსების და i-frame პარამეტრები
 │   ├── characters/
 │   │   ├── simona-style.js   სიმონას ვიზუალური პარამეტრები
 │   │   └── simona.js         სიმონას პერსონაჟის ხატვა/ანიმაციები
@@ -32,11 +36,14 @@ PIRALI_piraligame_latest/
 │   ├── video/intro-local.mp4 ახალი, მოქმედი ვიდეოინტრო
 │   ├── images/ui/menu-background.jpg
 │   └── icons/mauser-pistol.png
-├── data/levels.json
+├── data/levels.json          names/config-ის JSON ასლი მომავალი Android ხელსაწყოებისთვის
 ├── scripts/build-android-web.cjs
 ├── docs/
 │   ├── PROJECT_STRUCTURE.md
 │   └── ANDROID_PREPARATION.md
+├── android/                  Capacitor 8 Android პროექტი (ჯერ debug ტესტისთვის)
+├── capacitor.config.json     App ID და ვებ პაკეტის მისამართი
+├── .github/workflows/        შიდა APK/AAB ავტომატური აწყობა
 ├── manifest.json
 ├── package.json
 └── dist/android-web/        გენერირებული პაკეტი, Git-ში არ იტვირთება
@@ -54,7 +61,7 @@ PIRALI_piraligame_latest/
 ## მოდულარიზაციის შემდეგი უსაფრთხო ამოცანები
 1. `drawEnemy()` და `drawBoss()` ცალკე `js/characters/` ფაილებად გადატანა, ყოველგვარი საბრძოლო ცვლილების გარეშე.
 2. `render.js`-დან ფონისა და ამინდის ხატვის ცალკე `js/scenes/` ფაილებად გამოყოფა.
-3. `world.js`-დან დონეების კონფიგურაციის `data/levels.json`-ზე თანმიმდევრული მიბმა.
+3. ✅ სახელების JS კონფიგურაცია უკვე განცალკევებულია `js/config/levels.js`-ში; `data/levels.json` მისი მირორია და ჯერ პირდაპირ runtime-ში არ იტვირთება.
 4. სრულყოფილი Android პაკეტიზაცია მხოლოდ სტაბილური ვებვერსიის შემდეგ.
 
 ## უსაფრთხოება

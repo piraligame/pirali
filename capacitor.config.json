@@ -1,0 +1,6 @@
+{
+  "appId": "ge.piraligame.pirali",
+  "appName": "Pirali",
+  "webDir": "dist/android-web",
+  "bundledWebRuntime": false
+}

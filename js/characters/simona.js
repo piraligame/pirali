@@ -3,7 +3,7 @@ function drawPlayer(){
   if(P.dead)return;
   const px=sx(P.x), py=sy(P.y);
   ctx.save();
-  if(invincible&&Math.floor(Date.now()/80)%2===0){ctx.restore();return;}
+  if(invincible&&Math.floor(Date.now()/85)%2===0)ctx.globalAlpha=.62; // softer hit flicker
   if(dashing)ctx.globalAlpha=.55;
 
   const spd=Math.hypot(P.vx,P.vy);
