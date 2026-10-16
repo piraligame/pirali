@@ -43,9 +43,9 @@ canvas{display:block;position:fixed;top:0;left:0;}
 #level-badge{position:fixed;top:90px;left:50%;transform:translateX(-50%);z-index:20;pointer-events:none;font-size:8px;color:#8a6020;letter-spacing:2.5px;text-transform:uppercase;text-align:center;font-weight:700;}
 
 /* ── DASH COOLDOWN ── */
-#dash-cd{position:fixed;top:62px;right:12px;width:56px;z-index:20;pointer-events:none;}
+#dash-cd{position:fixed;top:62px;right:12px;width:110px;z-index:20;pointer-events:none;}
 #dash-fill{height:7px;background:linear-gradient(90deg,#1e6898,#50b8f0);border-radius:4px;transition:width .1s linear;box-shadow:0 0 10px rgba(80,180,255,.75);}
-#dash-lbl{font-size:7px;color:#4a88aa;letter-spacing:1px;text-align:center;margin-bottom:3px;text-transform:uppercase;font-weight:700;}
+#dash-lbl{font-size:10px;color:#9ddfff;letter-spacing:0.2px;text-align:center;margin-bottom:3px;text-transform:uppercase;font-weight:700;}
 #dash-cd-track{height:7px;background:rgba(0,0,0,.5);border-radius:4px;border:1px solid rgba(80,160,220,.32);overflow:hidden;}
 
 /* ── BOSS BAR ── */
@@ -81,7 +81,7 @@ canvas{display:block;position:fixed;top:0;left:0;}
 #btn-shoot.pressed{box-shadow:0 0 44px rgba(255,60,60,0.95)!important;border-color:rgba(255,95,95,1)!important;}
 #btn-sword{width:64px;height:64px;font-size:21px;background:radial-gradient(circle at 34% 32%,#4e3c08,#221806);border:2px solid rgba(210,165,58,0.65);box-shadow:0 5px 20px rgba(0,0,0,0.9),0 0 14px rgba(168,125,24,0.22),inset 0 1px 0 rgba(255,200,60,0.1);}
 #btn-sword.pressed{box-shadow:0 0 34px rgba(230,185,55,0.88)!important;}
-#btn-dash{width:52px;height:52px;font-size:19px;background:radial-gradient(circle at 34% 32%,#0a3d62,#041828);border:2px solid rgba(85,168,228,0.65);box-shadow:0 4px 16px rgba(0,0,0,0.9),inset 0 1px 0 rgba(120,200,255,0.1);}
+#btn-dash{width:84px;height:55px;border-radius:12px;font-size:11px;font-family:'Noto Sans Georgian',sans-serif;line-height:1.2;font-weight:900;color:#c3edff;letter-spacing:0;white-space:nowrap;text-shadow:0 1px 3px #00111b;background:radial-gradient(circle at 34% 32%,#0a3d62,#041828);border:2px solid rgba(85,168,228,0.65);box-shadow:0 4px 16px rgba(0,0,0,0.9),inset 0 1px 0 rgba(120,200,255,0.1);}
 #btn-dash.pressed{box-shadow:0 0 28px rgba(85,185,255,0.88)!important;}
 .btn-row{display:flex;gap:13px;align-items:flex-end;pointer-events:none;}
 
