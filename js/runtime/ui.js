@@ -52,7 +52,7 @@ function updateAmmoUI(){const c=document.getElementById('bullets');c.innerHTML='
 function updateProgressUI(){
   document.getElementById('prog-fill').style.width=Math.min(100,(1-P.y/WH)*100)+'%';
   const badge=document.getElementById('level-badge');
-  if(badge)badge.textContent='ტური '+level+' — '+((LEVEL_ENV[Math.min(level,5)]||{}).tod||'');
+  if(badge){const tod=((LEVEL_ENV[Math.min(level,5)]||{}).tod||'');badge.textContent=window.PiraliLanguage?window.PiraliLanguage.translateLevel(level,tod):'ტური '+level+' — '+tod;}
 }
 function updateInventoryUI(){
   const hi=document.getElementById('inv-herbs');const mi=document.getElementById('inv-medals');
@@ -62,7 +62,7 @@ function updateInventoryUI(){
 function updateBossUI(){if(boss&&boss.alive){const pct=(boss.hp/boss.maxHp)*100;document.getElementById('boss-fill').style.width=pct+'%';}}
 function hideBossUI(){document.getElementById('boss-bar').style.display='none';}
 function updateDashUI(){const pct=Math.max(0,1-dashCD/DASH_COOLDOWN)*100;document.getElementById('dash-fill').style.width=pct+'%';}
-function showBanner(text){const b=document.getElementById('lvlbanner');b.textContent=text;b.style.opacity='1';b.style.transition='opacity 0.3s';setTimeout(()=>{b.style.transition='opacity 1.1s';b.style.opacity='0';},3000);}
+function showBanner(text){const b=document.getElementById('lvlbanner');b.textContent=window.PiraliLanguage?window.PiraliLanguage.translateBanner(text):text;b.style.opacity='1';b.style.transition='opacity 0.3s';setTimeout(()=>{b.style.transition='opacity 1.1s';b.style.opacity='0';},3000);}
 // ══════════════════════════════════════════════════
 //  LEADERBOARD — Firebase REST API (GitHub Pages ready)
 // ══════════════════════════════════════════════════

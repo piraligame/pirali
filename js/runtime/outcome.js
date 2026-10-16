@@ -13,6 +13,7 @@ function showGameOver(){
   <div class="sbox"><p>ქულა: <strong style="color:#d09820;font-size:22px;" class="score-reveal">${score.toLocaleString()}</strong><br><span style="color:#7a5820;font-size:10px;letter-spacing:2px;">დონე ${level} • ${level<=2?'ადვილი':level<=4?'საშუალო':'რთული'}</span></p></div>
   <button class="sbtn" onclick="document.getElementById('screen').style.display='none';lbShow()">🏆 რეკორდები</button>`;
   s.style.display='flex';
+  if(window.PiraliLanguage)window.PiraliLanguage.applyOutcome();
 }
 function showVictory(){
   running=false;paused=false;
@@ -30,5 +31,6 @@ function showVictory(){
   <div class="sbox"><p>ქულა: <strong style="color:#f0d020;font-size:24px;" class="score-reveal">${score.toLocaleString()}</strong><br><span style="font-size:11px;color:#907030;">სიმონა თამარის ეკლესიამდე მივიდა!</span></p></div>
   <button class="sbtn" style="background:linear-gradient(180deg,#5c380a,#2e1a04);border-color:#d8a820;" onclick="document.getElementById('screen').style.display='none';lbShow()">🏆 რეკორდები</button>`;
   s.style.display='flex';
+  if(window.PiraliLanguage)window.PiraliLanguage.applyOutcome();
 }
 

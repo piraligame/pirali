@@ -1,6 +1,7 @@
 const FB_URL  = 'https://pirali-game-default-rtdb.firebaseio.com';
 const LB_PATH = FB_URL + '/scores';
 const LB_KEY  = 'pirali_lb_v1';
+function lbT(key){return window.PiraliLanguage?window.PiraliLanguage.t(key):({empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',saved:'✅ შენახულია',players:'მოთამაშე'})[key]||key;}
 
 let _pendingScore = 0, _pendingLevel = 0, _pendingWin = false;
 
@@ -93,7 +94,7 @@ function lbRender(rows, highlightName){
     .filter(function(r){ return r && typeof r === 'object' && r.name && typeof r.score === 'number'; });
 
   if(safe.length === 0){
-    list.innerHTML = '<div style="text-align:center;color:#5a4018;font-size:13px;padding:24px 0;letter-spacing:1px;">ჩანაწერი ჯერ არ არის</div>';
+    list.innerHTML = '<div style="text-align:center;color:#5a4018;font-size:13px;padding:24px 0;letter-spacing:1px;">' + lbT('empty') + '</div>';
     return;
   }
 
@@ -147,9 +148,9 @@ async function lbShow(){
   const cached=lcLoad();
   if(cached.length){
     try{ lbRender(cached,null); }catch(e){}
-    document.getElementById('lb-status').textContent=`📱 ${cached.length} (cached) • იტვირთება...`;
+    document.getElementById('lb-status').textContent=`📱 ${cached.length} (${lbT('cached')}) • ${lbT('loading')}`;
   } else {
-    document.getElementById('lb-status').textContent='⏳ იტვირთება...';
+    document.getElementById('lb-status').textContent=lbT('loading');
   }
 
   // Timeout fallback — if fetch hangs >3s, stop waiting
@@ -160,7 +161,7 @@ async function lbShow(){
     const local=lcLoad();
     try{ lbRender(local,null); }catch(e){}
     document.getElementById('lb-status').textContent=
-      local.length?`📱 ${local.length} (offline)`:'📱 ჩანაწერი ჯერ არ არის';
+      local.length?`📱 ${local.length} (${lbT('offline')})`:'📱 '+lbT('empty');
   }, 3000);
 
   try{
@@ -170,13 +171,13 @@ async function lbShow(){
     if(rows !== null){
       try{ lbRender(rows,null); }catch(e){ console.warn('lbRender error',e); }
       document.getElementById('lb-status').textContent=
-        rows.length?`🌐 ${rows.length} მოთამაშე`:'🌐 ჩანაწერი ჯერ არ არის';
+        rows.length?`🌐 ${rows.length} ${lbT('players')}`:'🌐 '+lbT('empty');
     } else {
       // Firebase unreachable — show local cache
       const local=lcLoad();
       try{ lbRender(local,null); }catch(err){}
       document.getElementById('lb-status').textContent=
-        local.length?`📱 ${local.length} (offline)`:'📱 ჩანაწერი ჯერ არ არის';
+        local.length?`📱 ${local.length} (${lbT('offline')})`:'📱 '+lbT('empty');
     }
   }catch(e){
     settled = true;
@@ -184,7 +185,7 @@ async function lbShow(){
     const local=lcLoad();
     try{ lbRender(local,null); }catch(err){}
     document.getElementById('lb-status').textContent=
-      local.length?`📱 ${local.length} (offline)`:'📱 ჩანაწერი ჯერ არ არის';
+      local.length?`📱 ${local.length} (${lbT('offline')})`:'📱 '+lbT('empty');
   }
 }
 
@@ -200,11 +201,11 @@ async function lbSave(){
   const nameEl=document.getElementById('lb-name');
   const name=nameEl.value.trim().slice(0,14)||'ანონიმი';
   document.getElementById('lb-name-row').style.display='none';
-  document.getElementById('lb-status').textContent='⏳ ინახება...';
+  document.getElementById('lb-status').textContent=lbT('saving');
   const rows=await lbPush(name,_pendingScore,_pendingLevel,_pendingWin);
   lbRender(rows,name);
   document.getElementById('lb-status').textContent=
-    rows.length ? `🌐 ${rows.length} მოთამაშე • ✅ შენახულია` : `✅ შენახულია`;
+    rows.length ? `🌐 ${rows.length} ${lbT('players')} • ${lbT('saved')}` : lbT('saved');
 }
 
 function lbPlay(){

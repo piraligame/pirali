@@ -92,9 +92,9 @@ function killEnemy(e){
   killStreak++;killStreakTimer=180;
   const bonus=killStreak>=5?300:killStreak>=3?200:100;
   score+=bonus*level;updateScoreUI();
-  if(killStreak===3)showFloatingText(e.x,e.y,'3-ჯარი! +'+bonus*level,'#f0c020');
-  else if(killStreak===5)showFloatingText(e.x,e.y,'5-ჯარი! +'+bonus*level,'#ff8020');
-  else if(killStreak>=7)showFloatingText(e.x,e.y,'სერია! +'+bonus*level,'#ff4444');
+  if(killStreak===3)showFloatingText(e.x,e.y,'3 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+bonus*level,'#f0c020');
+  else if(killStreak===5)showFloatingText(e.x,e.y,'5 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+bonus*level,'#ff8020');
+  else if(killStreak>=7)showFloatingText(e.x,e.y,(window.PiraliLanguage?window.PiraliLanguage.gameText('streak'):'სერია!')+' +'+bonus*level,'#ff4444');
   playDeath();
   corpses.push({x:e.x,y:e.y,ang:e.ang,r:e.r,etype:e.etype});
   // Persistent blood decal

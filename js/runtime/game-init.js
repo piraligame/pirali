@@ -18,7 +18,7 @@ function startGame(){
   // ensure player name is set
   const savedName = localStorage.getItem('pirali_player_name');
   if(!savedName){
-    const n = (prompt('შეიყვანე შენი სახელი (მაქს. 14 სიმბოლო):') || '').trim().slice(0,14);
+    const n = (prompt((window.PiraliLanguage?window.PiraliLanguage.gameText('namePrompt'):'შეიყვანე შენი სახელი (მაქს. 14 სიმბოლო):')) || '').trim().slice(0,14);
     if(n) localStorage.setItem('pirali_player_name', n);
   }
   bgmStop();

@@ -53,7 +53,7 @@ function drawHUD(){
   const alive=enemies.filter(e=>e.alive).length;
   if(alive>0){
     ctx.fillStyle='rgba(120,16,16,0.72)';ctx.font='bold 11px Noto Sans Georgian';ctx.textAlign='center';
-    ctx.fillText('⚔ მტრები: '+alive,W/2,H-90);
+    ctx.fillText('⚔ '+(window.PiraliLanguage?window.PiraliLanguage.gameText('enemies'):'მტრები')+': '+alive,W/2,H-90);
   }
   // Kill streak banner
   if(killStreak>=3&&killStreakTimer>0){
@@ -62,7 +62,7 @@ function drawHUD(){
     ctx.fillStyle='rgba(10,5,0,.75)';ctx.fillRect(W/2-80,H*.38,160,32);
     ctx.strokeStyle='rgba(240,160,20,.6)';ctx.lineWidth=1;ctx.strokeRect(W/2-80,H*.38,160,32);
     ctx.font='bold 14px Noto Sans Georgian';ctx.textAlign='center';
-    const label=killStreak>=7?'💀 სერია! '+killStreak:killStreak>=5?'🔥 '+killStreak+'-ჯარი!':'⚔ '+killStreak+'-ჯარი';
+    const label=killStreak>=7?'💀 '+(window.PiraliLanguage?window.PiraliLanguage.gameText('streak'):'სერია!')+' '+killStreak:killStreak>=5?'🔥 '+killStreak+' '+(window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'!':'⚔ '+killStreak+' '+(window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი');
     ctx.fillStyle='#f0c020';ctx.fillText(label,W/2,H*.38+21);
     ctx.restore();
   }
@@ -414,8 +414,8 @@ function drawChurch(){
   ctx.fillStyle='#ffe070';ctx.fillRect(cx-2,cy-118,3,36);ctx.fillRect(cx-15,cy-107,30,4);
   ctx.shadowBlur=0;
   ctx.font='bold 14px Noto Sans Georgian';ctx.textAlign='center';
-  ctx.shadowBlur=20;ctx.shadowColor='#000';ctx.fillStyle='#111';ctx.fillText('თამარის ეკლესია',cx+1,cy-137);ctx.shadowBlur=0;
-  ctx.shadowBlur=16;ctx.shadowColor='#c8941a';ctx.fillStyle='#f5e060';ctx.fillText('თამარის ეკლესია',cx,cy-138);ctx.shadowBlur=0;
+  ctx.shadowBlur=20;ctx.shadowColor='#000';ctx.fillStyle='#111';ctx.fillText((window.PiraliLanguage?window.PiraliLanguage.gameText('church'):'თამარის ეკლესია'),cx+1,cy-137);ctx.shadowBlur=0;
+  ctx.shadowBlur=16;ctx.shadowColor='#c8941a';ctx.fillStyle='#f5e060';ctx.fillText((window.PiraliLanguage?window.PiraliLanguage.gameText('church'):'თამარის ეკლესია'),cx,cy-138);ctx.shadowBlur=0;
 }
 
 // ── SIGNPOST ──
@@ -427,8 +427,8 @@ function drawSignpost(){
   ctx.fillStyle='#c8a060';ctx.fillRect(x-46,y-58,92,24);ctx.fillStyle='#b89050';ctx.fillRect(x-44,y-56,88,20);
   ctx.strokeStyle='#7a5018';ctx.lineWidth=1.5;ctx.strokeRect(x-46,y-58,92,24);
   ctx.font='bold 10px Noto Sans Georgian';ctx.textAlign='center';
-  ctx.fillStyle='rgba(0,0,0,.42)';ctx.fillText('↑ შუა ამაღლება ↑',x+1,y-42);
-  ctx.fillStyle='#3c1e06';ctx.fillText('↑ შუა ამაღლება ↑',x,y-43);
+  ctx.fillStyle='rgba(0,0,0,.42)';ctx.fillText('↑ '+(window.PiraliLanguage?window.PiraliLanguage.gameText('midway'):'შუა ამაღლება')+' ↑',x+1,y-42);
+  ctx.fillStyle='#3c1e06';ctx.fillText('↑ '+(window.PiraliLanguage?window.PiraliLanguage.gameText('midway'):'შუა ამაღლება')+' ↑',x,y-43);
 }
 
 
@@ -853,7 +853,7 @@ function drawEnemy(e){
     // label
     ctx.fillStyle='#e04040';ctx.font='bold 10px sans-serif';ctx.textAlign='center';
     ctx.shadowBlur=6;ctx.shadowColor='#cc0000';
-    ctx.fillText('მემამულე',ex,ey-56+bob);
+    ctx.fillText((window.PiraliLanguage?window.PiraliLanguage.gameText('landlord'):'მემამულე'),ex,ey-56+bob);
     ctx.shadowBlur=0;
     ctx.restore();
     return;

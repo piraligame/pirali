@@ -24,6 +24,7 @@
     records.textContent='🏆 საუკეთესო მოთამაშეები';
     records.addEventListener('click',function(){
       if(typeof lbShow!=='function')return;
+      if(window.PiraliLanguage)window.PiraliLanguage.applyLeaderboard?.();
       lbShow();
       const play=document.getElementById('lb-play');
       if(play)play.style.display='none';
@@ -32,10 +33,41 @@
     actions.appendChild(records);
     card.appendChild(actions);
 
+    // Four-language selector. English is the US variant (🇺🇸).
+    const picker=document.createElement('div');
+    picker.className='menu-language';
+    const title=document.createElement('div');
+    title.className='menu-lang-title';
+    title.textContent='ენა / LANGUAGE';
+    picker.appendChild(title);
+    const choices=document.createElement('div');
+    choices.className='menu-language-choices';
+    choices.setAttribute('role','group');
+    choices.setAttribute('aria-label','Language / ენა');
+    for(const item of [
+      ['ka','🇬🇪 ქართული'],
+      ['en','🇺🇸 English'],
+      ['ru','🇷🇺 Русский'],
+      ['zh','🇨🇳 中文']
+    ]){
+      const button=document.createElement('button');
+      button.type='button';
+      button.className='menu-language-option';
+      button.dataset.piraliLang=item[0];
+      button.textContent=item[1];
+      button.addEventListener('click',()=>{
+        if(window.PiraliLanguage)window.PiraliLanguage.setLanguage(item[0]);
+      });
+      choices.appendChild(button);
+    }
+    picker.appendChild(choices);
+    card.insertBefore(picker,card.firstChild);
+
     const version=document.createElement('div');
     version.className='menu-version';
     version.textContent='PIRALI • PREVIEW 0.2';
     card.appendChild(version);
+    if(window.PiraliLanguage)window.PiraliLanguage.apply();
   }
   const back=document.createElement('button');
   back.id='pirali-lb-close';
