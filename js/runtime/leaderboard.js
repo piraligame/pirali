@@ -3,6 +3,45 @@ const LB_PATH = FB_URL + '/scores';
 const LB_KEY  = 'pirali_lb_v1';
 function lbT(key){return window.PiraliLanguage?window.PiraliLanguage.t(key):({empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',saved:'✅ შენახულია',players:'მოთამაშე'})[key]||key;}
 
+
+// Display-only normalization. No Firebase records are edited or deleted.
+// Normalizing NFKC, letter case and whitespace merges visual name duplicates.
+function lbNameKey(name){
+  return String(name || '').normalize('NFKC').replace(/\s+/g,' ').trim().toLowerCase();
+}
+function lbBest(rows){
+  const byName=new Map();
+  for(const row of (Array.isArray(rows)?rows:[])){
+    if(!row||typeof row!=='object'||typeof row.name!=='string')continue;
+    const key=lbNameKey(row.name);
+    if(!key||!Number.isFinite(row.score)||row.score<=0)continue;
+    const previous=byName.get(key);
+    if(!previous||row.score>previous.score){
+      byName.set(key,{...row,name:row.name.normalize('NFKC').replace(/\s+/g,' ').trim()});
+    }
+  }
+  return [...byName.values()].sort((a,b)=>b.score-a.score||lbNameKey(a.name).localeCompare(lbNameKey(b.name)));
+}
+let lbLastRows=[];
+function lbShowPersonal(rows){
+  const card=document.getElementById('lb-personal');
+  if(!card)return;
+  const name=localStorage.getItem('pirali_player_name')||'';
+  const ranked=lbBest(rows);
+  const bestName=lbNameKey(name);
+  const position=bestName?ranked.findIndex(x=>lbNameKey(x.name)===bestName):-1;
+  const label=document.createElement('span');
+  label.className='lb-personal-label';
+  label.textContent='🎖 '+lbT('myBest');
+  const value=document.createElement('strong');
+  value.className='lb-personal-score';
+  value.textContent=position>=0?ranked[position].score.toLocaleString():lbT(name?'noPersonalScore':'playToSeeBest');
+  const sub=document.createElement('span');
+  sub.className='lb-personal-rank';
+  sub.textContent=position>=0?'#'+(position+1)+' • '+ranked[position].name:'';
+  card.replaceChildren(label,value,sub);
+}
+
 let _pendingScore = 0, _pendingLevel = 0, _pendingWin = false;
 
 // ── local cache ──
@@ -10,31 +49,22 @@ function lcLoad(){
   try{
     const raw = JSON.parse(localStorage.getItem(LB_KEY)||'[]');
     if(!Array.isArray(raw)) return [];
-    // Filter broken/zero entries
-    const valid = raw.filter(r => r && r.name && typeof r.score === 'number' && r.score > 0);
-    // Deduplicate: keep best score per name (handles old cache bloat)
-    const best = {};
-    valid.forEach(r => {
-      if(!best[r.name] || r.score > best[r.name].score) best[r.name] = r;
-    });
-    return Object.values(best).sort((a,b) => b.score - a.score);
+    return lbBest(raw);
   }catch(e){ return []; }
 }
 function lcSave(rows){
-  try{ localStorage.setItem(LB_KEY, JSON.stringify(rows.slice(0,100))); }catch(e){}
+  try{ localStorage.setItem(LB_KEY, JSON.stringify(lbBest(rows).slice(0,100))); }catch(e){}
 }
 
 // ── fetch top scores from Firebase ──
 async function lbFetch(){
   try{
     // Simple fetch — no custom headers to avoid CORS preflight blocking
-    const res = await fetch(LB_PATH + '.json?orderBy="score"&limitToLast=100');
+    const res = await fetch(LB_PATH + '.json'); // GET only: read existing data, no write or migration
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if(!data || typeof data !== 'object') return [];
-    const rows = Object.values(data)
-      .filter(x => x && x.name && typeof x.score === 'number' && x.score > 0);
-    rows.sort((a,b) => b.score - a.score);
+    const rows = lbBest(Object.values(data));
     lcSave(rows);
     return rows;
   }catch(e){
@@ -89,26 +119,25 @@ function lbRender(rows, highlightName){
   if(!list) return;
   list.innerHTML = '';
 
-  // Normalise: filter out broken entries
-  const safe = (Array.isArray(rows) ? rows : [])
-    .filter(function(r){ return r && typeof r === 'object' && r.name && typeof r.score === 'number'; });
+  // One visible row per normalized player name, highest score only.
+  const safe = lbBest(rows);
+  lbLastRows=safe;
 
   if(safe.length === 0){
     list.innerHTML = '<div style="text-align:center;color:#5a4018;font-size:13px;padding:24px 0;letter-spacing:1px;">' + lbT('empty') + '</div>';
+    lbShowPersonal(safe);
     return;
   }
 
-  // Sort descending by score
-  safe.sort(function(a,b){ return b.score - a.score; });
-
-  safe.slice(0, 50).forEach(function(r, i){
+  // Present TOP 10; personal record is shown separately, even below 10th place.
+  safe.slice(0, 10).forEach(function(r, i){
     const rank = i + 1;
     const row  = document.createElement('div');
     let cls = 'lb-row';
     if(rank === 1) cls += ' top1';
     else if(rank === 2) cls += ' top2';
     else if(rank === 3) cls += ' top3';
-    if(highlightName && r.name === highlightName) cls += ' mine';
+    if((highlightName || localStorage.getItem('pirali_player_name')) && lbNameKey(r.name) === lbNameKey(highlightName || localStorage.getItem('pirali_player_name'))) cls += ' mine';
     row.className = cls;
 
     let rankHtml = '<span class="lb-rank">' + rank + '</span>';
@@ -117,7 +146,9 @@ function lbRender(rows, highlightName){
     else if(rank === 3) rankHtml = '<span class="lb-rank bronze">🥉</span>';
 
     const winBadge = r.win ? ' <span style="font-size:9px;color:#c89820;">⛪</span>' : '';
-    const lvlBadge = r.level ? '<span class="lb-lvl">Lv' + r.level + '</span>' : '';
+    // Firebase values are untrusted; never inject a raw level field into HTML.
+    const lvl=Number(r.level);
+    const lvlBadge=Number.isFinite(lvl)&&lvl>0&&lvl<=99 ? '<span class="lb-lvl">Lv' + Math.floor(lvl) + '</span>' : '';
 
     row.innerHTML =
       rankHtml +
@@ -127,6 +158,7 @@ function lbRender(rows, highlightName){
 
     list.appendChild(row);
   });
+  lbShowPersonal(safe);
 }
 
 // ── safe HTML escape ──
@@ -214,3 +246,6 @@ function lbPlay(){
   startGame();
 }
 
+
+// Repaint text on the currently visible results without touching Firebase.
+document.addEventListener('pirali:languagechange',function(){if(document.getElementById('lb-overlay')?.style.display==='flex')lbRender(lbLastRows,null);});

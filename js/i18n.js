@@ -11,7 +11,7 @@
       boss:'⚔ რუსი გენერალი — ბოსი',pause:'⏸ პაუზა',paused:'თამაში შეჩერებულია',resume:'▶ გაგრძელება',
       mainMenu:'🏠 მთავარ მენიუში',confirm:'პროგრესი დაიკარგება. დარწმუნებული ხარ?',
       yes:'✔ კი',no:'✘ არა', shoot:'მაუზერით სროლა',
-      leaderboard:'🏆 რეკორდები',topPlayers:'საუკეთესო მოთამაშეები',
+      leaderboard:'🏆 რეკორდები',topPlayers:'საუკეთესო მოთამაშეები',topTen:'საუკეთესო ათეული',myBest:'ჩემი რეკორდი',noPersonalScore:'ჯერ არ გაქვს რეკორდი',playToSeeBest:'ითამაშე და დააფიქსირე რეკორდი',
       namePlaceholder:'შეიყვანე სახელი...',save:'შენახვა',replay:'თავიდან თამაში',
       empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',
       saved:'✅ შენახულია',players:'მოთამაშე',offline:'offline',cached:'cached',
@@ -31,7 +31,7 @@
       boss:'⚔ RUSSIAN GENERAL — BOSS',pause:'⏸ PAUSED',paused:'Game is paused',resume:'▶ RESUME',
       mainMenu:'🏠 MAIN MENU',confirm:'Your progress will be lost. Are you sure?',
       yes:'✔ YES',no:'✘ NO',shoot:'Fire Mauser',
-      leaderboard:'🏆 HIGH SCORES',topPlayers:'TOP PLAYERS',
+      leaderboard:'🏆 HIGH SCORES',topPlayers:'TOP PLAYERS',topTen:'TOP 10 PLAYERS',myBest:'MY PERSONAL BEST',noPersonalScore:'No personal best yet',playToSeeBest:'Play to set your first record',
       namePlaceholder:'Enter your name...',save:'SAVE',replay:'PLAY AGAIN',
       empty:'No scores yet',loading:'⏳ Loading...',saving:'⏳ Saving...',
       saved:'✅ Saved',players:'players',offline:'offline',cached:'cached',
@@ -52,7 +52,7 @@
       boss:'⚔ РУССКИЙ ГЕНЕРАЛ — БОСС',pause:'⏸ ПАУЗА',paused:'Игра на паузе',resume:'▶ ПРОДОЛЖИТЬ',
       mainMenu:'🏠 ГЛАВНОЕ МЕНЮ',confirm:'Прогресс будет потерян. Вы уверены?',
       yes:'✔ ДА',no:'✘ НЕТ',shoot:'Выстрел из маузера',
-      leaderboard:'🏆 РЕКОРДЫ',topPlayers:'ЛУЧШИЕ ИГРОКИ',
+      leaderboard:'🏆 РЕКОРДЫ',topPlayers:'ЛУЧШИЕ ИГРОКИ',topTen:'ТОП-10 ИГРОКОВ',myBest:'МОЙ РЕКОРД',noPersonalScore:'Рекорда пока нет',playToSeeBest:'Сыграйте и установите рекорд',
       namePlaceholder:'Введите имя...',save:'СОХРАНИТЬ',replay:'ИГРАТЬ СНОВА',
       empty:'Рекордов пока нет',loading:'⏳ Загрузка...',saving:'⏳ Сохранение...',
       saved:'✅ Сохранено',players:'игроков',offline:'офлайн',cached:'кэш',
@@ -72,7 +72,7 @@
       boss:'⚔ 俄军将军 — 首领',pause:'⏸ 暂停',paused:'游戏已暂停',resume:'▶ 继续',
       mainMenu:'🏠 主菜单',confirm:'当前进度将会丢失。确定吗？',
       yes:'✔ 是',no:'✘ 否',shoot:'毛瑟手枪射击',
-      leaderboard:'🏆 最高得分',topPlayers:'最佳玩家',
+      leaderboard:'🏆 最高得分',topPlayers:'最佳玩家',topTen:'十大玩家',myBest:'我的最高分',noPersonalScore:'暂无个人记录',playToSeeBest:'开始游戏，创造纪录',
       namePlaceholder:'输入名字...',save:'保存',replay:'再玩一次',
       empty:'暂无记录',loading:'⏳ 加载中...',saving:'⏳ 保存中...',
       saved:'✅ 已保存',players:'位玩家',offline:'离线',cached:'缓存',
@@ -183,7 +183,7 @@
   }
   function applyLeaderboard(){
     setText('#lb-title','leaderboard');
-    setText('#lb-sub','topPlayers');
+    setText('#lb-sub','topTen');
     setText('#lb-play','replay');
     setText('#lb-save','save');
     setText('#pirali-lb-close','back');
