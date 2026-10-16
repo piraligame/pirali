@@ -44,7 +44,7 @@ function addTree(directory){
 addTree('assets');addTree('data');
 add('manifest.json');
 const manifest=JSON.parse(fs.readFileSync(path.join(project,'manifest.json'),'utf8'));
-const missingAppIcons=[...new Set([...(manifest.icons||[]).map(i=>i.src),'assets/icon-192.png'])].filter(s=>!fs.existsSync(path.join(project,s)));
+const missingAppIcons=[...new Set((manifest.icons||[]).map(i=>i.src))].filter(s=>!fs.existsSync(path.join(project,s)));
 fs.writeFileSync(marker,'PIRALI generated bundle. Safe to replace with npm run build:android-web.\n');
 const report={ok:true,files:files.size,bytes:totalBytes,output:dest,missingAppIcons,important:'Static web export ONLY; signed Play Store AAB not yet created.'};
 fs.writeFileSync(path.join(dest,'BUILD_INFO.json'),JSON.stringify(report,null,2)+'\n');
