@@ -9,7 +9,7 @@
 4. Android SDK + JDK 21: `cd android; .\gradlew.bat assembleDebug` — შიდა ტესტისთვის APK.
 5. `cd android; .\gradlew.bat bundleRelease` — ხელმოუწერელი AAB; **Google Play-ში ასატვირთად საჭირო იქნება მუდმივი ხელმოწერა და პროდუქტის კონფიგურაცია**.
 
-ლეპტოპზე ამჟამად არ არის Java/JDK, Android SDK ან Android Studio. **ადგილობრივი APK/AAB კომპილაცია აქ ჯერ ვერ დასრულდება**. ამის სანაცვლოდ GitHub Actions `.github/workflows/android-internal-test.yml` აწყობს საცდელ APK-სა და ხელმოუწერელ AAB-ს ღრუბელში; გაშვების წარმატება უნდა გადამოწმდეს Actions-ის ჩანაწერით.
+ლეპტოპზე ამჟამად არ არის Java/JDK, Android SDK ან Android Studio. **ადგილობრივი APK/AAB კომპილაცია აქ ჯერ ვერ დასრულდება**. ამის სანაცვლოდ GitHub Actions `.github/workflows/android-internal-test.yml` აწყობს საცდელ APK-სა და ხელმოუწერელ AAB-ს ღრუბელში; GitHub Actions-ის გაშვება #38935696950 **წარმატებით დასრულდა**: შექმნილია შიდა APK (დაახლოებით 6.2 MB) და ხელმოუწერელი AAB (დაახლოებით 5.0 MB). რეალურ ტელეფონზე ინსტალაცია ჯერ არ არის დადასტურებული.
 
 ## ჩამოტვირთვა GitHub Actions-იდან
 მთავარ GitHub-ზე შედი **Actions → Pirali Android Internal Test → წარმატებული გაშვება → Artifacts** და აირჩიე `PIRALI-Internal-Debug-APK`. ZIP-ში იქნება `app-debug.apk`; ის განკუთვნილია მხოლოდ შიდა ტესტირებისთვის.
