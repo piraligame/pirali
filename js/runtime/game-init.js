@@ -41,6 +41,7 @@ function startGame(savedProgress=null){
   document.getElementById('screen').className='';
   window.PiraliCheckpoint?.beginRun(!!restore);
   genWorld();running=true;
+  window.PiraliAlphaGear?.updateUI();
   window.PiraliStats?.start(!!restore,level);
   updateProgressUI();
   showBanner(LEVEL_NAMES[level]);
