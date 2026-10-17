@@ -88,7 +88,7 @@ const PiraliAlphaGear=(function(){
      shoot.title=selected==='shotgun'?t('shotgun'):t('mauser');
      shoot.setAttribute('aria-label',shoot.title);
    }
-   if(image)image.src=selected==='shotgun'?'assets/icons/hunting-shotgun.svg?v=alpha009a':originalIcon;
+   if(image)image.src=selected==='shotgun'?'assets/icons/hunting-shotgun.svg?v=alpha009b':originalIcon;
  }
  function drawPickup(ctx,pk,x,y){
    if(pk.type!=='alpha-shotgun'&&pk.type!=='alpha-shells')return false;
@@ -121,8 +121,8 @@ const PiraliAlphaGear=(function(){
    document.addEventListener('pirali:languagechange',updateUI);
    updateUI();
  }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});
- else initialize();
  window.PiraliAlphaGear=Object.freeze({reset,scatterOnFinal,pickup,switchWeapon,fireIfSelected,updateUI,drawPickup,
   status:()=>({owned,shells:ammo,selected})});
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});
+ else initialize();
 })();
