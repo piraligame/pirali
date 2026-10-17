@@ -32,6 +32,7 @@ function shoot(){
   if(tgt)P.ang=ang;
   const bx=P.x+Math.cos(ang)*(P.r+5),by=P.y+Math.sin(ang)*(P.r+5);
   bullets.push({x:bx,y:by,vx:Math.cos(ang)*BSPD,vy:Math.sin(ang)*BSPD,fp:true,alive:true,life:115});
+  PiraliFX.shoot(bx,by,ang);
   for(let i=0;i<6;i++) spawnPart(bx,by,Math.cos(ang+(Math.random()-.5)*.9)*(2+Math.random()*4),Math.sin(ang+(Math.random()-.5)*.9)*(2+Math.random()*4),8,Math.random()>.5?'#ffdd44':'#ff9900',2+Math.random()*2);
 }
 
@@ -45,6 +46,7 @@ function swordSwing(){
   swordCD=isCombo?24:34;
   swordOn=true;swordT=isCombo?16:22;
   playSword();
+  PiraliFX.sword(P.x,P.y,P.ang,isCombo);
   parryActive=true;setTimeout(()=>{parryActive=false;},190);
   const sf=document.getElementById('sword-flash');sf.style.opacity='1';setTimeout(()=>sf.style.opacity='0',75);
   const range=isCombo?88:72;
@@ -68,6 +70,8 @@ function dash(){
   if(!running||P.dead||dashCD>0)return;
   dashCD=DASH_COOLDOWN;dashT=DASH_DUR;dashing=true;
   playDashSound();
+  PiraliFX.dash(P.x,P.y,P.ang);
+  PiraliFX.dashAccent();
   let mx=0,my=0;
   if(joy.active){mx=joy.dx;my=joy.dy;}
   else{if(K.l)mx-=1;if(K.r)mx+=1;if(K.u)my-=1;if(K.d)my+=1;}
@@ -82,6 +86,7 @@ function dash(){
 function hitEnemy(e){
   e.hp--;e.hf=14;
   playHit();
+  PiraliFX.hit(e.x,e.y,false);
   for(let i=0;i<8;i++) spawnPart(e.x,e.y,(Math.random()-.5)*5.5,(Math.random()-.5)*5.5,14,'#cc1010',2+Math.random()*2.5);
   if(e.hp<=0)killEnemy(e);
 }
@@ -118,6 +123,7 @@ function killEnemy(e){
 function hitBoss(b,dmg=1){
   b.hp-=dmg;b.hf=10;
   playHit();
+  PiraliFX.hit(b.x,b.y,true);
   for(let i=0;i<8;i++) spawnPart(b.x,b.y,(Math.random()-.5)*6,(Math.random()-.5)*6,14,'#cc2020',3+Math.random()*3);
   // Phase 2 transition is handled by update() (one source of truth).
   updateBossUI();
@@ -132,6 +138,7 @@ function takeDmg(){
   if(invincible||dashing)return;
   health--;invincible=true;setTimeout(()=>invincible=false,PIRALI_BALANCE.playerIFrameMs);
   playHurt();
+  PiraliFX.hurt(P.x,P.y);
   // Screen shake
   shakePow=10;
   killStreak=0; // reset streak on taking damage

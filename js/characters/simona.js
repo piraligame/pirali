@@ -296,7 +296,8 @@ function drawPlayer(){
     ctx.restore();
   } else {
     ctx.save();
-    ctx.translate(px+Math.cos(ang+.82)*15,py+Math.sin(ang+.82)*15);
+    const kick=PiraliFX.recoil()*3.8; // cosmetic Mauser recoil, never moves the hitbox
+    ctx.translate(px+Math.cos(ang+.82)*15-fx*kick,py+Math.sin(ang+.82)*15-fy*kick);
     ctx.rotate(ang+.82);
     ctx.fillStyle='#1e1e1e'; ctx.fillRect(-2,-3,21,6);
     ctx.fillStyle='#2a2a2a'; ctx.fillRect(-2,-3,9,3.5);

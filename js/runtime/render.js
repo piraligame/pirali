@@ -12,6 +12,7 @@ function render(){
   if(boss&&boss.alive)ents.push({y:boss.y,fn:()=>drawBoss(boss)});
   ents.sort((a,b)=>a.y-b.y).forEach(e=>e.fn());
   drawBullets();
+  PiraliFX.draw(ctx,sx,sy,W,H);
   drawFloatingTexts();
   drawWeatherOverlay();
   drawHUD();

@@ -1,6 +1,7 @@
 function update(dt){
   if(!running||P.dead)return;
   frame++;
+  PiraliFX.tick(dt);
   weatherTime+=dt;
 
   // Input
