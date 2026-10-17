@@ -82,7 +82,8 @@ function update(dt){
     if(Math.hypot(pk.x-P.x,pk.y-P.y)<30){
       pk.col=true;
       playPickup();
-      if(pk.type==='ammo'){ammo=Math.min(maxAmmo,ammo+5);updateAmmoUI();}
+      if(window.PiraliAlphaGear?.pickup(pk)){}
+      else if(pk.type==='ammo'){ammo=Math.min(maxAmmo,ammo+5);updateAmmoUI();}
       else if(pk.type==='health'){health=Math.min(maxHealth,health+1);updateHealthUI();}
       else if(pk.type==='herb'){health=Math.min(maxHealth,health+2);updateHealthUI();inventory.herbs++;updateInventoryUI();}
       else if(pk.type==='medal'){score+=250*level;updateScoreUI();inventory.medals++;updateInventoryUI();}
