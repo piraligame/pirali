@@ -67,7 +67,7 @@
 
     const version=document.createElement('div');
     version.className='menu-version';
-    version.textContent='PIRALI • BETA 0.08 · WEB TEST';
+    version.textContent='PIRALI • BETA 0.10 · WEB TEST';
     card.appendChild(version);
     PiraliBetaLevels.mount(card);
     if(window.PiraliLanguage)window.PiraliLanguage.apply();

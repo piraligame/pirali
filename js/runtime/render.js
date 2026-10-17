@@ -9,7 +9,11 @@ function render(){
   drawBloodDecals();
   drawCorpses();drawAmbients();drawChurch();drawSignpost();drawPickups();drawTrees();drawParticles();
   if(boss&&boss.groundSlamActive)drawGroundSlam();
-  const ents=[...enemies.filter(e=>e.alive).map(e=>({y:e.y,fn:()=>{drawEnemy(e);PiraliBetaArt.enemy(ctx,e,sx(e.x),sy(e.y));}})),{y:P.y,fn:()=>{drawPlayer();PiraliBetaArt.hero(ctx,sx(P.x),sy(P.y),P,level,frame);}}];
+  const ents=[...enemies.filter(e=>e.alive).map(e=>({y:e.y,fn:()=>{
+    if(!(window.PiraliBetaVisual?.drawEnemy(ctx,e,sx(e.x),sy(e.y),level))){drawEnemy(e);PiraliBetaArt.enemy(ctx,e,sx(e.x),sy(e.y));}
+  }})),{y:P.y,fn:()=>{
+    if(!(window.PiraliBetaVisual?.drawHero(ctx,P,sx(P.x),sy(P.y),level,frame))){drawPlayer();PiraliBetaArt.hero(ctx,sx(P.x),sy(P.y),P,level,frame);}
+  }}];
   if(boss&&boss.alive)ents.push({y:boss.y,fn:()=>drawBoss(boss)});
   ents.sort((a,b)=>a.y-b.y).forEach(e=>e.fn());
   drawBullets();
@@ -100,7 +104,7 @@ function drawBG(){
   else if(isNight){g1='#243818';g2='#182808';g3='#0e1c06';}
   else if(env.w==='mist'){g1='#617960';g2='#506b4a';g3='#3b5136';}
   else{g1='#648950';g2='#507341';g3='#3b5a30';}
-  ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
+  if(!(window.PiraliBetaVisual?.fillGround(ctx,W,H,camX,camY,level))){ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);}
 
   // Stars for night (behind everything)
   if(isNight){
@@ -120,6 +124,7 @@ function drawBG(){
   for(let gx=ox;gx<camX+W+TS;gx+=TS){
     for(let gy=oy;gy<camY+H+TS;gy+=TS){
       const hv=th2(Math.floor(gx/TS),Math.floor(gy/TS));
+      if(level===1&&window.PiraliBetaVisual?.groundReady())continue;
       const scx=sx(gx)+TS*.5, scy2=sy(gy)+TS*.5;
       if(hv<.11){
         let dc;
