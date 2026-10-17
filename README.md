@@ -9,10 +9,16 @@
 ## ახალი ეტაპი — სიმონას ვიზუალი
 `js/characters/simona.js` დამოუკიდებლად ხატავს სიმონას; `js/characters/simona-style.js` შეიცავს მის ვიზუალურ პროპორციებს. დახვეწილია ჩოხის სილუეტი, წელის/მხრების პროპორციები, სიარულისა და სირბილის მოძრაობა. საბრძოლო მექანიკა, სიცოცხლე, შეჯახების რადიუსი და Firebase ხელუხლებელია.
 
-## Android-ის მომავალი ვერსია
-`npm.cmd run build:android-web` (Windows PowerShell) ქმნის სუფთა ვებ-პაკეტს საქაღალდეში `dist/android-web`. ეს ჯერ მხოლოდ მოსამზადებელი ეტაპია — Google Play-ის ხელმოწერილ `AAB`-ს მოგვიანებით შევქმნით.
+## PIRALI Alpha Test 0.07 — Android
+აპლიკაციის სახელი: **PIRALI Alpha Test**. Android `versionName=0.07`, `versionCode=7`, package `ge.piraligame.pirali`.
 
-წაიკითხე `docs/PROJECT_STRUCTURE.md` და `docs/ANDROID_PREPARATION.md`.
+`npm.cmd run build:android-web` ამზადებს ვებკოდს; `scripts/build-alpha-local.ps1` ამზადებს Android release APK/AAB-ს **მუდმივი ადგილობრივი ხელმოწერის გასაღებით**. გასაღები და პაროლი პროექტს მიღმაა და არ იტვირთება GitHub-ზე.
+
+მომდევნო `0.08` ვერსიისთვის: `npm.cmd run alpha:next -- 0.08`, შემდეგ ისევ იგივე ხელმოწერის გასაღებით აწყობა. ხელმოწერის შეცვლა და აპის ID შეცვლა ძველ APK-ზე განახლებას ხელს უშლის.
+
+**შენიშვნა:** ძველი CI/debug ვერსიის ხელმოწერა შესაძლოა შეუთავსებელი იყოს ახალ Alpha signing key-თან. პირველი გადასვლა შესაძლოა ერთჯერადი ხელახალი ინსტალაციით მოხდეს; შემდგომი Alpha ვერსიები იდენტური გასაღებით პირდაპირ განახლდება.
+
+ინსტრუქციები: `docs/ALPHA_TEST_007.md`, `docs/PROJECT_STRUCTURE.md`, `docs/ANDROID_PREPARATION.md`.
 
 ## მნიშვნელოვანი
 ძველი სარეზერვო ასლები შენახულია ლეპტოპის `ფირალი მთავარი` საქაღალდეში; ისინი არ წაშალო.

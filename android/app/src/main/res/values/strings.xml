@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Pirali</string>
-    <string name="title_activity_main">Pirali</string>
+    <string name="app_name">PIRALI Alpha Test</string>
+    <string name="title_activity_main">PIRALI Alpha Test</string>
     <string name="package_name">ge.piraligame.pirali</string>
     <string name="custom_url_scheme">ge.piraligame.pirali</string>
 </resources>

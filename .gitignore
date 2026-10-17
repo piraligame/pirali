@@ -3,4 +3,7 @@ node_modules/
 .DS_Store
 *.jks
 *.keystore
+*.p12
+*.pfx
+*password.dpapi.txt
 android/key.properties

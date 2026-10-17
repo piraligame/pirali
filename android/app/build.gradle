@@ -7,8 +7,8 @@ android {
         applicationId "ge.piraligame.pirali"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 7
+        versionName "0.07"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -16,8 +16,24 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    // Same upload signing identity must be reused for every Alpha Test version.
+    // Signing values are read ONLY from the environment, never committed to GitHub.
+    signingConfigs {
+        if (System.getenv('PIRALI_ALPHA_KEYSTORE_PATH')) {
+            piraliAlpha {
+                storeFile file(System.getenv('PIRALI_ALPHA_KEYSTORE_PATH'))
+                storeType 'pkcs12'
+                storePassword System.getenv('PIRALI_ALPHA_STORE_PASSWORD')
+                keyAlias System.getenv('PIRALI_ALPHA_KEY_ALIAS') ?: 'pirali_alpha'
+                keyPassword System.getenv('PIRALI_ALPHA_KEY_PASSWORD')
+            }
+        }
+    }
     buildTypes {
         release {
+            if (signingConfigs.findByName('piraliAlpha') != null) {
+                signingConfig signingConfigs.piraliAlpha
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
