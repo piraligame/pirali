@@ -11,14 +11,14 @@
 <script>
 (async()=>{
  try{
-  const url='https://cdn.jsdelivr.net/gh/piraligame/pirali@beta/index.html?beta=20261018a';
-  const response=await fetch(url,{cache:'no-store'});
+  const release='https://cdn.jsdelivr.net/gh/piraligame/pirali@6a89dc09ad26dc25a02f266fd8e0eaba43781b22/';
+  const response=await fetch(release+'index.html?release=beta-009b',{cache:'no-store'});
   if(!response.ok) throw new Error('ბეტა ვერ ჩაიტვირთა ('+response.status+')');
   let html=await response.text();
   if(!html.includes('<head>')) throw new Error('ბეტას გვერდის ფორმატი ვერ წაიკითხა');
   html=html.replace(/0\.08/g,'0.09');
-  html=html.replace('<head>','<head>\n<base href="https://cdn.jsdelivr.net/gh/piraligame/pirali@beta/">');
-  html=html.replace('</body>','<script src="js/beta-polish.js?v=beta-009a"><\/script>\n</body>');
+  html=html.replace('<head>','<head>\n<base href="'+release+'">');
+  html=html.replace('</body>','<script src="js/beta-polish.js?v=beta-009b"><\/script>\n</body>');
   document.open();document.write(html);document.close();
  }catch(error){document.body.innerHTML='<main class="msg">ბეტას ჩატვირთვა ვერ მოხერხდა.<br>გადაამოწმე ინტერნეტი და განაახლე გვერდი.<br><small>'+String(error.message||error)+'</small></main>';}
 })();
