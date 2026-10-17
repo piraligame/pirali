@@ -4,7 +4,7 @@
   const image=(src)=>{const i=new Image();i.decoding='async';i.src=src;return i;};
   const ground=image('assets/images/beta/chokhatauri-forest-ground.webp?v=beta-010a');
   const hero=image('assets/images/beta/simona-nabadi-qabalakhi.webp?v=beta-010a');
-  const soldier=image('assets/images/beta/russian-soldier-khaki.webp?v=beta-010a');
+  const soldier=image('assets/images/beta/russian-soldier-khaki.png?v=beta-010a');
   const ready=i=>i.complete&&i.naturalWidth>0;
 
   function groundReady(){return ready(ground);}
