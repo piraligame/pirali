@@ -2,9 +2,13 @@
 (function(){
   'use strict';
   const image=(src)=>{const i=new Image();i.decoding='async';i.src=src;return i;};
-  const ground=image('assets/images/beta/chokhatauri-forest-ground.webp?v=beta-010a');
-  const hero=image('assets/images/beta/simona-nabadi-qabalakhi.webp?v=beta-010a');
-  const soldier=image('assets/images/beta/russian-soldier-khaki.png?v=beta-010a');
+  const ground=image('assets/images/beta/chokhatauri-forest-ground.webp?v=beta-010b');
+  const hero=image('assets/images/beta/simona-nabadi-qabalakhi.webp?v=beta-010b');
+  const soldiers={
+    saber:image('assets/images/beta/russian-soldier-green-saber.webp?v=beta-010b'),
+    rifle:image('assets/images/beta/russian-soldier-yellow-pistol.webp?v=beta-010b'),
+    officer:image('assets/images/beta/russian-soldier-red-officer.webp?v=beta-010b')
+  };
   const ready=i=>i.complete&&i.naturalWidth>0;
 
   function groundReady(){return ready(ground);}
@@ -51,19 +55,17 @@
   }
 
   function drawEnemy(ctx,e,x,y,lvl){
-    if(lvl!==1||!ready(soldier)||!e.alive||e.etype==='landlord')return false;
+    const soldier=soldiers[e.etype];
+    if(lvl!==1||!soldier||!ready(soldier)||!e.alive||e.etype==='landlord')return false;
     ctx.save();
     if(e.hf>0&&e.hf%2===0)ctx.filter='brightness(2.7)';
     ctx.fillStyle='rgba(12,8,4,.38)';ctx.beginPath();ctx.ellipse(x+2,y+11,14,4.5,.08,0,Math.PI*2);ctx.fill();
     ctx.translate(x,y);ctx.rotate((e.ang||0)+Math.PI*.5);
     const h=62,w=h*(soldier.naturalWidth/soldier.naturalHeight);
     ctx.drawImage(soldier,-w*.5,-h*.5,w,h);
-    // Small unit marks preserve the old enemy color coding without turning the sprite into a token.
-    if(e.etype==='officer'){
-      ctx.fillStyle='#9d2e20';ctx.fillRect(-w*.16,-h*.04,w*.32,2.2);
-    }else if(e.etype==='saber'){
-      ctx.fillStyle='#9c7937';ctx.fillRect(-w*.16,-h*.04,w*.32,2.2);
-    }
+    // Uniform colors identify the three enemy roles: green saber, yellow pistol, red officer with both.
+    const tierColor=e.etype==='officer'?'#a61e18':e.etype==='rifle'?'#d6a721':'#397647';
+    ctx.fillStyle=tierColor;ctx.fillRect(-w*.16,-h*.04,w*.32,2.2);
     ctx.restore();
     // Enemy health stays clearly readable above the soldier, including level-one enemies.
     const barY=y-36,barW=26;
