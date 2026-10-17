@@ -104,3 +104,39 @@
 #lb-list .lb-row{min-height:38px;gap:6px;}
 #lb-list .lb-name-col{min-width:0;overflow-wrap:anywhere;}
 @media(max-width:430px){#lb-overlay{padding:16px 13px 28px;}#lb-personal{margin-bottom:12px;padding:12px;}#lb-list .lb-row{padding:8px 9px;}}
+
+/* Continue from the last completed stage, without polluting ranked scores. */
+#screen .menu-continue[hidden],#pirali-run-mode[hidden]{display:none!important;}
+#screen .menu-continue{
+  box-sizing:border-box;width:100%;min-height:49px;margin:0 0 9px;
+  cursor:pointer;border:1px solid rgba(102,208,157,.85);border-radius:11px;
+  background:linear-gradient(155deg,#164b35,#0b2e25);
+  color:#d6ffe5;font:800 12px/1.45 'Noto Sans Georgian',sans-serif;
+  padding:9px 12px;overflow-wrap:anywhere;text-align:center;
+  box-shadow:0 4px 16px #0007;
+}
+#screen .menu-continue:hover{background:linear-gradient(155deg,#226646,#12513a);}
+#screen .menu-continue:focus-visible{outline:2px solid #b4f7c7;outline-offset:2px;}
+#pirali-run-mode{
+  position:fixed;top:clamp(116px,20vh,147px);left:10px;z-index:12;
+  max-width:calc(100vw - 20px);padding:5px 9px;
+  box-sizing:border-box;border-radius:6px;border:1px solid rgba(114,225,149,.5);
+  background:rgba(4,35,22,.85);color:#bdffd1;
+  font:700 10px/1.4 'Noto Sans Georgian',sans-serif;pointer-events:none;
+}
+.pirali-unranked-note{font:700 12px/1.5 'Noto Sans Georgian',sans-serif;
+  color:#d4ecba;margin-top:9px;}
+@media(max-width:700px){#screen .menu-continue{min-height:44px;padding:7px 10px;font-size:11px;}}
+@media(max-height:520px){#screen .menu-continue{min-height:37px;margin-bottom:6px;padding:5px 8px;font-size:10px;}}
+
+/* Saved checkpoints add one more button; keep all controls reachable on small phones. */
+@media(max-width:700px){
+  #screen:not(.gameover-screen):not(.victory-screen):has(.menu-continue:not([hidden])){
+    justify-content:flex-start;overflow-y:auto;padding-top:12px;
+  }
+  #screen .main-menu-panel:has(.menu-continue:not([hidden])){flex-shrink:0;padding:12px 15px;}
+  #screen .main-menu-panel:has(.menu-continue:not([hidden])) .sbox{
+    max-height:66px;overflow-y:auto;margin-bottom:6px;
+  }
+  #screen .main-menu-panel:has(.menu-continue:not([hidden])) .tsub{margin-bottom:6px;}
+}

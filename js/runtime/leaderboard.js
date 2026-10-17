@@ -75,6 +75,8 @@ async function lbFetch(){
 
 // ── push one score to Firebase ──
 async function lbPush(name, sc, lv, win){
+  // Checkpoint runs are unranked; never send their points to Firebase.
+  if(window.PiraliCheckpoint?.isResumedRun())return lcLoad();
   if(!sc || sc <= 0) { const r = await lbFetch(); return r || lcLoad(); }
   const entry = {
     name  : (name||'').trim().slice(0,20) || 'ანონიმი',
@@ -224,6 +226,7 @@ async function lbShow(){
 function lbSetupSave(){} // disabled - URL hardcoded
 
 async function autoSaveScore(sc,lv,win){
+  if(window.PiraliCheckpoint?.isResumedRun())return;
   if(!sc || sc <= 0) return;  // skip zero scores
   const name = localStorage.getItem('pirali_player_name') || 'ანონიმი';
   try{ await lbPush(name, sc, lv, win); }catch(e){}

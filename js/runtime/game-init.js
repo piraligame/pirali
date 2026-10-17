@@ -17,7 +17,8 @@ function spawnLandlordNPC(fromX=P.x,fromY=P.y){
   showBanner('ბატონი გამოჩნდა!\nერთი დარტყმით დაამარცხე!');
 }
 
-function startGame(){
+function startGame(savedProgress=null){
+  const restore=window.PiraliCheckpoint?.normalize(savedProgress)||null;
   // ensure player name is set
   const savedName = localStorage.getItem('pirali_player_name');
   if(!savedName){
@@ -25,16 +26,23 @@ function startGame(){
     if(n) localStorage.setItem('pirali_player_name', n);
   }
   bgmStop();
-  score=0;health=5;maxHealth=5;ammo=8;maxAmmo=8;level=1;
-  inventory.herbs=0;inventory.medals=0;swordCombo=0;swordComboTimer=0;
+  score=restore?restore.score:0;
+  health=restore?restore.health:5;maxHealth=5;
+  ammo=restore?restore.ammo:8;maxAmmo=8;
+  level=restore?restore.level:1;
+  inventory.herbs=restore?restore.inventory.herbs:0;
+  inventory.medals=restore?restore.inventory.medals:0;
+  swordCombo=0;swordComboTimer=0;
   shakePow=0;killStreak=0;killStreakTimer=0;_floats.length=0;bloodDecals=[];
   paused=false;document.getElementById('pause-overlay').style.display='none';
   document.getElementById('btn-pause').textContent='⏸';
   updateHealthUI();updateScoreUI();updateAmmoUI();updateInventoryUI();hideBossUI();
   document.getElementById('screen').style.display='none';
   document.getElementById('screen').className='';
+  window.PiraliCheckpoint?.beginRun(!!restore);
   genWorld();running=true;
-  showBanner(LEVEL_NAMES[1]);
+  updateProgressUI();
+  showBanner(LEVEL_NAMES[level]);
 }
 
 // ── LOOP ──

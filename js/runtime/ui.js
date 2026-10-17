@@ -46,6 +46,7 @@ function goToMenu(){
   <div class="sbox"><p>როცა სამართალი ხმას კარგავს,<br>ტყე ხდება თავშესაფარი.<br><br>სიმონა დალიძე —<br>კაცი, რომელმაც არჩევანი გააკეთა:<br>დაემორჩილოს… ან იბრძოლოს.<br><br>მოღალატედ შერაცხული,<br>მაგრამ ხალხისთვის — გმირი.</p></div>
   <button class="sbtn" onclick="bgmStop();document.getElementById('screen').style.display='none';showIntro(startGame)">თამაშის დაწყება</button>`;
   s.style.display='flex';
+  window.PiraliCheckpoint?.updateMode();
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'||e.key==='p'||e.key==='P'){if(running||paused)togglePause();}});
 function updateAmmoUI(){const c=document.getElementById('bullets');c.innerHTML='';for(let i=0;i<maxAmmo;i++){const b=document.createElement('div');b.className='bi'+(i>=ammo?' e':'');c.appendChild(b);}}

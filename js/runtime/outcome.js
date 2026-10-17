@@ -14,12 +14,15 @@ function showGameOver(){
   <button class="sbtn" onclick="document.getElementById('screen').style.display='none';lbShow()">🏆 რეკორდები</button>`;
   s.style.display='flex';
   if(window.PiraliLanguage)window.PiraliLanguage.applyOutcome();
+  window.PiraliCheckpoint?.outcomeNotice();
+  window.PiraliCheckpoint?.updateMode();
 }
 function showVictory(){
   running=false;paused=false;
   document.getElementById('pause-overlay').style.display='none';
   document.getElementById('btn-pause').textContent='⏸';
   setTimeout(()=>bgmFadeIn(0.42),800);
+  window.PiraliCheckpoint?.clear(); // Victory closes the completed checkpoint
   _pendingScore=score;_pendingLevel=level;_pendingWin=true;autoSaveScore(score,level,true);
   const s=document.getElementById('screen');
   s.className='victory-screen';
@@ -32,5 +35,7 @@ function showVictory(){
   <button class="sbtn" style="background:linear-gradient(180deg,#5c380a,#2e1a04);border-color:#d8a820;" onclick="document.getElementById('screen').style.display='none';lbShow()">🏆 რეკორდები</button>`;
   s.style.display='flex';
   if(window.PiraliLanguage)window.PiraliLanguage.applyOutcome();
+  window.PiraliCheckpoint?.outcomeNotice();
+  window.PiraliCheckpoint?.updateMode();
 }
 

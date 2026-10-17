@@ -62,8 +62,14 @@ function update(dt){
       done=true;level++;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();
       playLevelUp();
       const nextLevel=level;
+      window.PiraliCheckpoint?.save(nextLevel);
+      const runId=window.PiraliCheckpoint?.getSession();
       showBanner(LEVEL_NAMES[nextLevel]);
-      setTimeout(()=>{if(running&&level===nextLevel&&!P.dead){genWorld();showBanner(LEVEL_NAMES[nextLevel]);}},2800);
+      setTimeout(()=>{
+        if(running&&level===nextLevel&&!P.dead&&runId===window.PiraliCheckpoint?.getSession()){
+          genWorld();showBanner(LEVEL_NAMES[nextLevel]);
+        }
+      },2800);
     }
   }
 

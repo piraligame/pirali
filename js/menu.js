@@ -32,6 +32,7 @@
     });
     actions.appendChild(records);
     card.appendChild(actions);
+    window.PiraliCheckpoint?.mountMenu(card);
 
     // Four-language selector. English is the US variant (🇺🇸).
     const picker=document.createElement('div');
