@@ -21,7 +21,8 @@
       failEyebrow:'— ბრძოლა დასრულდა —',failTitle:'სიმონა დაეცა',failSub:'გამარჯვება ხვალ მოვა',
       victoryEyebrow:'— გამარჯვება! —',victoryTitle:'ეკლესია!',victorySub:'სამშობლო გადარჩა',
       victoryText:'სიმონა თამარის ეკლესიამდე მივიდა!',level:'ტური',levelDetail:'დონე',
-      easy:'ადვილი',medium:'საშუალო',hard:'რთული',achievement:'🏆 რეკორდები'
+      easy:'ადვილი',medium:'საშუალო',hard:'რთული',achievement:'🏆 რეკორდები',
+      exitTitle:'გსურს თამაშიდან გასვლა?',exitWarning:'თუ მიმდინარე ტური არ დაგისრულებია, პროგრესი დაიკარგება.',exitCancel:'დარჩენა',exitConfirm:'გასვლა'
     },
     en:{
       page:'PIRALI — Simona’s Journey',legend:'— A GEORGIAN LEGEND —',title:'PIRALI',subtitle:'SIMONA’S JOURNEY',
@@ -41,7 +42,8 @@
       failEyebrow:'— BATTLE OVER —',failTitle:'SIMONA HAS FALLEN',failSub:'Victory will come another day',
       victoryEyebrow:'— VICTORY! —',victoryTitle:'THE CHURCH!',victorySub:'THE HOMELAND IS SAVED',
       victoryText:'Simona reached Queen Tamar’s church!',level:'LEVEL',levelDetail:'Level',
-      easy:'Easy',medium:'Medium',hard:'Hard',achievement:'🏆 HIGH SCORES'
+      easy:'Easy',medium:'Medium',hard:'Hard',achievement:'🏆 HIGH SCORES',
+      exitTitle:'Exit PIRALI?',exitWarning:'Progress in your current level may be lost.',exitCancel:'STAY',exitConfirm:'EXIT'
     },
 
     ru:{
@@ -62,7 +64,8 @@
       failEyebrow:'— БИТВА ОКОНЧЕНА —',failTitle:'СИМОНА ПАЛ',failSub:'Победа придёт завтра',
       victoryEyebrow:'— ПОБЕДА! —',victoryTitle:'ЦЕРКОВЬ!',victorySub:'РОДИНА СПАСЕНА',
       victoryText:'Симона добрался до церкви царицы Тамар!',level:'УРОВЕНЬ',levelDetail:'Уровень',
-      easy:'Легко',medium:'Средне',hard:'Сложно',achievement:'🏆 РЕКОРДЫ'
+      easy:'Легко',medium:'Средне',hard:'Сложно',achievement:'🏆 РЕКОРДЫ',
+      exitTitle:'Выйти из ПИРАЛИ?',exitWarning:'Прогресс текущего уровня может быть потерян.',exitCancel:'ОСТАТЬСЯ',exitConfirm:'ВЫЙТИ'
     },
     zh:{
       page:'PIRALI — 西蒙娜之路',legend:'— 格鲁吉亚传奇 —',title:'PIRALI',subtitle:'西蒙娜之路',
@@ -82,7 +85,8 @@
       failEyebrow:'— 战斗结束 —',failTitle:'西蒙娜倒下了',failSub:'胜利终将到来',
       victoryEyebrow:'— 胜利！ —',victoryTitle:'教堂！',victorySub:'祖国得救了',
       victoryText:'西蒙娜抵达了塔玛尔女王的教堂！',level:'关卡',levelDetail:'关卡',
-      easy:'简单',medium:'中等',hard:'困难',achievement:'🏆 最高得分'
+      easy:'简单',medium:'中等',hard:'困难',achievement:'🏆 最高得分',
+      exitTitle:'退出 PIRALI？',exitWarning:'当前关卡的进度可能会丢失。',exitCancel:'留下',exitConfirm:'退出'
     }
   };
   // Canvas messages, combat popups and named places.
