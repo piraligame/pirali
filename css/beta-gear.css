@@ -1,0 +1,28 @@
+/* Beta 0.08 shotgun: clear mobile controls and readable ammunition. */
+#beta-shell-hud[hidden],#beta-weapon-switch[hidden]{display:none!important;}
+#beta-shell-hud{
+ position:fixed;bottom:65px;left:50%;transform:translateX(-50%);
+ z-index:22;pointer-events:none;
+ background:rgba(32,20,10,.88);color:#f7dfac;border:1px solid #b78a4f;
+ border-radius:9px;padding:6px 12px;min-width:115px;max-width:45vw;
+ font:700 12px/1.4 'Noto Sans Georgian',sans-serif;text-align:center;
+ box-shadow:0 4px 16px #0008;
+}
+#beta-weapon-switch{
+ box-sizing:border-box;pointer-events:all;
+ max-width:132px;min-width:105px;min-height:45px;
+ padding:8px 10px;border:1px solid #cdaa6b;border-radius:10px;
+ background:linear-gradient(150deg,#57402a,#241811);color:#ffecbd;
+ font:800 11px/1.5 'Noto Sans Georgian',sans-serif;
+ cursor:pointer;box-shadow:0 5px 20px #000a;
+}
+#btn-shoot.beta-shotgun-active{
+ background:radial-gradient(circle at 35% 30%,#866031,#382313);
+ border-color:rgba(247,193,88,.85);
+ box-shadow:0 5px 25px #000a,0 0 17px rgba(247,194,68,.25);
+}
+#beta-weapon-switch:focus-visible{outline:2px solid #ffe49e;outline-offset:2px;}
+@media(max-width:600px){
+ #beta-shell-hud{bottom:65px;padding:4px 7px;font-size:10px;}
+ #beta-weapon-switch{min-width:88px;min-height:40px;font-size:10px;}
+}

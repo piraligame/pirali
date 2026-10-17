@@ -28,6 +28,7 @@
 <div id="level-badge"></div>
 <div id="pirali-run-mode" hidden aria-live="polite"></div>
 <div id="pirali-time-hud" hidden aria-label="Level timer"></div>
+<div id="beta-shell-hud" hidden aria-live="polite"></div>
 <div id="ammo-bar"><div class="ui-panel"><div id="ammo-lbl">ტყვია</div><div id="bullets"></div></div></div>
 <div id="boss-bar"><div id="boss-lbl">⚔ რუსი გენერალი — ბოსი</div><div id="boss-track"><div id="boss-fill" style="width:100%"></div></div></div>
 <div id="joy-zone"></div><div id="joy-base"></div><div id="joy-knob"></div>
@@ -46,6 +47,7 @@
   </div>
 </div>
 <div id="action-zone">
+  <button id="beta-weapon-switch" type="button" hidden aria-label="Switch weapon"></button>
   <div class="btn-row">
     <div class="act-btn" id="btn-sword">⚔️</div>
     <div class="act-btn" id="btn-dash" role="button" aria-label="მოი აგერ!" title="მოი აგერ!">მოი აგერ!</div>
@@ -81,13 +83,17 @@
   <button class="sbtn" onclick="bgmStop();document.getElementById('screen').style.display='none';showIntro(startGame)">თამაშის დაწყება</button>
 </div>
 <script src="js/config/beta-mode.js?v=beta-008a"></script>
+<link rel="stylesheet" href="css/beta-gear.css?v=beta-008b">
+<link rel="stylesheet" href="css/beta-stage-picker.css?v=beta-008b">
 <script src="js/runtime/audio.js"></script>
 <script src="js/config/levels.js?v=final-20261016a"></script>
 <script src="js/config/balance.js?v=final-20261016a"></script>
-<script src="js/runtime/world.js?v=combatfx-20261017a"></script>
-<script src="js/runtime/combat.js?v=stats-20261017a"></script>
-<script src="js/runtime/update.js?v=stats-20261017a"></script>
-<script src="js/runtime/render.js?v=combatfx-20261017a"></script>
+<script src="js/config/beta-art.js?v=beta-008b"></script>
+<script src="js/config/beta-gear.js?v=beta-008b"></script>
+<script src="js/runtime/world.js?v=beta-008b"></script>
+<script src="js/runtime/combat.js?v=beta-008b"></script>
+<script src="js/runtime/update.js?v=beta-008b"></script>
+<script src="js/runtime/render.js?v=beta-008b"></script>
 <script src="js/effects/combat-fx.js?v=combatfx-20261017a"></script>
 <script src="js/characters/simona-style.js"></script>
 <script src="js/characters/simona.js?v=combatfx-20261017a"></script>
@@ -96,11 +102,12 @@
 <script src="js/runtime/leaderboard.js?v=beta-008a"></script>
 <script src="js/runtime/outcome.js?v=stats-20261017a"></script>
 <script src="js/runtime/intro.js"></script>
-<script src="js/runtime/game-init.js?v=stats-20261017a"></script>
+<script src="js/runtime/game-init.js?v=beta-008b"></script>
 <script src="js/main.js?v=stats-20261017a"></script>
 <script src="js/i18n.js?v=checkpoint-20261017a"></script>
 <script src="js/progression/player-stats.js?v=stats-20261017a"></script>
-<script src="js/menu.js?v=beta-008a"></script>
+<script src="js/config/beta-stage-picker.js?v=beta-008b"></script>
+<script src="js/menu.js?v=beta-008b"></script>
 <script src="js/platform/mobile-lifecycle.js?v=stats-20261017a"></script>
 </body>
 </html>

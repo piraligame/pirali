@@ -5,16 +5,18 @@ function th2(gx,gy){let h=((gx*1664525+gy*1013904223)&0x7fffffff);h^=h>>13;retur
 function render(){
   ctx.clearRect(0,0,W,H);
   drawBG();
+  PiraliBetaArt.ground(ctx,sx,sy,W,H,level,frame);
   drawBloodDecals();
   drawCorpses();drawAmbients();drawChurch();drawSignpost();drawPickups();drawTrees();drawParticles();
   if(boss&&boss.groundSlamActive)drawGroundSlam();
-  const ents=[...enemies.filter(e=>e.alive).map(e=>({y:e.y,fn:()=>drawEnemy(e)})),{y:P.y,fn:drawPlayer}];
+  const ents=[...enemies.filter(e=>e.alive).map(e=>({y:e.y,fn:()=>{drawEnemy(e);PiraliBetaArt.enemy(ctx,e,sx(e.x),sy(e.y));}})),{y:P.y,fn:()=>{drawPlayer();PiraliBetaArt.hero(ctx,sx(P.x),sy(P.y),P,level,frame);}}];
   if(boss&&boss.alive)ents.push({y:boss.y,fn:()=>drawBoss(boss)});
   ents.sort((a,b)=>a.y-b.y).forEach(e=>e.fn());
   drawBullets();
   PiraliFX.draw(ctx,sx,sy,W,H);
   drawFloatingTexts();
   drawWeatherOverlay();
+  PiraliBetaArt.atmosphere(ctx,W,H,level,frame,P,sx,sy);
   drawHUD();
 }
 
@@ -93,11 +95,11 @@ function drawBG(){
 
   // ── FULL GROUND (100% of canvas) ──
   let g1,g2,g3;
-  if(isDesert&&env.w==='hot'){g1='#d4a050';g2='#bc8838';g3='#9a6824';}
-  else if(isDesert){g1='#b08848';g2='#946c32';g3='#72501c';}
+  if(isDesert&&env.w==='hot'){g1='#c3a06b';g2='#a58454';g3='#8a6840';}
+  else if(isDesert){g1='#aa8d64';g2='#8d704e';g3='#6d563d';}
   else if(isNight){g1='#243818';g2='#182808';g3='#0e1c06';}
-  else if(env.w==='mist'){g1='#5ab030';g2='#468c1e';g3='#326810';}
-  else{g1='#68c034';g2='#52a41e';g3='#3c7c10';}
+  else if(env.w==='mist'){g1='#617960';g2='#506b4a';g3='#3b5136';}
+  else{g1='#648950';g2='#507341';g3='#3b5a30';}
   ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
 
   // Stars for night (behind everything)
@@ -427,9 +429,10 @@ function drawSignpost(){
   ctx.fillStyle='#6a4018';ctx.fillRect(x-3,y-38,6,42);ctx.fillStyle='#7a5020';ctx.fillRect(x-2,y-38,3,42);
   ctx.fillStyle='#c8a060';ctx.fillRect(x-46,y-58,92,24);ctx.fillStyle='#b89050';ctx.fillRect(x-44,y-56,88,20);
   ctx.strokeStyle='#7a5018';ctx.lineWidth=1.5;ctx.strokeRect(x-46,y-58,92,24);
+  const stageLabel='↑ '+(window.PiraliLanguage?window.PiraliLanguage.getLevelName(level):PIRALI_LEVELS[level-1].ka)+' ↑';
   ctx.font='bold 10px Noto Sans Georgian';ctx.textAlign='center';
-  ctx.fillStyle='rgba(0,0,0,.42)';ctx.fillText('↑ '+(window.PiraliLanguage?window.PiraliLanguage.gameText('midway'):'შუა ამაღლება')+' ↑',x+1,y-42);
-  ctx.fillStyle='#3c1e06';ctx.fillText('↑ '+(window.PiraliLanguage?window.PiraliLanguage.gameText('midway'):'შუა ამაღლება')+' ↑',x,y-43);
+  ctx.fillStyle='rgba(0,0,0,.42)';ctx.fillText(stageLabel,x+1,y-42,89);
+  ctx.fillStyle='#3c1e06';ctx.fillText(stageLabel,x,y-43,89);
 }
 
 
@@ -487,6 +490,7 @@ function drawPickups(){
     if(pk.col)return;
     const x=sx(pk.x),y=sy(pk.y)+Math.sin(pk.bob||0)*3.5;
     if(x<-24||x>W+24||y<-24||y>H+24)return;
+    if(PiraliBetaGear.drawPickup(ctx,pk,x,y))return;
     const glowCol=pk.type==='health'?'#e04040':pk.type==='herb'?'#44cc44':pk.type==='medal'?'#f0c020':'#c8941a';
     ctx.shadowBlur=14;ctx.shadowColor=glowCol;
     ctx.font='16px serif';ctx.textAlign='center';

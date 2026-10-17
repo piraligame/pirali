@@ -59,6 +59,7 @@ function dpth(px,py){
 // ── WORLD GEN ──
 function genWorld(){
   PiraliFX.reset(); // Reset visual-only effects between stages.
+  PiraliBetaGear.reset();
   path=[];trees=[];enemies=[];bullets=[];parts=[];pickups=[];corpses=[];ambients=[];bloodDecals=[];_floats.length=0;done=false;boss=null;finalLordSpawned=false;finalVictoryPending=false;finalChurchNotice=false;
   const env=LEVEL_ENV[Math.min(level,5)];
   weather=env.w;weatherAlpha=0;
@@ -118,6 +119,8 @@ function genWorld(){
     }
   }
 
+  PiraliBetaArt.begin(level,path,WW,WH,dpth);
+
   // Enemies — evenly distributed, STOP 4 segments before church, +30% count
   const ehp=level<=2?1:level<=4?2:PIRALI_BALANCE.finalBaseEnemyHp;
   const usableSegs=path.length-6; // skip first 2 (start) + last 4 (church approach)
@@ -161,6 +164,8 @@ function genWorld(){
     const type=rng<.52?'ammo':rng<.62?'health':rng<.82?'herb':'medal';
     pickups.push({x:pp.x+(Math.random()-.5)*100,y:pp.y+(Math.random()-.5)*100,bob:Math.random()*6.28,col:false,type});
   }
+
+  PiraliBetaGear.scatterOnFinal(path,pickups,level);
 
   // Ambient nature: flowers, mushrooms along path edges
   ambients=[];

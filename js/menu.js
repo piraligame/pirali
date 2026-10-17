@@ -69,6 +69,7 @@
     version.className='menu-version';
     version.textContent='PIRALI • BETA 0.08 · WEB TEST';
     card.appendChild(version);
+    PiraliBetaLevels.mount(card);
     if(window.PiraliLanguage)window.PiraliLanguage.apply();
   }
   const back=document.createElement('button');
