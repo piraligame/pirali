@@ -22,7 +22,9 @@ regBtn('btn-shoot',shoot);regBtn('btn-sword',swordSwing);regBtn('btn-dash',dash)
 
 // ── COMBAT ──
 function shoot(){
-  if(!running||ammo<=0||P.dead||shootCD>0)return;
+  if(!running||P.dead||shootCD>0)return;
+  if(window.PiraliAlphaGear?.fireIfSelected())return;
+  if(ammo<=0)return;
   ammo--;updateAmmoUI();shootCD=22;
   playGunshot();
   let tgt=null,best=1e9;
