@@ -75,6 +75,8 @@ async function lbFetch(){
 
 // ── push one score to Firebase ──
 async function lbPush(name, sc, lv, win){
+  // Beta is read-only: never write test scores to Alpha's real Firebase database.
+  if(window.PIRALI_BETA?.leaderboardReadOnly){const rows=await lbFetch();return rows??lcLoad();}
   // Checkpoint runs are unranked; never send their points to Firebase.
   if(window.PiraliCheckpoint?.isResumedRun())return lcLoad();
   if(!sc || sc <= 0) { const r = await lbFetch(); return r || lcLoad(); }
@@ -227,6 +229,7 @@ async function lbShow(){
 function lbSetupSave(){} // disabled - URL hardcoded
 
 async function autoSaveScore(sc,lv,win){
+  if(window.PIRALI_BETA?.leaderboardReadOnly)return;
   if(window.PiraliCheckpoint?.isResumedRun())return;
   if(!sc || sc <= 0) return;  // skip zero scores
   const name = localStorage.getItem('pirali_player_name') || 'ანონიმი';
