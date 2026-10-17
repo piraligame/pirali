@@ -1,4 +1,4 @@
-/* PIRALI Beta 0.10 — first-stage visual reskin. Gameplay/physics stay untouched. */
+/* PIRALI Beta 0.11 — restrained image reskin over the existing world and motion. */
 (function(){
   'use strict';
   const image=(src)=>{const i=new Image();i.decoding='async';i.src=src;return i;};
@@ -17,10 +17,10 @@
     const pattern=ctx.createPattern(ground,'repeat');
     if(!pattern)return false;
     ctx.save();
-    // Anchor the repeating forest floor to the world so it scrolls naturally with the camera.
-    ctx.translate(-camX,-camY);ctx.fillStyle=pattern;ctx.fillRect(camX,camY,W,H);
-    // Subtle golden-green grade ties the ground into the Chokhatauri afternoon light.
-    ctx.fillStyle='rgba(157,116,43,.10)';ctx.fillRect(camX,camY,W,H);
+    // Keep the original level colors and details visible; use the new art as a quiet ground texture.
+    ctx.globalAlpha=.24;
+    ctx.translate(-camX,-camY);ctx.scale(2.25,2.25);
+    ctx.fillStyle=pattern;ctx.fillRect(camX/2.25,camY/2.25,W/2.25,H/2.25);
     ctx.restore();
     return true;
   }
@@ -29,16 +29,17 @@
     if(lvl!==1||!ready(hero))return false;
     if(P.dead)return true;
     const speed=Math.hypot(P.vx||0,P.vy||0);
-    const bob=speed>.12?Math.sin(frame*.42)*1.4:Math.sin(frame*.025)*.35;
+    // Preserve the existing walk/breath rhythm without rotating the full illustration toward auto-aim.
+    const walk=typeof P.wAnim==='number'?P.wAnim:frame*.22;
+    const bob=speed>.12?Math.sin(walk)*1.5:Math.sin(frame*.025)*.35;
     ctx.save();
     if(invincible&&Math.floor(Date.now()/85)%2===0)ctx.globalAlpha=.62;
     if(dashing)ctx.globalAlpha=.55;
     ctx.fillStyle='rgba(13,9,5,.35)';
     ctx.beginPath();ctx.ellipse(x+2,y+11,15,5,.08,0,Math.PI*2);ctx.fill();
     ctx.translate(x,y+bob);
-    // Source artwork faces up-screen; rotate it to match the existing movement aim.
-    ctx.rotate((P.ang||0)+Math.PI*.5);
-    const h=64,w=h*(hero.naturalWidth/hero.naturalHeight);
+    // Keep Simona upright like the original screen-oriented character; movement/aim stay in game logic.
+    const h=48,w=h*(hero.naturalWidth/hero.naturalHeight);
     ctx.drawImage(hero,-w*.5,-h*.5,w,h);
     ctx.restore();
     if(swordOn){
@@ -60,8 +61,9 @@
     ctx.save();
     if(e.hf>0&&e.hf%2===0)ctx.filter='brightness(2.7)';
     ctx.fillStyle='rgba(12,8,4,.38)';ctx.beginPath();ctx.ellipse(x+2,y+11,14,4.5,.08,0,Math.PI*2);ctx.fill();
-    ctx.translate(x,y);ctx.rotate((e.ang||0)+Math.PI*.5);
-    const h=62,w=h*(soldier.naturalWidth/soldier.naturalHeight);
+    // Soldiers travel and attack through the original AI; their portrait art stays screen-upright.
+    ctx.translate(x,y);
+    const h=46,w=h*(soldier.naturalWidth/soldier.naturalHeight);
     ctx.drawImage(soldier,-w*.5,-h*.5,w,h);
     // Uniform colors identify the three enemy roles: green saber, yellow pistol, red officer with both.
     const tierColor=e.etype==='officer'?'#a61e18':e.etype==='rifle'?'#d6a721':'#397647';

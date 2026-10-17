@@ -1,6 +1,6 @@
-  if(window.PIRALI_BETA)window.PIRALI_BETA=Object.freeze({...window.PIRALI_BETA,version:'0.10'});
-  document.querySelectorAll('.menu-version').forEach(el=>{el.textContent=el.textContent.replace(/0\.08|0\.09/g,'0.10');});
-/* PIRALI Beta 0.10: outcome navigation and cosmetic-only visual polish. */
+  if(window.PIRALI_BETA)window.PIRALI_BETA=Object.freeze({...window.PIRALI_BETA,version:'0.11'});
+  document.querySelectorAll('.menu-version').forEach(el=>{el.textContent=el.textContent.replace(/0\.08|0\.09|0\.10/g,'0.11');});
+/* PIRALI Beta 0.11: outcome navigation and cosmetic-only visual polish. */
 (function(){
   'use strict';
   const labels={ka:{menu:'🏠 მთავარ მენიუში დაბრუნება',records:'🏆 რეკორდები'},en:{menu:'🏠 RETURN TO MAIN MENU',records:'🏆 LEADERBOARD'},ru:{menu:'🏠 ВЕРНУТЬСЯ В ГЛАВНОЕ МЕНЮ',records:'🏆 РЕКОРДЫ'},zh:{menu:'🏠 返回主菜单',records:'🏆 排行榜'}};

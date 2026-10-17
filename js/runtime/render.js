@@ -104,7 +104,8 @@ function drawBG(){
   else if(isNight){g1='#243818';g2='#182808';g3='#0e1c06';}
   else if(env.w==='mist'){g1='#617960';g2='#506b4a';g3='#3b5136';}
   else{g1='#648950';g2='#507341';g3='#3b5a30';}
-  if(!(window.PiraliBetaVisual?.fillGround(ctx,W,H,camX,camY,level))){ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);}
+  ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
+  window.PiraliBetaVisual?.fillGround(ctx,W,H,camX,camY,level);
 
   // Stars for night (behind everything)
   if(isNight){
@@ -124,7 +125,6 @@ function drawBG(){
   for(let gx=ox;gx<camX+W+TS;gx+=TS){
     for(let gy=oy;gy<camY+H+TS;gy+=TS){
       const hv=th2(Math.floor(gx/TS),Math.floor(gy/TS));
-      if(level===1&&window.PiraliBetaVisual?.groundReady())continue;
       const scx=sx(gx)+TS*.5, scy2=sy(gy)+TS*.5;
       if(hv<.11){
         let dc;
