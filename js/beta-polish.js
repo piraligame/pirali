@@ -1,3 +1,5 @@
+  if(window.PIRALI_BETA)window.PIRALI_BETA=Object.freeze({...window.PIRALI_BETA,version:'0.09'});
+  document.querySelectorAll('.menu-version').forEach(el=>{el.textContent=el.textContent.replace(/0\.08/g,'0.09');});
 /* PIRALI Beta 0.09: outcome navigation and cosmetic-only visual polish. */
 (function(){
   'use strict';
