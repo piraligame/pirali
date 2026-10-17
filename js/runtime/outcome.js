@@ -1,9 +1,10 @@
 function showGameOver(){
+  window.PiraliStats?.result(false,score);
   running=false;paused=false;
   document.getElementById('pause-overlay').style.display='none';
   document.getElementById('btn-pause').textContent='⏸';
   setTimeout(()=>bgmFadeIn(0.38),800);
-  _pendingScore=score;_pendingLevel=level;_pendingWin=false;
+  _pendingScore=score;_pendingLevel=level;_pendingWin=false;autoSaveScore(score,level,false);
   const s=document.getElementById('screen');
   s.className='gameover-screen';
   s.innerHTML=`<div id="screen-overlay"></div>
@@ -19,12 +20,9 @@ function showGameOver(){
   const language=window.PiraliLanguage?.getLanguage?.()||'ka';
   const menuLabels={ka:'🏠 მთავარ მენიუში',en:'🏠 MAIN MENU',ru:'🏠 ГЛАВНОЕ МЕНЮ',zh:'🏠 返回主菜单'};
   if(menuButton)menuButton.textContent=menuLabels[language]||menuLabels.ka;
-  // Show the normal results screen first. Optional stats, checkpoint, or
-  // storage work must never prevent the player from seeing the result/actions.
-  try{window.PiraliStats?.result(false,score);}catch(e){console.warn('PIRALI stats result unavailable',e);}
-  try{window.PiraliCheckpoint?.outcomeNotice();window.PiraliCheckpoint?.updateMode();}catch(e){console.warn('PIRALI checkpoint notice unavailable',e);}
-  try{window.PiraliStats?.renderResult();}catch(e){console.warn('PIRALI result stats unavailable',e);}
-  try{Promise.resolve(autoSaveScore(score,level,false)).catch(e=>console.warn('PIRALI score save unavailable',e));}catch(e){console.warn('PIRALI score save unavailable',e);}
+  window.PiraliCheckpoint?.outcomeNotice();
+  window.PiraliCheckpoint?.updateMode();
+  window.PiraliStats?.renderResult();
 }
 function showVictory(){
   window.PiraliStats?.result(true,score);
