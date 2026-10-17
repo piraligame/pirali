@@ -3,7 +3,7 @@
  */
 window.PIRALI_BETA=Object.freeze({
   active:true,
-  version:'0.11',
+  version:'0.12',
   channel:'web-preview',
   leaderboardReadOnly:true
 });

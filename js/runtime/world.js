@@ -1,4 +1,4 @@
-const WW=2000,WH=3800,CHURCH_X=WW/2,CHURCH_Y=120;
+const WW=2000,WH=3800;let CHURCH_X=WW/2;const CHURCH_Y=120;
 const SPD=1.42,BSPD=6.8,CAM_EASE=0.075;
 const DASH_FORCE=7.5,DASH_DUR=12,DASH_COOLDOWN=180;
 const CAM_ZOOM=0.72; // zoom in (lower = more zoomed in)
@@ -62,6 +62,7 @@ function genWorld(){
   PiraliBetaGear.reset();
   path=[];trees=[];enemies=[];bullets=[];parts=[];pickups=[];corpses=[];ambients=[];bloodDecals=[];_floats.length=0;done=false;boss=null;finalLordSpawned=false;finalVictoryPending=false;finalChurchNotice=false;
   const env=LEVEL_ENV[Math.min(level,5)];
+  CHURCH_X=level===1?650:WW/2;
   weather=env.w;weatherAlpha=0;
 
   // Mountains — regenerate each level
@@ -74,19 +75,27 @@ function genWorld(){
   });
   mountains.sort((a,b)=>a.layer-b.layer);
 
-  // Winding path — last 3 steps guide smoothly to center
-  let ppx=WW/2,ppy=WH-100;
-  path.push({x:ppx,y:ppy});
-  const totalSteps=14+level*2;
-  for(let i=0;i<totalSteps;i++){
-    ppy-=190+Math.random()*140;
-    // Last 3 steps: steer progressively toward CHURCH_X
-    const steerFrac=Math.max(0,(i-(totalSteps-3))/3); // 0→1 in last 3 steps
-    const drift=(Math.random()-.5)*270*(1-steerFrac);
-    const steer=(CHURCH_X-ppx)*steerFrac*.55;
-    ppx+=drift+steer;
-    ppx=Math.max(210,Math.min(WW-210,ppx));
+  // Beta 0.12 level one follows the painted Chokhatauri lane. Other levels
+  // keep the old randomized path exactly as before.
+  if(level===1){
+    path.push(...[
+      {x:940,y:WH-100},{x:850,y:3350},{x:770,y:2950},{x:710,y:2550},
+      {x:670,y:2150},{x:625,y:1750},{x:600,y:1350},{x:595,y:950},
+      {x:610,y:600},{x:650,y:300}
+    ]);
+  }else{
+    let ppx=WW/2,ppy=WH-100;
     path.push({x:ppx,y:ppy});
+    const totalSteps=14+level*2;
+    for(let i=0;i<totalSteps;i++){
+      ppy-=190+Math.random()*140;
+      const steerFrac=Math.max(0,(i-(totalSteps-3))/3);
+      const drift=(Math.random()-.5)*270*(1-steerFrac);
+      const steer=(CHURCH_X-ppx)*steerFrac*.55;
+      ppx+=drift+steer;
+      ppx=Math.max(210,Math.min(WW-210,ppx));
+      path.push({x:ppx,y:ppy});
+    }
   }
   // Final approach: two guide points straight down to church
   const lastPt=path[path.length-1];
@@ -190,7 +199,7 @@ function genWorld(){
     }
   }
 
-  P.x=WW/2;P.y=WH-180;P.vx=P.vy=0;P.dead=false;P.ang=-Math.PI/2;
+  P.x=path[0]?.x||WW/2;P.y=WH-180;P.vx=P.vy=0;P.dead=false;P.ang=-Math.PI/2;
   camX=P.x-W*CAM_ZOOM;camY=P.y-H*CAM_ZOOM;
   dashCD=0;dashing=false;
 }

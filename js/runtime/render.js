@@ -4,16 +4,16 @@ function th2(gx,gy){let h=((gx*1664525+gy*1013904223)&0x7fffffff);h^=h>>13;retur
 // ── RENDER ──
 function render(){
   ctx.clearRect(0,0,W,H);
-  drawBG();
-  PiraliBetaArt.ground(ctx,sx,sy,W,H,level,frame);
+  const levelOneMap=window.PiraliBetaLevelOne?.isActive(level)||false;
+  if(levelOneMap)window.PiraliBetaLevelOne.draw(ctx,camX,camY,WW,WH);
+  else drawBG();
+  if(!levelOneMap)PiraliBetaArt.ground(ctx,sx,sy,W,H,level,frame);
   drawBloodDecals();
-  drawCorpses();drawAmbients();drawChurch();drawSignpost();drawPickups();drawTrees();drawParticles();
+  drawCorpses();
+  if(!levelOneMap){drawAmbients();drawChurch();drawSignpost();drawTrees();}
+  drawPickups();drawParticles();
   if(boss&&boss.groundSlamActive)drawGroundSlam();
-  const ents=[...enemies.filter(e=>e.alive).map(e=>({y:e.y,fn:()=>{
-    if(!(window.PiraliBetaVisual?.drawEnemy(ctx,e,sx(e.x),sy(e.y),level))){drawEnemy(e);PiraliBetaArt.enemy(ctx,e,sx(e.x),sy(e.y));}
-  }})),{y:P.y,fn:()=>{
-    if(!(window.PiraliBetaVisual?.drawHero(ctx,P,sx(P.x),sy(P.y),level,frame))){drawPlayer();PiraliBetaArt.hero(ctx,sx(P.x),sy(P.y),P,level,frame);}
-  }}];
+  const ents=[...enemies.filter(e=>e.alive).map(e=>({y:e.y,fn:()=>{drawEnemy(e);PiraliBetaArt.enemy(ctx,e,sx(e.x),sy(e.y));}})),{y:P.y,fn:()=>{drawPlayer();PiraliBetaArt.hero(ctx,sx(P.x),sy(P.y),P,level,frame);}}];
   if(boss&&boss.alive)ents.push({y:boss.y,fn:()=>drawBoss(boss)});
   ents.sort((a,b)=>a.y-b.y).forEach(e=>e.fn());
   drawBullets();
@@ -105,7 +105,6 @@ function drawBG(){
   else if(env.w==='mist'){g1='#617960';g2='#506b4a';g3='#3b5136';}
   else{g1='#648950';g2='#507341';g3='#3b5a30';}
   ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
-  window.PiraliBetaVisual?.fillGround(ctx,W,H,camX,camY,level);
 
   // Stars for night (behind everything)
   if(isNight){
