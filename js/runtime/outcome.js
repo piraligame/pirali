@@ -1,4 +1,5 @@
 function showGameOver(){
+  window.PiraliCheckpoint?.clear(); // Do not resume a stage after death.
   window.PiraliStats?.result(false,score);
   running=false;paused=false;
   document.getElementById('pause-overlay').style.display='none';
