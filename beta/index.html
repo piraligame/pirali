@@ -4,21 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="robots" content="noindex,nofollow">
-<title>ფირალი — Beta 0.09</title>
+<title>ფირალი — Beta 0.10</title>
 <style>html,body{margin:0;min-height:100%;background:#10131a;color:#fff;font:16px system-ui,sans-serif}.msg{min-height:100vh;display:grid;place-content:center;text-align:center;padding:24px;box-sizing:border-box}</style>
 </head>
 <body><main class="msg">ფირალის ბეტა იტვირთება…</main>
 <script>
 (async()=>{
  try{
-  const release='https://cdn.jsdelivr.net/gh/piraligame/pirali@6a89dc09ad26dc25a02f266fd8e0eaba43781b22/';
-  const response=await fetch(release+'index.html?release=beta-009b',{cache:'no-store'});
+  const release='https://cdn.jsdelivr.net/gh/piraligame/pirali@e8f48e7c8456c37e507641549266c4d56e43f102/';
+  const response=await fetch(release+'index.html?release=beta-010b',{cache:'no-store'});
   if(!response.ok) throw new Error('ბეტა ვერ ჩაიტვირთა ('+response.status+')');
   let html=await response.text();
   if(!html.includes('<head>')) throw new Error('ბეტას გვერდის ფორმატი ვერ წაიკითხა');
-  html=html.replace(/0\.08/g,'0.09');
+  html=html.replace(/0\.08/g,'0.10');
   html=html.replace('<head>','<head>\n<base href="'+release+'">');
-  html=html.replace('</body>','<script src="js/beta-polish.js?v=beta-009b"><\/script>\n</body>');
   document.open();document.write(html);document.close();
  }catch(error){document.body.innerHTML='<main class="msg">ბეტას ჩატვირთვა ვერ მოხერხდა.<br>გადაამოწმე ინტერნეტი და განაახლე გვერდი.<br><small>'+String(error.message||error)+'</small></main>';}
 })();
