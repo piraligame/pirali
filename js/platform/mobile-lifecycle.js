@@ -76,6 +76,7 @@
   }
 
   function handleBack(){
+    if(window.PiraliStats?.visible()){window.PiraliStats.hide();return 'close-personal-stats';}
     if(dialog&&!dialog.hidden){closeQuit();return 'cancel-exit';}
     if(el('pirali-video-intro')){
       el('pirali-intro-skip')?.click();

@@ -1,5 +1,5 @@
 let last=0;
-function loop(ts){const dt=Math.min((ts-last)/16.67,2.5);last=ts;if(running&&!paused){update(dt);render();}requestAnimationFrame(loop);}
+function loop(ts){const dt=Math.min((ts-last)/16.67,2.5);last=ts;window.PiraliStats?.clockTick(ts,running&&!paused);if(running&&!paused){update(dt);render();}requestAnimationFrame(loop);}
 updateHealthUI();updateAmmoUI();
 requestAnimationFrame(loop);
 // Start BGM on first user interaction (mobile autoplay policy)

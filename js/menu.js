@@ -31,6 +31,7 @@
       back.style.display='block';
     });
     actions.appendChild(records);
+    window.PiraliStats?.mountMenu(actions);
     card.appendChild(actions);
     window.PiraliCheckpoint?.mountMenu(card);
 
@@ -66,7 +67,7 @@
 
     const version=document.createElement('div');
     version.className='menu-version';
-    version.textContent='PIRALI • PREVIEW 0.2';
+    version.textContent='PIRALI • ANDROID TEST 1.0.4';
     card.appendChild(version);
     if(window.PiraliLanguage)window.PiraliLanguage.apply();
   }

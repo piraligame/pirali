@@ -1,4 +1,5 @@
 function showGameOver(){
+  window.PiraliStats?.result(false,score);
   running=false;paused=false;
   document.getElementById('pause-overlay').style.display='none';
   document.getElementById('btn-pause').textContent='⏸';
@@ -16,8 +17,10 @@ function showGameOver(){
   if(window.PiraliLanguage)window.PiraliLanguage.applyOutcome();
   window.PiraliCheckpoint?.outcomeNotice();
   window.PiraliCheckpoint?.updateMode();
+  window.PiraliStats?.renderResult();
 }
 function showVictory(){
+  window.PiraliStats?.result(true,score);
   running=false;paused=false;
   document.getElementById('pause-overlay').style.display='none';
   document.getElementById('btn-pause').textContent='⏸';
@@ -37,5 +40,6 @@ function showVictory(){
   if(window.PiraliLanguage)window.PiraliLanguage.applyOutcome();
   window.PiraliCheckpoint?.outcomeNotice();
   window.PiraliCheckpoint?.updateMode();
+  window.PiraliStats?.renderResult();
 }
 

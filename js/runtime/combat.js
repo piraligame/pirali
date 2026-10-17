@@ -93,6 +93,7 @@ function hitEnemy(e){
 
 function killEnemy(e){
   e.alive=false;
+  window.PiraliStats?.kill();
   if(e.etype==='landlord'){
     if(finalVictoryPending)return;
     finalVictoryPending=true;
@@ -127,7 +128,7 @@ function hitBoss(b,dmg=1){
   for(let i=0;i<8;i++) spawnPart(b.x,b.y,(Math.random()-.5)*6,(Math.random()-.5)*6,14,'#cc2020',3+Math.random()*3);
   // Phase 2 transition is handled by update() (one source of truth).
   updateBossUI();
-  if(b.hp<=0){b.alive=false;score+=1000*level;updateScoreUI();hideBossUI();
+  if(b.hp<=0){b.alive=false;window.PiraliStats?.kill();score+=1000*level;updateScoreUI();hideBossUI();
     for(let i=0;i<30;i++) spawnPart(b.x,b.y,(Math.random()-.5)*10,(Math.random()-.5)*10,30,i%4===0?'#f0c020':'#cc1818',4+Math.random()*4);
     corpses.push({x:b.x,y:b.y,ang:b.ang,r:b.r,etype:'boss'});
     if(level===5&&!finalLordSpawned)spawnLandlordNPC(b.x,b.y);

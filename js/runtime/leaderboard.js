@@ -171,6 +171,7 @@ function escHtml(s){
 // ── auto-save after game ends ──
 
 async function lbShow(){
+  window.PiraliStats?.mountLeaderboard();
   document.getElementById('lb-play').style.display='block';bgmFadeIn(0.28);
   const nameEl=document.getElementById('lb-name');
   nameEl.value=localStorage.getItem('pirali_player_name')||'';

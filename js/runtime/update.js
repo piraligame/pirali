@@ -60,7 +60,9 @@ function update(dt){
         finalChurchNotice=true;
       }
     }else{
-      done=true;level++;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();
+      done=true;
+      window.PiraliStats?.completeStage(level);
+      level++;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();
       playLevelUp();
       const nextLevel=level;
       window.PiraliCheckpoint?.save(nextLevel);
@@ -68,7 +70,7 @@ function update(dt){
       showBanner(LEVEL_NAMES[nextLevel]);
       setTimeout(()=>{
         if(running&&level===nextLevel&&!P.dead&&runId===window.PiraliCheckpoint?.getSession()){
-          genWorld();showBanner(LEVEL_NAMES[nextLevel]);
+          genWorld();window.PiraliStats?.stageReady(nextLevel);showBanner(LEVEL_NAMES[nextLevel]);
         }
       },2800);
     }
