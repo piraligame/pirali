@@ -78,10 +78,14 @@
   back.addEventListener('click',function(){
     leaderboard.style.display='none';
     back.style.display='none';
-    screen.style.display='flex';
-    if(typeof bgmStop==='function')bgmStop();
+    if(typeof goToMenu==='function')goToMenu();
   });
   leaderboard.appendChild(back);
+
+  const leaderboardObserver=new MutationObserver(function(){
+    if(leaderboard.style.display==='flex')back.style.display='block';
+  });
+  leaderboardObserver.observe(leaderboard,{attributes:true,attributeFilter:['style']});
 
   // Game code reconstructs the menu after exiting a level.
   // Recreate only menu presentation after that built-in transition.
