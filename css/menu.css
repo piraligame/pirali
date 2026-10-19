@@ -140,3 +140,9 @@
   }
   #screen .main-menu-panel:has(.menu-continue:not([hidden])) .tsub{margin-bottom:6px;}
 }
+
+.menu-privacy{align-self:center;display:block;margin:9px auto 3px;background:transparent;color:#c4aa67;border:0;text-decoration:underline;cursor:pointer;font:11px Georgia,serif;letter-spacing:.3px;padding:5px 10px}
+#pirali-privacy-overlay{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:20000;display:flex;justify-content:center;align-items:center;padding:12px;box-sizing:border-box}
+.pirali-privacy-panel{height:min(94vh,1000px);width:min(100%,820px);background:#15100c;border:1px solid #d3a351;border-radius:10px;display:flex;flex-direction:column;overflow:hidden}
+.pirali-privacy-close{font-size:26px;color:#f3dbab;background:#2d1c0a;border:0;padding:9px 17px;cursor:pointer;align-self:flex-end}
+.pirali-privacy-panel iframe{border:none;width:100%;flex:1;background:#17130d}

@@ -5,6 +5,24 @@
   const leaderboard=document.getElementById('lb-overlay');
   if(!screen||!leaderboard)return;
 
+  const privacyLabels={ka:'კონფიდენციალურობა',en:'PRIVACY POLICY',ru:'ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ',zh:'隐私政策'};
+  function refreshPrivacyLabel(){
+    const button=document.querySelector('#screen .menu-privacy');
+    if(button)button.textContent='🔒 '+(privacyLabels[window.PiraliLanguage?.getLanguage?.()||'ka']||privacyLabels.ka);
+  }
+  function showPrivacyPolicy(){
+    if(document.getElementById('pirali-privacy-overlay'))return;
+    const overlay=document.createElement('div');overlay.id='pirali-privacy-overlay';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');
+    const panel=document.createElement('div');panel.className='pirali-privacy-panel';
+    const close=document.createElement('button');close.type='button';close.className='pirali-privacy-close';close.textContent='✕';close.setAttribute('aria-label','Close privacy policy');
+    close.addEventListener('click',()=>overlay.remove());
+    const frame=document.createElement('iframe');frame.src='privacy.html';frame.title='PIRALI — Privacy Policy';
+    panel.append(close,frame);overlay.appendChild(panel);document.body.appendChild(overlay);
+    overlay.addEventListener('click',event=>{if(event.target===overlay)overlay.remove()});close.focus();
+  }
+  document.addEventListener('pirali:languagechange',refreshPrivacyLabel);
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')document.getElementById('pirali-privacy-overlay')?.remove()});
+
   function addMenuPanel(){
     if(screen.classList.contains('gameover-screen')||screen.classList.contains('victory-screen'))return;
     if(screen.querySelector('.main-menu-panel'))return;
@@ -65,9 +83,13 @@
     picker.appendChild(choices);
     card.insertBefore(picker,card.firstChild);
 
+    const privacy=document.createElement('button');
+    privacy.type='button';privacy.className='menu-privacy';
+    privacy.addEventListener('click',showPrivacyPolicy);
+    card.appendChild(privacy);refreshPrivacyLabel();
     const version=document.createElement('div');
     version.className='menu-version';
-    version.textContent='PIRALI • ALPHA TEST 0.09';
+    version.textContent='PIRALI • ALPHA TEST 0.10';
     card.appendChild(version);
     if(window.PiraliLanguage)window.PiraliLanguage.apply();
   }

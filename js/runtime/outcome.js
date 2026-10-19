@@ -41,7 +41,8 @@ function showVictory(){
   <h1 style="font-size:28px;letter-spacing:6px;margin-top:-8px;">ეკლესია!</h1>
   <div class="tsub">სამშობლო გადარჩა</div>
   <div class="sbox"><p>ქულა: <strong style="color:#f0d020;font-size:24px;" class="score-reveal">${score.toLocaleString()}</strong><br><span style="font-size:11px;color:#907030;">სიმონა თამარის ეკლესიამდე მივიდა!</span></p></div>
-  <button class="sbtn" style="background:linear-gradient(180deg,#5c380a,#2e1a04);border-color:#d8a820;" onclick="document.getElementById('screen').style.display='none';lbShow()">🏆 რეკორდები</button>`;
+  <button class="sbtn" style="background:linear-gradient(180deg,#5c380a,#2e1a04);border-color:#d8a820;" onclick="document.getElementById('screen').style.display='none';lbShow()">🏆 რეკორდები</button>
+  <button class="sbtn alpha-outcome-menu" onclick="goToMenu()">🏠 მთავარ მენიუში</button>`;
   s.style.display='flex';
   if(window.PiraliLanguage)window.PiraliLanguage.applyOutcome();
   window.PiraliCheckpoint?.outcomeNotice();

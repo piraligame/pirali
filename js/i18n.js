@@ -201,7 +201,7 @@
     if(!s)return;
     if(s.classList.contains('gameover-screen')){
       setText('.tdeco','failEyebrow',s);setText('h1','failTitle',s);
-      setText('.tsub','failSub',s);setText('button.sbtn','achievement',s);
+      setText('.tsub','failSub',s);setText('button.sbtn','achievement',s);setText('.alpha-outcome-menu','mainMenu',s);
       const p=s.querySelector('.sbox p');
       if(p){
         const node=Array.from(p.childNodes).find(n=>n.nodeType===Node.TEXT_NODE);
@@ -216,7 +216,7 @@
     }else if(s.classList.contains('victory-screen')){
       setText('.tdeco','victoryEyebrow',s);
       setText('h1[style*="28px"]','victoryTitle',s);
-      setText('.tsub','victorySub',s);setText('button.sbtn','achievement',s);
+      setText('.tsub','victorySub',s);setText('button.sbtn','achievement',s);setText('.alpha-outcome-menu','mainMenu',s);
       const p=s.querySelector('.sbox p');
       if(p){
         const node=Array.from(p.childNodes).find(n=>n.nodeType===Node.TEXT_NODE);

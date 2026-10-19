@@ -24,6 +24,9 @@ try{
     if($LASTEXITCODE -ne 0){throw 'npm web build failed'}
     & (Join-Path $root 'node_modules\.bin\cap.cmd') sync android
     if($LASTEXITCODE -ne 0){throw 'Capacitor Android sync failed'}
+    $version=(Select-String -Path (Join-Path $root 'android\app\build.gradle') -Pattern 'versionName\s+"([^"]+)"' | Select-Object -First 1).Matches.Groups[1].Value
+    $code=(Select-String -Path (Join-Path $root 'android\app\build.gradle') -Pattern 'versionCode\s+(\d+)' | Select-Object -First 1).Matches.Groups[1].Value
+    if([int]$code -lt 10 -or $version -ne ('0.'+([int]$code).ToString('00'))){throw 'Refusing inconsistent release version'}
     # Gradle's Windows .bat launcher cannot handle Georgian characters in the Desktop path.
     # Use a temporary ASCII-only virtual drive to preserve the ORIGINAL source tree.
     if(Test-Path 'Q:\\'){throw 'Drive Q: is already in use; choose another temporary drive'}
@@ -54,7 +57,8 @@ try{
       $aapt=Join-Path $sdk 'build-tools\36.0.0\aapt.exe'
       $badging=& $aapt dump badging 'Q:\android\app\build\outputs\apk\release\app-release.apk'
       if($LASTEXITCODE -ne 0){throw 'APK manifest inspection failed'}
-      if(-not ($badging | Select-String "name='ge.piraligame.pirali' versionCode='7' versionName='0.07'")){throw 'Android package/version mismatch'}
+      $expectedPackage="name='ge.piraligame.pirali' versionCode='$code' versionName='$version'"
+      if(-not ($badging | Select-String -SimpleMatch $expectedPackage)){throw ('Android package/version mismatch: expected '+$expectedPackage)}
       Write-Output (($badging | Select-String '^(package:|application-label:)') | Select-Object -First 2)
     }finally{
       & subst.exe 'Q:' /D | Out-Null

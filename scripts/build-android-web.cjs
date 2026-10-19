@@ -42,7 +42,7 @@ function addTree(directory){
   visit(src);
 }
 addTree('assets');addTree('data');
-add('manifest.json');
+add('manifest.json');add('privacy.html');
 const manifest=JSON.parse(fs.readFileSync(path.join(project,'manifest.json'),'utf8'));
 const missingAppIcons=[...new Set((manifest.icons||[]).map(i=>i.src))].filter(s=>!fs.existsSync(path.join(project,s)));
 fs.writeFileSync(marker,'PIRALI generated bundle. Safe to replace with npm run build:android-web.\n');
