@@ -1,0 +1,547 @@
+{
+  "description": "Exact original Canvas render function snapshots from PIRALI Alpha 0.10 source, not AI-generated.",
+  "source": "piraligame/pirali release/alpha-0.10-play",
+  "count": 36,
+  "models": [
+    {
+      "id": "simona",
+      "kind": "player",
+      "name": "სიმონა — მაუზერი",
+      "angle": "north",
+      "angleName": "ზემოთ",
+      "file": "simona-north.png",
+      "bytes": 31642,
+      "center": [
+        28,
+        19,
+        7,
+        255
+      ]
+    },
+    {
+      "id": "simona",
+      "kind": "player",
+      "name": "სიმონა — მაუზერი",
+      "angle": "east",
+      "angleName": "მარჯვნივ",
+      "file": "simona-east.png",
+      "bytes": 33397,
+      "center": [
+        27,
+        18,
+        7,
+        255
+      ]
+    },
+    {
+      "id": "simona",
+      "kind": "player",
+      "name": "სიმონა — მაუზერი",
+      "angle": "south",
+      "angleName": "ქვემოთ",
+      "file": "simona-south.png",
+      "bytes": 34025,
+      "center": [
+        143,
+        107,
+        17,
+        255
+      ]
+    },
+    {
+      "id": "simona",
+      "kind": "player",
+      "name": "სიმონა — მაუზერი",
+      "angle": "west",
+      "angleName": "მარცხნივ",
+      "file": "simona-west.png",
+      "bytes": 34392,
+      "center": [
+        28,
+        19,
+        8,
+        255
+      ]
+    },
+    {
+      "id": "simona-sword",
+      "kind": "player",
+      "name": "სიმონა — ხმალი",
+      "angle": "north",
+      "angleName": "ზემოთ",
+      "file": "simona-sword-north.png",
+      "bytes": 31585,
+      "center": [
+        28,
+        19,
+        7,
+        255
+      ]
+    },
+    {
+      "id": "simona-sword",
+      "kind": "player",
+      "name": "სიმონა — ხმალი",
+      "angle": "east",
+      "angleName": "მარჯვნივ",
+      "file": "simona-sword-east.png",
+      "bytes": 33934,
+      "center": [
+        27,
+        18,
+        7,
+        255
+      ]
+    },
+    {
+      "id": "simona-sword",
+      "kind": "player",
+      "name": "სიმონა — ხმალი",
+      "angle": "south",
+      "angleName": "ქვემოთ",
+      "file": "simona-sword-south.png",
+      "bytes": 31641,
+      "center": [
+        143,
+        107,
+        17,
+        255
+      ]
+    },
+    {
+      "id": "simona-sword",
+      "kind": "player",
+      "name": "სიმონა — ხმალი",
+      "angle": "west",
+      "angleName": "მარცხნივ",
+      "file": "simona-sword-west.png",
+      "bytes": 33446,
+      "center": [
+        28,
+        19,
+        8,
+        255
+      ]
+    },
+    {
+      "id": "simona-run",
+      "kind": "player",
+      "name": "სიმონა — სირბილი",
+      "angle": "north",
+      "angleName": "ზემოთ",
+      "file": "simona-run-north.png",
+      "bytes": 33967,
+      "center": [
+        22,
+        8,
+        3,
+        255
+      ]
+    },
+    {
+      "id": "simona-run",
+      "kind": "player",
+      "name": "სიმონა — სირბილი",
+      "angle": "east",
+      "angleName": "მარჯვნივ",
+      "file": "simona-run-east.png",
+      "bytes": 35141,
+      "center": [
+        20,
+        13,
+        4,
+        255
+      ]
+    },
+    {
+      "id": "simona-run",
+      "kind": "player",
+      "name": "სიმონა — სირბილი",
+      "angle": "south",
+      "angleName": "ქვემოთ",
+      "file": "simona-run-south.png",
+      "bytes": 35003,
+      "center": [
+        223,
+        181,
+        38,
+        255
+      ]
+    },
+    {
+      "id": "simona-run",
+      "kind": "player",
+      "name": "სიმონა — სირბილი",
+      "angle": "west",
+      "angleName": "მარცხნივ",
+      "file": "simona-run-west.png",
+      "bytes": 35974,
+      "center": [
+        28,
+        19,
+        8,
+        255
+      ]
+    },
+    {
+      "id": "soldier-sword",
+      "kind": "sword",
+      "name": "რიგითი ჯარისკაცი",
+      "angle": "north",
+      "angleName": "ზემოთ",
+      "file": "soldier-sword-north.png",
+      "bytes": 28087,
+      "center": [
+        89,
+        57,
+        21,
+        255
+      ]
+    },
+    {
+      "id": "soldier-sword",
+      "kind": "sword",
+      "name": "რიგითი ჯარისკაცი",
+      "angle": "east",
+      "angleName": "მარჯვნივ",
+      "file": "soldier-sword-east.png",
+      "bytes": 27483,
+      "center": [
+        74,
+        44,
+        10,
+        255
+      ]
+    },
+    {
+      "id": "soldier-sword",
+      "kind": "sword",
+      "name": "რიგითი ჯარისკაცი",
+      "angle": "south",
+      "angleName": "ქვემოთ",
+      "file": "soldier-sword-south.png",
+      "bytes": 27448,
+      "center": [
+        72,
+        44,
+        9,
+        255
+      ]
+    },
+    {
+      "id": "soldier-sword",
+      "kind": "sword",
+      "name": "რიგითი ჯარისკაცი",
+      "angle": "west",
+      "angleName": "მარცხნივ",
+      "file": "soldier-sword-west.png",
+      "bytes": 27850,
+      "center": [
+        171,
+        126,
+        81,
+        255
+      ]
+    },
+    {
+      "id": "soldier-rifle",
+      "kind": "rifle",
+      "name": "მსროლელი ჯარისკაცი",
+      "angle": "north",
+      "angleName": "ზემოთ",
+      "file": "soldier-rifle-north.png",
+      "bytes": 27986,
+      "center": [
+        192,
+        144,
+        96,
+        255
+      ]
+    },
+    {
+      "id": "soldier-rifle",
+      "kind": "rifle",
+      "name": "მსროლელი ჯარისკაცი",
+      "angle": "east",
+      "angleName": "მარჯვნივ",
+      "file": "soldier-rifle-east.png",
+      "bytes": 27602,
+      "center": [
+        34,
+        34,
+        34,
+        255
+      ]
+    },
+    {
+      "id": "soldier-rifle",
+      "kind": "rifle",
+      "name": "მსროლელი ჯარისკაცი",
+      "angle": "south",
+      "angleName": "ქვემოთ",
+      "file": "soldier-rifle-south.png",
+      "bytes": 27580,
+      "center": [
+        240,
+        224,
+        64,
+        255
+      ]
+    },
+    {
+      "id": "soldier-rifle",
+      "kind": "rifle",
+      "name": "მსროლელი ჯარისკაცი",
+      "angle": "west",
+      "angleName": "მარცხნივ",
+      "file": "soldier-rifle-west.png",
+      "bytes": 28036,
+      "center": [
+        34,
+        34,
+        34,
+        255
+      ]
+    },
+    {
+      "id": "officer",
+      "kind": "officer",
+      "name": "ოფიცერი",
+      "angle": "north",
+      "angleName": "ზემოთ",
+      "file": "officer-north.png",
+      "bytes": 30868,
+      "center": [
+        200,
+        160,
+        104,
+        255
+      ]
+    },
+    {
+      "id": "officer",
+      "kind": "officer",
+      "name": "ოფიცერი",
+      "angle": "east",
+      "angleName": "მარჯვნივ",
+      "file": "officer-east.png",
+      "bytes": 30456,
+      "center": [
+        200,
+        160,
+        104,
+        255
+      ]
+    },
+    {
+      "id": "officer",
+      "kind": "officer",
+      "name": "ოფიცერი",
+      "angle": "south",
+      "angleName": "ქვემოთ",
+      "file": "officer-south.png",
+      "bytes": 29064,
+      "center": [
+        248,
+        208,
+        48,
+        255
+      ]
+    },
+    {
+      "id": "officer",
+      "kind": "officer",
+      "name": "ოფიცერი",
+      "angle": "west",
+      "angleName": "მარცხნივ",
+      "file": "officer-west.png",
+      "bytes": 29481,
+      "center": [
+        200,
+        160,
+        104,
+        255
+      ]
+    },
+    {
+      "id": "general",
+      "kind": "boss",
+      "name": "ბოსი — გენერალი",
+      "angle": "north",
+      "angleName": "ზემოთ",
+      "file": "general-north.png",
+      "bytes": 48442,
+      "center": [
+        64,
+        8,
+        8,
+        255
+      ]
+    },
+    {
+      "id": "general",
+      "kind": "boss",
+      "name": "ბოსი — გენერალი",
+      "angle": "east",
+      "angleName": "მარჯვნივ",
+      "file": "general-east.png",
+      "bytes": 49329,
+      "center": [
+        64,
+        8,
+        8,
+        255
+      ]
+    },
+    {
+      "id": "general",
+      "kind": "boss",
+      "name": "ბოსი — გენერალი",
+      "angle": "south",
+      "angleName": "ქვემოთ",
+      "file": "general-south.png",
+      "bytes": 50048,
+      "center": [
+        40,
+        10,
+        10,
+        255
+      ]
+    },
+    {
+      "id": "general",
+      "kind": "boss",
+      "name": "ბოსი — გენერალი",
+      "angle": "west",
+      "angleName": "მარცხნივ",
+      "file": "general-west.png",
+      "bytes": 50620,
+      "center": [
+        64,
+        8,
+        8,
+        255
+      ]
+    },
+    {
+      "id": "general-rage",
+      "kind": "boss",
+      "name": "გენერალი — მეორე ფაზა",
+      "angle": "north",
+      "angleName": "ზემოთ",
+      "file": "general-rage-north.png",
+      "bytes": 121669,
+      "center": [
+        89,
+        12,
+        12,
+        255
+      ]
+    },
+    {
+      "id": "general-rage",
+      "kind": "boss",
+      "name": "გენერალი — მეორე ფაზა",
+      "angle": "east",
+      "angleName": "მარჯვნივ",
+      "file": "general-rage-east.png",
+      "bytes": 123739,
+      "center": [
+        89,
+        12,
+        12,
+        255
+      ]
+    },
+    {
+      "id": "general-rage",
+      "kind": "boss",
+      "name": "გენერალი — მეორე ფაზა",
+      "angle": "south",
+      "angleName": "ქვემოთ",
+      "file": "general-rage-south.png",
+      "bytes": 123544,
+      "center": [
+        40,
+        10,
+        10,
+        255
+      ]
+    },
+    {
+      "id": "general-rage",
+      "kind": "boss",
+      "name": "გენერალი — მეორე ფაზა",
+      "angle": "west",
+      "angleName": "მარცხნივ",
+      "file": "general-rage-west.png",
+      "bytes": 125440,
+      "center": [
+        89,
+        12,
+        12,
+        255
+      ]
+    },
+    {
+      "id": "landlord",
+      "kind": "landlord",
+      "name": "ბატონი",
+      "angle": "north",
+      "angleName": "ზემოთ",
+      "file": "landlord-north.png",
+      "bytes": 24474,
+      "center": [
+        192,
+        144,
+        96,
+        255
+      ]
+    },
+    {
+      "id": "landlord",
+      "kind": "landlord",
+      "name": "ბატონი",
+      "angle": "east",
+      "angleName": "მარჯვნივ",
+      "file": "landlord-east.png",
+      "bytes": 24465,
+      "center": [
+        192,
+        144,
+        96,
+        255
+      ]
+    },
+    {
+      "id": "landlord",
+      "kind": "landlord",
+      "name": "ბატონი",
+      "angle": "south",
+      "angleName": "ქვემოთ",
+      "file": "landlord-south.png",
+      "bytes": 24471,
+      "center": [
+        192,
+        144,
+        96,
+        255
+      ]
+    },
+    {
+      "id": "landlord",
+      "kind": "landlord",
+      "name": "ბატონი",
+      "angle": "west",
+      "angleName": "მარცხნივ",
+      "file": "landlord-west.png",
+      "bytes": 24468,
+      "center": [
+        192,
+        144,
+        96,
+        255
+      ]
+    }
+  ]
+}
