@@ -1,0 +1,56 @@
+<!doctype html><html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PIRALI 0.11 — ორიგინალი და გალამაზებული პერსონაჟები</title>
+<style>
+*{box-sizing:border-box}:root{color-scheme:dark}body{margin:0;background:#101510;color:#eee3c9;font:15px/1.5 system-ui,Segoe UI,sans-serif}
+header{padding:20px 4vw;background:linear-gradient(110deg,#242a1d,#191a13);border-bottom:2px solid #a48043}
+h1{margin:5px 0 8px;font-size:clamp(23px,3vw,34px);color:#f1cc86}header small{letter-spacing:3px;color:#d1a45c}
+p{color:#c5bca8;margin:5px 0;max-width:1000px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button{border:1px solid #916c38;background:#292c1e;color:#f3dfbf;border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer}
+button.on,button:hover{background:#77512b}main{max-width:1440px;margin:20px auto;padding:0 15px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 22px}.panel{background:#20291e;border:1px solid #6b603d;border-radius:12px;overflow:hidden}
+.panel h2{margin:0;font-size:19px;padding:10px 12px;background:#242d21;color:#e5c68b}
+.panel small{display:block;padding:3px 12px 8px;color:#bdaf8e}.image{position:relative;background-color:#394236;
+background-image:linear-gradient(45deg,#465147 25%,transparent 25%),linear-gradient(-45deg,#465147 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#465147 75%),linear-gradient(-45deg,transparent 75%,#465147 75%);
+background-size:28px 28px;background-position:0 0,0 14px,14px -14px,-14px 0}
+.image img{width:100%;max-height:600px;object-fit:contain;aspect-ratio:1;display:block}
+.state{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:15px 0}.state h2{margin:0;font-size:22px}
+.desc{font-size:14px;color:#c9bd9e;margin-bottom:20px}
+footer{border-top:1px solid #72603f;padding:18px 4vw 30px;color:#b7ad97}
+@media(max-width:700px){.compare{gap:7px}.panel h2{font-size:14px;padding:8px}.state h2{font-size:17px}.image img{max-height:320px}}
+</style></head>
+<body><header><small>PIRALI · TOP-DOWN VISUAL REFINEMENT</small><h1>სიმონა და ჯარისკაცები — ორიგინალი VS ახალი</h1>
+<p>ესენი შენი ნამდვილი თამაშიდან ამოღებული მოდელებია. მარცხნივ ორიგინალია (Alpha 0.10); მარჯვნივ — იმავე მოდელის დახვეწის პირველი საცდელი ვერსია, ისევ ზემოდან დანახული კამერისთვის. ღილაკებით გადაატრიალე ხედვა.</p>
+<div class="actions"><button class="on" data-dir="north">↑ ზემოთ</button><button data-dir="east">→ მარჯვნივ</button><button data-dir="south">↓ ქვემოთ</button><button data-dir="west">← მარცხნივ</button></div>
+</header><main id="gallery"></main>
+<footer>უსაფრთხოება: ეს მხოლოდ გრაფიკის გამოცდია. ორიგინალური ფუნქციები შენახულია, თამაშის ფიზიკა, სიჩქარე, ტესტირებული Alpha 0.10, Firebase და Beta ხელუხლებელია. ბატონი საერთოდ არ გადაგვიხატავს — მის სურათს შენგან ველოდებით. ახალი სახე მხოლოდ შენი მოწონების შემდეგ გადავა გამოშვების ვერსიაში.</footer>
+<script>
+const m=[
+ ['simona','სიმონა — მაუზერი','ჩოხა, ყაბალახი, ვაზნები და მაუზერი.'],
+ ['simona-sword','სიმონა — ხმალი','ხმლით შეტევის ხედები.'],
+ ['simona-run','სიმონა — მოძრაობა','სირბილის გამოსახულება იმავე ხედში.'],
+ ['soldier-sword','რუსი რიგითი','მწვანე მუნდირი, ბუდიონოვკა და ხმალი.'],
+ ['soldier-rifle','რუსი მსროლელი','სამხედრო ფორმა, შაშხანა და აღჭურვილობა.'],
+ ['officer','რუსი ოფიცერი','ოფიცრის ფორმა და პისტოლეტი.'],
+ ['general','ბოსი გენერალი','გენერლის მუნდირი და ხმალი.'],
+ ['general-rage','გენერალი — მეორე ფაზა','დაზიანებული გენერლის მუქი, უფრო აგრესიული მდგომარეობა.'],
+ ['landlord','ბატონი (უცვლელი)','ჯერ არ შეცვლილა. მის საბოლოო გამოსახულებას შენ მოგვაწვდი.']
+];
+const gal=document.getElementById('gallery');let dir='north';
+for(const [id,title,description]of m){
+ const sec=document.createElement('section');sec.className='character';sec.dataset.id=id;
+ const head=document.createElement('div');head.className='state';const h=document.createElement('h2');h.textContent=title;head.append(h);
+ const row=document.createElement('div');row.className='compare';
+ for(const [folder,name] of [['original-models','ორიგინალი · Alpha 0.10'],['polished-models','ახალი · 0.11 სტატიკური ხელ-ფეხის გარეშე']]){
+  const box=document.createElement('div');box.className='panel';const caption=document.createElement('h2');caption.textContent=name;
+  const art=document.createElement('div');art.className='image';const img=document.createElement('img');
+  img.dataset.folder=folder;img.dataset.model=id;img.alt=title+' — '+name;img.src=folder+'/'+id+'-'+dir+'.png';art.append(img);box.append(caption,art);
+  const foot=document.createElement('small');foot.textContent='გამჭვირვალე PNG • 512 × 512';box.append(foot);row.append(box);
+ }
+ const desc=document.createElement('p');desc.className='desc';desc.textContent=description;
+ sec.append(head,row,desc);gal.append(sec);
+}
+document.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('[data-dir]').forEach(x=>x.classList.remove('on'));b.classList.add('on');dir=b.dataset.dir;
+ document.querySelectorAll('.image img').forEach(img=>img.src=img.dataset.folder+'/'+img.dataset.model+'-'+dir+'.png');
+}));
+</script></body></html>
