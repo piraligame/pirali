@@ -174,7 +174,9 @@ function drawBG(){
   }
 
   // ── ROCKS ──
-  for(let ri=0;ri<55;ri++){
+  // Visual rock scatter belongs to the rural and desert tours only.
+  // Tour 5's historic courtyard architecture is left untouched.
+  if(level===3||level===4)for(let ri=0;ri<55;ri++){
     const rx=th2(ri*7,13)*WW, ry=280+th2(ri*13,7)*(WH-500);
     const rsc=sx(rx), rscy=sy(ry);
     if(rsc<-35||rsc>W+35||rscy<-35||rscy>H+35||dpth(rx,ry)<90)continue;

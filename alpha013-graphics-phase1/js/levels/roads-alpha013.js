@@ -17,7 +17,7 @@ const rnd=(n)=>{let v=n|0;return()=>{v=(Math.imul(v,1664525)+1013904223)|0;retur
 function prepare(){
  if(path===currentPath&&level===currentLevel)return;
  currentPath=path;currentLevel=level;stoneRows=[];builds++;
- if(!Array.isArray(path)||path.length<2)return;
+ if(!Array.isArray(path)||path.length<2||!(level===3||level===4))return;
  const random=rnd(550122+level*9911);
  for(let i=0;i<path.length-1;i++){
   const a=path[i],b=path[i+1],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);
@@ -27,11 +27,11 @@ function prepare(){
   // Leave the center mostly clear; natural stones collect near both shoulders.
   for(let d=18;d<len-9;d+=39){
    const t=d/len,x=a.x+dx*t,y=a.y+dy*t;
-   const patchCount=level===5?3:2;
+   const patchCount=2;
    for(let k=0;k<patchCount;k++){
     if(random()<.18)continue; // irregular quiet sections instead of rows of gravel
     const side=k%2===0?-1:1;
-    const offset=(level===5&&k===2)?(random()-.5)*20:side*(22+random()*12);
+    const offset=side*(22+random()*12);
     const xx=x+nx*offset,yy=y+ny*offset;
     const size=3.1+random()*3.0;
     stoneRows.push({x:xx,y:yy,rx:size,ry:size*(.55+random()*.15),angle:(random()-.5)*.7,variant:Math.floor(random()*3),mark:random(),side:false});
@@ -74,8 +74,10 @@ function stone(v,p){
 }
 function paint(){
  if(!enabled||!Array.isArray(path)||path.length<2)return;
+ prepare();
+ if(!(level===3||level===4))return;
  const stage=Math.max(1,Math.min(level,5)),palette=shades[stage];
- prepare();drawCalls++;
+ drawCalls++;
  ctx.save();
  // Alpha 0.12's natural road is already attractive and remains fully visible.
  // No thick repaint or overlapping round-ended strokes: those created distracting
@@ -100,7 +102,7 @@ drawBG=function(){underlay();paint();};
 window.PiraliAlphaRoads=Object.freeze({
  enabled:()=>enabled,
  enable:v=>(enabled=!!v),
- stats:()=>({enabled,stage:level,roadObjects:stoneRows.length,worldBuilds:builds,drawCalls,version:'0.13-graphics-phase1'}),
+ stats:()=>({enabled,stage:level,roadObjects:stoneRows.length,worldBuilds:builds,drawCalls,version:'0.13-graphics-roads-3-4-only'}),
  roadTypes:['','Forest earth','Wet stone','Rural track','Desert rock','Monastery flagstone']
 });
 })();

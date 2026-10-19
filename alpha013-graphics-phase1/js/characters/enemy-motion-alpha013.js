@@ -1,88 +1,109 @@
-/* PIRALI ALPHA 0.13: enemy motion polish — four military silhouettes.
- * VISUAL ONLY. Reads existing velocity, heading, state, reload cooldown and hit flash.
- * Does not mutate entity coordinates, AI, attacks, scoring or leaderboard.
+/* PIRALI Alpha 0.13: readable, realistic top-down enemy movement (revision B).
+ * Animation only: samples AI data but NEVER modifies navigation, speed, HP,
+ * shooting, damage, collisions, boss phases, local stats or Firebase.
  */
 (function(){
 'use strict';
-const memory=new WeakMap();
+const memory=new WeakMap(),TAU=Math.PI*2;
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
 const profile={
- sword:{pace:7.7,stride:3.7,lift:2.0,turn:.1,weight:1.15},
- rifle:{pace:6.6,stride:2.7,lift:1.4,turn:.062,weight:.90},
- officer:{pace:6.9,stride:2.3,lift:1.15,turn:.047,weight:.78},
- general:{pace:5.7,stride:2.6,lift:1.05,turn:.045,weight:1.38}
+ sword:   {pace:9.3,stride:4.6,lift:2.35,bank:.11,weight:1.18,brace:.15},
+ rifle:   {pace:7.2,stride:3.25,lift:1.55,bank:.075,weight:.86,brace:1},
+ officer: {pace:7.7,stride:2.8,lift:1.45,bank:.072,weight:.8,brace:.88},
+ general: {pace:5.8,stride:3.6,lift:1.6,bank:.065,weight:1.38,brace:.68}
 };
-let on=true,updates=0;
-function sample(e,kind,base){
+let on=true,updates=0,shots=0;
+function sample(e,kind){
  if(!on||!e||!profile[kind])return null;
- const p=profile[kind],t=performance.now();
+ const cfg=profile[kind],t=performance.now();
  let s=memory.get(e);
- if(!s){s={t,phase:((e.x||0)*.019+(e.y||0)*.023)%6.283,heading:Number.isFinite(e.ang)?e.ang:-1.57,kick:0,flash:0,lastShot:Math.max(0,e.sT||0),wasHit:e.hf||0,lastState:e.state||'',startled:0};memory.set(e,s);}
- const dt=clamp((t-s.t)/1000,0,.05);s.t=t;
- const vx=Number(e.vx)||0,vy=Number(e.vy)||0,speed=Math.hypot(vx,vy);
- const activity=clamp((speed-.035)*2.9,0,1);
+ if(!s){
+  s={time:t,phase:((e.x||0)*.019+(e.y||0)*.023)%TAU,
+     heading:Number.isFinite(e.ang)?e.ang:-Math.PI/2,paceBlend:0,
+     kick:0,flash:0,lastShot:Math.max(0,Number(e.sT)||0),wasHit:Number(e.hf)||0,
+     lastState:e.state||'',reaction:0,charge:0,swordSwing:0,
+     previousVelocityAngle:Number.isFinite(e.ang)?e.ang:0};
+  memory.set(e,s);
+ }
+ const dt=clamp((t-s.time)/1000,0,.055);s.time=t;
+ const vx=Number(e.vx)||0,vy=Number(e.vy)||0,v=Math.hypot(vx,vy);
+ const locomotion=clamp((v-.025)*2.55,0,1);
+ s.paceBlend+=(locomotion-s.paceBlend)*clamp(dt*10,0,1);
+ const a=s.paceBlend;
+ const state=e.state||'patrol',attacking=state==='attack'||(kind==='general'&&(e.charging||e.groundSlamActive));
+ const alerting=state==='alert',retreating=!!e.retreating;
  const aim=kind==='rifle'||kind==='officer';
- const alarm=e.state==='alert' || (kind==='general'&&(e.charging||e.groundSlamActive));
- const fighting=e.state==='attack'||(kind==='general'&&(e.charging||e.groundSlamActive));
- const careful=aim&&fighting;
- const rpm=careful?.72:1;
- if(activity>.02)s.phase+=dt*p.pace*(.60+activity*.78)*rpm;
- const wave=Math.sin(s.phase),heel=Math.abs(Math.sin(s.phase)),turn=wrap((Number(e.ang)||0)-s.heading);
- s.heading+=(turn)*clamp(dt*11,0,1);
- let shot=0;
- const timer=Number(e.sT)||0;
- if(aim&&timer>s.lastShot+7&&timer>10){s.kick=1;s.flash=1;shot=1;}
- s.lastShot=timer;
- if(alarm&&s.lastState!==e.state)s.startled=1;
- s.lastState=e.state||'';
- if(Number(e.hf)>Number(s.wasHit)+1){s.startled=1;}
- s.wasHit=Number(e.hf)||0;
- s.kick=Math.max(0,s.kick-dt*8.3);
- s.flash=Math.max(0,s.flash-dt*12);
- s.startled=Math.max(0,s.startled-dt*4.3);
- // Readable momentum but still top-down: hips, coat and weight; never static legs.
- const stride=wave*p.stride*activity,impact=heel*p.lift*activity;
- const shoulder=Math.sin(s.phase+Math.PI/2)*1.6*activity;
- const bank=clamp(turn,-.6,.6)*p.turn + wave*(careful?.009:.027)*activity;
- const lean=clamp(speed*.13,0,.7)*p.weight*activity;
- const brace=careful?1:alarm?.75:.25;
+ const careful=aim&&attacking;
+ const turningTo=Number.isFinite(e.ang)?e.ang:s.heading;
+ const delta=wrap(turningTo-s.heading);
+ s.heading+=delta*clamp(dt*(kind==='general'?6.5:9.2),0,1);
+ const velocityAngle=v>.05?Math.atan2(vy,vx):turningTo;
+ const strafe=clamp(wrap(velocityAngle-turningTo)/Math.PI,-1,1);
+ const fpsFactor=(careful?.75:1)*(retreating?1.15:1);
+ if(a>.025)s.phase+=dt*cfg.pace*(.72+a*.63)*fpsFactor;
+ const wave=Math.sin(s.phase),foot=Math.abs(wave),opposite=Math.cos(s.phase);
+ const shootCooldown=Number(e.sT)||0;
+ const fired=aim&&shootCooldown>s.lastShot+7&&shootCooldown>9;
+ if(fired){s.kick=1;s.flash=1;shots++;}
+ s.lastShot=shootCooldown;
+ const hit=Number(e.hf)||0;
+ if(hit>s.wasHit+1)s.reaction=1;
+ s.wasHit=hit;
+ if(state!==s.lastState){
+  if(state==='alert'||state==='attack')s.reaction=.45;
+  if(state==='attack'&&kind==='sword')s.swordSwing=.6;
+  s.lastState=state;
+ }
+ const targetCharge=attacking ? 1:alerting?.48:.08;
+ s.charge+=(targetCharge-s.charge)*clamp(dt*8,0,1);
+ s.kick=Math.max(0,s.kick-dt*5.3);
+ s.flash=Math.max(0,s.flash-dt*10.5);
+ s.reaction=Math.max(0,s.reaction-dt*3.5);
+ s.swordSwing=Math.max(0,s.swordSwing-dt*2.5);
+ // A soldier rushing into melee makes a *visual* wind-up at close range;
+ // no hitboxes, attack timing, or pathfinding are changed.
+ const near=kind==='sword'&&attacking&&typeof P==='object'&&P&&Math.hypot((P.x||0)-(e.x||0),(P.y||0)-(e.y||0))<90;
+ const swing=near ? Math.sin(t*.012+s.phase*.25)*.65 : s.swordSwing;
+ const stride=wave*cfg.stride*a;
+ const impact=foot*cfg.lift*a;
+ const sideShift=strafe*a*(kind==='officer'?1.6:2.5);
+ const shoulder=opposite*(kind==='sword'?2.9:1.9)*a+sideShift*.46;
+ const bank=clamp(delta,-.85,.85)*cfg.bank+wave*(careful?.011:.043)*a;
+ const lean=clamp(v*.28,0,.56)*cfg.weight*a+(alerting?.12:0);
+ const brace=careful?cfg.brace:alerting?.55:attacking?.45:.1;
  updates++;
  return {
-  active:true,kind,phase:s.phase,stride,impact,shoulder,bank,lean,
-  brace,kick:s.kick,flash:s.flash,startled:s.startled,shot,
-  activity,attack:!!fighting,aim,retreating:!!e.retreating,
-  // delta rendering data never used by world simulation.
-  direction:Number.isFinite(e.ang)?e.ang:-Math.PI/2,
-  speed
+  active:true,kind,phase:s.phase,stride,impact,shoulder,bank,lean,brace,
+  kick:s.kick,flash:s.flash,startled:s.reaction,shot:fired?1:0,
+  activity:a,attack:!!attacking,aim,retreating,
+  direction:turningTo,smoothedDirection:s.heading,turnAmount:delta,
+  strafe,sideShift,focus:s.charge,swing,weaponOffset:s.kick*2.7,
+  bodySquash:Math.min(.075,impact*.019),speed:v,stance:state
  };
 }
 function ground(ctx,x,y,m,kind){
- if(!m?.active||m.activity<.13||!Number.isFinite(x)||!Number.isFinite(y))return;
+ if(!m?.active||m.activity<.18||!Number.isFinite(x)||!Number.isFinite(y))return;
  ctx.save();ctx.translate(x,y);ctx.rotate(m.direction+Math.PI/2);
  const a=m.activity,step=Math.sin(m.phase);
- ctx.fillStyle='rgba(10,15,11,'+(.13+a*.10)+')';
- ctx.beginPath();ctx.ellipse(1,8,11+a*3,4,0,0,Math.PI*2);ctx.fill();
- // Two faint timed contact stamps on the *ground*, never painted boots.
- for(const side of[-1,1]){
-  const weight=Math.max(0,side*step),opacity=(.05+weight*.16)*a;
-  ctx.fillStyle='rgba(27,28,21,'+opacity.toFixed(3)+')';
-  ctx.beginPath();ctx.ellipse(side*7,12+weight*6,2.2,4.0,side*.2,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='rgba(13,17,11,'+(.09+a*.12)+')';
+ ctx.beginPath();ctx.ellipse(1,8,11+a*2.5,3.5,0,0,TAU);ctx.fill();
+ // Fading contact patches on soil rather than painted boots on character art.
+ for(const side of [-1,1]){
+  const emphasis=Math.max(0,side*step),opacity=(.025+.12*emphasis)*a;
+  ctx.fillStyle='rgba(31,29,21,'+opacity.toFixed(3)+')';
+  ctx.beginPath();ctx.ellipse(side*6.7,11+emphasis*4,2.3,3.1,side*.1,0,TAU);ctx.fill();
  }
- if(a>.4 && (kind==='sword'||kind==='general')){
-  ctx.globalAlpha=(.16+.10*Math.max(0,step))*a;
-  ctx.fillStyle='#c3ab7c';
-  for(let i=0;i<3;i++){
-   const off=i-1;
-   ctx.beginPath();ctx.arc(off*9,14+Math.abs(step)*5,1.6+i*.3,0,Math.PI*2);ctx.fill();
-  }
+ if(a>.55&&(kind==='sword'||kind==='general')){
+  ctx.fillStyle='rgba(193,173,126,'+(.08*a)+')';
+  ctx.beginPath();ctx.ellipse(-8,13,2.8,1.4,0,0,TAU);ctx.fill();
  }
  ctx.restore();
 }
 window.PiraliEnemyMotion=Object.freeze({
  sample,ground,
  enabled:()=>on,enable:v=>(on=!!v),
- stats:()=>({version:'alpha-013-enemy-motion-a',on,updates,roles:Object.keys(profile)}),
+ stats:()=>({version:'alpha-013-enemy-motion-b',on,updates,shots,roles:Object.keys(profile)}),
  roles:Object.keys(profile)
 });
 })();
