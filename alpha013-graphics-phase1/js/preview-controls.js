@@ -91,9 +91,16 @@ function ready(){
    fold(true); // Reveal the full historical church after teleport.
  });
  visit.dataset.church='visit';
+ const biome=toggleBtn('🎨 ტურები 2/3: ახალი ფერები ON',b=>{
+   const api=window.PiraliBiomes013;if(!api)return;
+   const active=api.enable(!api.enabled());
+   b.textContent=active?'🎨 ტურები 2/3: ახალი ფერები ON':'🎨 ტურები 2/3: ძველი ფერები OFF';
+   b.style.background=active?'#42605f':'#755740';
+ });
+ biome.dataset.biome='toggle';biome.style.background='#42605f';
  const note=document.createElement('div');note.textContent='ტურების გადართვა მხოლოდ სატესტოა';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
- el.append(header,row,title,road,scenery,motion,soldierMotion,enemyDemo,church,visit,note);document.body.appendChild(el);
- const inner=[row,title,road,scenery,motion,soldierMotion,enemyDemo,church,visit,note];let folded=true;
+ el.append(header,row,title,road,scenery,motion,soldierMotion,enemyDemo,church,visit,biome,note);document.body.appendChild(el);
+ const inner=[row,title,road,scenery,motion,soldierMotion,enemyDemo,church,visit,biome,note];let folded=true;
  function fold(next){folded=next;inner.forEach(n=>n.style.display=folded?'none':(n===row?'grid':'block'));
   header.textContent=folded?'🌲 ტესტი ▾':'🌲 ტესტი ▴';
  }
