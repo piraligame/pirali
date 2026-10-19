@@ -1,0 +1,8 @@
+PIRALI ALPHA 0.12 — isolated visual web preview
+ONLY this alpha012-historical-phase4/ folder is added to GitHub Pages main branch.
+The public game files at repository root and beta/ are unchanged.
+Firebase writes are blocked in index.html and leaderboard.js; leaderboard reads may still work.
+All localStorage keys beginning with pirali_ are renamed to alpha012_historic_pirali_ within the preview bundle.
+Play Store Alpha 0.11 APK/AAB and Beta are not modified.
+Temporary URL: https://piraligame.github.io/pirali/alpha012-historical-phase4/
+Art lab: https://piraligame.github.io/pirali/alpha012-historical-phase4/character-workbench.html
