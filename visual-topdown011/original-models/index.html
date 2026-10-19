@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ka">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PIRALI | ორიგინალური პერსონაჟები — Alpha 0.10</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}
+body{margin:0;background:#101810;color:#f4e9cf;font:15px/1.55 system-ui,Segoe UI,sans-serif}
+header{background:linear-gradient(120deg,#20291d,#161c14);border-bottom:2px solid #826435;padding:22px 4vw 18px;position:sticky;top:0;z-index:3}
+header small{letter-spacing:3px;color:#d6af69;font-size:12px;font-weight:750}
+h1{margin:6px 0;font-size:clamp(21px,3vw,32px);color:#f4d79e}
+header p{margin:5px 0;color:#c9c5b7;max-width:1000px}
+nav{display:flex;flex-wrap:wrap;gap:8px;padding-top:12px}
+button,a.back{font:inherit;border:1px solid #886e44;padding:7px 11px;color:#f6d8aa;background:#29291f;border-radius:8px;cursor:pointer;text-decoration:none}
+button.active,button:hover,a.back:hover{background:#7a5430}
+main{padding:20px max(12px,3vw);max-width:1700px;margin:auto}
+section{margin:0 0 22px;background:#1a2219;border:1px solid #605236;border-radius:15px;overflow:hidden}
+.heading{padding:13px 18px;background:#283126;display:flex;gap:20px;justify-content:space-between;align-items:center}
+.heading h2{margin:0;font-size:19px}
+.tag{font-size:12px;background:#53402a;border:1px solid #8b643a;padding:4px 10px;border-radius:7px}
+.views{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:14px}
+.view{display:block;min-width:0;text-decoration:none;color:#dccfb8;background:#172019;border:1px solid #494838;border-radius:10px;padding:9px;transition:transform .12s, border-color .12s}
+.view:hover{transform:translateY(-2px);border-color:#dcb367}
+.art{position:relative;display:grid;place-items:center;background-color:#272e26;background-image:linear-gradient(45deg,#344036 25%,transparent 25%),linear-gradient(-45deg,#344036 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#344036 75%),linear-gradient(-45deg,transparent 75%,#344036 75%);background-size:30px 30px;background-position:0 0,0 15px,15px -15px,-15px 0;border-radius:6px;overflow:hidden}
+.art img{width:100%;aspect-ratio:1;object-fit:contain;display:block}
+.direction{text-align:center;display:block;padding-top:6px}
+.note{font-size:12px;color:#a99f87;padding:0 18px 12px}
+footer{padding:16px 4vw 35px;color:#c1b49d;border-top:1px solid #514733}
+@media(max-width:850px){.views{grid-template-columns:repeat(2,minmax(0,1fr))}header{position:static}}
+@media(max-width:470px){.views{gap:7px;padding:8px}.heading h2{font-size:16px}.art img{image-rendering:auto}}
+</style>
+</head>
+<body>
+<header><small>PIRALI · ORIGINAL CHARACTER EXTRACTION · ALPHA 0.10</small>
+<h1>სიმონა, ჯარისკაცები, გენერალი და ბატონი</h1>
+<p>თამაშიდან ამოღებული <strong>ორიგინალური Canvas-მოდელები</strong> — ყოველგვარი გადახატვისა და სტილის შეცვლის გარეშე, ნამდვილი ხედვით ზემოდან. თითოეულს აქვს ოთხი მიმართულება. დააჭირე გამოსახულებას, რომ ცალკე გამჭვირვალე PNG გახსნა.</p>
+<nav><button class="active" data-filter="all">ყველა — 9 ვერსია</button><button data-filter="simona">სიმონა — 3</button><button data-filter="enemy">ჯარისკაცები — 3</button><button data-filter="boss">გენერალი — 2</button><button data-filter="npc">ბატონი — 1</button><a class="back" href="../character-workbench.html">← ახალი გრაფიკის სახელოსნო</a></nav>
+</header>
+<main id="gallery"></main>
+<footer><strong>ორიგინალების არქივი:</strong> Alpha 0.10-ის drawPlayer(), drawEnemy() და drawBoss() ფუნქციებით გენერირებული 36 გამჭვირვალე PNG. ნამდვილი 3D მოდელი ან Sprite Sheet წყარო არ არსებობს — თამაშში ფიგურები უშუალოდ Canvas-ით იხატება. „ბატონი“ ორიგინალში გამონაკლისია: მისი მოდელი ფრონტალურია და კუთხის მიხედვით არ ბრუნავს. ღია ფაილების გადიდება მხოლოდ სანახავად არის; თამაშის კოდი და Firebase უცვლელია.</footer>
+<script>
+const models=[
+ {id:'simona',title:'სიმონა — მაუზერი',type:'simona',note:'ორიგინალური გმირი: ჩოხა, ყაბალახი, მაუზერი.'},
+ {id:'simona-sword',title:'სიმონა — ხმლის შეტევა',type:'simona',note:'ორიგინალური საბრძოლო მდგომარეობა, ხმლის მოქნევის კადრი.'},
+ {id:'simona-run',title:'სიმონა — სირბილის კადრი',type:'simona',note:'იგივე მოდელი ნაბიჯის/ჩოხის მოძრაობის სხვა ფაზაში.'},
+ {id:'soldier-sword',title:'რუსი რიგითი — ხმალი',type:'enemy',note:'მწვანე მუნდირი, ბუდიონოვკა და ხმალი.'},
+ {id:'soldier-rifle',title:'რუსი მსროლელი — შაშხანა',type:'enemy',note:'მოწითალო მუნდირი, სამხედრო ქუდი და გრძელი თოფი.'},
+ {id:'officer',title:'რუსი ოფიცერი — პისტოლეტი',type:'enemy',note:'ოქროს ეპოლეტები, ოფიცრის ქუდი, პისტოლეტი.'},
+ {id:'general',title:'ბოსი — გენერალი',type:'boss',note:'მთავარი ბოსის პირველი ფორმა — მუნდირი, მედლები, ხმალი.'},
+ {id:'general-rage',title:'გენერალი — მეორე ფაზა',type:'boss',note:'იმავე ბოსის მძვინვარების მდგომარეობა, ვიზუალური ეფექტებით.'},
+ {id:'landlord',title:'ბატონი — ფინალური პერსონაჟი',type:'npc',note:'ფინალური ბატონის ორიგინალური, სპეციალური ფრონტალური ვიზუალი.'}
+];
+const angles=[['north','↑ ჩრდილოეთი'],['east','→ აღმოსავლეთი'],['south','↓ სამხრეთი'],['west','← დასავლეთი']];
+const gallery=document.getElementById('gallery');
+for(const m of models){
+ const section=document.createElement('section');section.dataset.type=m.type;
+ const h=document.createElement('div');h.className='heading';const title=document.createElement('h2');title.textContent=m.title;
+ const badge=document.createElement('span');badge.className='tag';badge.textContent='ORIGINAL / 0.10';
+ h.append(title,badge);section.append(h);
+ const views=document.createElement('div');views.className='views';
+ for(const [ang,label] of angles){
+ const a=document.createElement('a');a.className='view';a.href=m.id+'-'+ang+'.png';a.target='_blank';a.rel='noopener';
+ const art=document.createElement('div');art.className='art';
+ const img=document.createElement('img');img.src=m.id+'-'+ang+'.png';img.alt=m.title+' — '+label;img.loading='eager';
+ art.append(img);const caption=document.createElement('span');caption.className='direction';caption.textContent=label;
+ a.append(art,caption);views.append(a);
+ }
+ section.append(views);const note=document.createElement('div');note.className='note';note.textContent=m.note;section.append(note);gallery.append(section);
+}
+for(const button of document.querySelectorAll('[data-filter]'))button.addEventListener('click',()=>{
+ document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));button.classList.add('active');
+ for(const s of gallery.querySelectorAll('section'))s.hidden=(button.dataset.filter!=='all'&&button.dataset.filter!==s.dataset.type);
+});
+</script></body></html>
