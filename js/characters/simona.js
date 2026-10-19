@@ -52,8 +52,11 @@ function drawPlayer(){
     ctx.beginPath(); ctx.ellipse(ftx+fx*2, fty+fy*2-1, 2.8, 1.6, ang, 0, Math.PI); ctx.fill();
   }
 
-  if(lSwingL<0){ drawLeg(-1,lSwingR); drawLeg(1,lSwingL); }
-  else         { drawLeg( 1,lSwingL); drawLeg(-1,lSwingR); }
+  // Preserve walk motion while hiding original feet only when overhead art is active.
+  if(!window.PiraliTopdownPolish?.isEnabled?.()){
+    if(lSwingL<0){ drawLeg(-1,lSwingR); drawLeg(1,lSwingL); }
+    else         { drawLeg( 1,lSwingL); drawLeg(-1,lSwingR); }
+  }
 
   // ── CHOKHA BODY — coat shape (NOT a circle, elongated + slim) ──
   ctx.save();

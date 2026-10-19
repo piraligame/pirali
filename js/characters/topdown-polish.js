@@ -39,19 +39,15 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
  if(px<-90||px>W+90||py<-90||py>H+90)return;
  const gait=speed>.12?Math.sin((typeof frame==='number'?frame:0)*.19)*Math.min(3,speed):Math.sin(Date.now()*.002)*.25;
  ctx.save();ctx.translate(px,py);ctx.rotate((Number.isFinite(angle)?angle:-PI/2)+PI/2);ctx.scale(scale,scale);
- // Ground shadow, short legs tucked BEHIND jacket, overhead silhouette.
- ellipse(2,8,14,5.4,'rgba(9,11,8,.22)');
- for(const side of [-1,1]){
-  const x0=side*5.4+side*gait*.33;
-  path([[x0-3,9],[x0+3,9],[x0+3,17],[x0-3,17]],p.legs,p.rim,1);
-  ellipse(x0,18,3.8,2.7,p.boots);
-  seg(x0-1.7,18,x0+1.5,18,'rgba(230,218,178,.19)',.8);
- }
- // Split chokha coat tails. Forward direction is negative Y.
- const lean=gait*.3;
- path([[-8,3],[-3,5],[-3+lean,18],[-10+lean,17],[-12,10]],p.shadow,p.rim,1.3);
- path([[3,5],[8,3],[12,10],[10+lean,17],[3+lean,18]],p.coat,p.rim,1.3);
- seg(-7,7,-9+lean,15,p.seam,.8);seg(7,7,9+lean,15,p.seam,.8);
+ // True birds-eye view: compact silhouette. No feet or boots in the elevated-camera
+ // renderer, even while the body rotates. Walking still animates fabric folds.
+ ellipse(1.8,7.1,13.6,4.3,'rgba(9,11,8,.20)');
+ const lean=gait*.13;
+ // Tail panels stop just beneath the waist: heels never show past the coat.
+ path([[-8,3],[-3,5],[-3+lean,12.2],[-9+lean,11.8],[-11,8.8]],p.shadow,p.rim,1.2);
+ path([[3,5],[8,3],[11,8.8],[9+lean,11.8],[3+lean,12.2]],p.coat,p.rim,1.2);
+ seg(-7,7,-8.2+lean,10.8,p.seam,.75);
+ seg(7,7,8.2+lean,10.8,p.seam,.75);
  // Cut shoulders and tapered waist in top view, not a front-facing human sprite.
  path([[-9,-9],[-14,-8],[-16,-4],[-15,4],[-9,11],[-5,12],[5,12],[9,11],[15,4],[16,-4],[14,-8],[9,-9]],p.rim,null);
  path([[-8,-8],[-13,-7],[-14,-2],[-11,7],[-6,10],[6,10],[11,7],[14,-2],[13,-7],[8,-8]],p.coat,null);
@@ -136,7 +132,7 @@ window.PiraliTopdownPolish=Object.freeze({
  enable:value=>{enabled=!!value;return enabled;},
  isEnabled:()=>enabled,
  originalPlayer,originalEnemy,originalBoss,
- version:'0.11-topdown-b',
+ version:'0.11-topdown-no-boots-c',
  touched:['Simona','sword soldier','rifle soldier','officer','general','general rage'],
  landlordUntouched:true
 });

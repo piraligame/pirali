@@ -40,7 +40,7 @@ for(const [id,title,description]of m){
  const sec=document.createElement('section');sec.className='character';sec.dataset.id=id;
  const head=document.createElement('div');head.className='state';const h=document.createElement('h2');h.textContent=title;head.append(h);
  const row=document.createElement('div');row.className='compare';
- for(const [folder,name] of [['original-models','ორიგინალი · Alpha 0.10'],['polished-models','ახალი · 0.11 TOP-DOWN']]){
+ for(const [folder,name] of [['original-models','ორიგინალი · Alpha 0.10'],['polished-models','ახალი · 0.11 ფეხების გარეშე']]){
   const box=document.createElement('div');box.className='panel';const caption=document.createElement('h2');caption.textContent=name;
   const art=document.createElement('div');art.className='image';const img=document.createElement('img');
   img.dataset.folder=folder;img.dataset.model=id;img.alt=title+' — '+name;img.src=folder+'/'+id+'-'+dir+'.png';art.append(img);box.append(caption,art);

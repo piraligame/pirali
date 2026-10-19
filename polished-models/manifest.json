@@ -10,7 +10,7 @@
       "angle": "north",
       "angleName": "ზემოთ",
       "file": "simona-north.png",
-      "bytes": 30857,
+      "bytes": 29616,
       "center": [
         181,
         133,
@@ -25,7 +25,7 @@
       "angle": "east",
       "angleName": "მარჯვნივ",
       "file": "simona-east.png",
-      "bytes": 31786,
+      "bytes": 30450,
       "center": [
         108,
         76,
@@ -40,7 +40,7 @@
       "angle": "south",
       "angleName": "ქვემოთ",
       "file": "simona-south.png",
-      "bytes": 32680,
+      "bytes": 31228,
       "center": [
         181,
         133,
@@ -55,7 +55,7 @@
       "angle": "west",
       "angleName": "მარცხნივ",
       "file": "simona-west.png",
-      "bytes": 33042,
+      "bytes": 31752,
       "center": [
         181,
         133,
@@ -70,7 +70,7 @@
       "angle": "north",
       "angleName": "ზემოთ",
       "file": "simona-sword-north.png",
-      "bytes": 33794,
+      "bytes": 32816,
       "center": [
         181,
         133,
@@ -85,7 +85,7 @@
       "angle": "east",
       "angleName": "მარჯვნივ",
       "file": "simona-sword-east.png",
-      "bytes": 34989,
+      "bytes": 33786,
       "center": [
         107,
         75,
@@ -100,7 +100,7 @@
       "angle": "south",
       "angleName": "ქვემოთ",
       "file": "simona-sword-south.png",
-      "bytes": 33763,
+      "bytes": 32316,
       "center": [
         181,
         133,
@@ -115,7 +115,7 @@
       "angle": "west",
       "angleName": "მარცხნივ",
       "file": "simona-sword-west.png",
-      "bytes": 34791,
+      "bytes": 33566,
       "center": [
         181,
         133,
@@ -130,7 +130,7 @@
       "angle": "north",
       "angleName": "ზემოთ",
       "file": "simona-run-north.png",
-      "bytes": 32603,
+      "bytes": 31865,
       "center": [
         181,
         133,
@@ -145,7 +145,7 @@
       "angle": "east",
       "angleName": "მარჯვნივ",
       "file": "simona-run-east.png",
-      "bytes": 32702,
+      "bytes": 31722,
       "center": [
         107,
         75,
@@ -160,7 +160,7 @@
       "angle": "south",
       "angleName": "ქვემოთ",
       "file": "simona-run-south.png",
-      "bytes": 33544,
+      "bytes": 31881,
       "center": [
         181,
         133,
@@ -175,7 +175,7 @@
       "angle": "west",
       "angleName": "მარცხნივ",
       "file": "simona-run-west.png",
-      "bytes": 33898,
+      "bytes": 33306,
       "center": [
         181,
         133,
@@ -190,7 +190,7 @@
       "angle": "north",
       "angleName": "ზემოთ",
       "file": "soldier-sword-north.png",
-      "bytes": 27774,
+      "bytes": 26297,
       "center": [
         105,
         95,
@@ -205,7 +205,7 @@
       "angle": "east",
       "angleName": "მარჯვნივ",
       "file": "soldier-sword-east.png",
-      "bytes": 28676,
+      "bytes": 27282,
       "center": [
         52,
         69,
@@ -220,7 +220,7 @@
       "angle": "south",
       "angleName": "ქვემოთ",
       "file": "soldier-sword-south.png",
-      "bytes": 27964,
+      "bytes": 26268,
       "center": [
         104,
         95,
@@ -235,7 +235,7 @@
       "angle": "west",
       "angleName": "მარცხნივ",
       "file": "soldier-sword-west.png",
-      "bytes": 28917,
+      "bytes": 27344,
       "center": [
         130,
         108,
@@ -250,7 +250,7 @@
       "angle": "north",
       "angleName": "ზემოთ",
       "file": "soldier-rifle-north.png",
-      "bytes": 28698,
+      "bytes": 27072,
       "center": [
         131,
         93,
@@ -265,7 +265,7 @@
       "angle": "east",
       "angleName": "მარჯვნივ",
       "file": "soldier-rifle-east.png",
-      "bytes": 28682,
+      "bytes": 27183,
       "center": [
         96,
         44,
@@ -280,7 +280,7 @@
       "angle": "south",
       "angleName": "ქვემოთ",
       "file": "soldier-rifle-south.png",
-      "bytes": 28528,
+      "bytes": 26864,
       "center": [
         130,
         92,
@@ -295,7 +295,7 @@
       "angle": "west",
       "angleName": "მარცხნივ",
       "file": "soldier-rifle-west.png",
-      "bytes": 29298,
+      "bytes": 27760,
       "center": [
         148,
         116,
@@ -310,7 +310,7 @@
       "angle": "north",
       "angleName": "ზემოთ",
       "file": "officer-north.png",
-      "bytes": 27550,
+      "bytes": 26207,
       "center": [
         227,
         180,
@@ -325,7 +325,7 @@
       "angle": "east",
       "angleName": "მარჯვნივ",
       "file": "officer-east.png",
-      "bytes": 27810,
+      "bytes": 26345,
       "center": [
         213,
         170,
@@ -340,7 +340,7 @@
       "angle": "south",
       "angleName": "ქვემოთ",
       "file": "officer-south.png",
-      "bytes": 27335,
+      "bytes": 25722,
       "center": [
         227,
         180,
@@ -355,7 +355,7 @@
       "angle": "west",
       "angleName": "მარცხნივ",
       "file": "officer-west.png",
-      "bytes": 28064,
+      "bytes": 26675,
       "center": [
         227,
         180,
@@ -370,7 +370,7 @@
       "angle": "north",
       "angleName": "ზემოთ",
       "file": "general-north.png",
-      "bytes": 50627,
+      "bytes": 48732,
       "center": [
         243,
         194,
@@ -385,7 +385,7 @@
       "angle": "east",
       "angleName": "მარჯვნივ",
       "file": "general-east.png",
-      "bytes": 51367,
+      "bytes": 49497,
       "center": [
         243,
         194,
@@ -400,7 +400,7 @@
       "angle": "south",
       "angleName": "ქვემოთ",
       "file": "general-south.png",
-      "bytes": 51146,
+      "bytes": 48679,
       "center": [
         243,
         194,
@@ -415,7 +415,7 @@
       "angle": "west",
       "angleName": "მარცხნივ",
       "file": "general-west.png",
-      "bytes": 51400,
+      "bytes": 49471,
       "center": [
         243,
         194,
@@ -430,7 +430,7 @@
       "angle": "north",
       "angleName": "ზემოთ",
       "file": "general-rage-north.png",
-      "bytes": 121905,
+      "bytes": 120304,
       "center": [
         243,
         194,
@@ -445,7 +445,7 @@
       "angle": "east",
       "angleName": "მარჯვნივ",
       "file": "general-rage-east.png",
-      "bytes": 122746,
+      "bytes": 121528,
       "center": [
         243,
         194,
@@ -460,7 +460,7 @@
       "angle": "south",
       "angleName": "ქვემოთ",
       "file": "general-rage-south.png",
-      "bytes": 122135,
+      "bytes": 120252,
       "center": [
         243,
         194,
@@ -475,7 +475,7 @@
       "angle": "west",
       "angleName": "მარცხნივ",
       "file": "general-rage-west.png",
-      "bytes": 123209,
+      "bytes": 121870,
       "center": [
         243,
         194,
@@ -490,7 +490,7 @@
       "angle": "north",
       "angleName": "ზემოთ",
       "file": "landlord-north.png",
-      "bytes": 24340,
+      "bytes": 24172,
       "center": [
         192,
         144,
@@ -505,7 +505,7 @@
       "angle": "east",
       "angleName": "მარჯვნივ",
       "file": "landlord-east.png",
-      "bytes": 24371,
+      "bytes": 24208,
       "center": [
         192,
         144,
@@ -520,7 +520,7 @@
       "angle": "south",
       "angleName": "ქვემოთ",
       "file": "landlord-south.png",
-      "bytes": 24227,
+      "bytes": 24266,
       "center": [
         192,
         144,
@@ -535,7 +535,7 @@
       "angle": "west",
       "angleName": "მარცხნივ",
       "file": "landlord-west.png",
-      "bytes": 24243,
+      "bytes": 24167,
       "center": [
         192,
         144,
