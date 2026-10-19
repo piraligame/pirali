@@ -1943,7 +1943,7 @@ function goToMenu(){
   <h1 style="font-size:62px;letter-spacing:10px;text-shadow:0 0 60px rgba(224,168,32,.9),0 4px 0 #0a0500,0 0 120px rgba(200,140,20,.4);">ფირალი</h1>
   <div style="font-size:11px;color:#a08030;letter-spacing:6px;text-transform:uppercase;margin-bottom:4px;z-index:1;position:relative;">Rise of the Outlaw</div>
   <div class="tsub">სიმონას გზა</div>
-  <div class="sbox"><p>როცა სამართალი ხმას კარგავს,<br>ტყე ხდება თავშესაფარი.<br><br>სიმონა დალიძე —<br>კაცი, რომელმაც არჩევანი გააკეთა:<br>დაემორჩილოს… ან იბრძოლოს.<br><br>მოღალატედ შერაცხული,<br>მაგრამ ხალხისთვის — გმირი.</p></div>
+  <div class="sbox"><p>როცა სამართალი ხმას კარგავს,<br>ტყე ხდება თავშესაფარი.<br><br>სიმონა დოლიძე —<br>კაცი, რომელმაც არჩევანი გააკეთა:<br>დაემორჩილოს… ან იბრძოლოს.<br><br>მოღალატედ შერაცხული,<br>მაგრამ ხალხისთვის — გმირი.</p></div>
   <button class="sbtn" onclick="bgmStop();document.getElementById('screen').style.display='none';showIntro(startGame)">თამაშის დაწყება</button>`;
   s.style.display='flex';
 }

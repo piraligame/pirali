@@ -38,14 +38,15 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
  const px=sx(x),py=sy(y);
  if(px<-90||px>W+90||py<-90||py>H+90)return;
  const motion=opts.motion||null;
+ const soldierPose=opts.enemyMotion||null;
  const gait=motion?motion.sway:(speed>.12?Math.sin((typeof frame==='number'?frame:0)*.19)*Math.min(3,speed):Math.sin(Date.now()*.002)*.25);
- ctx.save();ctx.translate(px,py);ctx.rotate((Number.isFinite(motion?.angle)?motion.angle:(Number.isFinite(angle)?angle:-PI/2))+PI/2+(motion?.lean||0));ctx.scale(scale,scale);
+ ctx.save();ctx.translate(px,py);ctx.rotate((Number.isFinite(motion?.angle)?motion.angle:(Number.isFinite(angle)?angle:-PI/2))+PI/2+(motion?.lean||0)+(soldierPose?.bank||0));ctx.scale(scale,scale);
  // True birds-eye view: compact silhouette. No feet or boots in the elevated-camera
  // renderer, even while the body rotates. Walking still animates fabric folds.
  ellipse(1.8,7.1,13.6,4.3,'rgba(9,11,8,.20)');
  // Movement comes from the shared Alpha animation clock; shadow stays planted.
- if(motion)ctx.translate(0,-Math.min(3.5,Math.max(-.45,motion.bob)));
- const lean=gait*.95;
+ if(motion)ctx.translate(0,-Math.min(3.5,Math.max(-.45,motion.bob))-(soldierPose?.impact||0));
+ const lean=gait*.95+(soldierPose?.stride||0);
  // Cloak folds move visibly with each step; no frozen feet/hands.
  if(motion?.moving){
    path([[-8,8],[-10+lean,17],[-5+lean,14],[-3,9]],p.shadow,p.rim,.6);
@@ -61,6 +62,28 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
  path([[-8,-8],[-13,-7],[-14,-2],[-11,7],[-6,10],[6,10],[11,7],[14,-2],[13,-7],[8,-8]],p.coat,null);
  path([[-10,-7],[-13,-3],[-10,5],[-6,8],[-2,8],[-3,-7]],p.light,null);
  path([[7,-7],[12,-5],[13,3],[8,8],[3,8]],p.shadow,null);
+ // Alpha 0.13: moving seam panels convey turning shoulders and changing weight.
+ // Integrated within uniform, not separate frozen hands or visible feet.
+ if(soldierPose){
+  const c=soldierPose,sw=c.shoulder,br=c.brace;
+  for(const side of[-1,1]){
+   const off=side*(2+Math.abs(sw)*.44);
+   path([[side*10,-8],[side*(13+br),-5+sw*.35],[side*(12+br),2+sw*.3],[side*8,5]],side<0?p.light:p.shadow,p.seam,.72);
+   seg(side*9,-5,side*10+off*.2,4+sw*.8,p.seam,.8+c.activity*.3);
+  }
+  // Waist cloth flexes with each footfall, but the actual foot remains hidden.
+  seg(-7,9,-8.5+c.stride*.7,11.5,p.seam,1);
+  seg(7,9,8.5-c.stride*.7,11.5,p.seam,1);
+  if(c.aim&&c.attack){
+   path([[-9,-6],[0,-9+br],[10,-4],[9,0],[0,-4]],'rgba(13,13,12,.22)',null);
+   seg(-5,-7,6,-1,p.metal,.7);
+  }else if(c.kind==='sword'&&c.attack){
+   seg(-11,-5,-7-c.stride*.6,4,p.seam,1.4);
+  }
+  if(c.startled>.01){
+   ring(0,-2,15+c.startled*2,'rgba(245,223,147,'+(c.startled*.24)+')',1.2);
+  }
+ }
  // No static arms, gloves or bare hands attached to the top-down model.
  // The original active walk, aim and strike animations are retained.
  // A collar and seam seen through the shoulders.
@@ -133,14 +156,18 @@ drawEnemy=function(e){
  const kind=e.etype==='rifle'?'rifle':e.etype==='officer'?'officer':'sword';
  const weapon=kind==='rifle'?'rifle':kind==='sword'?'sword':'pistol';
  const motion=window.PiraliAlphaMotion?.enabled()?window.PiraliAlphaMotion.sample(e,kind,e.ang,Math.hypot(e.vx||0,e.vy||0),e.sT||0,e.state==='attack'&&kind==='sword'):null;
- topdownPerson(kind,e.x,e.y,e.ang,Math.hypot(e.vx||0,e.vy||0),weapon,{motion});
+ const enemyMotion=window.PiraliEnemyMotion?.sample(e,kind,motion)||null;
+ if(enemyMotion)window.PiraliEnemyMotion.ground(ctx,sx(e.x),sy(e.y),enemyMotion,kind);
+ topdownPerson(kind,e.x,e.y,e.ang,Math.hypot(e.vx||0,e.vy||0),weapon,{motion,enemyMotion});
 };
 drawBoss=function(b){
  if(!enabled||!b?.alive)return originalBoss(b);
  originalBoss(b);
  const movement=window.PiraliAlphaMotion;
  const motion=movement?.enabled()?movement.sample(b,'general',b.ang,Math.hypot(b.vx||0,b.vy||0),b.sT||0,b.charging||b.groundSlamActive):null;
- topdownPerson('general',b.x,b.y,b.ang,Math.hypot(b.vx||0,b.vy||0),'sword',{rage:!!b.rageMode,motion});
+ const enemyMotion=window.PiraliEnemyMotion?.sample(b,'general',motion)||null;
+ if(enemyMotion)window.PiraliEnemyMotion.ground(ctx,sx(b.x),sy(b.y),enemyMotion,'general');
+ topdownPerson('general',b.x,b.y,b.ang,Math.hypot(b.vx||0,b.vy||0),'sword',{rage:!!b.rageMode,motion,enemyMotion});
  // These ring accents communicate the existing attack state; hitbox is not changed.
  if(!movement?.enabled())return;
  const px=sx(b.x),py=sy(b.y),t=performance.now()*.0045,warning=b.charging||b.groundSlamActive;
