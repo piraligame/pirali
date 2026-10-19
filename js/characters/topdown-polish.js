@@ -46,6 +46,11 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
  ellipse(1.8,7.1,13.6,4.3,'rgba(9,11,8,.20)');
  // Movement comes from the shared Alpha animation clock; shadow stays planted.
  if(motion)ctx.translate(0,-Math.min(3.5,Math.max(-.45,motion.bob))-(soldierPose?.impact||0));
+ if(soldierPose){
+  // Pivots, sidesteps and natural weight shifts; gameplay x/y stay untouched.
+  ctx.translate(soldierPose.sideShift*.6,-soldierPose.lean*1.25+soldierPose.kick*.7);
+  ctx.scale(1-soldierPose.bodySquash*.55,1+soldierPose.bodySquash);
+ }
  const lean=gait*.95+(soldierPose?.stride||0);
  // Cloak folds move visibly with each step; no frozen feet/hands.
  if(motion?.moving){
@@ -68,17 +73,32 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
   const c=soldierPose,sw=c.shoulder,br=c.brace;
   for(const side of[-1,1]){
    const off=side*(2+Math.abs(sw)*.44);
-   path([[side*10,-8],[side*(13+br),-5+sw*.35],[side*(12+br),2+sw*.3],[side*8,5]],side<0?p.light:p.shadow,p.seam,.72);
+   path([[side*10,-8],[side*(13+br*.7+c.focus*.5),-5+sw*.5],[side*(12+br),2+sw*.52],[side*8,5]],side<0?p.light:p.shadow,p.seam,.72);
    seg(side*9,-5,side*10+off*.2,4+sw*.8,p.seam,.8+c.activity*.3);
   }
   // Waist cloth flexes with each footfall, but the actual foot remains hidden.
   seg(-7,9,-8.5+c.stride*.7,11.5,p.seam,1);
   seg(7,9,8.5-c.stride*.7,11.5,p.seam,1);
+  if(c.kind==='sword'&&c.attack&&c.swing>.2){
+   // Small overhand sword-motion trail. Original hit timing still controls damage.
+   ctx.beginPath();ctx.arc(-1,-5,18,-1.35-c.swing*.28,-.45+c.swing*.28);
+   ctx.strokeStyle='rgba(231,226,198,'+(Math.min(.47,Math.abs(c.swing)*.65))+')';
+   ctx.lineWidth=1.5;ctx.stroke();
+  }
   if(c.aim&&c.attack){
    path([[-9,-6],[0,-9+br],[10,-4],[9,0],[0,-4]],'rgba(13,13,12,.22)',null);
    seg(-5,-7,6,-1,p.metal,.7);
+   if(c.kick>.05){
+    // Distinct rifle/pistol shoulder bracing during the real shooting cooldown.
+    seg(-9,-5,8-c.weaponOffset,-5,p.metal,.8+c.kick*.4);
+    ellipse(13-c.weaponOffset,-16,1.8+c.kick*.8,2.7+c.kick*1.4,
+     'rgba(249,207,106,'+(c.flash*.65)+')');
+   }
   }else if(c.kind==='sword'&&c.attack){
    seg(-11,-5,-7-c.stride*.6,4,p.seam,1.4);
+  }
+  if(c.kind==='general'&&c.attack){
+   seg(-12,-1,-11-c.shoulder*.7,6,p.metal,1.2);
   }
   if(c.startled>.01){
    ring(0,-2,15+c.startled*2,'rgba(245,223,147,'+(c.startled*.24)+')',1.2);
@@ -188,7 +208,7 @@ window.PiraliTopdownPolish=Object.freeze({
  enable:value=>{enabled=!!value;return enabled;},
  isEnabled:()=>enabled,
  originalPlayer,originalEnemy,originalBoss,
- version:'0.12-motion-phase2-boss-batoni',
+ version:'0.13-topdown-military-animations-b',
  touched:['Simona','sword soldier','rifle soldier','officer','general','general rage'],
  landlordUntouched:true
 });

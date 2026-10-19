@@ -169,7 +169,8 @@ function renderHistoricalChurch(){
  ctx.restore();marks++;
 }
 function roadStones(){
- if(!Array.isArray(path)||path.length<2)return;
+ // Alpha 0.13: the forest, mist and church approach stay completely stone-free.
+ if(!(level===3||level===4)||!Array.isArray(path)||path.length<2)return;
  // Consistent, fixed stones on the exterior shoulders. Never cover the main road.
  ctx.save();
  const shades=level===5?['#696b5e','#a9a28b']:level>=4?['#ac8259','#d3a46f']:['#657354','#a2a083'];
