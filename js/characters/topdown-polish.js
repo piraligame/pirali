@@ -53,12 +53,8 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
  path([[-8,-8],[-13,-7],[-14,-2],[-11,7],[-6,10],[6,10],[11,7],[14,-2],[13,-7],[8,-8]],p.coat,null);
  path([[-10,-7],[-13,-3],[-10,5],[-6,8],[-2,8],[-3,-7]],p.light,null);
  path([[7,-7],[12,-5],[13,3],[8,8],[3,8]],p.shadow,null);
- for(const side of [-1,1]){
-  const bend=side*gait*.2;
-  seg(side*12,-5,side*(17+Math.abs(bend)),2+bend,p.rim,7);
-  seg(side*12,-5,side*(17+Math.abs(bend)),2+bend,p.coat,4.8);
-  ellipse(side*(17+Math.abs(bend)),2+bend,2.6,2.35,p.skin);
- }
+ // No static arms, gloves or bare hands attached to the top-down model.
+ // The original active walk, aim and strike animations are retained.
  // A collar and seam seen through the shoulders.
  ellipse(0,-5.5,6.7,4.6,p.shadow);ellipse(0,-6,5.8,3.8,p.light);
  seg(-8,8,8,8,p.strap,2.7);
@@ -100,9 +96,7 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
   if(boss)ellipse(0,-12,2.8,2.5,'#ae3029');
  }
  ellipse(0,-19,4,1.3,p.skin);
- // Keep the authentic ORIGINAL Mauser / rifle / sword / sabre. Do not double-render weapons.
- seg(12,-4,15,-11,p.coat,4.7);ellipse(15,-11,2.5,2.35,p.skin);
- seg(13,-8,15,-9,p.seam,.9);
+ // Keep animated original weapons and arms; no painted static grip.
  if(opts.rage){seg(-11,7,-6,15,'#d4423c',1.2);seg(11,7,6,15,'#dd5349',1.2);}
  ctx.restore();
 }
@@ -132,7 +126,7 @@ window.PiraliTopdownPolish=Object.freeze({
  enable:value=>{enabled=!!value;return enabled;},
  isEnabled:()=>enabled,
  originalPlayer,originalEnemy,originalBoss,
- version:'0.11-topdown-no-boots-c',
+ version:'0.11-topdown-no-boots-no-static-arms-d',
  touched:['Simona','sword soldier','rifle soldier','officer','general','general rage'],
  landlordUntouched:true
 });

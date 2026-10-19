@@ -89,7 +89,7 @@
     card.appendChild(privacy);refreshPrivacyLabel();
     const version=document.createElement('div');
     version.className='menu-version';
-    version.textContent='PIRALI • ALPHA 0.11 TOP-DOWN TEST';
+    version.textContent='PIRALI • ALPHA 0.11 TOP-DOWN NO ARMS';
     card.appendChild(version);
     if(window.PiraliLanguage)window.PiraliLanguage.apply();
   }
