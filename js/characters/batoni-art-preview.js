@@ -24,13 +24,30 @@
     }
     const x=sx(e.x),y=sy(e.y);
     if(x<-(SIZE+10)||x>W+SIZE+10||y<-SIZE||y>H+SIZE)return;
-    const bob=Math.sin(Date.now()*.007)*.65;
+    const motion=window.PiraliAlphaMotion?.sample(e,'batoni',Math.atan2(e.vy||0,e.vx||0),Math.hypot(e.vx||0,e.vy||0));
+    const active=!!motion?.enabled;
+    const bob=active?motion.bob*1.25:Math.sin(Date.now()*.007)*.65;
     ctx.save();
     if(e.hf>0&&Math.floor(e.hf)%2===0)ctx.globalAlpha=.63;
     ctx.fillStyle='rgba(10,9,6,.27)';
     ctx.beginPath();ctx.ellipse(x+1,y+13,19,5.5,0,0,Math.PI*2);ctx.fill();
     const tile=tileIndex(e);
-    ctx.drawImage(atlas,tile*TILE,0,TILE,TILE,x-SIZE/2,y-SIZE/2+bob,SIZE,SIZE);
+    if(active&&motion.moving){
+      // A pair of fading footfall streaks behind his escape trajectory.
+      const a=Math.atan2(e.vy||0,e.vx||0),backX=Math.cos(a),backY=Math.sin(a);
+      ctx.strokeStyle='rgba(222,195,117,.35)';ctx.lineWidth=1.7;ctx.lineCap='round';
+      for(let j=-1;j<=1;j+=2){
+        ctx.beginPath();
+        ctx.moveTo(x-backX*13-backY*j*9,y-backY*13+backX*j*9);
+        ctx.lineTo(x-backX*(24+motion.bob*1.5)-backY*j*9,y-backY*(24+motion.bob*1.5)+backX*j*9);
+        ctx.stroke();
+      }
+    }
+    ctx.save();ctx.translate(x,y+bob);
+    if(active){ctx.rotate(motion.lean*1.2);const pulse=Math.sin(motion.step*2);
+      ctx.scale(1+pulse*.045,1-pulse*.07);}
+    ctx.drawImage(atlas,tile*TILE,0,TILE,TILE,-SIZE/2,-SIZE/2,SIZE,SIZE);
+    ctx.restore();
     ctx.fillStyle='#ffe5d2';ctx.font='bold 10px sans-serif';ctx.textAlign='center';
     ctx.shadowColor='#6f0506';ctx.shadowBlur=4;
     const label=window.PiraliLanguage?.gameText?.('landlord')||'ბატონი';

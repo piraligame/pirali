@@ -39,13 +39,18 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
  if(px<-90||px>W+90||py<-90||py>H+90)return;
  const motion=opts.motion||null;
  const gait=motion?motion.sway:(speed>.12?Math.sin((typeof frame==='number'?frame:0)*.19)*Math.min(3,speed):Math.sin(Date.now()*.002)*.25);
- ctx.save();ctx.translate(px,py);ctx.rotate((Number.isFinite(motion?.angle)?motion.angle:(Number.isFinite(angle)?angle:-PI/2))+PI/2);ctx.scale(scale,scale);
+ ctx.save();ctx.translate(px,py);ctx.rotate((Number.isFinite(motion?.angle)?motion.angle:(Number.isFinite(angle)?angle:-PI/2))+PI/2+(motion?.lean||0));ctx.scale(scale,scale);
  // True birds-eye view: compact silhouette. No feet or boots in the elevated-camera
  // renderer, even while the body rotates. Walking still animates fabric folds.
  ellipse(1.8,7.1,13.6,4.3,'rgba(9,11,8,.20)');
  // Movement comes from the shared Alpha animation clock; shadow stays planted.
- if(motion)ctx.translate(0,-Math.min(1.1,Math.max(-.3,motion.bob)));
- const lean=gait*.13;
+ if(motion)ctx.translate(0,-Math.min(3.5,Math.max(-.45,motion.bob)));
+ const lean=gait*.95;
+ // Cloak folds move visibly with each step; no frozen feet/hands.
+ if(motion?.moving){
+   path([[-8,8],[-10+lean,17],[-5+lean,14],[-3,9]],p.shadow,p.rim,.6);
+   path([[8,8],[10+lean,17],[5+lean,14],[3,9]],p.light,p.rim,.6);
+ }
  // Tail panels stop just beneath the waist: heels never show past the coat.
  path([[-8,3],[-3,5],[-3+lean,12.2],[-9+lean,11.8],[-11,8.8]],p.shadow,p.rim,1.2);
  path([[3,5],[8,3],[11,8.8],[9+lean,11.8],[3+lean,12.2]],p.coat,p.rim,1.2);
@@ -118,7 +123,7 @@ drawPlayer=function(){
  originalPlayer();
  let weapon=swordOn?'sword':'pistol';
  if(!swordOn&&window.PiraliAlphaGear?.status?.().selected==='shotgun')weapon='shotgun';
- const motion=window.PiraliAlphaMotion?.sample(P,'simona',P.ang,Math.hypot(P.vx,P.vy),shootCD,swordOn);
+ const motion=window.PiraliAlphaMotion?.enabled()?window.PiraliAlphaMotion.sample(P,'simona',P.ang,Math.hypot(P.vx,P.vy),shootCD,swordOn):null;
  topdownPerson('simona',P.x,P.y,P.ang,Math.hypot(P.vx,P.vy),weapon,{motion});
 };
 drawEnemy=function(e){
@@ -127,19 +132,36 @@ drawEnemy=function(e){
  originalEnemy(e);
  const kind=e.etype==='rifle'?'rifle':e.etype==='officer'?'officer':'sword';
  const weapon=kind==='rifle'?'rifle':kind==='sword'?'sword':'pistol';
- const motion=window.PiraliAlphaMotion?.sample(e,kind,e.ang,Math.hypot(e.vx||0,e.vy||0),e.sT||0,e.state==='attack'&&kind==='sword');
+ const motion=window.PiraliAlphaMotion?.enabled()?window.PiraliAlphaMotion.sample(e,kind,e.ang,Math.hypot(e.vx||0,e.vy||0),e.sT||0,e.state==='attack'&&kind==='sword'):null;
  topdownPerson(kind,e.x,e.y,e.ang,Math.hypot(e.vx||0,e.vy||0),weapon,{motion});
 };
 drawBoss=function(b){
  if(!enabled||!b?.alive)return originalBoss(b);
  originalBoss(b);
- topdownPerson('general',b.x,b.y,b.ang,Math.hypot(b.vx||0,b.vy||0),'sword',{rage:!!b.rageMode});
+ const movement=window.PiraliAlphaMotion;
+ const motion=movement?.enabled()?movement.sample(b,'general',b.ang,Math.hypot(b.vx||0,b.vy||0),b.sT||0,b.charging||b.groundSlamActive):null;
+ topdownPerson('general',b.x,b.y,b.ang,Math.hypot(b.vx||0,b.vy||0),'sword',{rage:!!b.rageMode,motion});
+ // These ring accents communicate the existing attack state; hitbox is not changed.
+ if(!movement?.enabled())return;
+ const px=sx(b.x),py=sy(b.y),t=performance.now()*.0045,warning=b.charging||b.groundSlamActive;
+ ctx.save();ctx.translate(px,py);
+ if(warning){
+  ctx.strokeStyle=b.charging?'rgba(255,173,53,.9)':'rgba(246,72,45,.9)';
+  ctx.lineWidth=b.charging?3.2:2.8;ctx.setLineDash([8,5]);ctx.lineDashOffset=-t*7;
+  ctx.beginPath();ctx.arc(0,0,43+Math.sin(t*2)*3,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+  for(let i=0;i<4;i++){const a=t+i*Math.PI/2;ctx.fillStyle='rgba(255,203,88,.7)';
+    ctx.beginPath();ctx.arc(Math.cos(a)*39,Math.sin(a)*39,2.2,0,Math.PI*2);ctx.fill();}
+ }else if(b.rageMode){
+  ctx.strokeStyle='rgba(245,84,60,'+(.34+Math.sin(t*2)*.12)+')';
+  ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,38+Math.sin(t)*2,0,Math.PI*2);ctx.stroke();
+ }
+ ctx.restore();
 };
 window.PiraliTopdownPolish=Object.freeze({
  enable:value=>{enabled=!!value;return enabled;},
  isEnabled:()=>enabled,
  originalPlayer,originalEnemy,originalBoss,
- version:'0.11-topdown-no-boots-no-static-arms-d',
+ version:'0.12-motion-phase2-boss-batoni',
  touched:['Simona','sword soldier','rifle soldier','officer','general','general rage'],
  landlordUntouched:true
 });
