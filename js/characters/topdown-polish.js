@@ -37,11 +37,14 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
  const scale=boss?1.63:type==='simona'?1.01:.92;
  const px=sx(x),py=sy(y);
  if(px<-90||px>W+90||py<-90||py>H+90)return;
- const gait=speed>.12?Math.sin((typeof frame==='number'?frame:0)*.19)*Math.min(3,speed):Math.sin(Date.now()*.002)*.25;
- ctx.save();ctx.translate(px,py);ctx.rotate((Number.isFinite(angle)?angle:-PI/2)+PI/2);ctx.scale(scale,scale);
+ const motion=opts.motion||null;
+ const gait=motion?motion.sway:(speed>.12?Math.sin((typeof frame==='number'?frame:0)*.19)*Math.min(3,speed):Math.sin(Date.now()*.002)*.25);
+ ctx.save();ctx.translate(px,py);ctx.rotate((Number.isFinite(motion?.angle)?motion.angle:(Number.isFinite(angle)?angle:-PI/2))+PI/2);ctx.scale(scale,scale);
  // True birds-eye view: compact silhouette. No feet or boots in the elevated-camera
  // renderer, even while the body rotates. Walking still animates fabric folds.
  ellipse(1.8,7.1,13.6,4.3,'rgba(9,11,8,.20)');
+ // Movement comes from the shared Alpha animation clock; shadow stays planted.
+ if(motion)ctx.translate(0,-Math.min(1.1,Math.max(-.3,motion.bob)));
  const lean=gait*.13;
  // Tail panels stop just beneath the waist: heels never show past the coat.
  path([[-8,3],[-3,5],[-3+lean,12.2],[-9+lean,11.8],[-11,8.8]],p.shadow,p.rim,1.2);
@@ -96,6 +99,14 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
   if(boss)ellipse(0,-12,2.8,2.5,'#ae3029');
  }
  ellipse(0,-19,4,1.3,p.skin);
+ // Brief costume recoil glint; existing animated equipment remains unchanged.
+ if(motion?.kick>0){
+   seg(-6,7,6,7+motion.kick,'rgba(235,210,157,'+(.12+motion.kick*.3)+')',.8);
+ }
+ if(motion?.flash>0&&weapon!=='sword'){
+   const k=motion.flash;
+   ellipse(19,-29,2.3*k,3.6*k,'rgba(255,217,105,'+(.7*k)+')');
+ }
  // Keep animated original weapons and arms; no painted static grip.
  if(opts.rage){seg(-11,7,-6,15,'#d4423c',1.2);seg(11,7,6,15,'#dd5349',1.2);}
  ctx.restore();
@@ -107,7 +118,8 @@ drawPlayer=function(){
  originalPlayer();
  let weapon=swordOn?'sword':'pistol';
  if(!swordOn&&window.PiraliAlphaGear?.status?.().selected==='shotgun')weapon='shotgun';
- topdownPerson('simona',P.x,P.y,P.ang,Math.hypot(P.vx,P.vy),weapon);
+ const motion=window.PiraliAlphaMotion?.sample(P,'simona',P.ang,Math.hypot(P.vx,P.vy),shootCD,swordOn);
+ topdownPerson('simona',P.x,P.y,P.ang,Math.hypot(P.vx,P.vy),weapon,{motion});
 };
 drawEnemy=function(e){
  if(!enabled||!e?.alive||e.etype==='landlord')return originalEnemy(e);
@@ -115,7 +127,8 @@ drawEnemy=function(e){
  originalEnemy(e);
  const kind=e.etype==='rifle'?'rifle':e.etype==='officer'?'officer':'sword';
  const weapon=kind==='rifle'?'rifle':kind==='sword'?'sword':'pistol';
- topdownPerson(kind,e.x,e.y,e.ang,Math.hypot(e.vx||0,e.vy||0),weapon);
+ const motion=window.PiraliAlphaMotion?.sample(e,kind,e.ang,Math.hypot(e.vx||0,e.vy||0),e.sT||0,e.state==='attack'&&kind==='sword');
+ topdownPerson(kind,e.x,e.y,e.ang,Math.hypot(e.vx||0,e.vy||0),weapon,{motion});
 };
 drawBoss=function(b){
  if(!enabled||!b?.alive)return originalBoss(b);
