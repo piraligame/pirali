@@ -26,6 +26,17 @@ async function main(){
  await capture('01-main-menu-portrait.png');
  await js("localStorage.setItem('pirali_player_name','PIRALI-Alpha-QA');autoSaveScore=async()=>{};startGame()");
  await delay(400);await capture('02-first-level-portrait.png');
+ // Alpha 0.12 scenery phase: five readable biomes, unchanged world positions when toggled.
+ const scenic=[];
+ for(let stage=1;stage<=5;stage++){
+   const snap=await js("(()=>{level="+stage+";genWorld();render();const e=PiraliAlphaEnvironment.stats();const before=[P.x,P.y,trees.length,enemies.length,path.length].join(',');PiraliAlphaEnvironment.enable(false);render();const after=[P.x,P.y,trees.length,enemies.length,path.length].join(',');PiraliAlphaEnvironment.enable(true);render();return {e,stable:before===after}})()");
+   if(snap.e.level!==stage||snap.e.decorations<30||!snap.stable||snap.e.cachedTiles<stage)throw Error('Environment '+stage+' failed '+JSON.stringify(snap));
+   scenic.push(snap.e);
+   await capture('stage-'+stage+'-scenery.png');
+ }
+ await js('level=1;genWorld();');
+ console.log('FIVE_STAGE_SCENERY_QA '+JSON.stringify(scenic));
+
  const phase2=await js("(()=>{const b={x:P.x+110,y:P.y+40,r:24,hp:20,maxHp:20,vx:1,vy:.2,ang:Math.PI,alive:true,hf:0,wf:0,sT:200,chargeT:5,charging:true,chargeDx:-1,chargeDy:0,rageMode:true,phase:2,groundSlamActive:false};const e={x:P.x-90,y:P.y+35,r:13,hp:1,maxHp:1,vx:1,vy:1,ang:1,alive:true,hf:0,wf:0,etype:'landlord',isNPC:true};const before=[b.x,b.y,e.x,e.y].join(',');drawBoss(b);drawEnemy(e);const after=[b.x,b.y,e.x,e.y].join(',');const a=PiraliAlphaMotion.sample(b,'general',b.ang,1,b.sT,true),v=PiraliAlphaMotion.sample(e,'batoni',e.ang,1,0,false);return{unchanged:before===after,boss:a.enabled,batoni:v.enabled,loaded:PiraliBatoniArt.status().ready}})()");
  if(!phase2.unchanged||!phase2.boss||!phase2.batoni||!phase2.loaded)throw Error('Phase2 character visual test failed '+JSON.stringify(phase2));
  const death={};for(const lang of ['ka','en','ru','zh']){

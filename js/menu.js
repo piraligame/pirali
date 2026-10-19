@@ -89,7 +89,7 @@
     card.appendChild(privacy);refreshPrivacyLabel();
     const version=document.createElement('div');
     version.className='menu-version';
-    version.textContent='PIRALI • ALPHA 0.12 MOTION PREVIEW';
+    version.textContent='PIRALI • ALPHA 0.12 SCENERY PREVIEW';
     card.appendChild(version);
     if(window.PiraliLanguage)window.PiraliLanguage.apply();
   }
