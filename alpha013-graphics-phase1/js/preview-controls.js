@@ -53,6 +53,28 @@ function ready(){
    b.style.background=on?'#365e42':'#694936';
  });
  motion.style.background='#365e42';
+ const soldierMotion=toggleBtn('🪖 მტრის მოძრაობა 0.13: ON',b=>{
+   const api=window.PiraliEnemyMotion;if(!api)return;
+   const active=api.enable(!api.enabled());
+   b.textContent=active?'🪖 მტრის მოძრაობა 0.13: ON':'🪖 მტრის მოძრაობა 0.12: OFF';
+   b.style.background=active?'#426640':'#774432';
+ });
+ soldierMotion.style.background='#426640';soldierMotion.dataset.enemy='toggle';
+ const enemyDemo=toggleBtn('🎖️ სამი ჯარისკაცის ნახვა',()=>{
+   if(typeof running==='undefined'||!running||!Array.isArray(enemies))return;
+   const set=[['saber',-105,-92],['rifle',90,-113],['officer',-18,-146]];
+   for(const [kind,ox,oy] of set){
+     const enemy=enemies.find(e=>e.alive&&e.etype===kind);
+     if(!enemy)continue;
+     enemy.x=Math.max(35,Math.min(WW-35,P.x+ox));
+     enemy.y=Math.max(45,Math.min(WH-45,P.y+oy));
+     enemy.vx=0;enemy.vy=0;enemy.ang=Math.atan2(P.y-enemy.y,P.x-enemy.x);
+     enemy.state='alert';enemy.alertTimer=100;enemy.retreating=false;
+     if(enemy.patrol){enemy.patrol.cx=enemy.x;enemy.patrol.cy=enemy.y;}
+   }
+   fold(true);
+ });
+ enemyDemo.dataset.enemy='demo';
  const church=toggleBtn('⛪ ისტორიული ეკლესია: ON',b=>{
    const api=window.PiraliHistoricalPhase4;if(!api)return;
    const on=api.enable(!api.enabled());b.textContent=on?'⛪ ისტორიული ეკლესია: ON':'⛪ ძველი ეკლესია: OFF';
@@ -70,8 +92,8 @@ function ready(){
  });
  visit.dataset.church='visit';
  const note=document.createElement('div');note.textContent='ტურების გადართვა მხოლოდ სატესტოა';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
- el.append(header,row,title,road,scenery,motion,church,visit,note);document.body.appendChild(el);
- const inner=[row,title,road,scenery,motion,church,visit,note];let folded=true;
+ el.append(header,row,title,road,scenery,motion,soldierMotion,enemyDemo,church,visit,note);document.body.appendChild(el);
+ const inner=[row,title,road,scenery,motion,soldierMotion,enemyDemo,church,visit,note];let folded=true;
  function fold(next){folded=next;inner.forEach(n=>n.style.display=folded?'none':(n===row?'grid':'block'));
   header.textContent=folded?'🌲 ტესტი ▾':'🌲 ტესტი ▴';
  }
