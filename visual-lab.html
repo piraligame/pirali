@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ფირალი 0.11 — პერსონაჟების ვიზუალური სახელოსნო</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0d1010;color:#f3e5c4;font:15px/1.6 system-ui,Segoe UI,sans-serif}
+header{background:linear-gradient(130deg,#1d281d,#131510);border-bottom:1px solid #886d36;padding:18px 24px}
+header small{color:#d6aa62;letter-spacing:3px;font-weight:bold}header h1{font-size:26px;margin:3px 0 6px;line-height:1.3}
+header p{margin:0;color:#b6b5a3;max-width:1000px}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:13px 24px;background:#151b19;border-bottom:1px solid #3e4b35}
+button,a.action{border:1px solid #967545;border-radius:8px;background:#292720;color:#f3dfb5;padding:8px 14px;cursor:pointer;font:inherit}
+button:hover,a.action:hover{background:#584525}.toolbar span{color:#cfb887}
+.grid{max-width:1500px;margin:auto;padding:20px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.card{background:linear-gradient(165deg,#242720,#131916);border:1px solid #675336;border-radius:14px;overflow:hidden}
+.card h2{margin:0;padding:11px 15px 0;font-size:20px}.card p{padding:0 15px;color:#b6b4a5;font-size:13px;min-height:37px;margin:3px 0 6px}
+canvas{width:100%;aspect-ratio:1;display:block;background:#344731;image-rendering:auto}
+.caption{padding:10px 14px;font-size:12px;color:#cdbf9b}
+footer{max-width:1450px;margin:0 auto 35px;padding:0 24px;color:#bdb4a0}
+.tag{color:#e5b968;border:1px solid #97764d;border-radius:7px;font-size:12px;display:inline-block;padding:2px 8px;margin:3px 0 0 15px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:630px){.grid{grid-template-columns:1fr}header h1{font-size:22px}}
+</style></head>
+<body>
+<header><small>PIRALI / VISUAL PROTOTYPE · ALPHA 0.11</small>
+<h1>სიმონა და ჯარისკაცები — ნახევრად რეალისტური 2D</h1>
+<p>ეს არის ცალკე გრაფიკული სახელოსნო, არ არის გამოქვეყნებული Alpha 0.10-ის განახლება. მარჯვნივ-მარცხნივ შეცვალე ხედვის მიმართულება, დააკვირდი ჩოხას, ფორმებს, იარაღს და სიარულის ანიმაციას.</p>
+</header>
+<div class="toolbar"><button id="left">↶ მარცხნივ</button><button id="right">↷ მარჯვნივ</button>
+<button id="walk">⏸ ანიმაციის შეჩერება</button><button id="scale">🔍 გადიდება</button>
+<span id="direction">მიმართულება: ↑</span>
+<a class="action" href="index.html">🎮 თამაშის გაშვება</a></div>
+<section class="grid" id="cards"></section>
+<footer>🔒 არსებული Alpha 0.10, Beta და Firebase ხელუხლებელია. ყველაფერი აქ რენდერდება ადგილობრივად, ონლაინ რეიტინგში ჩანაწერები არ იგზავნება. მტრის სიცოცხლე, AI, შეტევის რადიუსი და სიმონას მოძრაობის სიჩქარე არ შეცვლილა.</footer>
+<script>function drawPlayer(){} function drawEnemy(){}</script>
+<script src="js/characters/visual-sprites.js?v=lab-alpha011a"></script>
+<script>
+const entries=[
+  ['simona','სიმონა დალიძე','ქართული ჩოხა · ყაბალახი · მაუზერი','pistol'],
+  ['rifle','რუსი მსროლელი','მუნდირი · ჩექმა · შაშხანა','rifle'],
+  ['sword','რუსი რიგითი','მწვანე მუნდირი · ხმალი · ბუდიონოვკა','sword'],
+  ['officer','რუსი ოფიცერი','ეპოლეტები · სამხედრო ქუდი · პისტოლეტი','pistol']
+];
+const wrap=document.getElementById('cards');let direction=6,walking=true,big=false;
+entries.forEach(([kind,title,details,weapon])=>{
+ const box=document.createElement('article');box.className='card';
+ const h=document.createElement('h2');h.textContent=title;
+ const t=document.createElement('p');t.textContent=details;
+ const canvas=document.createElement('canvas');canvas.width=600;canvas.height=600;canvas.dataset.kind=kind;canvas.dataset.weapon=weapon;
+ const label=document.createElement('div');label.className='caption';label.textContent='8 მიმართულება · 4 სიარულის კადრი · ცალკე ვიზუალური ფენა';
+ box.append(h,t,canvas,label);wrap.append(box);
+});
+document.getElementById('left').onclick=()=>{direction=(direction+7)%8;updateDirection()};
+document.getElementById('right').onclick=()=>{direction=(direction+1)%8;updateDirection()};
+document.getElementById('walk').onclick=e=>{walking=!walking;e.currentTarget.textContent=walking?'⏸ ანიმაციის შეჩერება':'▶ ანიმაციის გაშვება'};
+document.getElementById('scale').onclick=e=>{big=!big;e.currentTarget.textContent=big?'🔎 ნორმალური ზომა':'🔍 გადიდება'};
+const labels=['→','↘','↓','↙','←','↖','↑','↗'];
+function updateDirection(){document.getElementById('direction').textContent='მიმართულება: '+labels[direction]}
+let frame=0,last=0;
+function animate(time){
+ if(walking&&time-last>190){frame=(frame+1)%4;last=time}
+ document.querySelectorAll('canvas').forEach(canvas=>{
+   const c=canvas.getContext('2d'),w=canvas.width,h=canvas.height,kind=canvas.dataset.kind;
+   c.clearRect(0,0,w,h);
+   const bg=c.createLinearGradient(0,0,0,600);bg.addColorStop(0,'#637450');bg.addColorStop(1,'#263d33');c.fillStyle=bg;c.fillRect(0,0,w,h);
+   c.fillStyle='#716548';c.beginPath();c.moveTo(200,0);c.lineTo(400,0);c.lineTo(495,600);c.lineTo(120,600);c.closePath();c.fill();
+   c.fillStyle='#baa074';c.beginPath();c.moveTo(230,0);c.lineTo(370,0);c.lineTo(454,600);c.lineTo(161,600);c.closePath();c.fill();
+   for(let i=0;i<15;i++){const x=(i*157+46)%600,y=(i*223+64)%600;c.fillStyle=i%2?'#294534':'#708b4f';c.beginPath();c.ellipse(x,y,8+(i%4)*4,6,0,0,Math.PI*2);c.fill()}
+   c.fillStyle='rgba(0,0,0,.24)';c.beginPath();c.ellipse(w/2+9,h/2+92,big?116:93,31,0,0,Math.PI*2);c.fill();
+   const src=window.PiraliVisualV2.previewSprite(kind,direction,frame,canvas.dataset.weapon);
+   const size=big?480:395;c.drawImage(src,(w-size)/2,(h-size)/2,size,size);
+   c.font='bold 26px system-ui';c.textAlign='center';c.fillStyle='#f7dfad';c.shadowColor='#132014';c.shadowBlur=7;
+   c.fillText('ნახევრად რეალისტური · 2D',300,560);c.shadowBlur=0;
+ });
+ requestAnimationFrame(animate);
+}
+updateDirection();requestAnimationFrame(animate);
+</script></body></html>

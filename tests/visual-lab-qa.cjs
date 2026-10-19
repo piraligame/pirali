@@ -1,0 +1,21 @@
+const fs=require('fs'),path=require('path'),os=require('os'),{spawn,execFileSync}=require('child_process'),{pathToFileURL}=require('url');
+const port=9638,root=process.cwd(),profile=path.join(os.tmpdir(),'pirali-v011-lab-'+Date.now());
+const pause=ms=>new Promise(r=>setTimeout(r,ms));let proc,ws,seq=0;const pending=new Map(),errors=[];
+(async()=>{fs.mkdirSync(profile,{recursive:true});
+ proc=spawn('C:/Program Files/Google/Chrome/Application/chrome.exe',['--headless=new','--no-first-run','--no-sandbox','--remote-debugging-port='+port,'--user-data-dir='+profile,'about:blank'],{stdio:'ignore',windowsHide:true});
+ let pages;for(let i=0;i<60;i++){try{pages=await(await fetch('http://127.0.0.1:'+port+'/json/list')).json();if(pages.some(p=>p.type==='page'))break}catch{}await pause(200)}
+ ws=new WebSocket(pages.find(x=>x.type==='page').webSocketDebuggerUrl);await new Promise((ok,fail)=>{ws.onopen=ok;ws.onerror=fail;setTimeout(()=>fail(Error('WS timeout')),5000)});
+ ws.onmessage=m=>{const x=JSON.parse(m.data);if(x.id&&pending.has(x.id)){pending.get(x.id)(x);pending.delete(x.id)}if(x.method==='Runtime.exceptionThrown')errors.push(x.params.exceptionDetails.exception?.description||x.params.exceptionDetails.text)};
+ const call=(method,params={})=>new Promise((ok,no)=>{const id=++seq;pending.set(id,ok);ws.send(JSON.stringify({id,method,params}));setTimeout(()=>{if(pending.has(id)){pending.delete(id);no(Error(method+' timeout'))}},12000)});
+ const js=async x=>{const r=await call('Runtime.evaluate',{expression:x,returnByValue:true});if(r.result.exceptionDetails)throw Error(r.result.exceptionDetails.exception?.description);return r.result.result.value};
+ await call('Runtime.enable');await call('Page.enable');await call('Emulation.setDeviceMetricsOverride',{width:1480,height:1060,deviceScaleFactor:1,mobile:false});
+ await call('Page.navigate',{url:pathToFileURL(path.join(root,'visual-lab.html')).href});await pause(1800);
+ const before=await js("({artists:window.PiraliVisualV2?.stats(),canvasCount:document.querySelectorAll('canvas').length,canvasPixels:[...document.querySelectorAll('canvas')].map(c=>{const d=c.getContext('2d').getImageData(300,300,1,1).data;return [...d]})})");
+ if(before.canvasCount!==4||before.artists.cacheSize<4||before.canvasPixels.some(x=>x[3]!==255))throw Error('Invalid LAB scene '+JSON.stringify(before));
+ await js("document.getElementById('left').click();document.getElementById('walk').click();document.getElementById('scale').click()");
+ const controls=await js("({direction,walking,big,title:document.title})");
+ if(controls.direction!==5||controls.walking!==false||controls.big!==true)throw Error('Lab controls fail '+JSON.stringify(controls));
+ const file=path.join(root,'visual-lab-preview.png');const pic=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});fs.writeFileSync(file,Buffer.from(pic.result.data,'base64'));
+ if(errors.length)throw Error('Browser JS errors '+JSON.stringify(errors));
+ console.log(JSON.stringify({passed:true,before,controls,screenshot:file,errors}));
+})().catch(e=>{console.error('VISUAL_LAB_FAILED',e.stack||String(e));process.exitCode=1}).finally(()=>{try{ws?.close()}catch{}if(proc?.pid)try{execFileSync('taskkill.exe',['/PID',String(proc.pid),'/T','/F'],{stdio:'ignore'})}catch{}});
