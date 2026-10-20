@@ -162,20 +162,23 @@ function topdownPerson(type,x,y,angle,speed,weapon,opts={}){
 drawPlayer=function(){
  if(!enabled)return originalPlayer();
  if(P.dead)return;
- // Keep original combat recoil, attack effects, parry and dash exactly as before.
- originalPlayer();
- let weapon=swordOn?'sword':'pistol';
- if(!swordOn&&window.PiraliAlphaGear?.status?.().selected==='shotgun')weapon='shotgun';
- const motion=window.PiraliAlphaMotion?.enabled()?window.PiraliAlphaMotion.sample(P,'simona',P.ang,Math.hypot(P.vx,P.vy),shootCD,swordOn):null;
- // Alpha 0.14 study only: visual replacement; original player FX and combat stay intact.
+ const weapon=swordOn?'sword':window.PiraliAlphaGear?.status?.().selected==='shotgun'?'shotgun':'mauser';
+ const speed=Math.hypot(P.vx,P.vy);
+ const motion=window.PiraliAlphaMotion?.enabled()?
+  window.PiraliAlphaMotion.sample(P,'simona',P.ang,speed,shootCD,swordOn):null;
+ // 0.14 preview replaces the entire old sprite including its frozen gun.
+ // Combat, FX events and all logical gameplay state remain untouched.
  if(window.PiraliSimona014?.isEnabled()){
   window.PiraliSimona014.draw(ctx,{
-   x:sx(P.x),y:sy(P.y),angle:P.ang,
-   speed:Math.hypot(P.vx,P.vy),motion,dash:dashing
+   x:sx(P.x),y:sy(P.y),angle:P.ang,speed,motion,
+   weapon,sword:swordOn,swordT,parry:parryActive,dash:dashing,
+   invincible,time:Date.now(),radius:P.r
   });
- }else{
-  topdownPerson('simona',P.x,P.y,P.ang,Math.hypot(P.vx,P.vy),weapon,{motion});
+  return;
  }
+ // Exact approved 0.13 presentation when study is disabled.
+ originalPlayer();
+ topdownPerson('simona',P.x,P.y,P.ang,speed,weapon,{motion});
 };
 drawEnemy=function(e){
  if(!enabled||!e?.alive||e.etype==='landlord')return originalEnemy(e);
