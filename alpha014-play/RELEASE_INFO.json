@@ -1,0 +1,10 @@
+{
+  "version": "0.14",
+  "channel": "alpha014-approved-player",
+  "source": "Approved Alpha 0.13 Simona body with Alpha 0.14 Study D Mauser, sword and shotgun",
+  "sourceBranch": "feat/alpha-014-work",
+  "noDevelopmentControls": true,
+  "firebaseUnchanged": true,
+  "productionPlaySiteUnchanged": true,
+  "androidBuild": "signed using private existing Alpha Test key"
+}
