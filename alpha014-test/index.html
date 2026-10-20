@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="css/levels.css?v=final-20261016a">
 <link rel="stylesheet" href="css/mobile-lifecycle.css?v=20261017a">
 <link rel="stylesheet" href="css/player-stats.css?v=stats-20261017a">
+<link rel="stylesheet" href="css/alpha014-hud.css?v=controls-B1">
 <meta name="robots" content="noindex,nofollow">
 <script>
 window.PiraliVisualPreviewReadonly=true;
@@ -41,7 +42,7 @@ window.PiraliAlpha014Test=true;
   <div class="ui-panel" style="text-align:right"><div class="ui-lbl">ქულა</div><div id="score-val">0</div></div>
 </div>
 <div id="progress-bar"><div id="prog-lbl">ეკლესიისკენ</div><div id="prog-track"><div id="prog-fill" style="width:0%"></div></div></div>
-<div id="dash-cd"><div id="dash-lbl">💨 მოი აგერ!</div><div id="dash-cd-track"><div id="dash-fill" style="width:100%;height:100%;"></div></div></div>
+
 <div id="level-badge"></div>
 <div id="pirali-run-mode" hidden aria-live="polite"></div>
 <div id="pirali-time-hud" hidden aria-label="Level timer"></div>
@@ -67,7 +68,10 @@ window.PiraliAlpha014Test=true;
   <button id="alpha-weapon-switch" type="button" hidden></button>
   <div class="btn-row">
     <div class="act-btn" id="btn-sword">⚔️</div>
-    <div class="act-btn" id="btn-dash" role="button" aria-label="მოი აგერ!" title="მოი აგერ!">მოი აგერ!</div>
+    <div class="alpha014-dash-stack">
+      <div id="dash-cd" aria-label="მოი აგერ! — მზადყოფნა"><div id="dash-lbl">მოი აგერ!</div><div id="dash-cd-track"><div id="dash-fill" style="width:100%;height:100%;"></div></div></div>
+      <div class="act-btn" id="btn-dash" role="button" aria-label="მოი აგერ!" title="მოი აგერ!">მოი აგერ!</div>
+    </div>
   </div>
   <div class="act-btn" id="btn-shoot" role="button" aria-label="მაუზერით სროლა" title="მაუზერი — სროლა"><img class="mauser-icon" src="assets/icons/mauser-pistol.png?v=20261016a" alt="" draggable="false"></div>
 </div>
@@ -102,7 +106,7 @@ window.PiraliAlpha014Test=true;
 <script src="js/runtime/audio.js"></script>
 <script src="js/config/levels.js?v=final-20261016a"></script>
 <script src="js/config/balance.js?v=final-20261016a"></script>
-<script src="js/config/alpha-gear-v2.js?v=alpha009c"></script>
+<script src="js/config/alpha-gear-v2.js?v=alpha014-controls-B1"></script>
 <script src="js/runtime/world.js?v=alpha009a"></script>
 <script src="js/runtime/combat.js?v=alpha009a"></script>
 <script src="js/runtime/update.js?v=alpha009a"></script>
@@ -131,6 +135,6 @@ window.PiraliAlpha014Test=true;
 <script src="js/progression/player-stats.js?v=stats-20261017a"></script>
 <script src="js/menu.js?v=visual-alpha011a"></script>
 <script src="js/platform/mobile-lifecycle.js?v=stats-20261017a"></script>
-<script src="js/preview-controls.js?v=alpha014-studyD-test"></script>
+<script src="js/preview-controls.js?v=alpha014-teleports-20261020"></script>
 </body>
 </html>

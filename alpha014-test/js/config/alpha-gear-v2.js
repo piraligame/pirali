@@ -75,9 +75,30 @@ const PiraliAlphaGear=(function(){
    const shoot=document.getElementById('btn-shoot');
    const image=shoot?.querySelector('img');
    if(button){
-     button.hidden=!owned||typeof level!=='undefined'&&level!==5;
-     button.textContent='↔ '+(selected==='shotgun'?t('mauser'):t('shotgun'));
-     button.title=t('switch');
+     button.hidden=!owned||(typeof level!=='undefined'&&level!==5);
+     // 0.14 test B1: keep the weapon switch a single accessible tap target.
+     // Four painted SHOTGUN SHELLS + the real remaining shell count stay on it.
+     const name=document.createElement('span');
+     name.className='alpha-switch-name';
+     name.textContent='↔ '+(selected==='shotgun'?t('mauser'):t('shotgun'));
+     const meter=document.createElement('span');
+     meter.className='alpha-shell-meter';
+     const icons=document.createElement('span');
+     icons.className='alpha-shell-cartridges';
+     icons.setAttribute('aria-hidden','true');
+     for(let i=0;i<4;i++){
+       const cartridge=document.createElement('span');
+       cartridge.className='alpha-shell-cartridge'+(i<ammo?'':' is-empty');
+       icons.appendChild(cartridge);
+     }
+     const count=document.createElement('span');
+     count.className='alpha-shell-count';
+     count.textContent='× '+ammo;
+     meter.append(icons,count);
+     button.replaceChildren(name,meter);
+     button.classList.toggle('alpha-switch-selected',selected==='shotgun');
+     button.title=t('switch')+' • '+t('shells')+': '+ammo;
+     button.setAttribute('aria-label',button.title);
    }
    if(hud){
      hud.hidden=!owned;
