@@ -167,7 +167,15 @@ drawPlayer=function(){
  let weapon=swordOn?'sword':'pistol';
  if(!swordOn&&window.PiraliAlphaGear?.status?.().selected==='shotgun')weapon='shotgun';
  const motion=window.PiraliAlphaMotion?.enabled()?window.PiraliAlphaMotion.sample(P,'simona',P.ang,Math.hypot(P.vx,P.vy),shootCD,swordOn):null;
- topdownPerson('simona',P.x,P.y,P.ang,Math.hypot(P.vx,P.vy),weapon,{motion});
+ // Alpha 0.14 study only: visual replacement; original player FX and combat stay intact.
+ if(window.PiraliSimona014?.isEnabled()){
+  window.PiraliSimona014.draw(ctx,{
+   x:sx(P.x),y:sy(P.y),angle:P.ang,
+   speed:Math.hypot(P.vx,P.vy),motion,dash:dashing
+  });
+ }else{
+  topdownPerson('simona',P.x,P.y,P.ang,Math.hypot(P.vx,P.vy),weapon,{motion});
+ }
 };
 drawEnemy=function(e){
  if(!enabled||!e?.alive||e.etype==='landlord')return originalEnemy(e);
