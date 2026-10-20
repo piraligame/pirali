@@ -49,10 +49,10 @@ function ready(){
  });
  immortality.dataset.immortality='toggle';
  immortality.setAttribute('aria-pressed','false');
- function visitFinal(target){
+ function visitFinal(){
    if(typeof running==='undefined'||!running)return;
    level=5;genWorld();
-   const destination=target==='boss'&&boss?boss:{x:CHURCH_X,y:CHURCH_Y};
+   const destination=boss||{x:CHURCH_X,y:CHURCH_Y};
    P.x=Math.max(P.r,Math.min(WW-P.r,destination.x));
    P.y=Math.max(P.r,Math.min(WH-P.r,destination.y+195));
    P.vx=P.vy=0;P.ang=-Math.PI/2;
@@ -64,13 +64,11 @@ function ready(){
    if(typeof updateAmmoUI==='function')updateAmmoUI();
    fold(true);
  }
- const church=toggleBtn('⛪ ეკლესიასთან გადასვლა',()=>visitFinal('church'));
- church.dataset.church='visit';
- const finalBoss=toggleBtn('⚔️ ბოლო ბოსთან გადასვლა',()=>visitFinal('boss'));
+ const finalBoss=toggleBtn('⚔️ ბოლო ბოსთან გადასვლა',visitFinal);
  finalBoss.dataset.boss='visit';
  const note=document.createElement('div');note.textContent='Alpha 0.14 · სატესტო მართვა';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
- el.append(header,row,title,immortality,church,finalBoss,note);document.body.appendChild(el);
- const inner=[row,title,immortality,church,finalBoss,note];let folded=true;
+ el.append(header,row,title,immortality,finalBoss,note);document.body.appendChild(el);
+ const inner=[row,title,immortality,finalBoss,note];let folded=true;
  function fold(next){folded=next;inner.forEach(n=>n.style.display=folded?'none':(n===row?'grid':'block'));
   header.textContent=folded?'🧪 ტესტი ▾':'🧪 ტესტი ▴';
  }
