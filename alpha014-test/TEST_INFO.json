@@ -1,0 +1,10 @@
+{
+  "version": "0.14",
+  "role": "developer-test-not-player-release",
+  "source": "approved Study D, all five original game tours",
+  "previewControls": true,
+  "firebaseWritesBlocked": true,
+  "files": 52,
+  "oldMainPlayerUnchanged": true,
+  "installableAPK": "downloads/PIRALI_Alpha_Test_0.14.apk"
+}
