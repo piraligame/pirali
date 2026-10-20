@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171c19">
+<link rel="icon" href="data:,">
+<title>PIRALI • სიმონა 0.14 Study D — Alpha 0.13 სიმონა + 0.14 იარაღები</title>
+<style>
+:root{color-scheme:dark;--bg:#141916;--panel:#202824;--line:#485247;--gold:#d6b778;--text:#f0ebdc;--muted:#b7bcae}
+*{box-sizing:border-box}
+body{margin:0;color:var(--text);font:16px/1.52 system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 15% 5%,#303e32 0,#151b17 48%,#0f1411 100%)}
+main{max-width:1260px;margin:auto;padding:26px 22px 50px}
+.kicker{color:var(--gold);font-size:12px;letter-spacing:.25em;font-weight:850}
+h1{font:700 clamp(28px,4.4vw,52px)/1.11 Georgia,serif;margin:9px 0 12px}
+.intro{margin:0 0 18px;color:#c7cebf;max-width:850px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.tag{border:1px solid #aa9366;background:#473e2b;color:#ffe1a1;border-radius:999px;padding:6px 13px;font-size:13px}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:22px 0}
+button{color:#e8eadc;background:#27312a;border:1px solid #596759;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer}
+button[aria-pressed="true"]{color:#171813;background:#e3bc76;border-color:#f9d895;box-shadow:0 0 0 2px #80653d}
+button:hover{border-color:#efc980}
+button:focus-visible{outline:3px solid #fff0b0;outline-offset:2px}
+button:disabled{opacity:.5;cursor:default}
+.sep{width:18px;height:1px}
+.panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.panel{background:#222a24;border:1px solid #5a634f;border-radius:15px;overflow:hidden;box-shadow:0 13px 35px #06090560}
+.panel.new{border-color:#b79b60;box-shadow:0 13px 35px #090c0960,0 0 0 1px #7e6a42}
+.panel header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;gap:8px}
+.panel h2{font-size:17px;margin:0;font-weight:780}
+.panel .caption{color:#c4cbbe;font-size:12px}
+.stage{width:100%;height:auto;display:block;background:#354032;aspect-ratio:16/10}
+.description{padding:12px 18px 17px;font-size:14px;color:#bfc9ba;min-height:70px}
+.section-title{margin:33px 0 4px;font:700 26px Georgia,serif}
+.info{color:#bdc8bb;margin-top:3px;margin-bottom:15px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tile{min-width:0;background:#242d26;border:1px solid #475547;border-radius:11px;overflow:hidden}
+.tile canvas{width:100%;height:auto;display:block;aspect-ratio:1/1}
+.tile small{display:block;padding:8px 5px;text-align:center;color:#d5dacc;font-size:12px}
+.footnote{margin-top:25px;padding:17px 21px;border-left:3px solid var(--gold);background:#202a21;color:#c5d0c1}
+strong{color:#f3d397}
+@media(max-width:760px){main{padding:18px 12px 40px}.panels{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sep{display:none}.controls button{padding:9px 12px}.description{min-height:0}}
+</style>
+</head>
+<body>
+<main>
+<div class="topline"><div class="kicker">PIRALI • CHARACTER WORKBENCH</div><div class="tag">0.14 • Study D — მხოლოდ იარაღების ტესტი</div></div>
+<h1>სიმონა დოლიძე<br>გუშინ და დღეს</h1>
+<p class="intro">ერთსა და იმავე მიმართულებაში, ერთი და იმავე მოძრაობის ციკლზე: მარცხნივ Alpha 0.13-ის რეალური პერსონაჟი, მარჯვნივ ზუსტად Alpha 0.13-ის ძველი, შენ მიერ დამტკიცებული სიმონაა — უცვლელი სხეულით, თავითა და ჩოხით. შეცვლილია მხოლოდ მაუზერის, ხმლისა და სანადირო თოფის ვიზუალი და მოძრაობა Alpha 0.14-ის დიზაინით.</p>
+<nav class="controls" aria-label="ანიმაციის მდგომარეობა">
+<button data-state="idle" aria-pressed="false">დგომა</button>
+<button data-state="walk" aria-pressed="true">სიარული</button>
+<button data-state="run" aria-pressed="false">სირბილი</button>
+<button data-state="fire" aria-pressed="false">სროლა</button>
+<button data-state="dash" aria-pressed="false">დაში</button>
+<button data-state="sword" aria-pressed="false">⚔ ხმლის მოქნევა</button>
+<button data-state="shotgun" aria-pressed="false">▰ სანადირო თოფი</button>
+<span class="sep"></span>
+<button id="turn" aria-label="პერსონაჟის მობრუნება">↻ შემოტრიალება</button>
+<button id="faceDown">↓ სახე ქვემოთ</button>
+<button id="faceUp">↑ სახე ზემოთ</button>
+<button id="pause" aria-pressed="false">⏸ გაჩერება</button>
+</nav>
+<section class="panels" aria-label="ძველი და ახალი სიმონას ცოცხალი შედარება">
+ <article class="panel"><header><h2>Alpha 0.13 <span class="caption">წინა, დამტკიცებული</span></h2><span class="caption">ორიგინალი</span></header><canvas id="old" class="stage" width="680" height="425" aria-label="ძველი სიმონას ანიმაცია"></canvas><div class="description">მიმდინარე რელიზის რეალური 2D-რენდერი: ძველი სხეულის ფენა + ზემოდან დახვეწილი ჩოხა და ქუდი.</div></article>
+ <article class="panel new"><header><h2>Alpha 0.14 <span class="caption">ძველი სიმონა + ახალი იარაღები</span></h2><span class="caption">სიმონა • Study D</span></header><canvas id="next" class="stage" width="680" height="425" aria-label="ახალი სიმონას ანიმაცია"></canvas><div class="description">იგივე Alpha 0.13 პერსონაჟი — მხოლოდ Alpha 0.14-ის დეტალური მაუზერი, ხმლის მოქნევა და სანადირო თოფი. ძველი იარაღი მარჯვენა პანელში დამალულია, გაორებული იარაღი არ დაიხატება.</div></article>
+</section>
+<h2 class="section-title">ოთხივე მიმართულების ნახატები</h2>
+<p class="info">შეადარე ერთი კადრი სხვადასხვა რაკურსიდან: მარცხენა ოთხეული — 0.13, მარჯვენა ოთხეული — 0.14 Study D. ყველა მიმართულებით ჩოხა და თავი ერთნაირია; განსხვავდება მხოლოდ ხელში დაჭერილი იარაღი.</p>
+<div id="poseGrid" class="grid"></div>
+<p class="footnote"><strong>უსაფრთხო საცდელი ცვლილება:</strong> ეს გვერდი არ ეხება მთავარ სათამაშო ბმულს, Android APK/AAB-ს, პერსონაჟის ზომას/შეჯახებას, მექანიკას ან Firebase-ს. ახალი დიზაინი ჯერ მხოლოდ შესადარებლადაა.</p>
+</main>
+<script>
+var ctx=null,W=680,H=425,SPD=3.2,invincible=false,dashing=false,swordOn=false,parryActive=false,swordT=22,shootCD=0,frame=0;
+var P={x:340,y:212,ang:-Math.PI/2,r:18,vx:1.5,vy:0,dead:false,wAnim:0};
+var PiraliFX={recoil:()=>0};function sx(x){return x}function sy(y){return y}
+function drawEnemy(){}function drawBoss(){}
+</script>
+<script src="../play/js/characters/simona-style.js"></script>
+<script src="alpha013-base-player.js?v=hybridD-20261020"></script>
+<script src="../play/js/characters/motion-alpha012.js"></script>
+<script src="../play/js/characters/topdown-polish.js"></script>
+<script src="simona-weapons-only.js?v=hybridD-20261020"></script>
+<script>
+(function(){
+'use strict';
+const states={idle:0,walk:1.35,run:3.25,fire:0,dash:3.9,sword:.75,shotgun:1.05};
+const labels=['ზემოთ','მარჯვნივ','ქვემოთ','მარცხნივ'];
+const directions=[-Math.PI/2,0,Math.PI/2,Math.PI];
+let state='walk',angle=-Math.PI/2,paused=false,clock=0,last=performance.now();
+const old=document.getElementById('old'),next=document.getElementById('next');
+const poseGrid=document.getElementById('poseGrid');
+for(let v=0;v<2;v++)for(let k=0;k<4;k++){
+ const div=document.createElement('div');div.className='tile';
+ const c=document.createElement('canvas');c.width=240;c.height=240;
+ const label=document.createElement('small');label.textContent=(v?'0.13 + ახალი იარაღი':'0.13 ორიგინალი')+' • '+labels[k];
+ div.append(c,label);poseGrid.appendChild(div);
+}
+function backdrop(c,w,h,seed=1){
+ const gr=c.createLinearGradient(0,0,w,h);gr.addColorStop(0,'#46503b');gr.addColorStop(.57,'#414635');gr.addColorStop(1,'#292c25');c.fillStyle=gr;c.fillRect(0,0,w,h);
+ const midX=w*.5,midY=h*.51;
+ c.save();c.translate(midX,midY);c.rotate(-.09);
+ c.fillStyle='#67634d';c.beginPath();c.ellipse(0,0,w*.32,h*.64,0,0,Math.PI*2);c.fill();
+ c.fillStyle='#74694f';c.beginPath();c.ellipse(0,0,w*.25,h*.61,0,0,Math.PI*2);c.fill();
+ c.restore();
+ for(let i=0;i<65;i++){
+  const x=((i*197+59*seed)%(w+10))-5,y=((i*107+97*seed)%(h+10))-5;
+  if(Math.abs(x-midX)<w*.16&&Math.abs(y-midY)<h*.25)continue;
+  c.fillStyle=i%3===0?'#273a2a':i%3===1?'#3c4632':'#8f8563';
+  c.beginPath();c.ellipse(x,y,i%4+1.6,i%3+1,0,0,Math.PI*2);c.fill();
+ }
+ c.strokeStyle='rgba(231,212,158,.08)';c.lineWidth=1;c.beginPath();c.moveTo(0,h*.68);c.lineTo(w,h*.29);c.stroke();
+}
+function configure(c,w,h,dir,mode){
+ W=w;H=h;ctx=c;P.x=w*.5;P.y=h*.52;P.ang=dir;P.vx=states[mode]||0;P.vy=0;P.wAnim=clock*(mode==='run'?15:mode==='dash'?16:9);
+ shootCD=(mode==='fire'||mode==='shotgun')?11:0;dashing=mode==='dash';
+ swordOn=mode==='sword';swordT=swordOn?22*(1-(clock%1.05)/1.05):0;
+}
+function paint(c,w,h,isNew,dir,mode,small=false){
+ c.clearRect(0,0,w,h);backdrop(c,w,h,small?4:2);
+ configure(c,w,h,dir,mode);
+ const factor=small?2.8:4.0;
+ const cx=P.x,cy=P.y;
+ c.save();c.translate(cx,cy);c.scale(factor,factor);c.translate(-cx,-cy);
+ if(isNew){
+  // 0.13 WHOLE BODY + unchanged 0.13 head, chokha, sleeves, status effects.
+  // Only the original gun/sword strokes are suppressed in a LOCAL COPY.
+  const moving=states[mode]>.1,step=Math.sin(P.wAnim);
+  const pulse=(Math.sin(clock*12)*.5+.5);
+  const kick=(mode==='fire'||mode==='shotgun')?Math.pow(pulse,8):0;
+  const useSword=mode==='sword',gun=mode==='shotgun'?'shotgun':'mauser';
+  PiraliHybrid014.enable(true);
+  try{drawPlayer();}finally{PiraliHybrid014.enable(false);}
+  // Overlay the exact 0.14 Study C gun / shotgun / saber helper functions.
+  PiraliHybrid014.draw(c,{
+   x:cx,y:cy,angle:dir,speed:states[mode],weapon:useSword?'sword':gun,
+   sword:useSword,swordT,shoot:mode==='fire'||mode==='shotgun',
+   time:clock*1000,motion:{
+    angle:dir,step,bob:moving?Math.abs(step)*2:0,kick,
+    lean:moving?step*.045:0
+   }
+  });
+ }else{
+  PiraliHybrid014.enable(false);
+  drawPlayer();
+ }
+ c.restore();
+}
+function poses(){
+ const tiles=[...poseGrid.querySelectorAll('canvas')];
+ PiraliAlphaMotion.enable(false);
+ for(let v=0;v<2;v++)for(let k=0;k<4;k++){
+  const c=tiles[v*4+k];
+  paint(c.getContext('2d'),c.width,c.height,!!v,directions[k],'walk',true);
+ }
+ PiraliAlphaMotion.enable(true);
+}
+function setState(name){
+ state=name;
+ document.querySelectorAll('button[data-state]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.state===name)));
+ poses();
+}
+document.querySelectorAll('button[data-state]').forEach(b=>b.addEventListener('click',()=>setState(b.dataset.state)));
+document.getElementById('turn').addEventListener('click',()=>{angle=directions[(directions.indexOf(angle)+1)%4];poses();});
+document.getElementById('faceDown').addEventListener('click',()=>{angle=Math.PI/2;poses();});
+document.getElementById('faceUp').addEventListener('click',()=>{angle=-Math.PI/2;poses();});
+document.getElementById('pause').addEventListener('click',()=>{paused=!paused;const btn=document.getElementById('pause');btn.textContent=paused?'▶ გაგრძელება':'⏸ გაჩერება';btn.setAttribute('aria-pressed',String(paused));});
+function frameLoop(t){
+ const dt=Math.min(.05,(t-last)/1000);last=t;
+ if(!paused)clock+=dt;
+ paint(old.getContext('2d'),old.width,old.height,false,angle,state);
+ paint(next.getContext('2d'),next.width,next.height,true,angle,state);
+ requestAnimationFrame(frameLoop);
+}
+setState('walk');requestAnimationFrame(frameLoop);
+})();
+</script>
+</body>
+</html>
