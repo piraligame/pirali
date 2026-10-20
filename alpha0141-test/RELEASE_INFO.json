@@ -1,0 +1,8 @@
+{
+  "version": "0.14.1",
+  "channel": "developer-web-only",
+  "baseVersion": "0.14",
+  "fix": "Switch hunting shotgun and Mauser on touchstart while joystick/action touches remain active; suppress duplicate touch click.",
+  "androidBuilt": false,
+  "aabBuilt": false
+}

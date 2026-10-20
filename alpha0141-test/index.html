@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
+  <meta name="apple-mobile-web-app-title" content="ფირალი">
+  <meta name="theme-color" content="#c89820">
+  <!-- Android APK app icon is handled by native Android assets; no missing Apple icon reference. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>ფირალი — Alpha 0.14.1 სატესტო თამაში • სიმონა Study D</title>
+<link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css?v=20261016d">
+<link rel="stylesheet" href="css/menu.css?v=checkpoint-20261017a">
+<link rel="stylesheet" href="css/levels.css?v=final-20261016a">
+<link rel="stylesheet" href="css/mobile-lifecycle.css?v=20261017a">
+<link rel="stylesheet" href="css/player-stats.css?v=stats-20261017a">
+<link rel="stylesheet" href="css/alpha014-hud.css?v=controls-B1">
+<meta name="robots" content="noindex,nofollow">
+<script>
+window.PiraliVisualPreviewReadonly=true;
+window.PiraliAlpha014Test=true;
+// Developer preview should never alter the real Firebase score database.
+(function(){
+ const nativeFetch=window.fetch.bind(window);
+ window.fetch=function(input,init){
+  const url=typeof input==='string'?input:input?.url||'';
+  const method=String(init?.method||input?.method||'GET').toUpperCase();
+  if(/firebaseio\.com/i.test(url)&&method!=='GET'&&method!=='HEAD'){
+   return Promise.reject(new Error('PIRALI Alpha 0.14.1 test: Firebase writes disabled'));
+  }
+  return nativeFetch(input,init);
+ };
+})();
+</script>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<div id="ui">
+  <div class="ui-panel"><div class="ui-lbl">სიცოცხლე</div><div id="hearts"></div></div>
+  <div class="ui-panel" style="text-align:right"><div class="ui-lbl">ქულა</div><div id="score-val">0</div></div>
+</div>
+<div id="progress-bar"><div id="prog-lbl">ეკლესიისკენ</div><div id="prog-track"><div id="prog-fill" style="width:0%"></div></div></div>
+
+<div id="level-badge"></div>
+<div id="pirali-run-mode" hidden aria-live="polite"></div>
+<div id="pirali-time-hud" hidden aria-label="Level timer"></div>
+<div id="ammo-bar"><div class="ui-panel"><div id="ammo-lbl">ტყვია</div><div id="bullets"></div></div></div>
+<div id="boss-bar"><div id="boss-lbl">⚔ რუსი გენერალი — ბოსი</div><div id="boss-track"><div id="boss-fill" style="width:100%"></div></div></div>
+<div id="joy-zone"></div><div id="joy-base"></div><div id="joy-knob"></div>
+<button id="btn-pause" onclick="togglePause()">⏸</button>
+<div id="pause-overlay">
+  <h2>⏸ პაუზა</h2>
+  <p>თამაში შეჩერებულია</p>
+  <button class="pause-btn" onclick="togglePause()">▶ გაგრძელება</button>
+  <button class="pause-btn secondary" id="btn-go-menu" onclick="showMenuConfirm()">🏠 მთავარ მენიუში</button>
+  <div id="menu-confirm" style="display:none;flex-direction:column;align-items:center;gap:8px;margin-top:4px;">
+    <div style="font-size:11px;color:#a07828;letter-spacing:1px;margin-bottom:2px;">პროგრესი დაიკარგება. დარწმუნებული ხარ?</div>
+    <div style="display:flex;gap:10px;">
+      <button class="pause-btn secondary" style="width:90px;padding:10px 0;" onclick="goToMenu()">✔ კი</button>
+      <button class="pause-btn secondary" style="width:90px;padding:10px 0;" onclick="document.getElementById('menu-confirm').style.display='none'">✘ არა</button>
+    </div>
+  </div>
+</div>
+<div id="action-zone">
+  <div id="alpha-shell-hud" hidden></div>
+  <button id="alpha-weapon-switch" type="button" hidden></button>
+  <div class="btn-row">
+    <div class="act-btn" id="btn-sword">⚔️</div>
+    <div class="alpha014-dash-stack">
+      <div id="dash-cd" aria-label="მოი აგერ! — მზადყოფნა"><div id="dash-lbl">მოი აგერ!</div><div id="dash-cd-track"><div id="dash-fill" style="width:100%;height:100%;"></div></div></div>
+      <div class="act-btn" id="btn-dash" role="button" aria-label="მოი აგერ!" title="მოი აგერ!">მოი აგერ!</div>
+    </div>
+  </div>
+  <div class="act-btn" id="btn-shoot" role="button" aria-label="მაუზერით სროლა" title="მაუზერი — სროლა"><img class="mauser-icon" src="assets/icons/mauser-pistol.png?v=20261016a" alt="" draggable="false"></div>
+</div>
+<div id="dflash"></div><div id="sword-flash"></div><div id="dash-flash"></div><div id="parry-flash"></div>
+<div id="inventory">
+  <div class="inv-item" id="inv-herbs">🌿 <span id="inv-herbs-n">0</span></div>
+  <div class="inv-item" id="inv-medals">🏅 <span id="inv-medals-n">0</span></div>
+</div>
+<div id="lvlbanner"></div>
+<div id="lb-overlay">
+  <div id="lb-title">🏆 რეკორდები</div>
+  <div id="lb-sub">საუკეთესო მოთამაშეები</div>
+  <div id="lb-status" style="font-size:10px;color:#6a8a3a;letter-spacing:1px;margin-bottom:8px;z-index:1;min-height:14px;text-align:center;"></div>
+  <div id="lb-setup-row" style="display:none!important;"></div>
+  <div id="lb-name-row" style="display:none;">
+    <input id="lb-name" type="text" maxlength="14" placeholder="შეიყვანე სახელი..." autocomplete="off" spellcheck="false"/>
+    <button id="lb-save" onclick="lbSave()">შენახვა</button>
+  </div>
+  <div id="lb-personal" aria-live="polite"></div>
+  <div id="lb-list"></div>
+  <button id="lb-play" onclick="lbPlay()">თავიდან თამაში</button>
+</div>
+<div id="screen">
+  <div id="screen-overlay"></div>
+  <div class="tdeco" style="letter-spacing:8px;color:#c8a040;">— ქართული ლეგენდა —</div>
+  <h1 style="font-size:62px;letter-spacing:10px;text-shadow:0 0 60px rgba(224,168,32,.9),0 4px 0 #0a0500,0 0 120px rgba(200,140,20,.4);">ფირალი</h1>
+  <div style="font-size:11px;color:#a08030;letter-spacing:6px;text-transform:uppercase;margin-bottom:4px;z-index:1;position:relative;">Rise of the Outlaw</div>
+  <div class="tsub">სიმონას გზა</div>
+  <div class="sbox"><p>როცა სამართალი ხმას კარგავს,<br>ტყე ხდება თავშესაფარი.<br><br>სიმონა დოლიძე —<br>კაცი, რომელმაც არჩევანი გააკეთა:<br>დაემორჩილოს… ან იბრძოლოს.<br><br>მოღალატედ შერაცხული,<br>მაგრამ ხალხისთვის — გმირი.<br><br>მისი გზა სიბნელიდან იწყება,<br>მაგრამ სინათლისკენ მიდის.<br><br>ეს არის ისტორია — ფირალი</p></div>
+  <button class="sbtn" onclick="bgmStop();document.getElementById('screen').style.display='none';showIntro(startGame)">თამაშის დაწყება</button>
+</div>
+<script src="js/runtime/audio.js"></script>
+<script src="js/config/levels.js?v=final-20261016a"></script>
+<script src="js/config/balance.js?v=final-20261016a"></script>
+<script src="js/config/alpha-gear-v2.js?v=alpha0141-multitouch"></script>
+<script src="js/runtime/world.js?v=alpha009a"></script>
+<script src="js/runtime/combat.js?v=alpha009a"></script>
+<script src="js/runtime/update.js?v=alpha009a"></script>
+<script src="js/runtime/render.js?v=alpha013-no-landscape-rocks"></script>
+<script src="js/effects/combat-fx.js?v=combatfx-20261017a"></script>
+<script src="js/levels/environment-alpha012.js?v=alpha012-scenery-phase3a"></script>
+<script src="js/levels/biomes-alpha013.js?v=alpha013-biomes2-3a"></script>
+<script src="js/levels/historical-phase4.js?v=alpha013-stones34-c"></script>
+<script src="js/levels/roads-alpha013.js?v=alpha013-stones34-c"></script>
+<script src="js/characters/simona-style.js"></script>
+<script src="js/characters/simona.js?v=alpha014-hybrid-d"></script>
+<script src="js/characters/motion-alpha012.js?v=alpha012-motion-phase2b"></script>
+<script src="js/characters/enemy-motion-alpha013.js?v=alpha013-soldier-motion-c"></script>
+<script src="js/characters/topdown-polish.js?v=alpha014-hybrid-d"></script>
+<script src="js/characters/simona-weapons-only.js?v=alpha014-approved-study-d"></script>
+<script>window.PiraliHybrid014.enable(true);</script>
+<script src="js/characters/batoni-art-preview.js?v=alpha012-motion-phase2b"></script>
+<script src="js/runtime/ui.js?v=final-20261016a"></script>
+<script src="js/progression/checkpoints.js?v=checkpoint-20261017a"></script>
+<script src="js/runtime/leaderboard.js?v=stats-20261017a"></script>
+<script src="js/runtime/outcome.js?v=alpha009a"></script>
+<script src="js/runtime/intro.js"></script>
+<script src="js/runtime/game-init.js?v=alpha009a"></script>
+<script src="js/main.js?v=stats-20261017a"></script>
+<script src="js/i18n.js?v=alpha008-20261017b"></script>
+<script src="js/progression/player-stats.js?v=stats-20261017a"></script>
+<script src="js/menu.js?v=visual-alpha011a"></script>
+<script src="js/platform/mobile-lifecycle.js?v=stats-20261017a"></script>
+<script src="js/preview-controls.js?v=alpha014-teleports-20261020"></script>
+</body>
+</html>

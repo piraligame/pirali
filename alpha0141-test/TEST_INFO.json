@@ -1,0 +1,10 @@
+{
+  "version": "0.14.1",
+  "role": "developer-test-not-player-release",
+  "source": "Alpha 0.14 approved Study D",
+  "previewControls": true,
+  "firebaseWritesBlocked": true,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "qa": "Chrome touch emulation: joystick + switch, joystick + shooting + switch, no double toggle, stationary touch and accessible click; portrait and landscape. Old 0.14 reproduces failure."
+}
