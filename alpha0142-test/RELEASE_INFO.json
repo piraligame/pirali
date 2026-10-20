@@ -1,0 +1,8 @@
+{
+  "version": "0.14.2",
+  "channel": "developer-web-only",
+  "baseVersion": "0.14.1",
+  "fix": "Bounded monotonic road to church entrance; four separated church guards; final boss on approach",
+  "androidBuilt": false,
+  "aabBuilt": false
+}
