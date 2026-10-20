@@ -45,7 +45,7 @@ function swordSwing(){
   const isCombo=(swordCombo>0&&swordComboTimer>0);
   swordCombo=isCombo?0:1;
   swordComboTimer=30; // frames to land combo
-  swordCD=isCombo?24:34;
+  swordCD=(isCombo?24:34)*0.8; // Alpha 0.14.2: 20% shorter normal and combo cooldown.
   swordOn=true;swordT=isCombo?16:22;
   playSword();
   PiraliFX.sword(P.x,P.y,P.ang,isCombo);

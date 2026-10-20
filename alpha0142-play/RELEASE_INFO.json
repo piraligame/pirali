@@ -1,0 +1,12 @@
+{
+  "version": "0.14.2",
+  "versionCode": 17,
+  "channel": "player",
+  "noDevelopmentControls": true,
+  "fixes": [
+    "Church-aligned roads",
+    "Four separated church guards",
+    "Sword cooldown reduced 20%",
+    "Multitouch weapon switching"
+  ]
+}
