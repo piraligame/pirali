@@ -1,0 +1,8 @@
+{
+  "version": "0.14.1",
+  "versionCode": 16,
+  "channel": "player",
+  "noDevelopmentControls": true,
+  "fix": "Multitouch weapon switching while moving or acting",
+  "baseVersion": "0.14"
+}
