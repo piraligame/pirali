@@ -166,19 +166,18 @@ drawPlayer=function(){
  const speed=Math.hypot(P.vx,P.vy);
  const motion=window.PiraliAlphaMotion?.enabled()?
   window.PiraliAlphaMotion.sample(P,'simona',P.ang,speed,shootCD,swordOn):null;
- // 0.14 preview replaces the entire old sprite including its frozen gun.
- // Combat, FX events and all logical gameplay state remain untouched.
- if(window.PiraliSimona014?.isEnabled()){
-  window.PiraliSimona014.draw(ctx,{
-   x:sx(P.x),y:sy(P.y),angle:P.ang,speed,motion,
-   weapon,sword:swordOn,swordT,parry:parryActive,dash:dashing,
-   invincible,time:Date.now(),radius:P.r
-  });
-  return;
- }
- // Exact approved 0.13 presentation when study is disabled.
+ // Approved for Alpha 0.14: KEEP the exact Alpha 0.13 character body/face/chokha.
+ // The original weapon is suppressed inside originalPlayer ONLY while Study D is enabled.
+ // New Mauser, sword and shotgun animation is drawn on top AFTER the original 0.13 polish.
+ // This is cosmetic only: gameplay, bullets, collision, Firebase and enemies stay untouched.
  originalPlayer();
  topdownPerson('simona',P.x,P.y,P.ang,speed,weapon,{motion});
+ if(window.PiraliHybrid014?.isEnabled()){
+  window.PiraliHybrid014.draw(ctx,{
+   x:sx(P.x),y:sy(P.y),angle:P.ang,speed,motion,weapon,
+   sword:swordOn,swordT,time:Date.now(),shoot:shootCD>0
+  });
+ }
 };
 drawEnemy=function(e){
  if(!enabled||!e?.alive||e.etype==='landlord')return originalEnemy(e);

@@ -284,6 +284,9 @@ function drawPlayer(){
   }
 
   // ── WEAPON ──
+  // Preview-only: render the approved 0.13 character unchanged, but let
+  // the right comparison panel replace its old gun/sword with 0.14 equipment.
+  if (!window.PiraliHybrid014?.isEnabled?.()) {
   if(swordOn){
     const sw=ang+.55*(1-swordT/22)*Math.PI;
     ctx.save(); ctx.shadowBlur=14; ctx.shadowColor='rgba(210,225,255,.9)';
@@ -310,6 +313,7 @@ function drawPlayer(){
     ctx.fillStyle='#1a1a1a'; ctx.fillRect(18,-1.5,3,3);
     ctx.restore();
   }
+  } // end preview-only old weapon suppression
 
   ctx.restore();
 }
