@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#121713"><link rel="icon" href="data:,">
+<title>PIRALI — ტური 1: ჩოხატაური • ახალი 0.14 ვიზუალური დემო</title>
+<style>
+:root{color-scheme:dark;--gold:#dfc18a;--cream:#eee5d0;--red:#b84135}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#111713;overflow:hidden;font-family:system-ui,"Segoe UI",sans-serif;user-select:none;-webkit-user-select:none}
+#game{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
+#vignette{position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 min(14vw,160px) #090d0899;z-index:3}
+#ui{position:fixed;inset:0;z-index:4;color:var(--cream);pointer-events:none}
+#top{position:absolute;left:18px;top:max(env(safe-area-inset-top),12px);right:18px;display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+#identity{min-width:230px;border:1px solid #dec48e70;border-radius:13px;padding:10px 15px;background:linear-gradient(125deg,#101914dd,#253122b8);box-shadow:0 8px 38px #0007}
+.logo{font-family:Georgia,serif;color:#efd19b;font-size:27px;letter-spacing:.13em;line-height:1;font-weight:700;text-shadow:0 2px 12px #090904}
+.sublogo{font-size:10px;color:#d9d0b4;letter-spacing:.16em;margin:5px 0 11px;text-transform:uppercase}
+.meter{height:8px;border-radius:7px;border:1px solid #a18555;background:#130f0b;box-shadow:inset 0 0 6px #000d;overflow:hidden}
+#healthFill{height:100%;width:100%;background:linear-gradient(90deg,#8d211a,#f16b42);transition:width .15s}
+#healthText{font-size:11px;color:#e6d4b2;margin:4px 0}
+#mission{border:1px solid #c7b78980;background:linear-gradient(125deg,#152019e6,#151a15cd);padding:12px 16px;text-align:center;border-radius:12px;max-width:340px;min-width:225px;box-shadow:0 8px 38px #0005}
+#mission b{display:block;color:#f1d7a2;font-size:15px;letter-spacing:.08em}
+#mission small{display:block;color:#c0c6b4;font-size:11px;margin-top:4px}
+#counter{font-size:12px;margin-top:7px;color:#f4efe2;font-weight:700}
+#mapPanel{width:150px;min-width:150px;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+#map{width:135px;height:142px;border-radius:12px;border:2px solid #bea77caa;background:#273228c9;box-shadow:0 9px 30px #0008}
+#mapPanel span{font-size:10px;letter-spacing:.09em;text-shadow:1px 2px 5px #000;color:#f7dfae}
+#bottom{position:absolute;left:18px;right:18px;bottom:max(env(safe-area-inset-bottom),18px);display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+#weapons{padding:10px 13px;border:1px solid #d7bd8455;border-radius:10px;background:#151c17d9;box-shadow:0 4px 22px #0005;min-width:185px}
+#weapons strong{display:block;color:#f8dca9;font:700 15px Georgia,serif}
+#weapons div{color:#d5d7bf;font-size:12px;margin-top:2px}#hint{font-size:12px;color:#d0d8c0;text-align:right;text-shadow:0 2px 5px #000;line-height:1.9}
+#toast{position:absolute;top:27%;left:50%;transform:translateX(-50%);background:#172019eb;border:1px solid #ddc08487;color:#ffedbf;padding:11px 17px;border-radius:10px;opacity:0;transition:opacity .2s;text-align:center;max-width:350px;font-size:13px}
+#toast.show{opacity:1}
+#intro,#outcome{position:fixed;inset:0;z-index:10;display:flex;justify-content:center;align-items:center;background:radial-gradient(ellipse at 60% 26%,#14211666 0,#070e0be6 75%);color:var(--cream);text-align:center;padding:20px;backdrop-filter:blur(4px)}
+#intro.hidden,#outcome.hidden{display:none}
+.card{max-width:520px;width:min(94vw,520px);padding:36px 34px 29px;border:1px solid #c3a26eaa;border-radius:18px;box-shadow:0 14px 75px #0009;background:linear-gradient(130deg,#1e2a20f3,#121b16ef)}
+.kicker{font-size:11px;letter-spacing:.27em;color:#b4ae90}
+.card h1{font:700 clamp(34px,6vw,63px)/1.06 Georgia,serif;color:#f0d7a4;letter-spacing:.11em;margin:15px 0 4px}
+.card h2{font:700 clamp(23px,4vw,34px)/1.2 Georgia,serif;margin:14px 0}
+.card p{font-size:14px;line-height:1.76;color:#d0d5c9}
+.card .line{height:1px;background:linear-gradient(90deg,transparent,#b99a62,transparent);margin:19px 0}
+.card .badge{display:inline-block;border:1px solid #a38f64;border-radius:99px;padding:6px 10px;font-size:12px;color:#ecd6a8}
+.primary{background:linear-gradient(180deg,#e6c98d,#c69a5a);border:1px solid #f9dfa8;color:#192017;font:700 16px Georgia,serif;border-radius:9px;cursor:pointer;padding:13px 27px;box-shadow:0 7px 23px #0005;touch-action:manipulation;margin-top:12px}
+.primary:hover{filter:brightness(1.08)}
+.note{font-size:11px;color:#b4b9ab;margin-top:18px;line-height:1.6}
+#touch{display:none;position:absolute;inset:0;z-index:6;pointer-events:none}
+#joystick{position:absolute;left:27px;bottom:30px;width:125px;height:125px;border-radius:50%;background:#25372a7d;border:2px solid #ddd09c7a;pointer-events:auto;touch-action:none}
+#stick{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:49px;height:49px;border-radius:50%;border:2px solid #eacb8b;background:#bfa275ab;box-shadow:0 2px 14px #0006}
+#actions{position:absolute;right:17px;bottom:24px;display:grid;grid-template-columns:repeat(2,65px);gap:12px;pointer-events:auto}
+.act{width:65px;height:65px;border:1px solid #e9c98eaa;border-radius:50%;background:radial-gradient(circle at 30% 20%,#6b5938d9,#252d23dc);color:#f4e7ca;font-weight:800;font-size:12px;touch-action:none;cursor:pointer}
+.act.main{background:radial-gradient(circle at 30% 20%,#a66039,#4d241b);font-size:23px}
+.act:active{transform:scale(.94);filter:brightness(1.2)}
+#mobHint{display:none}
+@media (pointer:coarse),(max-width:690px){
+ #touch{display:block}#hint{display:none}#mapPanel{width:90px;min-width:90px}#map{width:84px;height:90px}
+ #identity{min-width:0;padding:8px 9px}.logo{font-size:21px}.sublogo{font-size:8px;max-width:135px}
+ #mission{padding:8px 9px;min-width:0;max-width:34vw}#mission b{font-size:12px}#mission small{font-size:9px}
+ #counter{font-size:10px}
+ #top{left:8px;right:8px;top:max(env(safe-area-inset-top),8px);gap:5px}
+ #bottom{left:8px;bottom:173px}#weapons{min-width:160px;padding:7px 9px}#weapons strong{font-size:12px}
+ #weapons div{font-size:10px}#joystick{bottom:26px;left:18px}#actions{bottom:25px;right:14px}
+ .card{padding:24px 20px}
+}
+@media (max-width:390px){#identity{width:120px}#mission{max-width:36vw}#mapPanel{width:68px;min-width:68px}#map{width:68px;height:80px}#actions{grid-template-columns:repeat(2,58px);gap:7px}.act{width:58px;height:58px}#joystick{width:105px;height:105px}}
+</style>
+</head>
+<body>
+<canvas id="game" aria-label="ფირალი — ჩოხატაურის ერთტურიანი სათამაშო დემო"></canvas>
+<div id="vignette"></div>
+<div id="ui">
+ <div id="top">
+  <div id="identity"><div class="logo">PIRALI</div><div class="sublogo">SIMONA • ალფა 0.14 / VISUAL PROTOTYPE</div><div id="healthText">ჯანმრთელობა 100 / 100</div><div class="meter"><div id="healthFill"></div></div></div>
+  <div id="mission"><b>ტური 1 · ჩოხატაური</b><small id="objective">გაანეიტრალე 4 მოწინააღმდეგე, მიაღწიე ეკლესიას</small><div id="counter">მოწინააღმდეგე: 4 / 4</div></div>
+  <div id="mapPanel"><canvas id="map" width="150" height="154"></canvas><span>ჩოხატაური • გურია</span></div>
+ </div>
+ <div id="toast"></div>
+ <div id="bottom"><div id="weapons"><strong id="weaponTitle">მაუზერი · 8 / 40</strong><div id="weaponInfo">მარცხენა კლიკი — სროლა</div></div>
+ <div id="hint">WASD / ისრები — სიარული · მაუსი — დამიზნება<br>კლიკი — გასროლა · Space — ხმალი · Q — იარაღი · Shift — დაში</div></div>
+</div>
+<div id="touch"><div id="joystick"><div id="stick"></div></div><div id="actions">
+<button class="act" id="btnSwitch" aria-label="იარაღის შეცვლა">↔ თოფი</button>
+<button class="act" id="btnDash" aria-label="დაში">➤ დაში</button>
+<button class="act" id="btnSword" aria-label="ხმალი">⚔ ხმალი</button>
+<button class="act main" id="btnFire" aria-label="სროლა">✹</button>
+</div></div>
+<div id="intro"><div class="card">
+ <div class="kicker">PIRALI · GRAPHICS EXPLORATION</div>
+ <h1>ფირალი</h1><div class="badge">ALPHA 0.14 · VISUAL DEMO / LEVEL 1</div>
+ <h2>ჩოხატაური</h2>
+ <p>ერთი სათამაშო ტური ახალი ვიზუალური მიმართულებით: გურიის სოფლის ბილიკი, ქვებით ნაგები ღობეები, ხის სახლები, ხიდი, ტყე და ისტორიული ეკლესია. სიმონას ახალი მამაკაცური, შინდისფერი ჩოხის ვარიანტი და ოთხი მოწინააღმდეგე.</p>
+ <div class="line"></div>
+ <p>დაამარცხე ოთხივე მოწინააღმდეგე და ეკლესიამდე მიაღწიე. მაუზერი, ხმალი და სანადირო თოფი საცდელი ანიმაციებით.</p>
+ <button class="primary" id="start">▶ დემოს დაწყება</button>
+ <div class="note">სატესტო გრაფიკული პროტოტიპია, არა Alpha 0.13-ის შემცვლელი. რეიტინგი და Firebase გათიშულია.</div>
+</div></div>
+<div id="outcome" class="hidden"><div class="card"><div class="kicker">PIRALI · LEVEL 1</div><h2 id="outcomeTitle"></h2><p id="outcomeText"></p><button class="primary" id="restart">↻ თავიდან დაწყება</button></div></div>
+<script src="js/world.js?v=014-chokhatauri-a"></script>
+<script src="js/actors.js?v=014-chokhatauri-a"></script>
+<script src="js/game.js?v=014-chokhatauri-a"></script>
+</body></html>
