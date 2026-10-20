@@ -18,6 +18,10 @@ async function run(){
  const first=await js('(()=>{const a=document.querySelector("#old"),b=document.querySelector("#next");const check=c=>{const d=c.getContext("2d").getImageData(c.width/2|0,c.height/2|0,1,1).data;return [...d]};return {old:check(a),next:check(b),oldSize:[a.width,a.height],nextSize:[b.width,b.height],study:window.PiraliSimona014?.metadata,tiles:document.querySelectorAll(".tile").length,headings:[...document.querySelectorAll("h2")].map(e=>e.textContent)}})()');
  await js('document.querySelector("[data-state=run]").click()');await wait(280);
  const mode=await js('({active:document.querySelector("[data-state=run]").getAttribute("aria-pressed"),time:performance.now()})');
+ await js('document.querySelector("#faceDown").click();document.querySelector("[data-state=idle]").click();');await wait(250);
+ const down=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
+ fs.writeFileSync(path.join(root,'simona-facing-down.png'),Buffer.from(down.result.data,'base64'));
+ await js('document.querySelector("#faceUp").click();document.querySelector("[data-state=run]").click();');await wait(190);
  const shot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});fs.writeFileSync(path.join(root,'simona-comparison.png'),Buffer.from(shot.result.data,'base64'));
  await js('document.querySelector("[data-state=fire]").click();document.querySelector("#turn").click()');await wait(260);
  const after=await js('({active:document.querySelector("[data-state=fire]").getAttribute("aria-pressed"),canTurn:true,directionTiles:document.querySelectorAll(".tile").length})');

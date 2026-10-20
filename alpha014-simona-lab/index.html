@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#171c19">
 <link rel="icon" href="data:,">
-<title>PIRALI • Simona 0.14 Study B — ხელები, მაუზერი, ხმალი</title>
+<title>PIRALI • სიმონა 0.14 Study C — სახე, ჩოხა, იარაღები</title>
 <style>
 :root{color-scheme:dark;--bg:#141916;--panel:#202824;--line:#485247;--gold:#d6b778;--text:#f0ebdc;--muted:#b7bcae}
 *{box-sizing:border-box}
@@ -44,9 +44,9 @@ strong{color:#f3d397}
 </head>
 <body>
 <main>
-<div class="topline"><div class="kicker">PIRALI • CHARACTER WORKBENCH</div><div class="tag">0.14 • Study B — სატესტო, არა რელიზი</div></div>
+<div class="topline"><div class="kicker">PIRALI • CHARACTER WORKBENCH</div><div class="tag">0.14 • Study C — სატესტო, არა რელიზი</div></div>
 <h1>სიმონა დოლიძე<br>გუშინ და დღეს</h1>
-<p class="intro">ერთსა და იმავე მიმართულებაში, ერთი და იმავე მოძრაობის ციკლზე: მარცხნივ Alpha 0.13-ის რეალური პერსონაჟი, მარჯვნივ ახალი სიმონა მოძრავი ხელებით და მაუზერით. სცადე სირბილი, სროლა, ხმლის მოქნევა და თოფი.</p>
+<p class="intro">ერთსა და იმავე მიმართულებაში, ერთი და იმავე მოძრაობის ციკლზე: მარცხნივ Alpha 0.13-ის რეალური პერსონაჟი, მარჯვნივ Study C: სწორად მიმართული სახე, დაფარული იდაყვები და ერთიანი ოთხკუთხა ჩოხა. მაუზერი, ხმალი და თოფი შენარჩუნებულია.</p>
 <nav class="controls" aria-label="ანიმაციის მდგომარეობა">
 <button data-state="idle" aria-pressed="false">დგომა</button>
 <button data-state="walk" aria-pressed="true">სიარული</button>
@@ -57,14 +57,16 @@ strong{color:#f3d397}
 <button data-state="shotgun" aria-pressed="false">▰ სანადირო თოფი</button>
 <span class="sep"></span>
 <button id="turn" aria-label="პერსონაჟის მობრუნება">↻ შემოტრიალება</button>
+<button id="faceDown">↓ სახე ქვემოთ</button>
+<button id="faceUp">↑ სახე ზემოთ</button>
 <button id="pause" aria-pressed="false">⏸ გაჩერება</button>
 </nav>
 <section class="panels" aria-label="ძველი და ახალი სიმონას ცოცხალი შედარება">
  <article class="panel"><header><h2>Alpha 0.13 <span class="caption">წინა, დამტკიცებული</span></h2><span class="caption">ორიგინალი</span></header><canvas id="old" class="stage" width="680" height="425" aria-label="ძველი სიმონას ანიმაცია"></canvas><div class="description">მიმდინარე რელიზის რეალური 2D-რენდერი: ძველი სხეულის ფენა + ზემოდან დახვეწილი ჩოხა და ქუდი.</div></article>
- <article class="panel new"><header><h2>Alpha 0.14 <span class="caption">ახალი შემოთავაზება</span></h2><span class="caption">სიმონა • Study B</span></header><canvas id="next" class="stage" width="680" height="425" aria-label="ახალი სიმონას ანიმაცია"></canvas><div class="description">ახალი სიმონა: იდაყვებისა და მაჯების ცოცხალი მოძრაობა, ხელში დაჭერილი მოძრავი მაუზერი, ბუნებრივი უკუცემა, ხმლის სრული მოქნევის ანიმაცია და სანადირო თოფის ორხელიანი ჭერა.</div></article>
+ <article class="panel new"><header><h2>Alpha 0.14 <span class="caption">ახალი შემოთავაზება</span></h2><span class="caption">სიმონა • Study C</span></header><canvas id="next" class="stage" width="680" height="425" aria-label="ახალი სიმონას ანიმაცია"></canvas><div class="description">ახალი შესწორება: სახე მოძრაობის მიმართულებით ჩანს, გარეთ გამოჩენილი იდაყვები აღარ არის, ჩოხის ბოლო ერთიანი ოთხკუთხედია. მაუზერის, ხმლისა და სანადირო თოფის წინა ანიმაციები შენარჩუნებულია.</div></article>
 </section>
 <h2 class="section-title">ოთხივე მიმართულების ნახატები</h2>
-<p class="info">შეადარე ერთი კადრი სხვადასხვა რაკურსიდან: მარცხენა ოთხეული — 0.13, მარჯვენა ოთხეული — 0.14 Study B. ზედა ღილაკები მოძრაობას ცვლის.</p>
+<p class="info">შეადარე ერთი კადრი სხვადასხვა რაკურსიდან: მარცხენა ოთხეული — 0.13, მარჯვენა ოთხეული — 0.14 Study C. განსაკუთრებით შეამოწმე ქვედა მიმართულება (↓) — სახე უკვე ქვემოთაა.</p>
 <div id="poseGrid" class="grid"></div>
 <p class="footnote"><strong>უსაფრთხო საცდელი ცვლილება:</strong> ეს გვერდი არ ეხება მთავარ სათამაშო ბმულს, Android APK/AAB-ს, პერსონაჟის ზომას/შეჯახებას, მექანიკას ან Firebase-ს. ახალი დიზაინი ჯერ მხოლოდ შესადარებლადაა.</p>
 </main>
@@ -78,7 +80,7 @@ function drawEnemy(){}function drawBoss(){}
 <script src="../play/js/characters/simona.js"></script>
 <script src="../play/js/characters/motion-alpha012.js"></script>
 <script src="../play/js/characters/topdown-polish.js"></script>
-<script src="simona-alpha014.js"></script>
+<script src="simona-alpha014.js?v=studyC-20261020"></script>
 <script>
 (function(){
 'use strict';
@@ -154,6 +156,8 @@ function setState(name){
 }
 document.querySelectorAll('button[data-state]').forEach(b=>b.addEventListener('click',()=>setState(b.dataset.state)));
 document.getElementById('turn').addEventListener('click',()=>{angle=directions[(directions.indexOf(angle)+1)%4];poses();});
+document.getElementById('faceDown').addEventListener('click',()=>{angle=Math.PI/2;poses();});
+document.getElementById('faceUp').addEventListener('click',()=>{angle=-Math.PI/2;poses();});
 document.getElementById('pause').addEventListener('click',()=>{paused=!paused;const btn=document.getElementById('pause');btn.textContent=paused?'▶ გაგრძელება':'⏸ გაჩერება';btn.setAttribute('aria-pressed',String(paused));});
 function frameLoop(t){
  const dt=Math.min(.05,(t-last)/1000);last=t;
