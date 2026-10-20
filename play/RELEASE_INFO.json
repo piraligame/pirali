@@ -1,9 +1,10 @@
 {
-  "version": "0.13",
-  "channel": "player",
-  "source": "signed Android Alpha Test 0.13 identical web assets",
-  "sourceTag": "alpha-0.13-signed-release",
-  "files": 48,
+  "version": "0.14",
+  "channel": "alpha014-approved-player",
+  "source": "Approved Alpha 0.13 Simona body with Alpha 0.14 Study D Mauser, sword and shotgun",
+  "sourceBranch": "feat/alpha-014-work",
   "noDevelopmentControls": true,
-  "androidIndexSha256": "7cd1bc0e7d316ba4c8b7db0d7825d4b474c641f5941186d8da6bbeb921bf1ff8"
+  "firebaseUnchanged": true,
+  "productionPlaySiteUnchanged": true,
+  "androidBuild": "signed using private existing Alpha Test key"
 }
