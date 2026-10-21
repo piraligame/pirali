@@ -111,6 +111,13 @@ let browser,ws,seq=0;const pending=new Map(),errors=[],badAssets=[],writes=[];
   if(Math.abs(dashFill-50)>3)throw Error('Dash cooldown failed '+dashFill);
   await wait(140);
   // No repository screenshots needed for behavioral regression.
+  if(name==='portrait'&&process.env.PIRALI_STORE_SCREENSHOT==='1'){
+    await call('Emulation.setDeviceMetricsOverride',{width:390,height:720,deviceScaleFactor:2,mobile:true});
+    await js("document.getElementById('lvlbanner').style.display='none';");
+    await wait(180);
+    await capture('../store-assets/screenshots/PIRALI_02_Gameplay.png');
+    console.log('STORE_PLAYER_SCREENSHOT_CAPTURED');
+  }
   results.push({name,before,after,dashFill});
  }
  console.log('PIRALI_ALPHA014_HUD_QA_OK '+JSON.stringify({results,errors,badAssets,writes}));

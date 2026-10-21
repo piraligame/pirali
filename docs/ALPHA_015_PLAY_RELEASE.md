@@ -43,7 +43,7 @@ Features:
 - Data safety questionnaire: optional online nickname, score, level, victory state and timestamp are transmitted to Google Firebase Realtime Database; network providers can process technical connection data such as IP. Local preferences and stats are stored on device. Review SDK and server settings before selecting data categories.
 - Ads: none; purchases: none, provided the published build remains identical.
 - Add support email: `piraligameofficial@gmail.com`.
-- Upload clear, representative, unaltered in-game screenshots. Verify high-resolution launcher icon and feature graphic requirements in Console.
+- Draft assets prepared for developer review: `store-assets/feature-graphic-1024x500.png` (1024×500), `store-assets/screenshots/PIRALI_01_MainMenu.png` (1080×1920), `store-assets/screenshots/PIRALI_02_Gameplay.png` (780×1440), plus the existing 512×512 launcher icon. Check the actual Console requirements and approve the visual content before submission.
 - Complete country availability, contact details, declarations and app access (game has no account login).
 - First-time personal developer accounts may require a closed test with at least 12 opted-in testers for 14 consecutive days before Production access; verify live Console eligibility.
 - Play Console upload, release selection and final submission are separate steps; local AAB creation does not imply publication.
