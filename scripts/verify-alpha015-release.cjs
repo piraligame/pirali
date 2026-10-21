@@ -1,0 +1,13 @@
+const fs=require('fs'),path=require('path'),crypto=require('crypto'),cp=require('child_process');
+const root=path.resolve(__dirname,'..'),releases=path.resolve(root,'../PIRALI_ALPHA_RELEASES');
+const apk=path.join(releases,'PIRALI_Alpha_Test_0.15_FINAL.apk'),aab=path.join(releases,'PIRALI_Alpha_Test_0.15_FINAL.aab');
+const signer=path.join(process.env.USERPROFILE,'Documents/PIRALI_ANDROID_TOOLS/android-sdk/build-tools/36.0.0/apksigner.bat');
+process.env.JAVA_HOME='C:/Program Files/Eclipse Adoptium/jdk-21.0.12.101-hotspot';
+const cert=p=>{const s=cp.execFileSync(path.join(process.env.JAVA_HOME,'bin/java.exe'),['-jar',path.join(path.dirname(signer),'lib/apksigner.jar'),'verify','--print-certs',p],{encoding:'utf8'});const m=s.match(/certificate SHA-256 digest: ([a-f0-9]+)/i);if(!m)throw Error('No certificate');return m[1];};
+const old=path.join(root,'downloads/PIRALI_Alpha_Test_0.14_FINAL.apk');
+if(cert(apk)!==cert(old))throw Error('Signing key differs from 0.14');
+const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const report={version:'0.15',versionCode:18,appId:'ge.piraligame.pirali',certificateMatches014:true,apkSha256:hash(apk),aabSha256:hash(aab)};
+for(const p of [apk,aab])fs.copyFileSync(p,path.join(root,'downloads',path.basename(p)));
+fs.writeFileSync(path.join(root,'downloads/PIRALI_Alpha_Test_0.15_FINAL_MANIFEST.json'),JSON.stringify(report,null,2));
+console.log(JSON.stringify(report));

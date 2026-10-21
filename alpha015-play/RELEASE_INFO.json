@@ -1,0 +1,11 @@
+{
+  "version": "0.15",
+  "versionCode": 18,
+  "channel": "play",
+  "base": "approved Alpha 0.14.2",
+  "fixes": [
+    "Android privacy dialog closes correctly with Back",
+    "Google Play-ready PIRALI app branding",
+    "Gameplay and Firebase unchanged"
+  ]
+}

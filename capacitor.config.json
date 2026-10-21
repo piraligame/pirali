@@ -1,6 +1,6 @@
 {
   "appId": "ge.piraligame.pirali",
-  "appName": "PIRALI Alpha Test",
+  "appName": "PIRALI",
   "webDir": "dist/android-web",
   "bundledWebRuntime": false
 }
