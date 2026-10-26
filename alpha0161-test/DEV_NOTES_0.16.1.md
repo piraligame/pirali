@@ -20,3 +20,10 @@ Separate six-stage test cloned from alpha015-test. Existing alpha015-play and al
 - No write to Firebase. Local DEV runs stored under isolated `pirali_lb_alpha0161_local_runs` key.
 - Stage 6 time and new achievements Stage Six and Hell Conquered in four languages.
 - Existing live alpha-play and test variants remain unchanged.
+
+## 0.16.1c — rank of THIS run and retry
+- `js/features/results/run-rank.js`: rank among all known unique players on victory/death screen, not clipped to TOP 30.
+- `js/features/results/retry.js`: replay from level 1, retaining personal achievements.
+- `css/result-screen.css`: responsive styles and large touch target.
+- Shows offline provisional rank when Firebase GET is unreachable; shows unranked for zero-score or resumed checkpoint runs.
+- DEV scores remain local-only and never write to Firebase. Public TOP 30 unchanged.
