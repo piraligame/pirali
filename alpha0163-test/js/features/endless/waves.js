@@ -1,9 +1,10 @@
 /* PIRALI Alpha 0.16.3 DEV — ELEVENTH BONUS LEVEL: endless survival.
    Wave spawner is isolated from the original 10 stages and Firebase.
-   Up to 100 LIVE enemies (general included), constantly replenished. */
+   Up to 80 LIVE enemies (general included), constantly replenished. */
 (function(){
 'use strict';
-const CAP=100,INITIAL=12;
+const SETTINGS=window.PiraliEndlessBalance;
+const CAP=SETTINGS.cap,INITIAL=SETTINGS.initial;
 const TYPES=['rifle','saber','officer','rifle','saber','landlord'];
 let live=false,elapsed=0,nextSpawn=0,nextAmmo=0,wave=1,kills=0;
 function randomPoint(minR=265,maxR=490){
@@ -27,7 +28,8 @@ function spawnOne(){
  // unarmed fleeing Batoni that drops health when defeated.
  const type=TYPES[Math.floor(Math.random()*TYPES.length)];
  const landlord=type==='landlord',officer=type==='officer';
- const hp=landlord?3:Math.max(3,Math.min(PIRALI_STAGE_BALANCE.soldierHp(11),3+Math.ceil(wave*.8)+(officer?1:0)));
+ const baseHp=landlord?3:Math.max(3,Math.min(PIRALI_STAGE_BALANCE.soldierHp(11),3+Math.ceil(wave*.8)+(officer?1:0)));
+ const hp=Number((baseHp*SETTINGS.healthFactor).toFixed(2)); // 20% less non-boss HP
  const enemy={
   x:pt.x,y:pt.y,r:officer?14:landlord?13:12,hp,maxHp:hp,
   vx:0,vy:0,ang:pt.ang+Math.PI,wf:0,hf:0,
@@ -77,6 +79,7 @@ function setup(){
  health=maxHealth;ammo=maxAmmo;
  updateHealthUI();updateAmmoUI();
  trees=trees.filter(t=>Math.hypot(t.x-P.x,t.y-P.y)>680+t.r*.5);
+ window.PiraliGraveyard?.populate();
  for(let i=0;i<INITIAL;i++)spawnOne();
  replenishAmmo();
  window.PiraliEndlessHUD?.refresh();
@@ -88,13 +91,13 @@ function tick(dt){
  const nextWave=1+Math.floor(elapsed/22000); // a new wave about every 22 seconds
  if(nextWave>wave){
   wave=nextWave;
-  for(let k=0;k<Math.min(8,2+Math.floor(wave/2));k++)spawnOne();
+  for(let k=0;k<Math.round(Math.min(8,2+Math.floor(wave/2))*SETTINGS.spawnFactor);k++)spawnOne();
   if(wave%4===0)general();
   showBanner('ტალღა '+wave+' • სიმონა უსასრულოდ');
  }
  if(nextSpawn<=0){
   spawnOne();
-  nextSpawn=Math.max(240,880-wave*18);
+  nextSpawn=Math.max(240,880-wave*18)/SETTINGS.spawnFactor;
  }
  if(nextAmmo<=0){
   replenishAmmo();nextAmmo=3300;

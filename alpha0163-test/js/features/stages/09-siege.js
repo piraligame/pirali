@@ -1,8 +1,8 @@
 /* PIRALI Alpha 0.16.2 DEV — stage 9 "Simona Under Siege".
-   EXACTLY 20 shooters encircle Simona with plentiful collectible ammo. */
+   EXACTLY 24 shooters encircle Simona with plentiful collectible ammo. */
 (function(){
 'use strict';
-const SHOOTERS=20;
+const SHOOTERS=window.PiraliSiegeConfig.shooters;
 function setup(){
  if(level!==9)return;
  boss=null; // siege stage is about soldiers, not generals.
@@ -15,10 +15,10 @@ function setup(){
  camX=P.x-W*CAM_ZOOM;camY=P.y-H*CAM_ZOOM;
  for(let i=0;i<SHOOTERS;i++){
   const angle=(i/SHOOTERS)*Math.PI*2+(i%2?.075:-.075);
-  const radius=400+(i%5)*48; // much wider siege ring, staggered distances
+  const radius=window.PiraliSiegeConfig.nearRadius+(i%5)*window.PiraliSiegeConfig.ringStep; // moderately tighter ring
   const x=Math.max(50,Math.min(WW-50,P.x+Math.cos(angle)*radius));
   const y=Math.max(240,Math.min(WH-180,P.y+Math.sin(angle)*radius));
-  const hp=PIRALI_STAGE_BALANCE.soldierHp(9); // centralized 20% per stage
+  const hp=Number((PIRALI_STAGE_BALANCE.soldierHp(9)*window.PiraliSiegeConfig.hpFactor).toFixed(2)); // stage nine infantry -10%
   enemies.push({
    x,y,r:12,hp,maxHp:hp,vx:0,vy:0,ang:angle+Math.PI,
    patrol:{cx:x,cy:y,radius:22,t:angle,spd:.2},
@@ -47,6 +47,7 @@ function setup(){
   const p=path[i];
   pickups.push({x:p.x+(i%2?45:-45),y:p.y,bob:i*.3,col:false,type:'ammo'});
  }
+ window.PiraliSiegeHearts?.arrange();
 }
 function clear(){return level===9&&enemies.filter(e=>e.alive).length===0;}
 window.PiraliSiege=Object.freeze({setup,clear,shooterCount:SHOOTERS});
