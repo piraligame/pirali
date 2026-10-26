@@ -110,16 +110,16 @@ function killEnemy(e){
   if(e.etype==='landlord'){
     playDeath();
     for(let i=0;i<18;i++)spawnPart(e.x,e.y,(Math.random()-.5)*7,(Math.random()-.5)*7,27,'#f0b040',3);
-    if(level===5){
+    if(level===7){
       finalVictoryPending=true;finalChurchNotice=false;score+=5000;updateScoreUI();
       showBanner('ეკლესიის კარი გაიღო! შედი ეკლესიაში.');
-    }else if(level===6){window.PiraliHellLoot?.batoni(e);score+=60;updateScoreUI();}
+    }else if(level===10){window.PiraliHellLoot?.batoni(e);score+=60;updateScoreUI();}
     return;
   }
   // Kill streak bonus
   killStreak++;killStreakTimer=180;
   const bonus=killStreak>=5?300:killStreak>=3?200:100;
-  score+=(level===6?(killStreak>=5?15:killStreak>=3?12:10):bonus*level);updateScoreUI();
+  score+=(level===10?(killStreak>=5?15:killStreak>=3?12:10):bonus*level);updateScoreUI();
   if(killStreak===3)showFloatingText(e.x,e.y,'3 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+bonus*level,'#f0c020');
   else if(killStreak===5)showFloatingText(e.x,e.y,'5 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+bonus*level,'#ff8020');
   else if(killStreak>=7)showFloatingText(e.x,e.y,(window.PiraliLanguage?window.PiraliLanguage.gameText('streak'):'სერია!')+' +'+bonus*level,'#ff4444');
@@ -141,11 +141,11 @@ function hitBoss(b,dmg=1){
   for(let i=0;i<8;i++) spawnPart(b.x,b.y,(Math.random()-.5)*6,(Math.random()-.5)*6,14,'#cc2020',3+Math.random()*3);
   // Phase 2 transition is handled by update() (one source of truth).
   updateBossUI();
-  if(b.hp<=0){b.alive=false;window.PiraliStats?.kill();score+=(level===6?1000:1000*level);updateScoreUI();hideBossUI();
-    if(level===6){window.PiraliHellLoot?.devil(b);finalChurchNotice=false;showBanner('ჯოჯოხეთის ცეცხლოვანი კარიბჭე გაიღო!');}
+  if(b.hp<=0){b.alive=false;window.PiraliStats?.kill();score+=(level===10?1000:1000*level);updateScoreUI();hideBossUI();
+    if(level===10){window.PiraliHellLoot?.devil(b);finalChurchNotice=false;showBanner('ჯოჯოხეთის ცეცხლოვანი კარიბჭე გაიღო!');}
     for(let i=0;i<30;i++) spawnPart(b.x,b.y,(Math.random()-.5)*10,(Math.random()-.5)*10,30,i%4===0?'#f0c020':'#cc1818',4+Math.random()*4);
     corpses.push({x:b.x,y:b.y,ang:b.ang,r:b.r,etype:'boss'});
-    if(level===5&&!finalLordSpawned)spawnLandlordNPC(b.x,b.y);
+    if(level===7&&!finalLordSpawned)spawnLandlordNPC(b.x,b.y);
   }
 }
 

@@ -7,12 +7,16 @@ const CAM_ZOOM=0.72; // zoom in (lower = more zoomed in)
 const LEVEL_NAMES=['',...PIRALI_LEVELS.map(l=>'ტური '+l.number+' — '+l.ka)];
 // Environment per level: {weather, groundColor, pathColor, skyTop, skyBot, treeStyle, timeLabel}
 const LEVEL_ENV=[null,
-  {w:'clear', ground:'forest',  sky:['#6090b8','#a8c8d8','#c0d8b8'], tod:'დღე'},
-  {w:'mist',  ground:'forest',  sky:['#7898a8','#9ab0b0','#b0c0a8'], tod:'შუადღე'},
-  {w:'hot',   ground:'desert',  sky:['#e8c068','#f0a840','#e87820'], tod:'ცხელი სიცხე'},
-  {w:'dusk',  ground:'desert',  sky:['#b04818','#7a2808','#3a1808'], tod:'მწუხრი'},
-  {w:'night', ground:'night',   sky:['#080c18','#101828','#0c1420'], tod:'ღამე'},
-  {w:'dusk', ground:'desert',sky:['#431014','#8c241b','#e25c23'],tod:'ჯოჯოხეთი'},
+ {w:'clear',ground:'forest',sky:['#6090b8','#a8c8d8','#c0d8b8'],tod:'დღე'},
+ {w:'mist',ground:'forest',sky:['#7898a8','#9ab0b0','#b0c0a8'],tod:'შუადღე'},
+ {w:'hot',ground:'desert',sky:['#e8c068','#f0a840','#e87820'],tod:'ცხელი სიცხე'},
+ {w:'dusk',ground:'desert',sky:['#c38f68','#906749','#4d302c'],tod:'განახლება'},
+ {w:'clear',ground:'forest',sky:['#57896e','#92ad8c','#d0dcb8'],tod:'სამება'},
+ {w:'dusk',ground:'desert',sky:['#b04818','#7a2808','#3a1808'],tod:'მწუხრი'},
+ {w:'night',ground:'night',sky:['#080c18','#101828','#0c1420'],tod:'ღამე'},
+ {w:'dusk',ground:'desert',sky:['#583c70','#81638b','#c19080'],tod:'უსასრულობა'},
+ {w:'night',ground:'night',sky:['#15294d','#253a59','#251f3c'],tod:'ალყა'},
+ {w:'dusk',ground:'desert',sky:['#431014','#8c241b','#e25c23'],tod:'ჯოჯოხეთი'}
 ];
 
 let running=false,score=0,health=5,maxHealth=5,ammo=8,maxAmmo=8,level=1;
@@ -62,7 +66,7 @@ function genWorld(){
   PiraliFX.reset(); // Reset visual-only effects between stages.
   window.PiraliAlphaGear?.reset();
   path=[];trees=[];enemies=[];bullets=[];parts=[];pickups=[];corpses=[];ambients=[];bloodDecals=[];_floats.length=0;done=false;boss=null;finalLordSpawned=false;finalVictoryPending=false;finalChurchNotice=false;
-  const env=LEVEL_ENV[Math.min(level,6)];
+  const env=LEVEL_ENV[Math.min(level,10)];
   weather=env.w;weatherAlpha=0;
 
   // Mountains — regenerate each level
@@ -120,10 +124,10 @@ function genWorld(){
   }
 
   // Core enemy density. Hell level: 1/3 of previous triple density; scattering lives in features/hell/enemy-spacing.js.
-  const ehp=level<=2?1:level<=4?2:PIRALI_BALANCE.finalBaseEnemyHp;
+  const ehp=Math.max(1,Math.round((level<=2?1:level<=6?2:PIRALI_BALANCE.finalBaseEnemyHp)*Math.pow(1.2,level-1))); // +20% threat per stage
   const usableSegs=path.length-6; // skip first 2 (start) + last 4 (church approach)
   const normalCount=Math.floor(usableSegs*(0.85+level*0.096));
-  const totalEnemies=level===6?Math.max(1,Math.round(normalCount/2.5)):level===5?Math.max(1,Math.ceil(normalCount*PIRALI_BALANCE.finalEnemyMultiplier)):normalCount;
+  const totalEnemies=level===10?Math.max(1,Math.round(normalCount/2.5)):level===7?Math.max(1,Math.ceil(normalCount*PIRALI_BALANCE.finalEnemyMultiplier)):normalCount;
   for(let e2=0;e2<totalEnemies;e2++){
     const segIdx=2+Math.floor((e2/totalEnemies)*usableSegs);
     const ep=path[Math.min(segIdx,path.length-5)]; // clamp away from church
@@ -145,7 +149,7 @@ function genWorld(){
   // Reuse the final four soldiers, preserving enemy counts and health.
   // Separate patrol centers keep them away from the map edge and doorway.
   const guardPosts=[[-180,120],[180,120],[-260,290],[260,290]];
-  enemies.slice(-4).forEach((e,i)=>{
+  (level===7?enemies.slice(-4):[]).forEach((e,i)=>{
     const [dx,dy]=guardPosts[i];
     const cx=CHURCH_X+dx,cy=CHURCH_Y+dy;
     e.x=cx;e.y=cy;e.vx=e.vy=0;
@@ -154,13 +158,13 @@ function genWorld(){
   });
 
   // BOSS only on level 5 — Russian General with Phase 2
-  if(level===5||level===6){
+  if(level===7||level===8||level===10){
     const bp={x:CHURCH_X,y:CHURCH_Y+320}; // Keep the final boss in the church approach.
     boss={
-      x:bp.x,y:bp.y,r:level===6?32:24,hp:PIRALI_BALANCE.finalBossHp*(level===6?3:1),maxHp:PIRALI_BALANCE.finalBossHp*(level===6?3:1),
+      x:bp.x,y:bp.y,r:level===10?32:24,hp:PIRALI_BALANCE.finalBossHp*(level===10?3:1),maxHp:PIRALI_BALANCE.finalBossHp*(level===10?3:1),
       vx:0,vy:0,ang:0,alive:true,hf:0,wf:0,
-      sT:50*PIRALI_BALANCE.finalBossFireInterval*(level===6?.72:1),chargeT:0,charging:false,chargeDx:0,chargeDy:0,
-      rageMode:false,enrageHp:PIRALI_BALANCE.finalBossRageHp*(level===6?3:1),
+      sT:50*PIRALI_BALANCE.finalBossFireInterval*(level===10?.72:1),chargeT:0,charging:false,chargeDx:0,chargeDy:0,
+      rageMode:false,enrageHp:PIRALI_BALANCE.finalBossRageHp*(level===10?3:1),
       phase:1, // phase 2 when hp<=enrageHp
       groundSlamCD:0,groundSlamActive:false,groundSlamT:0,groundSlamX:0,groundSlamY:0
     };
@@ -175,7 +179,7 @@ function genWorld(){
   }
 
   window.PiraliAlphaGear?.scatterOnFinal(path,pickups,level);
-  if(level===6){
+  if(level===10){
     // Twelve fleeing, harmless three-hit Batoni.
     for(let i=0;i<12;i++){
       const n=path[3+Math.floor(i*(path.length-7)/12)];if(!n)continue;

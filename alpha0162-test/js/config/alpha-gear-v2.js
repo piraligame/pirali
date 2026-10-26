@@ -19,7 +19,7 @@ const PiraliAlphaGear=(function(){
    updateUI();
  }
  function scatterOnFinal(path,pickups,level){
-   if(level!==5&&level!==6)return;
+   if(level!==7&&level!==10)return;
    const loc=(index,dx,type)=>{const node=path[Math.max(1,Math.min(path.length-2,index))];
      if(node)pickups.push({x:node.x+dx,y:node.y,bob:Math.random()*6.28,col:false,type});};
    loc(3,12,'alpha-shotgun');
@@ -75,7 +75,7 @@ const PiraliAlphaGear=(function(){
    const shoot=document.getElementById('btn-shoot');
    const image=shoot?.querySelector('img');
    if(button){
-     button.hidden=!owned||(typeof level!=='undefined'&&level!==5&&level!==6);
+     button.hidden=!owned||(typeof level!=='undefined'&&level!==7&&level!==10);
      // 0.14 test B1: keep the weapon switch a single accessible tap target.
      // Four painted SHOTGUN SHELLS + the real remaining shell count stay on it.
      const name=document.createElement('span');

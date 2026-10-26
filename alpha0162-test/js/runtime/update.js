@@ -54,8 +54,8 @@ function update(dt){
 
   // Stage 5 and stage 6 end only when Simona actually enters the exit.
   if(!done&&Math.hypot(P.x-CHURCH_X,P.y-CHURCH_Y)<120){
-    if(level===5&&(!boss||!boss.alive)&&finalLordSpawned&&finalVictoryPending){
-      done=true;window.PiraliStats?.completeStage(5);level=6;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();updateScoreUI();
+    if(level===7&&(!boss||!boss.alive)&&finalLordSpawned&&finalVictoryPending){
+      done=true;window.PiraliStats?.completeStage(7);level=8;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();updateScoreUI();
       playLevelUp();const nextLevel=level;window.PiraliCheckpoint?.save(nextLevel);
       const runId=window.PiraliCheckpoint?.getSession();
       showBanner(LEVEL_NAMES[nextLevel]);
@@ -64,12 +64,12 @@ function update(dt){
           genWorld();window.PiraliStats?.stageReady(nextLevel);showBanner(LEVEL_NAMES[nextLevel]);
         }
       },1800);
-    }else if(level===5){
+    }else if(level===7){
       if(!finalChurchNotice){showBanner('ჯერ დაამარცხე გენერალი და ბატონი!');finalChurchNotice=true;}
-    }else if(level===6){
+    }else if(level===10){
       if(boss&&!boss.alive){
         done=true;running=false;showBanner('სიმონამ ჯოჯოხეთი გაიარა!');
-        setTimeout(()=>{if(level===6&&done&&!P.dead)showVictory();},850);
+        setTimeout(()=>{if(level===10&&done&&!P.dead)showVictory();},850);
       }else if(!finalChurchNotice){
         showBanner('ჯერ დაამარცხე ეშმაკი!');finalChurchNotice=true;
       }
@@ -97,7 +97,7 @@ function update(dt){
       else if(pk.type==='ammo'){ammo=Math.min(maxAmmo,ammo+5);updateAmmoUI();}
       else if(pk.type==='health'){health=Math.min(maxHealth,health+1);updateHealthUI();}
       else if(pk.type==='herb'){health=Math.min(maxHealth,health+2);updateHealthUI();inventory.herbs++;updateInventoryUI();}
-      else if(pk.type==='medal'){score+=(level===6?100:250*level);updateScoreUI();inventory.medals++;updateInventoryUI();}
+      else if(pk.type==='medal'){score+=(level===10?100:250*level);updateScoreUI();inventory.medals++;updateInventoryUI();}
       for(let i=0;i<10;i++) spawnPart(pk.x,pk.y,(Math.random()-.5)*5,(Math.random()-.5)*5,16,
         pk.type==='health'?'#e84040':pk.type==='herb'?'#44cc44':pk.type==='medal'?'#f0c020':'#d09820',4);
     }
@@ -117,7 +117,7 @@ function update(dt){
     } else {
       const d=Math.hypot(b.x-P.x,b.y-P.y);
       const arc=Math.atan2(b.y-P.y,b.x-P.x)-P.ang;
-      const wideParry=level===6&&parryActive&&d<110&&
+      const wideParry=level===10&&parryActive&&d<110&&
         Math.abs(Math.atan2(Math.sin(arc),Math.cos(arc)))<1.95;
       if(d<P.r+7||wideParry){
         if(parryActive){
@@ -127,7 +127,7 @@ function update(dt){
           for(let k=0;k<10;k++) spawnPart(b.x,b.y,(Math.random()-.5)*8,(Math.random()-.5)*8,12,Math.random()>.5?'#f0e040':'#ffffff',2+Math.random()*2);
           const pf=document.getElementById('parry-flash');pf.style.opacity='1';setTimeout(()=>pf.style.opacity='0',65);
           showFloatingText(P.x,P.y-22,(window.PiraliLanguage?window.PiraliLanguage.gameText('parry'):'✦ პარი! ✦'),'#f8f040');
-          score+=(level===6?5:50*level);updateScoreUI();
+          score+=(level===10?5:50*level);updateScoreUI();
         } else {b.alive=false;takeDmg();}
       }
     }
@@ -226,7 +226,7 @@ function update(dt){
     // Phase 2 transition
     if(!boss.rageMode&&boss.hp<=boss.enrageHp){
       boss.rageMode=true;boss.phase=2;
-      showBanner(level===6?'🔥 ეშმაკი მძვინვარებს!':'⚠ PHASE 2 ⚠\nგენერალი გააფთრდა!');
+      showBanner(level===10?'🔥 ეშმაკი მძვინვარებს!':'⚠ PHASE 2 ⚠\nგენერალი გააფთრდა!');
       // Spawn 2 reinforcement enemies
       for(let k=0;k<PIRALI_BALANCE.finalBossReinforcements;k++){
         const ra=Math.random()*6.28;
@@ -268,7 +268,7 @@ function update(dt){
       boss.x+=boss.vx;boss.y+=boss.vy;boss.ang=ba;
       boss.sT-=dt;
       if(boss.sT<=0){
-        boss.sT=(boss.rageMode?28:50)*PIRALI_BALANCE.finalBossFireInterval*(level===6?.72:1);
+        boss.sT=(boss.rageMode?28:50)*PIRALI_BALANCE.finalBossFireInterval*(level===10?.72:1);
         const rng=Math.random();
         if(boss.rageMode&&rng<.35){
           // Charge
@@ -303,7 +303,7 @@ function update(dt){
   // Show boss bar when nearby or always in level 5 if boss alive
   if(boss&&boss.alive){
     const bd2=Math.hypot(boss.x-P.x,boss.y-P.y);
-    if(bd2<600||level===5)document.getElementById('boss-bar').style.display='block';
+    if(bd2<600||level===7||level===8)document.getElementById('boss-bar').style.display='block';
   }
 
   parts.forEach(p=>{p.x+=p.vx*dt*.5;p.y+=p.vy*dt*.5;p.vx*=.88;p.vy*=.88;p.life-=dt;});

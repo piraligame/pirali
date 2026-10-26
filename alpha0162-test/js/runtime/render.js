@@ -87,7 +87,7 @@ function drawHUD(){
 
 // ── BACKGROUND — NO SKY, PURE GROUND ──
 function drawBG(){
-  const env=LEVEL_ENV[Math.min(level,5)];
+  const env=LEVEL_ENV[Math.min(level,10)];
   const isDesert=env.ground==='desert';
   const isNight=env.ground==='night';
 
@@ -176,7 +176,7 @@ function drawBG(){
   // ── ROCKS ──
   // Visual rock scatter belongs to the rural and desert tours only.
   // Tour 5's historic courtyard architecture is left untouched.
-  if(level===3||level===4)for(let ri=0;ri<55;ri++){
+  if([3,4,6,8].includes(level))for(let ri=0;ri<55;ri++){
     const rx=th2(ri*7,13)*WW, ry=280+th2(ri*13,7)*(WH-500);
     const rsc=sx(rx), rscy=sy(ry);
     if(rsc<-35||rsc>W+35||rscy<-35||rscy>H+35||dpth(rx,ry)<90)continue;
@@ -224,7 +224,7 @@ function drawBG(){
 
 // ── WEATHER OVERLAY ──
 function drawWeatherOverlay(){
-  const env=LEVEL_ENV[Math.min(level,5)];
+  const env=LEVEL_ENV[Math.min(level,10)];
   if(env.w==='mist'){
     weatherAlpha=Math.min(1,weatherAlpha+.003);
     const fa=weatherAlpha*.18;
@@ -284,7 +284,7 @@ function drawWeatherOverlay(){
 
 // ── TREES ──
 function drawTrees(){
-  const env=LEVEL_ENV[Math.min(level,5)];
+  const env=LEVEL_ENV[Math.min(level,10)];
   const isDesert=env.ground==='desert';const isNight=env.ground==='night';
   const vis=trees.filter(t=>{const x=sx(t.x),y=sy(t.y);return x>-t.r*3&&x<W+t.r*3&&y>-t.r*3&&y<H+t.r*3;}).sort((a,b)=>a.y-b.y);
   vis.forEach(t=>{

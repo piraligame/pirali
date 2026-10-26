@@ -1,4 +1,4 @@
-// PIRALI Alpha 0.16.1 six stages in four languages.
+// PIRALI Alpha 0.16.2 DEV — 10 stage roster, four languages.
 const PIRALI_LEVELS=[
   {
     "number": 1,
@@ -26,6 +26,22 @@ const PIRALI_LEVELS=[
   },
   {
     "number": 4,
+    "ka": "განახლება",
+    "en": "Ganakhleba",
+    "ru": "Ганахлеба",
+    "zh": "加纳赫莱巴",
+    "environment": "dusk"
+  },
+  {
+    "number": 5,
+    "ka": "სამება",
+    "en": "Sameba",
+    "ru": "Самеба",
+    "zh": "萨梅巴",
+    "environment": "forest"
+  },
+  {
+    "number": 6,
     "ka": "უდაბნო",
     "en": "Desert",
     "ru": "Пустыня",
@@ -33,12 +49,35 @@ const PIRALI_LEVELS=[
     "environment": "desert"
   },
   {
-    "number": 5,
+    "number": 7,
     "ka": "უდაბნოს ეკლესია",
     "en": "Desert Church",
     "ru": "Церковь в пустыне",
     "zh": "沙漠教堂",
     "environment": "night"
   },
-  {"number":6,"ka":"სიმონას ჯოჯოხეთი","en":"Simona’s Hell","ru":"Ад Симоны","zh":"西蒙娜的地狱","environment":"hell"}
+  {
+    "number": 8,
+    "ka": "გზა უსასრულობისაკენ",
+    "en": "Road to Infinity",
+    "ru": "Дорога к бесконечности",
+    "zh": "通往无尽之路",
+    "environment": "dusk"
+  },
+  {
+    "number": 9,
+    "ka": "სიმონა ალყაშია",
+    "en": "Simona Under Siege",
+    "ru": "Симона в окружении",
+    "zh": "西蒙娜遭到围攻",
+    "environment": "night"
+  },
+  {
+    "number": 10,
+    "ka": "სიმონას ჯოჯოხეთი",
+    "en": "Simona’s Hell",
+    "ru": "Ад Симоны",
+    "zh": "西蒙娜的地狱",
+    "environment": "hell"
+  }
 ];

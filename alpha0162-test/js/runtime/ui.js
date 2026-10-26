@@ -53,7 +53,7 @@ function updateAmmoUI(){const c=document.getElementById('bullets');c.innerHTML='
 function updateProgressUI(){
   document.getElementById('prog-fill').style.width=Math.min(100,(1-P.y/WH)*100)+'%';
   const badge=document.getElementById('level-badge');
-  if(badge){const tod=((LEVEL_ENV[Math.min(level,5)]||{}).tod||'');badge.textContent=window.PiraliLanguage?window.PiraliLanguage.translateLevel(level,tod):LEVEL_NAMES[Math.min(level,5)];}
+  if(badge){const tod=((LEVEL_ENV[Math.min(level,10)]||{}).tod||'');badge.textContent=window.PiraliLanguage?window.PiraliLanguage.translateLevel(level,tod):LEVEL_NAMES[Math.min(level,10)];}
 }
 function updateInventoryUI(){
   const hi=document.getElementById('inv-herbs');const mi=document.getElementById('inv-medals');
