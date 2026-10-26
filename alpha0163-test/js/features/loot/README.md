@@ -5,3 +5,5 @@
 - დაყენება: `drop-balance.js` იტვირთება ძირითადი საბრძოლო ფაილების **წინ**, ხოლო `map-pickups.js` — ყველა `genWorld` wrapper-ის **შემდეგ**.
 - `../combat/shotgun-balance.js`: თოფის საფანტი 1.2 damage, ხუთი pellet, 48-frame cooldown.
 - Firebase-ის write-წვდომა DEV-ში გათიშულია.
+
+0.16.3j: თოფის ვაზნების მტრისგან ჩამოგდების შანსი **24.96%**-ია (წინა 31.2%-დან −20%); დანარჩენი `health`/`ammo` შანსები უცვლელია.
