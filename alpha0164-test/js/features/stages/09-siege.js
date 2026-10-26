@@ -1,5 +1,5 @@
 /* PIRALI Alpha 0.16.2 DEV — stage 9 "Simona Under Siege".
-   EXACTLY 24 shooters encircle Simona with plentiful collectible ammo. */
+   EXACTLY 20 shooters encircle Simona with plentiful collectible ammo. */
 (function(){
 'use strict';
 const SHOOTERS=window.PiraliSiegeConfig.shooters;

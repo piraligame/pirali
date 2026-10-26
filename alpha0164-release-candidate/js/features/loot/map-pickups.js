@@ -2,7 +2,7 @@
    A stage's placed healing hearts decrease by 10% and its placed Mauser
    ammunition increases by 20%. Separate from enemy-kill drop probabilities.
    Run AFTER all world-generation wrappers, including stage 9/11 and cover.
-   Never remove 'hell-heart' (the special 4500-point story reward). */
+   Never remove 'hell-coins' (the special 250-point reward). */
 (function(){
 'use strict';
 const HEALTH_FACTOR=.90, AMMO_FACTOR=1.20;

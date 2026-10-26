@@ -1,14 +1,14 @@
 {
-  "version": "0.16.4",
+  "version": "0.16.4f",
   "role": "developer-web-only",
   "stages": 11,
   "previewControls": true,
   "firebaseWritesBlocked": true,
   "androidBuilt": false,
   "aabBuilt": false,
-  "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending.",
+  "qa": "Source-level checks and targeted JS tests; full manual mobile playthrough pending.",
   "base": "0.16.3l DEV",
-  "revision": "0.16.4d-score5k",
+  "revision": "0.16.4f-hud20-pink-coins",
   "enemyHpMultiplier": 0.85,
   "ammoDropMultiplier": 1.15,
   "leaderboardPath": "/scores_11stage_season2",
@@ -20,5 +20,16 @@
   "firebasePath": "/scores_11stage_s1_5k_2026",
   "maxStoryPoints": 5000,
   "maxEndlessBonusPoints": 500,
-  "maxTotalPoints": 5500
+  "maxTotalPoints": 5500,
+  "stage9Shooters": 20,
+  "stage11LiveCap": 20,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  }
 }

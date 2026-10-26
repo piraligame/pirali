@@ -1,4 +1,4 @@
-/* PIRALI 0.16.3 DEV — 20% fewer endless enemies and weaker regulars. */
+/* PIRALI 0.16.4f — stage 11: 20 live enemies maximum, 10% less enemy HP. */
 (function(){'use strict';
-window.PiraliEndlessBalance=Object.freeze({cap:80,initial:10,healthFactor:.8,spawnFactor:.8});
+window.PiraliEndlessBalance=Object.freeze({cap:20,initial:10,healthFactor:.72,spawnFactor:.8});
 })();

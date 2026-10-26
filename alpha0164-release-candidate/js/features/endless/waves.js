@@ -1,6 +1,6 @@
 /* PIRALI Alpha 0.16.3 DEV — ELEVENTH BONUS LEVEL: endless survival.
    Wave spawner is isolated from the original 10 stages and Firebase.
-   Up to 80 LIVE enemies (general included), constantly replenished. */
+   Up to 20 LIVE enemies (general included), constantly replenished. */
 (function(){
 'use strict';
 const SETTINGS=window.PiraliEndlessBalance;
@@ -29,7 +29,7 @@ function spawnOne(){
  const type=TYPES[Math.floor(Math.random()*TYPES.length)];
  const landlord=type==='landlord',officer=type==='officer';
  const baseHp=landlord?3:Math.max(3,Math.min(PIRALI_STAGE_BALANCE.oldSoldierHp(11),3+Math.ceil(wave*.8)+(officer?1:0)));
- const hp=PIRALI_STAGE_BALANCE.scaleRegularHp(baseHp*SETTINGS.healthFactor); // additional 10% reduction
+ const hp=PIRALI_STAGE_BALANCE.scaleRegularHp(baseHp*SETTINGS.healthFactor); // 0.72 vs old 0.80: -10% HP
  const enemy={
   x:pt.x,y:pt.y,r:officer?14:landlord?13:12,hp,maxHp:hp,
   vx:0,vy:0,ang:pt.ang+Math.PI,wf:0,hf:0,
@@ -61,7 +61,7 @@ function replenishAmmo(){
 }
 function general(){
  if(level!==11||boss?.alive||liveCount()>=CAP)return;
- const pt=randomPoint(420,600),hp=Number((Math.max(8,Math.min(24,12+wave))*.85).toFixed(3));
+ const pt=randomPoint(420,600),hp=Number((Math.max(8,Math.min(24,12+wave))*.85*.90).toFixed(3)); // 10% less HP
  boss={
   x:pt.x,y:pt.y,r:24,hp,maxHp:hp,
   vx:0,vy:0,ang:pt.ang,alive:true,hf:0,wf:0,
@@ -98,7 +98,7 @@ function tick(dt){
   wave=nextWave;
   for(let k=0;k<Math.round(Math.min(8,2+Math.floor(wave/2))*SETTINGS.spawnFactor);k++)spawnOne();
   if(wave%4===0)general();
-  showBanner('ტალღა '+wave+' • სიმონა უსასრულოდ');
+  showBanner('ტალღა '+wave); // level name stays in the normal level badge
  }
  if(nextSpawn<=0){
   spawnOne();

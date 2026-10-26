@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#c89820">
   <!-- Android APK app icon is handled by native Android assets; no missing Apple icon reference. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ფირალი Alpha 0.16.4 — 11-ტურიანი ახალი სეზონი (Release Candidate)</title>
+<title>ფირალი Alpha 0.16.4f — 11-ტურიანი ახალი სეზონი (Release Candidate)</title>
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/style.css?v=20261016d">
 <link rel="stylesheet" href="css/menu.css?v=checkpoint-20261017a">
@@ -28,7 +28,7 @@
 // Release candidate: do not enable real-season writes until launch.
 window.PiraliSeasonReleaseEnabled=false;
 window.PiraliVisualPreviewReadonly=!window.PiraliSeasonReleaseEnabled;
-window.PiraliAlpha014Test=true;
+window.PiraliAlpha014Test=false; // Player preview: development-only controls stay disabled.
 // Developer preview should never alter the real Firebase score database.
 (function(){
  const nativeFetch=window.fetch.bind(window);
@@ -36,7 +36,7 @@ window.PiraliAlpha014Test=true;
   const url=typeof input==='string'?input:input?.url||'';
   const method=String(init?.method||input?.method||'GET').toUpperCase();
   if(/firebaseio\.com/i.test(url)&&!window.PiraliSeasonReleaseEnabled&&method!=='GET'&&method!=='HEAD'){
-   return Promise.reject(new Error('PIRALI Alpha 0.16.4 DEV: Firebase writes disabled'));
+   return Promise.reject(new Error('PIRALI Alpha 0.16.4f DEV: Firebase writes disabled'));
   }
   return nativeFetch(input,init);
  };
@@ -124,10 +124,10 @@ window.PiraliAlpha014Test=true;
 <script src="js/features/scoring/kill-combos.js?v=score5k-0164d"></script>
 <script src="js/runtime/world.js?v=alpha0164b2"></script>
 <script src="js/runtime/combat.js?v=score5k-0164d"></script>
-<script src="js/runtime/update.js?v=score5k-0164d"></script>
-<script src="js/runtime/render.js?v=alpha0164h"></script>
+<script src="js/runtime/update.js?v=alpha0164f"></script>
+<script src="js/runtime/render.js?v=alpha0164f"></script>
 <script src="js/effects/combat-fx.js?v=combatfx-20261017a"></script>
-<script src="js/levels/environment-alpha012.js?v=alpha0164e"></script>
+<script src="js/levels/environment-alpha012.js?v=alpha0164f"></script>
 <script src="js/levels/biomes-alpha013.js?v=alpha013-biomes2-3a"></script>
 <script src="js/levels/historical-phase4.js?v=alpha0162colors"></script>
 <script src="js/levels/roads-alpha013.js?v=alpha0162colors"></script>
@@ -139,7 +139,7 @@ window.PiraliAlpha014Test=true;
 <script src="js/characters/simona-weapons-only.js?v=alpha014-approved-study-d"></script>
 <script>window.PiraliHybrid014.enable(true);</script>
 <script src="js/characters/batoni-art-preview.js?v=alpha012-motion-phase2b"></script>
-<script src="js/runtime/ui.js?v=alpha0164b"></script>
+<script src="js/runtime/ui.js?v=alpha0164f"></script>
 <script src="js/progression/checkpoints.js?v=score5k-0164d"></script>
 <script src="js/runtime/leaderboard.js?v=red-nagan-0164e"></script>
 <script src="js/runtime/outcome.js?v=alpha0164b"></script>
@@ -148,18 +148,18 @@ window.PiraliAlpha014Test=true;
 <script src="js/main.js?v=alpha0164c"></script>
 <script src="js/i18n.js?v=alpha0164b"></script>
 <script src="js/progression/player-stats.js?v=score5k-0164d"></script>
-<script src="js/menu.js?v=s1-rc01"></script>
+<script src="js/menu.js?v=alpha0164f"></script>
 <script src="js/platform/mobile-lifecycle.js?v=stats-20261017a"></script>
 <!-- Player-facing release candidate: no developer level-jump controls. -->
   <!-- Alpha 0.16.2 modular stage 10 Hell features: loaded in dependency order. -->
-<script src="js/features/hell/text.js?v=score5k-0164d"></script>
+<script src="js/features/hell/text.js?v=alpha0164f"></script>
 <script src="js/features/hell/score-bonus.js?v=score5k-0164d"></script>
-<!-- Story cap 100000 (earned only); endless +300; gate +0; Devil heart pickup +5000. -->
+<!-- Story cap 5000, endless +500; gate +0, Devil's large coin pickup +250. -->
 <script src="js/features/scoring/stage-awards.js?v=score5k-0164d"></script>
-<!-- Final-stage enemies, rewards and collectible-heart art live in separate JS files. -->
+<!-- Final-stage enemies, rewards and big collectible gold coins live in separate JS files. -->
 <script src="js/features/hell/enemy-spacing.js?v=alpha0162a"></script>
-<script src="js/features/hell/loot.js?v=score5k-0164d"></script>
-<script src="js/features/hell/heart-art.js?v=score5k-0164d"></script>
+<script src="js/features/hell/loot.js?v=alpha0164f"></script>
+<script src="js/features/hell/heart-art.js?v=alpha0164f"></script>
 <script src="js/features/hell/scenery.js?v=alpha0162c"></script>
 <script src="js/features/hell/gate.js?v=alpha0162c"></script>
 <script src="js/features/hell/devil.js?v=alpha0162c"></script>
@@ -172,22 +172,22 @@ window.PiraliAlpha014Test=true;
 <!-- Independent ten-stage battle modules; loaded AFTER core and visual wrappers. -->
 <script src="js/features/stages/08-dual-generals.js?v=alpha0164b2"></script>
 <!-- Stage 9 separate tuning and scattered first-aid hearts. -->
-<script src="js/features/stages/09-siege-balance.js?v=alpha0164h"></script>
+<script src="js/features/stages/09-siege-balance.js?v=alpha0164f"></script>
 <script src="js/features/stages/09-heart-scatter.js?v=alpha0164h"></script>
-<script src="js/features/stages/09-siege.js?v=alpha0164h"></script>
+<script src="js/features/stages/09-siege.js?v=alpha0164f"></script>
 <script src="js/features/stages/flow.js?v=alpha0162a"></script>
-<script src="js/features/stages/color-themes.js?v=alpha0164h"></script>
+<script src="js/features/stages/color-themes.js?v=alpha0164f"></script>
 <script src="js/features/stages/08-boss-hud.js?v=alpha0162d"></script>
 <!-- Bonus survival modules: after all world-gen wrappers. -->
-<script src="js/features/endless/hud.js?v=score5k-0164d"></script>
-<!-- Stage 11 grey graveyard and 80-enemy endless waves. -->
-<script src="js/features/endless/11-wave-balance.js?v=alpha0164h"></script>
+<script src="js/features/endless/hud.js?v=alpha0164f"></script>
+<!-- Stage 11 grey graveyard with MAX 20 live enemies. -->
+<script src="js/features/endless/11-wave-balance.js?v=alpha0164f"></script>
 <script src="js/features/endless/graveyard.js?v=alpha0164h"></script>
-<script src="js/features/endless/waves.js?v=alpha0164b2"></script>
+<script src="js/features/endless/waves.js?v=alpha0164f"></script>
 <script src="js/features/endless/outcome.js?v=alpha0164c"></script>
 <!-- Collision-aware 20% extra cover after all other world modifications. -->
 <script src="js/features/scenery/solid-cover.js?v=alpha0164g"></script>
 <!-- Final world-generation pass: -10% placed hearts, +20% ammo supplies. -->
-<script src="js/features/loot/map-pickups.js?v=alpha0164b2"></script>
+<script src="js/features/loot/map-pickups.js?v=alpha0164f"></script>
 </body>
 </html>

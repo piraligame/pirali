@@ -1,29 +1,31 @@
-/* PIRALI 0.16.3 — four-language endless wave and bonus score display. */
+/* PIRALI 0.16.4f — concise stage-11-only status. The ordinary level badge owns stage names. */
 (function(){
 'use strict';
-const words={
- ka:{title:'♾ სიმონა უსასრულოდ',wave:'ტალღა',kills:'მოკლული',cap:'მტერი',points:'ყოველ მტერზე +5 • მაქს. +500'},
- en:{title:'♾ Simona Forever',wave:'Wave',kills:'Kills',cap:'Enemies',points:'+5 per enemy • max +500'},
- ru:{title:'♾ Симона бесконечно',wave:'Волна',kills:'Убито',cap:'Врагов',points:'+5 за врага • макс. +500'},
- zh:{title:'♾ 西蒙娜无尽之战',wave:'波次',kills:'击败',cap:'敌人',points:'每敌人 +5分 • 最多+500'}
+const labels={
+ ka:{wave:'ტალღა',kills:'მოკლული',live:'მტერი'},
+ en:{wave:'Wave',kills:'Kills',live:'Enemies'},
+ ru:{wave:'Волна',kills:'Убито',live:'Врагов'},
+ zh:{wave:'波次',kills:'击败',live:'敌人'}
 };
-let n=null;
+let panel=null;
+function hide(){if(panel)panel.style.display='none';}
 function refresh(){
  const active=level===11&&running&&!P.dead;
- if(!n){
-  n=document.createElement('aside');n.id='pirali-endless-hud';n.setAttribute('aria-live','off');
-  document.body.appendChild(n);
- }
- n.style.display=active?'block':'none';
- const progress=document.getElementById('progress-bar');
- if(progress)progress.style.display=active?'none':'';
- if(!active)return;
- const k=words[window.PiraliLanguage?.getLanguage?.()||'ka']||words.ka;
+ if(!active){hide();return;}
  const state=window.PiraliEndless?.state?.();
- if(!state)return;
- n.textContent=k.title+'  •  '+k.wave+' '+state.wave+'  •  '+k.kills+' '+state.kills+
-  '  •  '+k.cap+' '+state.onScreen+'/'+state.cap+'  •  '+k.points;
+ if(!state?.active){hide();return;}
+ if(!panel){
+  panel=document.createElement('aside');panel.id='pirali-endless-hud';
+  panel.setAttribute('aria-live','off');document.body.appendChild(panel);
+ }
+ panel.style.display='block';
+ const labelsForLanguage=labels[window.PiraliLanguage?.getLanguage?.()||'ka']||labels.ka;
+ // Stage name is shown once in the existing #level-badge (all 11 stages).
+ // Don't show score bonus help text in the combat HUD.
+ panel.textContent=labelsForLanguage.wave+' '+state.wave+'  •  '+
+  labelsForLanguage.kills+' '+state.kills+'  •  '+
+  labelsForLanguage.live+' '+state.onScreen+'/'+Math.min(20,state.cap);
 }
 document.addEventListener('pirali:languagechange',refresh);
-window.PiraliEndlessHUD=Object.freeze({refresh});
+window.PiraliEndlessHUD=Object.freeze({refresh,hide});
 })();

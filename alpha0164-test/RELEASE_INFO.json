@@ -1,14 +1,14 @@
 {
-  "version": "0.16.4",
+  "version": "0.16.4f",
   "channel": "developer-web-only",
   "base": "0.16.3l DEV",
   "publishedForPlayers": false,
   "androidBuilt": false,
   "aabBuilt": false,
   "developerOnly": true,
-  "note": "11-stage score scale in DEV and release candidate; production/Firebase writes remain disabled pending approval and QA.",
-  "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending.",
-  "revision": "0.16.4d-score5k",
+  "note": "GitHub DEV and player-preview test builds only; new Firebase season remains write-disabled until release QA and authorization.",
+  "qa": "Source-level checks and targeted JS tests; full manual mobile playthrough pending.",
+  "revision": "0.16.4f-hud20-pink-coins",
   "season": "11stage_s1_5k_2026",
   "startLevel": 1,
   "startScore": 0,
@@ -17,5 +17,17 @@
     "story": 5000,
     "endlessBonus": 500,
     "total": 5500
-  }
+  },
+  "stage9Shooters": 20,
+  "stage11LiveCap": 20,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  },
+  "firebaseWritesBlocked": true
 }

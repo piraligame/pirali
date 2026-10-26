@@ -5,7 +5,7 @@
  const oldDraw=drawBG;
  const shades={
   4:'rgba(255,208,52,.34)',  // Ganakhleba — bright GOLDEN YELLOW
-  5:'rgba(38,100,65,.14)',   // Sameba — green woodlands
+  5:'rgba(255,174,214,.43)', // Sameba — distinct LIGHT PINK bloom
   8:'rgba(85,56,123,.22)',   // Road to Infinity — violet evening
   9:'rgba(245,114,28,.33)',  // Under Siege — vivid CARROT ORANGE
  11:'rgba(122,125,132,.35)' // Endless — ASH GREY

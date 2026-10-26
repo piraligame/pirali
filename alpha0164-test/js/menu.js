@@ -89,7 +89,7 @@
     card.appendChild(privacy);refreshPrivacyLabel();
     const version=document.createElement('div');
     version.className='menu-version';
-    version.textContent='PIRALI • ALPHA 0.16.4 DEV • ახალი 11-ტურიანი სეზონი';
+    version.textContent='PIRALI • ALPHA 0.16.4f DEV • 11 ტური';
     card.appendChild(version);
     if(window.PiraliLanguage)window.PiraliLanguage.apply();
   }

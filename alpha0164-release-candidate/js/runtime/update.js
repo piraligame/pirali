@@ -96,10 +96,11 @@ function update(dt){
         },1600);
         showBanner(LEVEL_NAMES[nextLevel]);
       }else if(!finalChurchNotice){
-        showBanner('ჯერ დაამარცხე ალყის 30 მსროლელი!');finalChurchNotice=true;
+        showBanner('ჯერ დაამარცხე ალყის 20 მსროლელი!');finalChurchNotice=true;
       }
     }else if(level===10){
-      if(boss&&!boss.alive){
+      // The boss's collectible coins MUST be taken before advancing.
+      if(boss&&!boss.alive&&window.PiraliHellLoot?.rewardCollected?.()){
         done=true;window.PiraliStats?.completeStage(10);
         level=11;window.PiraliStageScoring?.beginEndless();updateScoreUI();
         ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();playLevelUp();
@@ -111,6 +112,8 @@ function update(dt){
             genWorld();window.PiraliStats?.stageReady(nextLevel);showBanner(LEVEL_NAMES[nextLevel]);
           }
         },1550);
+      }else if(boss&&!boss.alive){
+        if(!finalChurchNotice){showBanner('აიღე ეშმაკის ოქროს მონეტები!');finalChurchNotice=true;}
       }else if(!finalChurchNotice){
         showBanner('ჯერ დაამარცხე ეშმაკი!');finalChurchNotice=true;
       }
@@ -130,7 +133,7 @@ function update(dt){
   // Pickups
   pickups.forEach(pk=>{
     if(pk.col)return;pk.bob+=.05;
-    if(Math.hypot(pk.x-P.x,pk.y-P.y)<30){
+    if(Math.hypot(pk.x-P.x,pk.y-P.y)<(pk.type==='hell-coins'?43:30)){
       pk.col=true;
       playPickup();
       if(window.PiraliHellLoot?.collect(pk)){}

@@ -11,6 +11,8 @@ const oldBG=drawBG,BIOMES=[
  {name:'Udabno',tint:'rgba(151,61,24,.34)',leaf:'#956039',hi:'#e8bb7d',ground:'#713b26'},
  {name:'Udabnos Eklesia',tint:'rgba(8,24,69,.39)',leaf:'#354e49',hi:'#c9a063',ground:'#172e3e'}
 ];
+// Sameba uses stage-1 forest geometry but exclusively pastel-pink foliage.
+const SAMEBA_PINK={name:'Sameba / Pink Bloom',tint:'rgba(255,196,223,.35)',leaf:'#e5a3c8',hi:'#ffe0ee',ground:'#b57c9f'};
 const visualStage=n=>({4:3,5:1,6:4,7:5,8:4,9:4,10:5,11:2}[n]||Math.min(5,Math.max(1,n)));
 const TS=256,tiles=new Map();
 let enabled=true,lastPath=null,lastLevel=0,objects=[];
@@ -107,7 +109,7 @@ function item(o,stage,b){
 }
 function renderScenery(){
  if(!enabled||!path?.length)return;
- const stage=visualStage(level),b=BIOMES[stage];
+ const stage=visualStage(level),b=level===5?SAMEBA_PINK:BIOMES[stage];
  populate();ctx.save();
  ctx.fillStyle=b.tint;ctx.fillRect(0,0,W,H);
  const pat=ctx.createPattern(tile(stage),'repeat');
@@ -130,7 +132,7 @@ function renderScenery(){
 drawBG=function(){oldBG();renderScenery();};
 window.PiraliAlphaEnvironment=Object.freeze({
  enabled:()=>enabled,enable:v=>(enabled=!!v),
- stats:()=>({version:'alpha012-scenery-phase3',level,biome:BIOMES[visualStage(level)]?.name,decorations:objects.length,cachedTiles:tiles.size}),
+ stats:()=>({version:'alpha012-scenery-phase3',level,biome:level===5?SAMEBA_PINK.name:BIOMES[visualStage(level)]?.name,decorations:objects.length,cachedTiles:tiles.size}),
  biomes:BIOMES.slice(1).map((b,i)=>({level:i+1,name:b.name}))
 });
 })();

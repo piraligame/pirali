@@ -46,3 +46,6 @@ Separate clone of latest 11-stage 0.16.4 DEV balance. NOT the official player re
 - The 11th stage is endless, so its clear achievement is **earning the full +500 bonus points on stage 11** (from a fresh ranked run). Merely reaching stage 11 or dying there before +500 does not grant it.
 - Store `naganCleared: true` in the player result only after the milestone; merge records by normalized name with OR so the badge persists even if a later best-score record is weaker on milestones.
 - Test/DEV entries remain local-only; official Firebase write gate remains OFF in DEV and release candidate. New-season 5K/500 scoring and `/scores_11stage_s1_5k_2026` are unchanged.
+
+### Stage 10 coin collection gate
+After the Devil is defeated, the player can collect the big gold coins for **+250 earned points** before the game continues to stage 11. The coins remain in the world until collected; the next-stage transition does not prematurely remove them. The gate itself still gives **0 points**.
