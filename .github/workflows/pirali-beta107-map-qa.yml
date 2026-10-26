@@ -1,0 +1,32 @@
+name: PIRALI BETA 1.07 localized campaign map QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'qa/pirali-beta107-map-qa.cjs'
+      - '.github/workflows/pirali-beta107-map-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  map-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright and Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify 11 map stages and 4 localized names on PC and mobile
+        run: node qa/pirali-beta107-map-qa.cjs
+      - name: Save four visual QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: beta107-localized-map-qa
+          path: qa/screenshots/*.png
+          if-no-files-found: ignore
