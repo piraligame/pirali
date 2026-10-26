@@ -40,6 +40,14 @@
       "ru": "Церковь в пустыне",
       "zh": "沙漠教堂",
       "environment": "night"
+    },
+    {
+      "number": 6,
+      "ka": "სიმონას ჯოჯოხეთი",
+      "en": "Simona’s Hell",
+      "ru": "Ад Симоны",
+      "zh": "西蒙娜的地狱",
+      "environment": "hell"
     }
   ]
 }

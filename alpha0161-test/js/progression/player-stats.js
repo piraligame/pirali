@@ -149,7 +149,7 @@
     for(const [k,v] of [['runs',s.runs],['wins',s.wins],['defeats',s.defeats],['kills',s.kills],['bestScore',s.bestScore.toLocaleString()],['bestRun',fmt(s.bestRunMs)]])
       box.appendChild(line(t(k),v));
     box.appendChild(section(t('levels')));
-    for(let n=1;n<=5;n++)box.appendChild(line(
+    for(let n=1;n<=6;n++)box.appendChild(line(
       (window.PiraliLanguage?.translateLevel(n)||'ტური '+n),
       fmt(s.stageBestMs[n-1])));
     box.appendChild(section(t('achievements')));

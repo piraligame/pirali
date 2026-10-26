@@ -55,7 +55,7 @@ function update(dt){
   // Stage 5 and stage 6 end only when Simona actually enters the exit.
   if(!done&&Math.hypot(P.x-CHURCH_X,P.y-CHURCH_Y)<120){
     if(level===5&&(!boss||!boss.alive)&&finalLordSpawned&&finalVictoryPending){
-      done=true;level=6;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();updateScoreUI();
+      done=true;window.PiraliStats?.completeStage(5);level=6;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();updateScoreUI();
       playLevelUp();const nextLevel=level;window.PiraliCheckpoint?.save(nextLevel);
       const runId=window.PiraliCheckpoint?.getSession();
       showBanner(LEVEL_NAMES[nextLevel]);
