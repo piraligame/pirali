@@ -40,3 +40,9 @@ Separate six-stage test cloned from alpha015-test. Existing alpha015-play and al
 - `js/menu.js`: bottom version text now `PIRALI • ALPHA 0.16.1 DEV`.
 - `js/features/combat/sword-cooldown.js`: existing sword cooldown reduced an additional 20%, faster attacks.
 - `js/runtime/world.js`: sixth-stage soldiers 40% of 0.16.1d, rounded; Batoni and Devil unchanged.
+
+## 0.16.1f — fix inverted sword request and mobile leaderboard fling
+- Fixed 1500ms real-time sword cooldown via `performance.now()` (new module), for regular/combo.
+- `combat.js` checks real elapsed milliseconds rather than frame countdown; `game-init.js` resets on new run.
+- `scroll-guard.js` + `leaderboard-scroll-guard.css` keep a separate opaque fixed layer below the scrollable leaderboard, with overscroll-behavior disabled.
+- No Firebase changes. Live and previous-version links unchanged.

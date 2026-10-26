@@ -1,0 +1,18 @@
+/* PIRALI DEV 0.16.1 — anti-overscroll backdrop for TOP 30.
+   A fixed opaque sibling stays in place even if the long leaderboard's
+   scrolling layer is briefly displaced during a fast mobile fling. */
+#pirali-lb-overscroll-backdrop{
+ position:fixed;inset:0;z-index:299;
+ display:none;pointer-events:none;
+ background-color:#030201;
+ background-image:radial-gradient(ellipse at 50% 30%,#170e05 0%,#030201 85%);
+}
+#pirali-lb-overscroll-backdrop.is-open{display:block}
+html,body{overscroll-behavior-y:none}
+#lb-overlay{
+ overscroll-behavior-x:none;
+ overscroll-behavior-y:none;
+ touch-action:pan-y;
+ background-color:#030201;
+ background-image:radial-gradient(ellipse at 50% 30%,#170e05 0%,#030201 85%);
+}

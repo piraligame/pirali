@@ -1,19 +1,22 @@
-/* PIRALI Alpha 0.16.1 DEV — sword cooldown in frames.
-   0.14.2 already shortened the original normal 34 / combo 24 by 20%.
-   This update shortens the CURRENT cooldown by a further 20%.
-   Normal: 34 × .8 × .8 = 21.76; combo: 24 × .8 × .8 = 15.36.
-   Animation length, damage and parry behavior are intentionally unchanged. */
+/* PIRALI Alpha 0.16.1 DEV — fixed 1.5-second sword cooldown.
+   The next swing is allowed 1500 real milliseconds after the previous one.
+   The same limit applies to regular and combo swings.
+   The 90-frame number returned by start() is a compatibility display value;
+   readiness is determined by the monotonic wall clock instead of FPS. */
 (function(){
  'use strict';
- const BALANCE=Object.freeze({
-   normalFrames:34,
-   comboFrames:24,
-   previousMultiplier:.8,
-   currentMultiplier:.8
- });
- function forCombo(isCombo){
-   const original=isCombo?BALANCE.comboFrames:BALANCE.normalFrames;
-   return original*BALANCE.previousMultiplier*BALANCE.currentMultiplier;
+ const COOLDOWN_MS=1500;
+ const FRAME_ESTIMATE=90;
+ let availableAt=0;
+ function clock(){return performance.now();}
+ function ready(){return clock()>=availableAt;}
+ function start(){
+   availableAt=clock()+COOLDOWN_MS;
+   return FRAME_ESTIMATE;
  }
- window.PiraliSwordCooldown=Object.freeze({forCombo,settings:BALANCE});
+ function reset(){availableAt=0;}
+ function remainingMs(){return Math.max(0,availableAt-clock());}
+ window.PiraliSwordCooldown=Object.freeze({
+   ready,start,reset,remainingMs,delayMs:COOLDOWN_MS
+ });
 })();
