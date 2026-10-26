@@ -1,7 +1,24 @@
-# PIRALI BETA 1.05 QA / Change plan
+# PIRALI BETA 1.05 — შემოწმების ანგარიში
 
-Changes: stages 6, 8, 9 and 10 reduced as specified; stage 11 ends after five complete waves, 100 bonus points for each completed wave, Georgian flag and congratulations, leaderboard crown. Existing Firebase schema and beta season preserved, DEV writes blocked. Stage 8 randomized hunting-shotgun shell probability reduced 15%; shotgun and Mauser loot remain on levels 7–11.
+თარიღი: 2026-10-26. 4 დამოუკიდებელი Chromium/Playwright ტესტი ლეპტოპიდან: DEV და PLAYER × PC და Pixel 7 მობილური ემულაცია. ყველა GitHub Pages ბმულმა დააბრუნა HTTP 200; ოთხივე ტესტში 0 JavaScript შეცდომა.
 
-Crown is derived from unchanged Firebase fields: win=true, level=11, naganCleared=true and endlessKills>=100. Previous achievements are preserved when lbBest deduplicates by name.
+| შერჩეული ტური | შედეგი |
+|---|---|
+| მე-6 | 32 → 29 მტერი; HP და შეტევის/მოძრაობის კოეფიციენტი 0.85 |
+| მე-8 | ორვე გენერლის და ჯარისკაცების HP −15%, შეტევის/მოძრაობის კოეფიციენტი 0.85; სანადირო თოფის შემთხვევითი ვაზნის შანსი 0.28704 → 0.243984 |
+| მე-9 | ზუსტად 15 მსროლელი; ჯანმრთელობა/სიჩქარე/შეტევა −20% |
+| მე-10 | ჯარისკაცები, ბატონი და ეშმაკი HP −20%, შეტევა/სიჩქარე −20% |
+| 7–10 | მე-7 ტურში თოფის აღება შენარჩუნდა შემდგომ ტურებში; მაუზერის ტყვიებიც და თოფის ვაზნებიც შესაბამის ტურებში ხელმისაწვდომია |
+| მე-11 | 5 ტალღა ×20; მხოლოდ სრულ ტალღაზე +100; პირველი 1 მოკვლა +0 |
+| ფინალი | 100 მოკვლისა და 5 ტალღის შემდეგ გამარჯვება; ახალი მე-6 ტალღა არ ჩნდება; მაქსიმალური დამატებითი ქულა +500 |
+| შედეგის ეკრანი | ქართული დროშა SVG-ით, მილოცვა და ანიმაცია; ოთხივე ენის ქართული, ინგლისური, რუსული და ჩინური ტექსტები შემოწმდა |
+| გვირგვინი | TOP30-ში ეკლესიისა და ჯვრის გვერდით მხოლოდ ხუთივე ტალღის ნამდვილად გამარჯვებული მოთამაშისთვის; ძველი პირადი საუკეთესო ქულა რჩება |
+| Firebase | DEV-ზე 0 PUT; PLAYER-ის ანგარიშგების PUT ფორმატი შემოწმდა **მხოლოდ იმიტირებულ პასუხზე**; ბაზაში ტესტის ქულა არ ჩაწერილა |
 
-Pending automated QA and physical handset verification. Do not upload to Google Play without approval.
+გადამოწმდა უჯრედების საწყისი მაჩვენებლები და მეტ-ნაკლებად ხელმისაწვდომი ტყვიების განაწილება. ბრაუზერში ავტომატურად შესრულდა მტრების დამარცხება რეალური საბრძოლო ფუნქციებით და ხუთივე ტალღის დასრულება. **რეალურ Android ტელეფონზე სრული 11-ტურიანი ბუნებრივი გავლა და Firebase-ის რეალური გამარჯვების ჩაწერა ჯერ არ შესრულებულა.**
+
+გასაშვები ვერსიები:
+- PLAYER: https://piraligame.github.io/pirali/beta105-play/?v=beta105
+- DEV: https://piraligame.github.io/pirali/beta105-dev/?v=beta105
+
+Google Play-ის Alpha 0.15 და ძველი Firebase /scores არ შეცვლილა. Android APK/AAB არ შექმნილა.
