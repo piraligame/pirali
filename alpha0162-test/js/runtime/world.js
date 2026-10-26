@@ -124,7 +124,7 @@ function genWorld(){
   }
 
   // Core enemy density. Hell level: 1/3 of previous triple density; scattering lives in features/hell/enemy-spacing.js.
-  const ehp=Math.max(1,Math.round((level<=2?1:level<=6?2:PIRALI_BALANCE.finalBaseEnemyHp)*Math.pow(1.2,level-1))); // +20% threat per stage
+  const ehp=PIRALI_STAGE_BALANCE.soldierHp(level); // all growth is in config/stage-balance.js
   const usableSegs=path.length-6; // skip first 2 (start) + last 4 (church approach)
   const normalCount=Math.floor(usableSegs*(0.85+level*0.096));
   const totalEnemies=level===10?Math.max(1,Math.round(normalCount/2.5)):level===7?Math.max(1,Math.ceil(normalCount*PIRALI_BALANCE.finalEnemyMultiplier)):normalCount;

@@ -4,7 +4,7 @@
 (function(){
 'use strict';
 let second=null;
-const HP=11; // +~20% over former stage-7 general (9 HP)
+const HP=PIRALI_STAGE_BALANCE.generalHp(8); // 20% tougher than the 7th-stage general
 function setup(){
  second=null;
  if(level!==8||!boss)return;
@@ -67,5 +67,5 @@ function updateSecond(dt){
  }
  if(!invincible&&!dashing&&dist<P.r+s.r)takeDmg();
 }
-window.PiraliDualGenerals=Object.freeze({setup,target,hitBullet,swordHit,defeated,drawEntities,updateSecond});
+window.PiraliDualGenerals=Object.freeze({setup,target,hitBullet,swordHit,defeated,drawEntities,updateSecond,second:()=>second});
 })();
