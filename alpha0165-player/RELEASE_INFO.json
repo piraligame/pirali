@@ -1,18 +1,18 @@
 {
-  "version": "0.16.5b",
+  "version": "0.16.5c",
   "channel": "player-online-web",
   "base": "0.16.3l DEV",
-  "publishedForPlayers": true,
+  "publishedForPlayers": false,
   "androidBuilt": false,
   "aabBuilt": false,
   "developerOnly": false,
-  "note": "Added exact Firebase failure status, retry button for pending result, and suppressed false online rank. Firebase rules still need admin verification; no database mutation performed.",
+  "note": "Code switched to independent /pirali_beta_rating; server creation/rules not confirmed. Alpha 0.15 unchanged.",
   "qa": "Source-level checks and targeted JS tests; full manual mobile playthrough pending.",
-  "revision": "0.16.5b-firebase-diagnostics",
-  "season": "11stage_s1_5k_2026",
+  "revision": "0.16.5c-beta-rating",
+  "season": "pirali_beta_rating_s1",
   "startLevel": 1,
   "startScore": 0,
-  "firebasePath": "/scores_11stage_s1_5k_2026",
+  "firebasePath": "/pirali_beta_rating",
   "firebaseWritesBlocked": false,
   "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
   "releaseReady": false,
@@ -32,5 +32,10 @@
   "devilReward": {
     "type": "hell-coins",
     "points": 250
-  }
+  },
+  "leaderboardPath": "/pirali_beta_rating",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "UNVERIFIED – Firebase admin connection required"
 }

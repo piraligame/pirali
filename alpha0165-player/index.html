@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#c89820">
   <!-- Android APK app icon is handled by native Android assets; no missing Apple icon reference. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ფირალი Alpha 0.16.5b PLAYER — Firebase დიაგნოსტიკა</title>
+<title>ფირალი Alpha 0.16.5c — ფირალი ბეტა რეიტინგი</title>
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/style.css?v=20261016d">
 <link rel="stylesheet" href="css/menu.css?v=checkpoint-20261017a">
@@ -37,7 +37,7 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
   const method=String(init?.method||input?.method||'GET').toUpperCase();
   // Allow ONLY Firebase POST to the separate 11-stage scoring season.
   if(/firebaseio\.com/i.test(url)&&method!=='GET'&&method!=='HEAD'){
-   const permitted='https://pirali-game-default-rtdb.firebaseio.com/scores_11stage_s1_5k_2026.json';
+   const permitted='https://pirali-game-default-rtdb.firebaseio.com/pirali_beta_rating.json';
    if(!window.PiraliSeasonReleaseEnabled || method!=='POST' || url.split('?')[0]!==permitted){
     return Promise.reject(new Error('PIRALI: other Firebase writes blocked'));
    }
@@ -144,15 +144,15 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
 <script>window.PiraliHybrid014.enable(true);</script>
 <script src="js/characters/batoni-art-preview.js?v=alpha012-motion-phase2b"></script>
 <script src="js/runtime/ui.js?v=alpha0164f"></script>
-<script src="js/progression/checkpoints.js?v=score5k-0164d"></script>
-<script src="js/runtime/leaderboard.js?v=alpha0165-diagnostics2"></script>
+<script src="js/progression/checkpoints.js?v=alpha0165c-beta01"></script>
+<script src="js/runtime/leaderboard.js?v=alpha0165c-beta01"></script>
 <script src="js/runtime/outcome.js?v=alpha0165-cloud"></script>
 <script src="js/runtime/intro.js"></script>
 <script src="js/runtime/game-init.js?v=score5k-0164d"></script>
 <script src="js/main.js?v=alpha0164c"></script>
 <script src="js/i18n.js?v=alpha0164b"></script>
-<script src="js/progression/player-stats.js?v=score5k-0164d"></script>
-<script src="js/menu.js?v=alpha0165-cloud"></script>
+<script src="js/progression/player-stats.js?v=alpha0165c-beta01"></script>
+<script src="js/menu.js?v=alpha0165c-beta01"></script>
 <script src="js/platform/mobile-lifecycle.js?v=stats-20261017a"></script>
 <!-- Player-facing release candidate: no developer level-jump controls. -->
   <!-- Alpha 0.16.2 modular stage 10 Hell features: loaded in dependency order. -->

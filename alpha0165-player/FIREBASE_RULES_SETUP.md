@@ -1,40 +1,19 @@
-# PIRALI Firebase – NEW season-only rules (TEMPORARY testing reference)
+# Firebase: ფირალი ბეტა რეიტინგის გამართვა
 
-**IMPORTANT: Not deployed. This file is only a proposed rule fragment.** GitHub Pages does not deploy Firebase Security Rules. Existing Firebase administrator access is required. The exact live rules are unknown. Do not replace the entire rules document with the content below.
+Firebase project: `pirali-game`; database: `pirali-game-default-rtdb`.
 
-Go to Firebase Console → Project `pirali-game` → Realtime Database → Rules. **Backup the full existing rules** first. Add ONLY the `scores_11stage_s1_5k_2026` child inside the CURRENT `rules` object, keeping all other paths (especially legacy `scores`) exactly as-is.
+### Preserve old 0.15 live ranking
+Existing `/scores` MUST remain untouched, readable and writable by the already published Alpha 0.15 app exactly as it is now.
 
-```json
-{
-  "scores_11stage_s1_5k_2026": {
-    ".read": true,
-    "$scoreId": {
-      ".write": "!data.exists() && newData.exists()",
-      ".validate": "newData.hasChildren(['name','score','level','season','gameVersion','win','churchCleared','hellCleared','naganCleared','kills','endlessKills','durationMs','runId','ts'])",
-      "name": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 20" },
-      "score": { ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= 5500" },
-      "level": { ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 11" },
-      "season": { ".validate": "newData.isString() && newData.val() === '11stage_s1_5k_2026'" },
-      "gameVersion": { ".validate": "newData.isString() && newData.val().length <= 20" },
-      "win": { ".validate": "newData.isBoolean()" },
-      "churchCleared": { ".validate": "newData.isBoolean()" },
-      "hellCleared": { ".validate": "newData.isBoolean()" },
-      "naganCleared": { ".validate": "newData.isBoolean()" },
-      "kills": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000" },
-      "endlessKills": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000" },
-      "durationMs": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 86400000" },
-      "runId": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 90" },
-      "ts": { ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now + 300000" },
-      "$other": { ".validate": false }
-    }
-  }
-}
-```
+### New Beta ranking path
+New child node: `/pirali_beta_rating`. Player 0.16.5c and subsequent releases will POST there with `season: 'pirali_beta_rating_s1'`. Initially the path may be absent/null. Firebase creates it upon the first authorized write.
 
-This snippet is an **unauthenticated, append-only testing workaround**, not production-grade security. It grants public create-only writes for the new season; any outside person can forge 1–5500 scores and generate database usage. It should only be used temporarily for controlled testing, and then replaced with **Firebase Authentication/App Check plus server-side trusted score validation and abuse protection** before wide release. Validated fields are not proof of genuine gameplay. Do not ever set root `.write: true` to fix this problem.
+1. Firebase Console → Realtime Database → Data: check old `scores`; do not delete it.
+2. Realtime Database → Rules: first BACK UP the complete EXISTING rules document.
+3. Under the existing `rules` root object, add a child-specific rule for `pirali_beta_rating` only. Preserve ALL previous children and inherited rules.
+4. Prefer authenticated create-only writes and schema/size validation. The current web client is unauthenticated, so authenticated-only rules require updating Player with proper Firebase Authentication. Public POST is easily forged and is suitable only for a temporary restricted test, not a public competitive ladder.
+5. Publish securely scoped rules, run one real Beta test write, confirm the new `pirali_beta_rating` node contains the score and that old `scores` remains untouched.
 
-If Firebase blocks writing, the Player 0.16.5b page will display the exact Firebase HTTP response (401/403 permission, 404 URL, 400 validation or network problem). Offline results remain queued under the same localStorage key and can be sent using the Retry button after rules are corrected, *on the same device/browser*. The old 5-stage `/scores` data will not be deleted.
+**Not done in this conversation:** creating a server-side Firebase node, installing new Firebase Rules, authenticating users, validating server read/write. GitHub is not Firebase admin access; do not claim the database exists until Firebase acknowledges a write.
 
-For long-term production, an authorized Firebase admin connection is required to inspect existing rules, enable scoped anonymous/player sign-in or a server-issued token, deploy secure rules and confirm with real successful writes.
-
-Firebase docs: https://firebase.google.com/docs/database/security and https://firebase.google.com/docs/reference/security/database
+Official documentation: https://firebase.google.com/docs/database/security

@@ -1,11 +1,11 @@
 const FB_URL  = 'https://pirali-game-default-rtdb.firebaseio.com';
 // New eleven-stage season stays isolated from pre-2026 five-stage /scores records.
 // Legacy /scores are archived intact; new release season begins with an empty independent path.
-const LB_PATH = FB_URL + '/scores_11stage_s1_5k_2026';
-const LB_KEY  = window.PiraliSeasonReleaseEnabled===true?'pirali_lb_11stage_s1_5k_prod':'pirali_lb_11stage_s1_5k_rc';
+const LB_PATH = FB_URL + '/pirali_beta_rating';
+const LB_KEY  = window.PiraliSeasonReleaseEnabled===true?'pirali_lb_beta_s1_prod':'pirali_lb_beta_s1_rc';
 const LB_LIMIT=30;
-const DEV_RUN_KEY='pirali_lb_alpha0164_11stage_s1_5k_rc_runs';
-const SEASON_ID='11stage_s1_5k_2026';
+const DEV_RUN_KEY='pirali_lb_beta_s1_rc_runs';
+const SEASON_ID='pirali_beta_rating_s1';
 function lbT(key){return window.PiraliLanguage?window.PiraliLanguage.t(key):({empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',saved:'✅ შენახულია',players:'მოთამაშე'})[key]||key;}
 
 
@@ -59,7 +59,7 @@ function lbDevRecords(){
   }catch(e){return [];}
 }
 let lbLastRows=[];
-const SEASON_LABEL='🏆 ახალი TOP 30 • 5 000 + 500';
+const SEASON_LABEL='🏆 ფირალი ბეტა რეიტინგი • TOP 30';
 function lbShowPersonal(rows){
   // The public leaderboard presents EXACTLY the ranked TOP 30.
   // Personal records outside those 30 must not be repeated in a separate leaderboard card.
@@ -100,7 +100,7 @@ async function lbFetch(){
 }
 
 // PLAYER 0.16.5 cloud status and offline retry queue; not shared with DEV.
-const LB_PENDING_KEY='pirali_lb_11stage_s1_5k_pending_0165';
+const LB_PENDING_KEY='pirali_lb_beta_s1_pending_0165c';
 let lbLastPushStatus='idle',lbLastError='',lbRetrying=null,lbLastRetryAt=0;
 function lbPending(){
  try{
@@ -204,7 +204,7 @@ async function lbPush(name, sc, lv, win){
     score : sc,
     level : lv,
     season: SEASON_ID,
-    gameVersion:'0.16.5',
+    gameVersion:'0.16.5c',
     win   : !!win,
     churchCleared: Number(lv)>=8 || (Number(lv)===7&&!!win),
     hellCleared: Number(lv)>=11 || (Number(lv)===10&&!!win),
@@ -214,7 +214,7 @@ async function lbPush(name, sc, lv, win){
     kills:Number.isInteger(runStats.kills)?Math.min(100000,Math.max(0,runStats.kills)):0,
     endlessKills:Number.isInteger(runStats.endlessKills)?Math.min(100000,Math.max(0,runStats.endlessKills)):0,
     durationMs:Number.isFinite(runStats.totalMs)?Math.min(86400000,Math.max(0,Math.round(runStats.totalMs))):0,
-    runId:'v165-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,11),
+    runId:'beta165c-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,11),
     ts    : Date.now()
   };
   // No DEV/RC scores may enter Firebase before a formally enabled release.

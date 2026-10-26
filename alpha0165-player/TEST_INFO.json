@@ -1,5 +1,5 @@
 {
-  "version": "0.16.5",
+  "version": "0.16.5c",
   "role": "player-online-web",
   "stages": 11,
   "previewControls": false,
@@ -8,16 +8,16 @@
   "aabBuilt": false,
   "qa": "Source-level checks and targeted JS tests; full manual mobile playthrough pending.",
   "base": "0.16.3l DEV",
-  "revision": "0.16.5-player-firebase",
+  "revision": "0.16.5c-beta-rating",
   "enemyHpMultiplier": 0.85,
   "ammoDropMultiplier": 1.15,
-  "leaderboardPath": "/scores_11stage_season2",
+  "leaderboardPath": "/pirali_beta_rating",
   "firebaseLegacyMigration": "PENDING: admin access and backup required",
-  "season": "11stage_s1_5k_2026",
+  "season": "pirali_beta_rating_s1",
   "startLevel": 1,
   "startScore": 0,
   "newPlayerStats": true,
-  "firebasePath": "/scores_11stage_s1_5k_2026",
+  "firebasePath": "/pirali_beta_rating",
   "releaseReady": false,
   "maxStoryPoints": 5000,
   "maxEndlessBonusPoints": 500,
@@ -33,5 +33,9 @@
     "type": "hell-coins",
     "points": 250
   },
-  "firebaseValidation": "Live Firebase rules and POST not yet verified"
+  "firebaseValidation": "Live Firebase rules and POST not yet verified",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "UNVERIFIED – Firebase admin connection required"
 }
