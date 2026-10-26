@@ -144,7 +144,7 @@ function update(dt){
       }
       else if(pk.type==='health'){health=Math.min(maxHealth,health+1);updateHealthUI();}
       else if(pk.type==='herb'){health=Math.min(maxHealth,health+2);updateHealthUI();inventory.herbs++;updateInventoryUI();}
-      else if(pk.type==='medal'){if(level!==11){score+=(level===10?100:250*level);updateScoreUI();}inventory.medals++;updateInventoryUI();}
+      else if(pk.type==='medal'){if(level!==11){score+=(level===10?5:Math.max(1,Math.round(12.5*level)));updateScoreUI();}inventory.medals++;updateInventoryUI();}
       for(let i=0;i<10;i++) spawnPart(pk.x,pk.y,(Math.random()-.5)*5,(Math.random()-.5)*5,16,
         pk.type==='health'?'#e84040':pk.type==='herb'?'#44cc44':pk.type==='medal'?'#f0c020':'#d09820',4);
     }
@@ -180,7 +180,7 @@ function update(dt){
           for(let k=0;k<10;k++) spawnPart(b.x,b.y,(Math.random()-.5)*8,(Math.random()-.5)*8,12,Math.random()>.5?'#f0e040':'#ffffff',2+Math.random()*2);
           const pf=document.getElementById('parry-flash');pf.style.opacity='1';setTimeout(()=>pf.style.opacity='0',65);
           showFloatingText(P.x,P.y-22,(window.PiraliLanguage?window.PiraliLanguage.gameText('parry'):'✦ პარი! ✦'),'#f8f040');
-          score+=(level===11?0:level===10?5:50*level);updateScoreUI();
+          score+=(level===11?0:level===10?1:Math.max(1,Math.round(2.5*level)));updateScoreUI();
         } else {b.alive=false;takeDmg();}
       }
     }

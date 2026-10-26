@@ -1,21 +1,25 @@
 /* PIRALI checkpoints: local-only, at completed-level boundaries. No Firebase writes. */
 (function(){
   'use strict';
-  const KEY='pirali_checkpoint_alpha0164_11stage_s1_dev';
+  const KEY='pirali_checkpoint_alpha0164_11stage_s1_5k_dev';
   let resumedRun=false;
   let session=0;
   const text=key=>window.PiraliLanguage?window.PiraliLanguage.t(key):key;
+  let activeEndlessBase=null;
+  function endlessBase(){return activeEndlessBase;}
   const int=(value,min,max)=>Number.isInteger(value)&&value>=min&&value<=max;
 
   function normalize(raw){
     if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==1)return null;
     if(!int(raw.level,2,11)||!int(raw.health,1,5)||!int(raw.ammo,0,10))return null;
-    if(!Number.isSafeInteger(raw.score)||raw.score<0||raw.score>999999999)return null;
+    if(!Number.isSafeInteger(raw.score)||raw.score<0||raw.score>5500)return null;
+    if(raw.level===11&&raw.endlessBase!=null&&(!int(raw.endlessBase,0,5000)||raw.score<raw.endlessBase||raw.score>raw.endlessBase+500))return null;
     if(!raw.inventory||typeof raw.inventory!=='object')return null;
     if(!int(raw.inventory.herbs,0,9999)||!int(raw.inventory.medals,0,9999))return null;
     if(typeof raw.savedAt!=='number'||!Number.isFinite(raw.savedAt)||raw.savedAt<0)return null;
     return {
       version:1,level:raw.level,health:raw.health,ammo:raw.ammo,score:raw.score,
+      endlessBase:raw.level===11&&int(raw.endlessBase,0,5000)?raw.endlessBase:null,
       inventory:{herbs:raw.inventory.herbs,medals:raw.inventory.medals},savedAt:raw.savedAt,
       shotgun:raw.shotgun&&typeof raw.shotgun==='object'&&raw.shotgun.owned===true?
         {owned:true,shells:int(raw.shotgun.shells,0,16)?raw.shotgun.shells:0,
@@ -36,6 +40,7 @@
       const older=get();
       const current=normalize({
         version:1,level:nextLevel,health,ammo,score,
+        endlessBase:nextLevel===11?window.PiraliStageScoring?.endlessBaseline?.():null,
         inventory:{herbs:inventory.herbs,medals:inventory.medals},
         shotgun:window.PiraliAlphaGear?.status?.()||null,
         savedAt:Date.now()
@@ -53,6 +58,7 @@
     refreshMenu();
   }
   function beginRun(fromCheckpoint){
+    activeEndlessBase=fromCheckpoint?get()?.endlessBase??null:null;
     resumedRun=!!fromCheckpoint;
     session++; // invalidate previous run's delayed level transitions
     updateMode();
@@ -105,6 +111,6 @@
     refreshMenu();updateMode();outcomeNotice();
   });
   window.PiraliCheckpoint={
-    get,save,clear,normalize,beginRun,getSession,isResumedRun,updateMode,refreshMenu,mountMenu,resume,outcomeNotice
+    get,save,clear,normalize,beginRun,endlessBase,getSession,isResumedRun,updateMode,refreshMenu,mountMenu,resume,outcomeNotice
   };
 })();

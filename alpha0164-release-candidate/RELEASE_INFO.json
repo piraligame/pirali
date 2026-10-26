@@ -6,15 +6,20 @@
   "androidBuilt": false,
   "aabBuilt": false,
   "developerOnly": false,
-  "note": "DEV only: enemies -15% HP, enemy ammo/shell drops +15%, new 11-stage leaderboard read-only. Legacy Firebase migration pending authorized access.",
+  "note": "11-stage score scale in DEV and release candidate; production/Firebase writes remain disabled pending approval and QA.",
   "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending.",
-  "revision": "0.16.4c-s1",
-  "season": "11stage_release_s1_2026",
+  "revision": "0.16.4d-score5k",
+  "season": "11stage_s1_5k_2026",
   "startLevel": 1,
   "startScore": 0,
-  "firebasePath": "/scores_11stage_release_s1_2026",
+  "firebasePath": "/scores_11stage_s1_5k_2026",
   "firebaseWritesBlocked": true,
   "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
   "releaseReady": false,
-  "notes": "Await Firebase validation and production QA; flag false prevents all new season writes"
+  "notes": "Await Firebase validation and production QA; flag false prevents all new season writes",
+  "scoreLimits": {
+    "story": 5000,
+    "endlessBonus": 500,
+    "total": 5500
+  }
 }

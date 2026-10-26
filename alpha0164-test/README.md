@@ -40,3 +40,12 @@
 - DEV checkpoint და ადგილობრივი რეიტინგის ქეში ასევე ახალი გასაღებებით იქმნება. მოთამაშის ნიკი და ენა რჩება.
 - Firebase-ში DEV-ს **არ აქვს ჩაწერის უფლება**; ლოკალური ტესტები რეალურ რეიტინგს არ შეეხება. რელიზისთვის ონლაინ-ჩაწერის კოდი მზადდება მხოლოდ ცალკე release candidate-ში.
 - **დადასტურება საჭირო:** ოფიციალური Firebase პროექტში ახალი ადგილის წაკითხვა/ჩაწერის უფლებები და მონაცემების სიცარიელე, რადგან Firebase-ის ადმინისტრაციული კავშირი ამ სესიაში ჯერ მიუწვდომელია.
+
+
+## Alpha 0.16.4d — 5,000+500 new-season score scale
+- New 11-stage release season starts **empty**, with 0 points at stage 1 and separate online TOP 30. Uses only `/scores_11stage_s1_5k_2026` and season ID `11stage_s1_5k_2026` (old five-stage `/scores` stays unchanged).
+- Main stages 1–10: **5,000 earned points maximum**; scores come from kills, bosses, parries, medals and x2 combos (within 2 seconds). Gate gives **zero** free points.
+- Hell Devil collectible Heart now awards **250** instead of 5,000; regular level-10 reward ledger maximum 180.
+- Endless bonus stage 11: each kill +5, consecutive kill within one second +10, cumulative bonus **limited to +500 above actual stage-10 story score**. Absolute total max **5,500**, not an automatic reward. Survival continues when score reaches cap.
+- New isolated local ranking cache, personal statistics and checkpoints (5K season); **saved nickname and language preserved**. DEV/RC results excluded from production, which remains write-disabled until launch approval and Firebase rules verification.
+- Existing published app, historical records and older Alpha test URLs remain unchanged. NOT yet a Firebase-tested, official APK/AAB release.

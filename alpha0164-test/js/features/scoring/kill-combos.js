@@ -1,6 +1,6 @@
 /* PIRALI Alpha 0.16.3k DEV — timed enemy kill combos.
-   Story 1–10: next kill within 2s = double kill award, hard 100k cap.
-   Endless 11: next kill within 1s = 600, otherwise 300.
+   Story 1–10: next kill within 2s = double kill award, hard 5000 cap.
+   Endless 11: next kill within 1s = 10, otherwise 5; max +500.
    Clock uses monotonic performance.now() and resets between stages, runs,
    and on player taking damage. Preserves the previous per-level ×.72
    award reduction and the level-ten Hell ledger. */
@@ -23,7 +23,7 @@ function award(base,x,y){
  const windowMs=level===11?ENDLESS_WINDOW:STORY_WINDOW;
  const paired=lastKill!==null&&now-lastKill>=0&&now-lastKill<=windowMs;
  lastKill=now;
- const raw=(level===11?300:base)*(paired?2:1);
+ const raw=(level===11?5:base)*(paired?2:1);
  const before=score;
  score+=raw;
  updateScoreUI(); // all story awards are clamped and scaled here

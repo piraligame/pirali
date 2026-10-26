@@ -8,14 +8,17 @@
   "aabBuilt": false,
   "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending.",
   "base": "0.16.3l DEV",
-  "revision": "0.16.4c-s1",
+  "revision": "0.16.4d-score5k",
   "enemyHpMultiplier": 0.85,
   "ammoDropMultiplier": 1.15,
   "leaderboardPath": "/scores_11stage_season2",
   "firebaseLegacyMigration": "PENDING: admin access and backup required",
-  "season": "11stage_release_s1_2026",
+  "season": "11stage_s1_5k_2026",
   "startLevel": 1,
   "startScore": 0,
   "newPlayerStats": true,
-  "firebasePath": "/scores_11stage_release_s1_2026"
+  "firebasePath": "/scores_11stage_s1_5k_2026",
+  "maxStoryPoints": 5000,
+  "maxEndlessBonusPoints": 500,
+  "maxTotalPoints": 5500
 }

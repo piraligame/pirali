@@ -111,17 +111,17 @@ function killEnemy(e){
     for(let i=0;i<18;i++)spawnPart(e.x,e.y,(Math.random()-.5)*7,(Math.random()-.5)*7,27,'#f0b040',3);
     if(level===7){
       finalVictoryPending=true;finalChurchNotice=false;
-      window.PiraliKillCombo?.award(5000,e.x,e.y);
+      window.PiraliKillCombo?.award(250,e.x,e.y);
       showBanner('ეკლესიის კარი გაიღო! შედი ეკლესიაში.');
     }else if(level===10){
       window.PiraliHellLoot?.batoni(e);
-      window.PiraliKillCombo?.award(60,e.x,e.y);
+      window.PiraliKillCombo?.award(3,e.x,e.y);
     }
     return;
   }
   // Fixed per-enemy award, doubled only by a correctly timed next kill.
   killStreak++;killStreakTimer=level===11?60:120;
-  const base=level===11?300:level===10?10:100*level;
+  const base=level===11?5:level===10?1:5*level;
   window.PiraliKillCombo?.award(base,e.x,e.y);
   if(level===11)window.PiraliEndless?.onKill(e);
   playDeath();
@@ -148,7 +148,7 @@ function hitBoss(b,dmg=1){
   // Phase 2 transition is handled by update() (one source of truth).
   updateBossUI();
   if(b.hp<=0){b.alive=false;window.PiraliStats?.kill();
-    window.PiraliKillCombo?.award(level===11?300:level===10?1000:1000*level,b.x,b.y);
+    window.PiraliKillCombo?.award(level===11?5:level===10?50:50*level,b.x,b.y);
     if(level===11)window.PiraliEndless?.onKill(b);
     hideBossUI();
     if(level===10){window.PiraliHellLoot?.devil(b);finalChurchNotice=false;showBanner('ჯოჯოხეთის ცეცხლოვანი კარიბჭე გაიღო!');}

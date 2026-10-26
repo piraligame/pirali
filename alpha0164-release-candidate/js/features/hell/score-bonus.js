@@ -1,8 +1,8 @@
-/* PIRALI DEV: level-10 fight max 3600; collected Devil Heart adds 5000
-   separately. Overall first-ten-stage cap 100000. Gate awards zero. */
+/* PIRALI 0.16.4: stage-10 ordinary rewards <=180,
+   Devil Heart +250 only upon collection, story <=5000, gate +0. */
 (function(){
 'use strict';
-const NORMAL_LIMIT=3600,FACTOR=.96,HEART=5000,CAP=100000;
+const NORMAL_LIMIT=180,FACTOR=.96,HEART=250,CAP=5000;
 let tracking=false,baseline=0,previous=0,earned=0,heartBonus=0;
 const baseUpdateScore=updateScoreUI;
 function reset(){tracking=false;baseline=0;previous=0;earned=0;heartBonus=0;}
@@ -12,7 +12,7 @@ updateScoreUI=function(){
  if(!tracking)begin();
  else{
    const delta=score-previous;
-   if(delta>0)earned=Math.min(NORMAL_LIMIT,earned+Math.round(delta*FACTOR));
+   if(delta>0)earned=Math.min(NORMAL_LIMIT,earned+Math.max(1,Math.round(delta*FACTOR)));
    score=Math.min(CAP,Math.max(0,baseline+earned+heartBonus));
    previous=score;
  }

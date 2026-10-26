@@ -2,10 +2,10 @@
 (function(){
 'use strict';
 const words={
- ka:{title:'♾ სიმონა უსასრულოდ',wave:'ტალღა',kills:'მოკლული',cap:'მტერი',points:'ყოველ მტერზე +300'},
- en:{title:'♾ Simona Forever',wave:'Wave',kills:'Kills',cap:'Enemies',points:'+300 per enemy'},
- ru:{title:'♾ Симона бесконечно',wave:'Волна',kills:'Убито',cap:'Врагов',points:'+300 за врага'},
- zh:{title:'♾ 西蒙娜无尽之战',wave:'波次',kills:'击败',cap:'敌人',points:'每敌人 +300分'}
+ ka:{title:'♾ სიმონა უსასრულოდ',wave:'ტალღა',kills:'მოკლული',cap:'მტერი',points:'ყოველ მტერზე +5 • მაქს. +500'},
+ en:{title:'♾ Simona Forever',wave:'Wave',kills:'Kills',cap:'Enemies',points:'+5 per enemy • max +500'},
+ ru:{title:'♾ Симона бесконечно',wave:'Волна',kills:'Убито',cap:'Врагов',points:'+5 за врага • макс. +500'},
+ zh:{title:'♾ 西蒙娜无尽之战',wave:'波次',kills:'击败',cap:'敌人',points:'每敌人 +5分 • 最多+500'}
 };
 let n=null;
 function refresh(){

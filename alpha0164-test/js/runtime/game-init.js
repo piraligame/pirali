@@ -30,7 +30,7 @@ function startGame(savedProgress=null){
   health=restore?restore.health:5;maxHealth=5;
   ammo=restore?Math.min(10,restore.ammo):10;maxAmmo=10;
   level=restore?restore.level:1;
-  // Resume saved bonus score as-is; never fill it to 100000.
+  // Only carry actually earned points (new season range: 0–5500).
   inventory.herbs=restore?restore.inventory.herbs:0;
   inventory.medals=restore?restore.inventory.medals:0;
   window.PiraliAlphaGear?.reset();
@@ -40,10 +40,12 @@ function startGame(savedProgress=null){
   window.PiraliKillCombo?.reset();
   paused=false;document.getElementById('pause-overlay').style.display='none';
   document.getElementById('btn-pause').textContent='⏸';
+  // Restore the saved bonus-stage baseline BEFORE the first score-clamp call.
+  window.PiraliCheckpoint?.beginRun(!!restore);
   updateHealthUI();updateScoreUI();updateAmmoUI();updateInventoryUI();hideBossUI();
   document.getElementById('screen').style.display='none';
   document.getElementById('screen').className='';
-  window.PiraliCheckpoint?.beginRun(!!restore);
+  window.PiraliCheckpoint?.updateMode();
   genWorld();running=true;
   window.PiraliAlphaGear?.updateUI();
   window.PiraliStats?.start(!!restore,level);

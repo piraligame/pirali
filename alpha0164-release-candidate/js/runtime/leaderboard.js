@@ -1,11 +1,11 @@
 const FB_URL  = 'https://pirali-game-default-rtdb.firebaseio.com';
 // New eleven-stage season stays isolated from pre-2026 five-stage /scores records.
 // Legacy /scores are archived intact; new release season begins with an empty independent path.
-const LB_PATH = FB_URL + '/scores_11stage_release_s1_2026';
-const LB_KEY  = window.PiraliSeasonReleaseEnabled===true?'pirali_lb_11stage_s1_prod':'pirali_lb_11stage_s1_rc';
+const LB_PATH = FB_URL + '/scores_11stage_s1_5k_2026';
+const LB_KEY  = window.PiraliSeasonReleaseEnabled===true?'pirali_lb_11stage_s1_5k_prod':'pirali_lb_11stage_s1_5k_rc';
 const LB_LIMIT=30;
-const DEV_RUN_KEY='pirali_lb_alpha0164_11stage_s1_rc_runs';
-const SEASON_ID='11stage_s1_2026';
+const DEV_RUN_KEY='pirali_lb_alpha0164_11stage_s1_5k_rc_runs';
+const SEASON_ID='11stage_s1_5k_2026';
 function lbT(key){return window.PiraliLanguage?window.PiraliLanguage.t(key):({empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',saved:'✅ შენახულია',players:'მოთამაშე'})[key]||key;}
 
 
@@ -21,7 +21,7 @@ function lbBest(rows){
   for(const row of (Array.isArray(rows)?rows:[])){
     if(!row||typeof row!=='object'||typeof row.name!=='string')continue;
     const key=lbNameKey(row.name);
-    if(!key||!Number.isFinite(row.score)||row.score<=0)continue;
+    if(!key||!Number.isFinite(row.score)||!Number.isInteger(row.score)||row.score<=0||row.score>5500)continue;
     // Official season must never display a developer/prerelease test result.
     if(window.PiraliSeasonReleaseEnabled===true&&(row.dev===true||row.practice===true))continue;
     const lv=Number(row.level);
@@ -55,7 +55,7 @@ function lbDevRecords(){
   }catch(e){return [];}
 }
 let lbLastRows=[];
-const SEASON_LABEL='🏆 11-ტურიანი სეზონი — ახალი შედეგები';
+const SEASON_LABEL='🏆 ახალი TOP 30 • 5 000 + 500';
 function lbShowPersonal(rows){
   // The public leaderboard presents EXACTLY the ranked TOP 30.
   // Personal records outside those 30 must not be repeated in a separate leaderboard card.
@@ -100,7 +100,7 @@ async function lbPush(name, sc, lv, win){
   // Resumed games are unranked, including in the local developer preview.
   // Checkpoint runs are unranked; never send their points to Firebase.
   if(window.PiraliCheckpoint?.isResumedRun())return lcLoad();
-  if(!sc || sc <= 0) { const r = await lbFetch(); return r || lcLoad(); }
+  if(!Number.isInteger(sc)||sc<=0||sc>5500) { const r = await lbFetch(); return r || lcLoad(); }
   const entry = {
     name  : (name||'').trim().slice(0,20) || 'ანონიმი',
     score : sc,
