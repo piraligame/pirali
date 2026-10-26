@@ -14,12 +14,12 @@ function ready(){
  el.id='pirali-scenery-test-panel';
  el.style.cssText='position:fixed;top:50px;right:7px;z-index:99995;padding:8px;background:rgba(15,28,24,.92);border:1px solid #cfa369;border-radius:9px;box-shadow:0 7px 25px #0009;width:172px;max-width:45vw;display:none;gap:6px;flex-direction:column;color:#f6ddab;font:600 11px system-ui;pointer-events:auto';
  const header=document.createElement('div');header.textContent='🧪 ტესტი ▾';header.style.cssText='text-align:center;font-size:11px;cursor:pointer;padding:3px 0';header.setAttribute('role','button');header.tabIndex=0;
- const row=document.createElement('div');row.style.cssText='display:grid;grid-template-columns:repeat(6,1fr);gap:3px';
+ const row=document.createElement('div');row.style.cssText='display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px';
  const btnstyle='border:1px solid #ba9664;background:#414536;color:#f9deb0;border-radius:5px;padding:6px 0;font:700 11px system-ui;cursor:pointer';
- const levelNames=['ჩოხატაური','გოგოლესუბანი','შუა განახლება','უდაბნო','უდაბნოს ეკლესია','სიმონას ჯოჯოხეთი'];
+ const levelNames=PIRALI_LEVELS.map(x=>x.ka);
  let selected=1;
  const levelButtons=[];
- for(let n=1;n<=6;n++){
+ for(let n=1;n<=10;n++){
   const b=document.createElement('button');b.type='button';b.dataset.level=String(n);b.textContent=String(n);
   b.style.cssText=btnstyle;
   b.addEventListener('pointerdown',e=>e.stopPropagation());
@@ -52,7 +52,7 @@ function ready(){
  immortality.setAttribute('aria-pressed','false');
  function visitFinal(){
    if(typeof running==='undefined'||!running)return;
-   const target=level===6?6:5;level=target;genWorld();
+   const target=level===10?10:level===8?8:7;level=target;genWorld();
    window.PiraliStats?.stageReady(target);
    const destination=boss||{x:CHURCH_X,y:CHURCH_Y};
    P.x=Math.max(P.r,Math.min(WW-P.r,destination.x));
@@ -68,7 +68,7 @@ function ready(){
  }
  const finalBoss=toggleBtn('⚔️ ბოლო ბოსთან გადასვლა',visitFinal);
  finalBoss.dataset.boss='visit';
- const note=document.createElement('div');note.textContent='Alpha 0.16.1 · დეველოპერი';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
+ const note=document.createElement('div');note.textContent='Alpha 0.16.2 · 10-ტურიანი DEV';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
  el.append(header,row,title,immortality,finalBoss,note);document.body.appendChild(el);
  const inner=[row,title,immortality,finalBoss,note];let folded=true;
  function fold(next){folded=next;inner.forEach(n=>n.style.display=folded?'none':(n===row?'grid':'block'));
