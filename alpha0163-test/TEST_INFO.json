@@ -1,10 +1,10 @@
 {
-  "version": "0.16.2",
+  "version": "0.16.3",
   "role": "developer-web-only",
-  "stages": 10,
+  "stages": 11,
   "previewControls": true,
   "firebaseWritesBlocked": true,
   "androidBuilt": false,
   "aabBuilt": false,
-  "qa": "Code-level syntax & wiring checks; ten-stage mobile playtest still pending."
+  "qa": "Automated JS generation, waves cap/replenishment, local stats. Mobile playtest pending."
 }

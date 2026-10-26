@@ -1,7 +1,7 @@
 {
   "name": "PIRALI",
   "short_name": "PIRALI",
-  "description": "PIRALI Alpha 0.16.2 DEV — Georgian 10-stage top-down action adventure with two generals, siege and Hell.",
+  "description": "PIRALI Alpha 0.16.3 DEV — 11 stages including Simona Forever endless survival waves.",
   "start_url": "index.html",
   "display": "fullscreen",
   "orientation": "portrait-primary",

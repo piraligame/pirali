@@ -3,7 +3,16 @@
 ქართული top-down სათავგადასავლო ექშენ-თამაში. საჯარო ვერსია: https://piraligame.github.io/pirali/
 ძირითადი რეპოზიტორია: https://github.com/piraligame/pirali
 
-## მიმდინარე სამუშაო — Alpha 0.16.2 DEV, 10 ტური
+## მიმდინარე სამუშაო — Alpha 0.16.3 DEV, 11 ტური
+- [გახსენი 11-ტურიანი Alpha 0.16.3 DEV](https://piraligame.github.io/pirali/alpha0163-test/) — მე-11 ბონუს ტური „სიმონა უსასრულოდ“.
+- [ახალი DEV ფაილები](alpha0163-test/) — ცალკე JavaScript/CSS მოდულები.
+- [ბონუს ტურის 100-მტრის უწყვეტი ტალღები](alpha0163-test/js/features/endless/) — +200 ყოველ მოკლულზე.
+- [11-ტურიანი სამუშაო რუკა](alpha0163-test/ELEVEN_STAGE_DEV_PLAN.md).
+- [ავტომატური ტესტები](alpha0163-test/QA_SMOKE_TESTS.md).
+
+**შენიშვნა:** 0.16.3 მხოლოდ დეველოპერული ტესტია. 0.16.2, 0.16.1, 0.15 და ოფიციალური Firebase უცვლელია.
+
+## წინა სამუშაო — Alpha 0.16.2 DEV, 10 ტური
 - [გახსენი 10-ტურიანი Alpha 0.16.2 DEV](https://piraligame.github.io/pirali/alpha0162-test/) — ახალი აქტიური სატესტო ვერსია.
 - [10 ტურის ფაილების მთავარი საქაღალდე](alpha0162-test/) — კოდი ცალკე JavaScript/CSS მოდულებად.
 - [10 ტურის სამუშაო რუკა](alpha0162-test/TEN_STAGE_DEV_PLAN.md) — ტურები, ბრძოლები, ბალანსი და დეველოპერული წესები.

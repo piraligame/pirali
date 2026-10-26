@@ -73,6 +73,9 @@ function setup(){
  camX=Math.max(0,Math.min(WW-W,P.x-W*.5));
  camY=Math.max(0,Math.min(WH-H,P.y-H*.5));
  enemies=[];boss=null;bullets=[];pickups=[];corpses=[];
+ // A fair fresh start after the Devil: full health and Mauser ammo.
+ health=maxHealth;ammo=maxAmmo;
+ updateHealthUI();updateAmmoUI();
  trees=trees.filter(t=>Math.hypot(t.x-P.x,t.y-P.y)>680+t.r*.5);
  for(let i=0;i<INITIAL;i++)spawnOne();
  replenishAmmo();

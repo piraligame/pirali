@@ -1,10 +1,10 @@
 {
-  "version": "0.16.2",
+  "version": "0.16.3",
   "channel": "developer-web-only",
-  "base": "alpha0161-test 0.16.1g",
+  "base": "alpha0162-test 0.16.2",
   "publishedForPlayers": false,
   "androidBuilt": false,
   "aabBuilt": false,
   "developerOnly": true,
-  "note": "Do not upload as official Google Play release until all ten stages are tested and user approves."
+  "note": "Continue DEV testing; release APK/AAB and production only after user approval."
 }
