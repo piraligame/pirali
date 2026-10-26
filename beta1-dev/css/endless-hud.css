@@ -1,0 +1,10 @@
+/* Bonus survival HUD. Never overlays joystick or the TOP30. */
+#pirali-endless-hud{
+ position:fixed;left:50%;top:78px;transform:translateX(-50%);
+ width:min(92vw,410px);z-index:22;pointer-events:none;
+ padding:7px 10px;border:1px solid rgba(220,167,79,.7);
+ border-radius:10px;background:rgba(15,19,31,.84);color:#ffda8e;
+ text-align:center;font:800 11px/1.5 'Noto Sans Georgian',system-ui,sans-serif;
+ box-shadow:0 2px 15px #0008;
+}
+html.pirali-leaderboard-open #pirali-endless-hud{visibility:hidden!important}

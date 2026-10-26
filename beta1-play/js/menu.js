@@ -89,7 +89,7 @@
     card.appendChild(privacy);refreshPrivacyLabel();
     const version=document.createElement('div');
     version.className='menu-version';
-    version.textContent=window.PiraliSeasonReleaseEnabled===true?'PIRALI • BETA 1.0 • 11 ტური':'PIRALI • BETA 1.0 • ONLINE';
+    version.textContent=window.PiraliSeasonReleaseEnabled===true?'PIRALI • BETA 1.0.1 • 11 ტური':'PIRALI • BETA 1.0.1 • PLAYER';
     card.appendChild(version);
     if(window.PiraliLanguage)window.PiraliLanguage.apply();
   }
