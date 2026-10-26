@@ -1,0 +1,11 @@
+{
+  "version": "0.16.4",
+  "role": "developer-web-only",
+  "stages": 11,
+  "previewControls": true,
+  "firebaseWritesBlocked": true,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending.",
+  "base": "0.16.3l DEV"
+}
