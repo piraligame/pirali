@@ -1,38 +1,35 @@
-/* PIRALI 0.16.1 — final stage reward ledger and 3600-point heart. */
+/* PIRALI DEV: level-10 fight max 3600; collected Devil Heart adds 5000
+   separately. Overall first-ten-stage cap 100000. Gate awards zero. */
 (function(){
 'use strict';
-const LIMIT=3600,BONUS=.96,STORY_CAP=100000; // -20% of former ledger
-let tracking=false,baseline=0,previous=0,earned=0;
+const NORMAL_LIMIT=3600,FACTOR=.96,HEART=5000,CAP=100000;
+let tracking=false,baseline=0,previous=0,earned=0,heartBonus=0;
 const baseUpdateScore=updateScoreUI;
-function resetAtCurrentScore(){
- tracking=true;baseline=score;previous=score;earned=0;
-}
+function reset(){tracking=false;baseline=0;previous=0;earned=0;heartBonus=0;}
+function begin(){tracking=true;baseline=score;previous=score;earned=0;heartBonus=0;}
 updateScoreUI=function(){
- if(level!==10){
-   tracking=false;
-   baseUpdateScore();
-   return;
- }
- if(!tracking)resetAtCurrentScore();
+ if(level!==10){tracking=false;baseUpdateScore();return;}
+ if(!tracking)begin();
  else{
-   const raw=score-previous;
-   if(raw>0)earned=Math.min(LIMIT,earned+Math.round(raw*BONUS));
-   // No normal scoring event in the final stage may exceed the 3600-point cap.
-   score=Math.min(STORY_CAP,baseline+earned);previous=score;
+   const delta=score-previous;
+   if(delta>0)earned=Math.min(NORMAL_LIMIT,earned+Math.round(delta*FACTOR));
+   score=Math.min(CAP,Math.max(0,baseline+earned+heartBonus));
+   previous=score;
  }
  baseUpdateScore();
 };
-// A 3600-point Devil heart fills the TENTH-STAGE total to 3600, while
-// respecting the previously agreed maximum of 3600 level-ten points.
 function claimHeart(){
  if(level!==10)return false;
- if(!tracking)resetAtCurrentScore();
- earned=LIMIT;
- score=Math.min(STORY_CAP,baseline+earned);previous=score;
+ if(!tracking)begin();
+ if(heartBonus>0)return false;
+ heartBonus=HEART;
+ score=Math.min(CAP,Math.max(0,baseline+earned+heartBonus));
+ previous=score;
  baseUpdateScore();
  return true;
 }
 window.PiraliHellScore=Object.freeze({
- claimHeart,stagePoints:()=>level===10?earned:0,cap:LIMIT
+ reset,claimHeart,stagePoints:()=>level===10?earned+heartBonus:0,
+ cap:NORMAL_LIMIT,heartValue:HEART,storyCap:CAP
 });
 })();

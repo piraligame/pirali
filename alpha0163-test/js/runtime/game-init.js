@@ -30,7 +30,7 @@ function startGame(savedProgress=null){
   health=restore?restore.health:5;maxHealth=5;
   ammo=restore?restore.ammo:8;maxAmmo=8;
   level=restore?restore.level:1;
-  if(level===11)score=Math.max(100000,score); // resume endless with story base
+  // Resume saved bonus score as-is; never fill it to 100000.
   inventory.herbs=restore?restore.inventory.herbs:0;
   inventory.medals=restore?restore.inventory.medals:0;
   window.PiraliAlphaGear?.reset();
