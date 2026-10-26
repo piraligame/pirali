@@ -52,11 +52,11 @@ function shoot(){
 function swordSwing(){
   // Real-time 1.5s gate, independent of device frame rate.
   if(!running||P.dead||!(window.PiraliSwordCooldown?.ready?.() ?? swordCD<=0))return;
-  // Combo: second hit within 0.5s is faster and wider
+  // A 2s combo window preserves combo moves despite the 1.5s swing cooldown.
   swordComboTimer-=0; // reset handled in update
   const isCombo=(swordCombo>0&&swordComboTimer>0);
   swordCombo=isCombo?0:1;
-  swordComboTimer=30; // frames to land combo
+  swordComboTimer=120; // ~2s to land the next combo after the 1.5s cooldown
   swordCD=window.PiraliSwordCooldown?.start?.() ?? 90; // 1500ms between swings, regular and combo.
   swordOn=true;swordT=isCombo?16:22;
   playSword();

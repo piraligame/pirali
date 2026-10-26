@@ -46,3 +46,5 @@ Separate six-stage test cloned from alpha015-test. Existing alpha015-play and al
 - `combat.js` checks real elapsed milliseconds rather than frame countdown; `game-init.js` resets on new run.
 - `scroll-guard.js` + `leaderboard-scroll-guard.css` keep a separate opaque fixed layer below the scrollable leaderboard, with overscroll-behavior disabled.
 - No Firebase changes. Live and previous-version links unchanged.
+
+- Combo interval extended from ~0.5s to ~2s to preserve combo moves after the 1.5-second sword gate.
