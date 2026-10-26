@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'qa/pirali-beta106-qa.cjs'
+      - 'qa/pirali-beta106-extended.cjs'
       - '.github/workflows/pirali-beta106-qa.yml'
   workflow_dispatch:
 permissions:
@@ -22,4 +23,6 @@ jobs:
           npm install --no-save playwright@1.56.1
           npx playwright install --with-deps chromium
       - name: Verify published DEV and PLAYER on desktop and mobile
-        run: node qa/pirali-beta106-qa.cjs
+        run: |
+          node qa/pirali-beta106-qa.cjs
+          node qa/pirali-beta106-extended.cjs
