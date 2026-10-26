@@ -16,7 +16,7 @@
 .story-map-stage .story-map-name{font:800 clamp(10px,2.2vw,15px)/1.18 'Noto Sans Georgian',system-ui,sans-serif;color:#3e2818}
 .story-map-stage.complete{border:2px solid #42834c;background:linear-gradient(180deg,#d8ebbe,#c2daa4)}
 .story-map-stage.current{border:3px solid #eb9c20;box-shadow:0 0 0 3px #ffe2a9a8,0 3px 9px #39200d;color:#261b0c}
-.story-map-stage.locked{opacity:.73;filter:saturate(.65)}
+.story-map-stage.locked{opacity:.91;filter:saturate(.72)}
 #pirali-story-map footer{display:flex;justify-content:center;padding:10px;background:#352719;font-weight:800;color:#f1dca4;font-size:13px}
 @media(max-width:480px){#pirali-story-map{padding:0}#pirali-story-map .story-map-shell{max-height:100dvh;height:100dvh;border-radius:0;border-left:none;border-right:none}.story-map-stage{padding:2px 3px}.story-map-stage .story-map-name{font-size:clamp(9px,2.25vw,12px)}}
 @media(prefers-reduced-motion:reduce){.story-map-art,.story-map-stage{animation:none;transition:none}}
