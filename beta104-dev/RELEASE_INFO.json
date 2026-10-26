@@ -7,7 +7,7 @@
   "aabBuilt": false,
   "developerOnly": true,
   "note": "Matching BETA 1.0.1 player game logic but local-only test scores; all Firebase write requests blocked at browser fetch and leaderboard layer.",
-  "qa": "PENDING wave transition live simulation",
+  "qa": "PASSED: 4/4 Chrome desktop/mobile emulation DEV/PLAYER combat wave transition tests, zero JS errors",
   "revision": "beta104-fixed-20-waves",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
@@ -43,6 +43,6 @@
   "role": "developer-preview",
   "previewControls": true,
   "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
-  "qaEvidence": "QA_BETA103.md",
+  "qaEvidence": "QA_BETA104.md",
   "waveMode": "20 enemies total per wave; next wave only after all 20 die; next wave enemies gain 10% HP/movement/attack rate"
 }
