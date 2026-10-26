@@ -30,6 +30,9 @@ function lbBest(rows){
     // Legacy (pre-Hell) level-5 wins retain their church badge.
     const church=row.churchCleared===true || (validLevel&&(lv>=8||(lv===7&&won)||(lv===5&&won)));
     const hell=row.hellCleared===true || (validLevel&&(lv===11||(lv===10&&won)));
+    // Nagan is an achievement, not an automatic level-11 arrival badge.
+    // Bonus stage is endless; unlock only after earning the full +500 bonus.
+    const nagan=row.naganCleared===true;
     const devChurch=row.devChurch===true||(row.dev===true&&church);
     const devHell=row.devHell===true||(row.dev===true&&hell);
     const previous=byName.get(key);
@@ -38,6 +41,7 @@ function lbBest(rows){
       name:(previous&&previous.score>=row.score?previous.name:row.name).normalize('NFKC').replace(/\s+/g,' ').trim(),
       churchCleared:Boolean(previous?.churchCleared||church),
       hellCleared:Boolean(previous?.hellCleared||hell),
+      naganCleared:Boolean(previous?.naganCleared||nagan),
       devChurch:Boolean(previous?.devChurch||devChurch),
       devHell:Boolean(previous?.devHell||devHell)
     };
@@ -110,6 +114,9 @@ async function lbPush(name, sc, lv, win){
     win   : !!win,
     churchCleared: Number(lv)>=8 || (Number(lv)===7&&!!win),
     hellCleared: Number(lv)>=11 || (Number(lv)===10&&!!win),
+    // This can only be earned by a new non-checkpoint run that reaches
+    // the full 500-point endless bonus (NOT simply reaching stage 11).
+    naganCleared: Number(lv)===11 && Number(window.PiraliStageScoring?.bonusEarned?.()||0)>=500,
     ts    : Date.now()
   };
   // No DEV/RC scores may enter Firebase before a formally enabled release.
@@ -183,10 +190,18 @@ function lbRender(rows, highlightName){
     else if(rank === 2) rankHtml = '<span class="lb-rank silver">🥈</span>';
     else if(rank === 3) rankHtml = '<span class="lb-rank bronze">🥉</span>';
 
+    const gunBadges={
+      ka:'სიმონას ნაგანი — მე-11 ტურის 500 ბონუს-ქულა',
+      en:"Simona's Nagan — earned the full 500-point bonus in stage 11",
+      ru:'Наган Симоны — все 500 бонусных очков на 11-м этапе',
+      zh:'西蒙娜的纳甘手枪 — 第11关获得全部500奖励分'
+    };
+    const gunTitle=escHtml(gunBadges[window.PiraliLanguage?.getLanguage?.()||'ka']||gunBadges.ka);
     const winBadge=(r.churchCleared?
-      '<span class="lb-milestone-church" title="მეხუთე ტური დასრულებულია">⛪</span>':'')+
+      '<span class="lb-milestone-church" title="ეკლესია გავლილია">⛪</span>':'')+
       (r.hellCleared?'<span class="lb-milestone-hell" title="სიმონას ჯოჯოხეთი გავლილია">✝️</span>':'')+
-      ((r.devChurch||r.devHell)?'<span class="lb-milestone-dev" title="მხოლოდ ლოკალური სატესტო ჩანაწერი">🧪</span>':'');
+      (r.naganCleared?'<span class="lb-milestone-nagan" title="'+gunTitle+'" aria-label="'+gunTitle+'" role="img"><img src="assets/icons/mauser-pistol.png?v=20261016a" alt="" draggable="false"></span>':'')+
+      ((r.devChurch||r.devHell||r.dev&&r.naganCleared)?'<span class="lb-milestone-dev" title="მხოლოდ ლოკალური სატესტო ჩანაწერი">🧪</span>':'');
     // Firebase values are untrusted; never inject a raw level field into HTML.
     const lvl=Number(r.level);
     const lvlBadge=Number.isFinite(lvl)&&lvl>0&&lvl<=99 ? '<span class="lb-lvl">Lv' + Math.floor(lvl) + '</span>' : '';

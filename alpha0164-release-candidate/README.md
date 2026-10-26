@@ -38,3 +38,11 @@ Separate clone of latest 11-stage 0.16.4 DEV balance. NOT the official player re
 - Endless bonus stage 11: each kill +5, consecutive kill within one second +10, cumulative bonus **limited to +500 above actual stage-10 story score**. Absolute total max **5,500**, not an automatic reward. Survival continues when score reaches cap.
 - New isolated local ranking cache, personal statistics and checkpoints (5K season); **saved nickname and language preserved**. DEV/RC results excluded from production, which remains write-disabled until launch approval and Firebase rules verification.
 - Existing published app, historical records and older Alpha test URLs remain unchanged. NOT yet a Firebase-tested, official APK/AAB release.
+
+
+## 0.16.4e — Authentic red Nagan leaderboard badge
+- In TOP 30, reuse exactly the same `assets/icons/mauser-pistol.png` visual as the lower-right **red fire button**, with its deep red circular gradient and border, NOT an old gun emoji or unrelated pistol illustration.
+- Badge beside player name is ordered **church ⛪, cross ✝️, red Nagan image**.
+- The 11th stage is endless, so its clear achievement is **earning the full +500 bonus points on stage 11** (from a fresh ranked run). Merely reaching stage 11 or dying there before +500 does not grant it.
+- Store `naganCleared: true` in the player result only after the milestone; merge records by normalized name with OR so the badge persists even if a later best-score record is weaker on milestones.
+- Test/DEV entries remain local-only; official Firebase write gate remains OFF in DEV and release candidate. New-season 5K/500 scoring and `/scores_11stage_s1_5k_2026` are unchanged.
