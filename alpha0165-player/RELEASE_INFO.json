@@ -1,0 +1,36 @@
+{
+  "version": "0.16.5",
+  "channel": "player-online-web",
+  "base": "0.16.3l DEV",
+  "publishedForPlayers": true,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "developerOnly": false,
+  "note": "Player is now configured to POST new-season scores to Firebase, pending actual permission validation.",
+  "qa": "Source-level checks and targeted JS tests; full manual mobile playthrough pending.",
+  "revision": "0.16.5-player-firebase",
+  "season": "11stage_s1_5k_2026",
+  "startLevel": 1,
+  "startScore": 0,
+  "firebasePath": "/scores_11stage_s1_5k_2026",
+  "firebaseWritesBlocked": false,
+  "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
+  "releaseReady": false,
+  "notes": "DEV and legacy scores unchanged. No Android APK/AAB; personal dashboard remains local.",
+  "scoreLimits": {
+    "story": 5000,
+    "endlessBonus": 500,
+    "total": 5500
+  },
+  "stage9Shooters": 20,
+  "stage11LiveCap": 20,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  }
+}
