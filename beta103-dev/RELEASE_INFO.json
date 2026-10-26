@@ -7,7 +7,7 @@
   "aabBuilt": false,
   "developerOnly": true,
   "note": "Matching BETA 1.0.1 player game logic but local-only test scores; all Firebase write requests blocked at browser fetch and leaderboard layer.",
-  "qa": "Pending full device tests; automated desktop/mobile stage smoke tests where possible",
+  "qa": "Automated live Chrome/Playwright PC + emulated mobile DEV/PLAYER checks passed; all 11 stages generated/rendered in each; no full human physical-device playthrough",
   "revision": "beta103-desktop-controls",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
@@ -42,5 +42,6 @@
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "role": "developer-preview",
   "previewControls": true,
-  "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat"
+  "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
+  "qaEvidence": "QA_BETA103.md"
 }
