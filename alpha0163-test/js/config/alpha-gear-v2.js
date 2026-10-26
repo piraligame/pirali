@@ -72,11 +72,8 @@ const PiraliAlphaGear=(function(){
      lastNotice=Date.now();updateUI();return true;
    }
    ammo--;shootCD=window.PiraliShotgunBalance.fireCooldownFrames;updateUI();
-   let target=null,best=1e9;
-   for(const e of enemies)if(e.alive){const dist=Math.hypot(e.x-P.x,e.y-P.y);if(dist<best){best=dist;target=e}}
-   if(boss&&boss.alive){const dist=Math.hypot(boss.x-P.x,boss.y-P.y);if(dist<best){best=dist;target=boss}}
-   const angle=target?Math.atan2(target.y-P.y,target.x-P.x):P.ang;
-   P.ang=angle;
+   // Same frontal nearest-target rules as Mauser, including both generals.
+   const angle=window.PiraliAim.choose();
    const x=P.x+Math.cos(angle)*(P.r+8),y=P.y+Math.sin(angle)*(P.r+8);
    const n=window.PiraliShotgunBalance.pelletCount;
    for(let i=0;i<n;i++){

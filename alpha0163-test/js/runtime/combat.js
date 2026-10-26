@@ -38,13 +38,8 @@ function shoot(){
   if(ammo<=0)return;
   ammo--;updateAmmoUI();shootCD=22;
   playGunshot();
-  let tgt=null,best=1e9;
-  enemies.forEach(e=>{if(!e.alive)return;const d=Math.hypot(e.x-P.x,e.y-P.y);if(d<best){best=d;tgt=e;}});
-  if(boss&&boss.alive){const d=Math.hypot(boss.x-P.x,boss.y-P.y);if(d<best){best=d;tgt=boss;}}
-  const other=window.PiraliDualGenerals?.target();
-  if(other){const d=Math.hypot(other.x-P.x,other.y-P.y);if(d<best){best=d;tgt=other;}}
-  const ang=tgt?Math.atan2(tgt.y-P.y,tgt.x-P.x):P.ang;
-  if(tgt)P.ang=ang;
+  // Do not select foes behind the muzzle; respect the player's look direction.
+  const ang=window.PiraliAim.choose();
   const bx=P.x+Math.cos(ang)*(P.r+5),by=P.y+Math.sin(ang)*(P.r+5);
   bullets.push({x:bx,y:by,vx:Math.cos(ang)*BSPD,vy:Math.sin(ang)*BSPD,fp:true,alive:true,life:115});
   PiraliFX.shoot(bx,by,ang);
@@ -114,19 +109,20 @@ function killEnemy(e){
     playDeath();
     for(let i=0;i<18;i++)spawnPart(e.x,e.y,(Math.random()-.5)*7,(Math.random()-.5)*7,27,'#f0b040',3);
     if(level===7){
-      finalVictoryPending=true;finalChurchNotice=false;score+=5000;updateScoreUI();
+      finalVictoryPending=true;finalChurchNotice=false;
+      window.PiraliKillCombo?.award(5000,e.x,e.y);
       showBanner('ეკლესიის კარი გაიღო! შედი ეკლესიაში.');
-    }else if(level===10){window.PiraliHellLoot?.batoni(e);score+=60;updateScoreUI();}
+    }else if(level===10){
+      window.PiraliHellLoot?.batoni(e);
+      window.PiraliKillCombo?.award(60,e.x,e.y);
+    }
     return;
   }
-  // Kill streak bonus
-  killStreak++;killStreakTimer=180;
-  const bonus=killStreak>=5?300:killStreak>=3?200:100;
-  score+=(level===11?300:level===10?(killStreak>=5?15:killStreak>=3?12:10):bonus*level);updateScoreUI();
-  if(level===11){window.PiraliEndless?.onKill(e);showFloatingText(e.x,e.y-24,'+300','#ffe29a');}
-  if(level!==11&&killStreak===3)showFloatingText(e.x,e.y,'3 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+Math.round(bonus*level*.72),'#f0c020');
-  else if(level!==11&&killStreak===5)showFloatingText(e.x,e.y,'5 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+Math.round(bonus*level*.72),'#ff8020');
-  else if(level!==11&&killStreak>=7)showFloatingText(e.x,e.y,(window.PiraliLanguage?window.PiraliLanguage.gameText('streak'):'სერია!')+' +'+Math.round(bonus*level*.72),'#ff4444');
+  // Fixed per-enemy award, doubled only by a correctly timed next kill.
+  killStreak++;killStreakTimer=level===11?60:120;
+  const base=level===11?300:level===10?10:100*level;
+  window.PiraliKillCombo?.award(base,e.x,e.y);
+  if(level===11)window.PiraliEndless?.onKill(e);
   playDeath();
   corpses.push({x:e.x,y:e.y,ang:e.ang,r:e.r,etype:e.etype});
   if(level===11&&corpses.length>45)corpses.splice(0,corpses.length-45);
@@ -138,7 +134,7 @@ function killEnemy(e){
   const lootType=window.PiraliDropBalance?.rollEnemyDrop();
   if(lootType)pickups.push({x:e.x+(Math.random()-.5)*22,y:e.y+(Math.random()-.5)*22,
     bob:Math.random()*6.28,col:false,type:lootType});
-  // Separate 31.2% shotgun shell chance once this run owns the hunting gun.
+  // Separate 24.96% shotgun shell chance once this run owns the hunting gun.
   window.PiraliAlphaGear?.maybeDropShell(e);
 
 }
@@ -150,8 +146,9 @@ function hitBoss(b,dmg=1){
   for(let i=0;i<8;i++) spawnPart(b.x,b.y,(Math.random()-.5)*6,(Math.random()-.5)*6,14,'#cc2020',3+Math.random()*3);
   // Phase 2 transition is handled by update() (one source of truth).
   updateBossUI();
-  if(b.hp<=0){b.alive=false;window.PiraliStats?.kill();score+=(level===11?300:level===10?1000:1000*level);updateScoreUI();
-    if(level===11){window.PiraliEndless?.onKill(b);showFloatingText(b.x,b.y-25,'+300','#ffe29a');}
+  if(b.hp<=0){b.alive=false;window.PiraliStats?.kill();
+    window.PiraliKillCombo?.award(level===11?300:level===10?1000:1000*level,b.x,b.y);
+    if(level===11)window.PiraliEndless?.onKill(b);
     hideBossUI();
     if(level===10){window.PiraliHellLoot?.devil(b);finalChurchNotice=false;showBanner('ჯოჯოხეთის ცეცხლოვანი კარიბჭე გაიღო!');}
     for(let i=0;i<30;i++) spawnPart(b.x,b.y,(Math.random()-.5)*10,(Math.random()-.5)*10,30,i%4===0?'#f0c020':'#cc1818',4+Math.random()*4);
@@ -167,7 +164,7 @@ function takeDmg(){
   PiraliFX.hurt(P.x,P.y);
   // Screen shake
   shakePow=10;
-  killStreak=0; // reset streak on taking damage
+  killStreak=0;window.PiraliKillCombo?.reset(); // reset combos on damage
   const fl=document.getElementById('dflash');fl.style.opacity='1';setTimeout(()=>fl.style.opacity='0',160);
   updateHealthUI();
   if(health<=0){P.dead=true;setTimeout(showGameOver,1100);}

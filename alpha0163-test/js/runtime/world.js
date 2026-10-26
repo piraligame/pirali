@@ -65,6 +65,7 @@ function dpth(px,py){
 // ── WORLD GEN ──
 function genWorld(){
   PiraliFX.reset(); // Reset visual-only effects between stages.
+  window.PiraliKillCombo?.reset(); // Avoid carrying timed kills between stages.
   window.PiraliAlphaGear?.onStageEnter(); // Retain shotgun across level transitions
   path=[];trees=[];enemies=[];bullets=[];parts=[];pickups=[];corpses=[];ambients=[];bloodDecals=[];_floats.length=0;done=false;boss=null;finalLordSpawned=false;finalVictoryPending=false;finalChurchNotice=false;
   const env=LEVEL_ENV[Math.min(level,11)];
