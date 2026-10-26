@@ -5,3 +5,5 @@
 - `flow.js`: one centralized wrapper for `genWorld()` calling both unique stage setups. This prevents multiple independent wrappers or confusing state.
 
 CORE STAGE ROUTING: `../../runtime/update.js`. Neither stage writes to Firebase.
+
+**0.16.3g:** მეცხრე ტურში 20 გაფანტული მსროლელია, სიცოცხლე და ammo გამრავლებულია. მეოთხე ტურის ფონი ოქროსფერია, მეცხრე — სტაფილოსფერი.
