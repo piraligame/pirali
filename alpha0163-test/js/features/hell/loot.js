@@ -1,4 +1,4 @@
-/* PIRALI 0.16.1 — Batoni drops health, Devil drops the 5000-point heart. */
+/* PIRALI 0.16.1 — Batoni drops health, Devil drops the 4500-point heart. */
 (function(){
 'use strict';
 const t=window.PiraliHellText;
@@ -23,7 +23,7 @@ function devil(b){
  const dx=P.x-b.x,dy=P.y-b.y,len=Math.hypot(dx,dy)||1;
  const px=b.x+(dx/len)*56,py=b.y+(dy/len)*56;
  const heart=addPickup(px,py,'hell-heart');
- heart.points=5000;
+ heart.points=4500;
  if(typeof showFloatingText==='function')
   showFloatingText(heart.x,heart.y-50,t('heartDrop'),'#ffe494');
 }

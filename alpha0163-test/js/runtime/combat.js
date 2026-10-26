@@ -124,9 +124,9 @@ function killEnemy(e){
   const bonus=killStreak>=5?300:killStreak>=3?200:100;
   score+=(level===11?200:level===10?(killStreak>=5?15:killStreak>=3?12:10):bonus*level);updateScoreUI();
   if(level===11){window.PiraliEndless?.onKill(e);showFloatingText(e.x,e.y-24,'+200','#ffe29a');}
-  if(level!==11&&killStreak===3)showFloatingText(e.x,e.y,'3 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+bonus*level,'#f0c020');
-  else if(level!==11&&killStreak===5)showFloatingText(e.x,e.y,'5 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+bonus*level,'#ff8020');
-  else if(level!==11&&killStreak>=7)showFloatingText(e.x,e.y,(window.PiraliLanguage?window.PiraliLanguage.gameText('streak'):'სერია!')+' +'+bonus*level,'#ff4444');
+  if(level!==11&&killStreak===3)showFloatingText(e.x,e.y,'3 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+Math.round(bonus*level*.9),'#f0c020');
+  else if(level!==11&&killStreak===5)showFloatingText(e.x,e.y,'5 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+Math.round(bonus*level*.9),'#ff8020');
+  else if(level!==11&&killStreak>=7)showFloatingText(e.x,e.y,(window.PiraliLanguage?window.PiraliLanguage.gameText('streak'):'სერია!')+' +'+Math.round(bonus*level*.9),'#ff4444');
   playDeath();
   corpses.push({x:e.x,y:e.y,ang:e.ang,r:e.r,etype:e.etype});
   if(level===11&&corpses.length>45)corpses.splice(0,corpses.length-45);

@@ -33,6 +33,7 @@ const oldGen=genWorld;
 genWorld=function(...args){
  const result=oldGen.apply(this,args);
  scatter();
+ window.PiraliStageScoring?.enterStage();
  return result;
 };
 window.PiraliCoverDensity=Object.freeze({ratio:EXTRA});

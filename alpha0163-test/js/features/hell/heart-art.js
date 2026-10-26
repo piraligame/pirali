@@ -18,7 +18,7 @@ function draw(ctx,pk,x,y){
  ctx.fillStyle='rgba(24,7,10,.9)';ctx.fillRect(-30,15,60,22);
  ctx.strokeStyle='#ffc36e';ctx.lineWidth=1.5;ctx.strokeRect(-30,15,60,22);
  ctx.fillStyle='#ffe99c';ctx.font='900 15px sans-serif';
- ctx.fillText('5000',0,27);
+ ctx.fillText('4500',0,27);
  ctx.restore();
  return true;
 }
