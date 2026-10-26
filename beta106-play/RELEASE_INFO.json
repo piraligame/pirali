@@ -1,0 +1,86 @@
+{
+  "version": "1.06-beta.1",
+  "channel": "beta-web-player",
+  "base": "0.16.3l DEV",
+  "publishedForPlayers": false,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "developerOnly": false,
+  "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
+  "qa": "BETA 1.06 pending automated verification",
+  "revision": "beta106-road-home-15-foes-7k",
+  "season": "pirali_beta_1_0_s1",
+  "startLevel": 1,
+  "startScore": 0,
+  "firebasePath": "/pirali_beta_rating",
+  "firebaseWritesBlocked": false,
+  "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
+  "releaseReady": false,
+  "notes": "Result shows online rank of best personal score among all unique players even outside TOP 30; no Firebase saved banner on successful PLAYER submission. Firebase Beta season path unchanged.",
+  "scoreLimits": {
+    "story": 5000,
+    "endlessBonus": 2000,
+    "total": 7000
+  },
+  "stage9Shooters": 15,
+  "stage11LiveCap": 15,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  },
+  "leaderboardPath": "/pirali_beta_rating",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "Read-only/previous Beta evidence; BETA 1.05 final victory PUT simulated in browser, not sent live",
+  "displayVersion": "BETA 1.06",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
+  "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
+  "qaEvidence": "QA_BETA105.md",
+  "waveMode": "20 enemies total per wave; next wave only after all 20 die; next wave enemies gain 10% HP/movement/attack rate",
+  "stage6": {
+    "additionalSoldiersReduction": -0.1,
+    "additionalStrengthReduction": -0.1,
+    "roadsideTreeIncrease": 0.2
+  },
+  "stage8": {
+    "allEnemyHpAndAttack": -0.15,
+    "shotgunShellRandomDrop": -0.15
+  },
+  "stage9": {
+    "shooters": 15,
+    "enemyHpAndAttack": -0.2
+  },
+  "stage10": {
+    "enemyHpAndAttack": -0.2
+  },
+  "stage11MaxWaves": 5,
+  "stage11EnemiesPerWave": 20,
+  "stage11PointsPerWave": 100,
+  "crown": "earned only after all 5 waves and valid 11th-level victory",
+  "georgianFlagCelebration": true,
+  "firebaseSchemaChanged": false,
+  "globalEnemyStrengthReduction": 0.05,
+  "stage11": {
+    "maxWaves": 5,
+    "enemiesPerWave": 15,
+    "bossesWave4": 1,
+    "bossesWave5": 2,
+    "landlords": 0,
+    "spawnMs": 600,
+    "weakness": -0.1,
+    "houseEntryRequired": true,
+    "wavePoints": [
+      300,
+      300,
+      400,
+      400,
+      600
+    ]
+  }
+}
