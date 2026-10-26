@@ -12,6 +12,7 @@ function addPickup(x,y,type){
 }
 function batoni(e){
  if(level!==10||e?.etype!=='landlord')return;
+ if(!window.PiraliDropBalance?.rollHealingDrop())return; // 90% vs previous guaranteed drop
  addPickup(e.x,e.y,'health');
  if(typeof showFloatingText==='function')
   showFloatingText(e.x,e.y-42,t('lifeDrop'),'#ff808e');

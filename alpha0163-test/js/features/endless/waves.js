@@ -6,7 +6,7 @@
 const SETTINGS=window.PiraliEndlessBalance;
 const CAP=SETTINGS.cap,INITIAL=SETTINGS.initial;
 const TYPES=['rifle','saber','officer','rifle','saber','landlord'];
-let live=false,elapsed=0,nextSpawn=0,nextAmmo=0,wave=1,kills=0;
+let live=false,elapsed=0,nextSpawn=0,nextAmmo=0,wave=1,kills=0,ammoRemainder=0;
 function randomPoint(minR=265,maxR=490){
  for(let tries=0;tries<25;tries++){
   const ang=Math.random()*Math.PI*2,r=minR+Math.random()*(maxR-minR);
@@ -44,14 +44,19 @@ function replenishAmmo(){
  // New ammunition appears throughout the fight, not just at level start.
  const waiting=pickups.filter(p=>!p.col&&(p.type==='ammo'||p.type==='health'));
  if(waiting.length>=65)return;
- for(let i=0;i<12;i++){
+ // Twenty percent more rolling ammunition supplies, while respecting
+ // the old total uncollected pickup cap. Fractional extra packs carry over.
+ const exact=12*window.PiraliDropBalance.endlessRestockMultiplier+ammoRemainder;
+ const quantity=Math.floor(exact);
+ ammoRemainder=exact-quantity;
+ for(let i=0;i<quantity;i++){
   const a=Math.random()*Math.PI*2;
   const r=35+Math.random()*360;
   const x=Math.max(45,Math.min(WW-45,P.x+Math.cos(a)*r));
   const y=Math.max(210,Math.min(WH-145,P.y+Math.sin(a)*r));
   if(trees.some(t=>Math.hypot(t.x-x,t.y-y)<t.r*.4+20))continue;
   pickups.push({x,y,bob:Math.random()*6.28,col:false,
-   type:(i===0&&Math.random()<.4)?'health':'ammo'});
+   type:(i===0&&Math.random()<window.PiraliDropBalance.endlessHealthChance)?'health':'ammo'});
  }
 }
 function general(){
@@ -69,7 +74,7 @@ function general(){
 function setup(){
  live=level===11;
  if(!live)return;
- elapsed=0;wave=1;kills=0;nextSpawn=900;nextAmmo=1800;
+ elapsed=0;wave=1;kills=0;nextSpawn=900;nextAmmo=1800;ammoRemainder=0;
  // An open arena among the existing trees, with the same visual language.
  P.x=WW*.5;P.y=WH*.53;P.vx=P.vy=0;P.ang=-Math.PI/2;
  camX=Math.max(0,Math.min(WW-W,P.x-W*.5));
@@ -115,7 +120,7 @@ function tick(dt){
 function onKill(enemy){
  if(level!==11)return;
  kills++;
- if(enemy?.etype==='landlord'){
+ if(enemy?.etype==='landlord'&&window.PiraliDropBalance?.rollHealingDrop()){
   pickups.push({x:enemy.x,y:enemy.y,bob:Math.random()*6.28,col:false,type:'health'});
  }
  window.PiraliEndlessHUD?.refresh();

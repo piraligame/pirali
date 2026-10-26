@@ -153,8 +153,8 @@ function update(dt){
     for(const t of trees){if(Math.hypot(b.x-t.x,b.y-t.y)<t.r*.48){b.alive=false;hit=true;break;}}
     if(hit)continue;
     if(b.fp){
-      enemies.forEach(e=>{if(!e.alive||!b.alive)return;if(Math.hypot(b.x-e.x,b.y-e.y)<e.r+5){b.alive=false;hitEnemy(e);}});
-      if(boss&&boss.alive&&b.alive&&Math.hypot(b.x-boss.x,b.y-boss.y)<boss.r+6){b.alive=false;hitBoss(boss,1);}
+      enemies.forEach(e=>{if(!e.alive||!b.alive)return;if(Math.hypot(b.x-e.x,b.y-e.y)<e.r+5){b.alive=false;hitEnemy(e,b.damage??1);}});
+      if(boss&&boss.alive&&b.alive&&Math.hypot(b.x-boss.x,b.y-boss.y)<boss.r+6){b.alive=false;hitBoss(boss,b.damage??1);}
       if(b.alive)window.PiraliDualGenerals?.hitBullet(b);
     } else {
       const d=Math.hypot(b.x-P.x,b.y-P.y);

@@ -99,8 +99,8 @@ function dash(){
   for(let i=0;i<12;i++) spawnPart(P.x+(Math.random()-.5)*8,P.y+(Math.random()-.5)*8,(Math.random()-.5)*2,(Math.random()-.5)*2,9,'rgba(80,180,255,0.5)',3+Math.random()*3);
 }
 
-function hitEnemy(e){
-  e.hp--;e.hf=14;
+function hitEnemy(e,damage=1){
+  e.hp-=damage;e.hf=14;
   playHit();
   PiraliFX.hit(e.x,e.y,false);
   for(let i=0;i<8;i++) spawnPart(e.x,e.y,(Math.random()-.5)*5.5,(Math.random()-.5)*5.5,14,'#cc1010',2+Math.random()*2.5);
@@ -135,8 +135,10 @@ function killEnemy(e){
     r:8+Math.random()*10,ang:Math.random()*6.28,alpha:.55});
   if(bloodDecals.length>40)bloodDecals.shift();
   for(let i=0;i<16;i++) spawnPart(e.x,e.y,(Math.random()-.5)*8,(Math.random()-.5)*8,26,i%3===0?'#7a0808':'#cc1818',3+Math.random()*3.5);
-  if(Math.random()>.35) pickups.push({x:e.x+(Math.random()-.5)*22,y:e.y+(Math.random()-.5)*22,bob:Math.random()*6.28,col:false,type:Math.random()>.8?'health':'ammo'});
-  // Separate 26% shotgun shell chance once this run owns the hunting gun.
+  const lootType=window.PiraliDropBalance?.rollEnemyDrop();
+  if(lootType)pickups.push({x:e.x+(Math.random()-.5)*22,y:e.y+(Math.random()-.5)*22,
+    bob:Math.random()*6.28,col:false,type:lootType});
+  // Separate 31.2% shotgun shell chance once this run owns the hunting gun.
   window.PiraliAlphaGear?.maybeDropShell(e);
 
 }

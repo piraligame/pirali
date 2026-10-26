@@ -29,7 +29,7 @@ const PiraliAlphaGear=(function(){
    updateUI();
  }
  function maybeDropShell(enemy){
-   if(!owned||level<7||!enemy||Math.random()>=.26)return false;
+   if(!owned||level<7||!enemy||!window.PiraliDropBalance?.rollShellDrop())return false;
    pickups.push({x:enemy.x+(Math.random()-.5)*28,
      y:enemy.y+(Math.random()-.5)*28,bob:Math.random()*6.28,
      col:false,type:'alpha-shells'});
@@ -71,18 +71,19 @@ const PiraliAlphaGear=(function(){
      if(Date.now()-lastNotice>1600&&typeof showFloatingText==='function')showFloatingText(P.x,P.y-34,t('noAmmo'),'#ffb689');
      lastNotice=Date.now();updateUI();return true;
    }
-   ammo--;shootCD=48;updateUI();
+   ammo--;shootCD=window.PiraliShotgunBalance.fireCooldownFrames;updateUI();
    let target=null,best=1e9;
    for(const e of enemies)if(e.alive){const dist=Math.hypot(e.x-P.x,e.y-P.y);if(dist<best){best=dist;target=e}}
    if(boss&&boss.alive){const dist=Math.hypot(boss.x-P.x,boss.y-P.y);if(dist<best){best=dist;target=boss}}
    const angle=target?Math.atan2(target.y-P.y,target.x-P.x):P.ang;
    P.ang=angle;
    const x=P.x+Math.cos(angle)*(P.r+8),y=P.y+Math.sin(angle)*(P.r+8);
-   const n=5;
+   const n=window.PiraliShotgunBalance.pelletCount;
    for(let i=0;i<n;i++){
      const a=angle+(i-(n-1)/2)*.13;
      bullets.push({x,y,vx:Math.cos(a)*BSPD*.84,vy:Math.sin(a)*BSPD*.84,
-       fp:true,alive:true,life:62,alphaPellet:true});
+       fp:true,alive:true,life:62,alphaPellet:true,
+       damage:window.PiraliShotgunBalance.pelletDamage});
    }
    if(typeof playGunshot==='function')playGunshot();
    if(typeof PiraliFX!=='undefined'){PiraliFX.shoot(x,y,angle);PiraliFX.shoot(x,y,angle)}

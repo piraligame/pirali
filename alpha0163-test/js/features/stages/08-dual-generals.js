@@ -30,7 +30,7 @@ function hitBullet(b){
  const s=target();
  if(!s||!b?.alive||!b.fp)return false;
  if(Math.hypot(b.x-s.x,b.y-s.y)>=s.r+6)return false;
- b.alive=false;hitBoss(s,1);return true;
+ b.alive=false;hitBoss(s,b.damage??1);return true;
 }
 function swordHit(damage){
  const s=target();
