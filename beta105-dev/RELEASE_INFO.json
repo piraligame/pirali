@@ -1,0 +1,69 @@
+{
+  "version": "1.05-beta.1-dev",
+  "channel": "beta-dev-web",
+  "base": "0.16.3l DEV",
+  "publishedForPlayers": false,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "developerOnly": true,
+  "note": "Matching BETA 1.0.1 player game logic but local-only test scores; all Firebase write requests blocked at browser fetch and leaderboard layer.",
+  "qa": "Pending BETA 1.05 full automated browser verification",
+  "revision": "beta105-five-wave-victory-stage-balancing",
+  "season": "pirali_beta_1_0_s1",
+  "startLevel": 1,
+  "startScore": 0,
+  "firebasePath": "/pirali_beta_rating",
+  "firebaseWritesBlocked": true,
+  "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
+  "releaseReady": false,
+  "notes": "Result shows online rank of best personal score among all unique players even outside TOP 30; no Firebase saved banner on successful PLAYER submission. Firebase Beta season path unchanged.",
+  "scoreLimits": {
+    "story": 5000,
+    "endlessBonus": 500,
+    "total": 5500
+  },
+  "stage9Shooters": 15,
+  "stage11LiveCap": 20,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  },
+  "leaderboardPath": "/pirali_beta_rating",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "NOT VERIFIED: Firebase admin connection and rules needed",
+  "displayVersion": "BETA 1.05 DEV",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
+  "role": "developer-preview",
+  "previewControls": true,
+  "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
+  "qaEvidence": "QA_BETA104.md",
+  "waveMode": "20 enemies total per wave; next wave only after all 20 die; next wave enemies gain 10% HP/movement/attack rate",
+  "stage6": {
+    "soldiers": -0.1,
+    "hpAndAttack": -0.15
+  },
+  "stage8": {
+    "allEnemyHpAndAttack": -0.15,
+    "shotgunShellRandomDrop": -0.15
+  },
+  "stage9": {
+    "shooters": 15,
+    "enemyHpAndAttack": -0.2
+  },
+  "stage10": {
+    "enemyHpAndAttack": -0.2
+  },
+  "stage11MaxWaves": 5,
+  "stage11EnemiesPerWave": 20,
+  "stage11PointsPerWave": 100,
+  "crown": "earned only after all 5 waves and valid 11th-level victory",
+  "georgianFlagCelebration": true,
+  "firebaseSchemaChanged": false
+}
