@@ -102,6 +102,7 @@ function tick(dt){
   pickups=pickups.filter(p=>!p.col);
   if(corpses.length>38)corpses.splice(0,corpses.length-38);
   if(parts.length>240)parts.splice(0,parts.length-240);
+  if(bullets.length>260)bullets=bullets.filter(b=>b.alive).slice(-260);
  }
  if(frame%12===0)window.PiraliEndlessHUD?.refresh();
 }

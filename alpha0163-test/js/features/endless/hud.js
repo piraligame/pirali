@@ -15,6 +15,8 @@ function refresh(){
   document.body.appendChild(n);
  }
  n.style.display=active?'block':'none';
+ const progress=document.getElementById('progress-bar');
+ if(progress)progress.style.display=active?'none':'';
  if(!active)return;
  const k=words[window.PiraliLanguage?.getLanguage?.()||'ka']||words.ka;
  const state=window.PiraliEndless?.state?.();

@@ -169,7 +169,7 @@ function update(dt){
           for(let k=0;k<10;k++) spawnPart(b.x,b.y,(Math.random()-.5)*8,(Math.random()-.5)*8,12,Math.random()>.5?'#f0e040':'#ffffff',2+Math.random()*2);
           const pf=document.getElementById('parry-flash');pf.style.opacity='1';setTimeout(()=>pf.style.opacity='0',65);
           showFloatingText(P.x,P.y-22,(window.PiraliLanguage?window.PiraliLanguage.gameText('parry'):'✦ პარი! ✦'),'#f8f040');
-          score+=(level===10?5:50*level);updateScoreUI();
+          score+=(level===11?0:level===10?5:50*level);updateScoreUI();
         } else {b.alive=false;takeDmg();}
       }
     }
