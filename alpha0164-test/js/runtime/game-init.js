@@ -5,7 +5,7 @@ function spawnLandlordNPC(fromX=P.x,fromY=P.y){
   enemies.push({
     x:lx,
     y:ly,
-    r:13,hp:PIRALI_BALANCE.landlordHp,maxHp:PIRALI_BALANCE.landlordHp,
+    r:13,hp:PIRALI_BALANCE.landlordHp*.85,maxHp:PIRALI_BALANCE.landlordHp*.85,
     vx:0,vy:0,ang:Math.PI,
     patrol:{cx:lx,cy:ly,radius:40,t:0,spd:0.1},
     sT:9999,alive:true,hf:0,wf:0,

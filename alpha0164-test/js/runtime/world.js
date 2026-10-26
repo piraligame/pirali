@@ -164,10 +164,10 @@ function genWorld(){
   if(level===7||level===8||level===10){
     const bp={x:CHURCH_X,y:CHURCH_Y+320}; // Keep the final boss in the church approach.
     boss={
-      x:bp.x,y:bp.y,r:level===10?32:24,hp:PIRALI_BALANCE.finalBossHp*(level===10?3:1),maxHp:PIRALI_BALANCE.finalBossHp*(level===10?3:1),
+      x:bp.x,y:bp.y,r:level===10?32:24,hp:PIRALI_BALANCE.finalBossHp*(level===10?3:1)*.85,maxHp:PIRALI_BALANCE.finalBossHp*(level===10?3:1)*.85,
       vx:0,vy:0,ang:0,alive:true,hf:0,wf:0,
       sT:50*PIRALI_BALANCE.finalBossFireInterval*(level===10?.72:1),chargeT:0,charging:false,chargeDx:0,chargeDy:0,
-      rageMode:false,enrageHp:PIRALI_BALANCE.finalBossRageHp*(level===10?3:1),
+      rageMode:false,enrageHp:PIRALI_BALANCE.finalBossRageHp*(level===10?3:1)*.85,
       phase:1, // phase 2 when hp<=enrageHp
       groundSlamCD:0,groundSlamActive:false,groundSlamT:0,groundSlamX:0,groundSlamY:0
     };
@@ -187,7 +187,7 @@ function genWorld(){
     for(let i=0;i<12;i++){
       const n=path[3+Math.floor(i*(path.length-7)/12)];if(!n)continue;
       const x=Math.max(35,Math.min(WW-35,n.x+(i%2?100:-100))),y=n.y+(i%3-1)*45;
-      enemies.push({x,y,r:13,hp:2.7,maxHp:2.7,vx:0,vy:0,ang:Math.PI,
+      enemies.push({x,y,r:13,hp:2.7*.85,maxHp:2.7*.85,vx:0,vy:0,ang:Math.PI,
         patrol:{cx:x,cy:y,radius:40,t:Math.random()*6.28,spd:0.1},
         sT:9999,alive:true,hf:0,wf:0,etype:'landlord',isNPC:true,
         alertTimer:0,state:'patrol',flankTimer:0,groupId:'hell-'+i,retreating:false,retreatTimer:0});

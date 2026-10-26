@@ -7,5 +7,10 @@
   "androidBuilt": false,
   "aabBuilt": false,
   "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending.",
-  "base": "0.16.3l DEV"
+  "base": "0.16.3l DEV",
+  "revision": "0.16.4b",
+  "enemyHpMultiplier": 0.85,
+  "ammoDropMultiplier": 1.15,
+  "leaderboardPath": "/scores_11stage_season2",
+  "firebaseLegacyMigration": "PENDING: admin access and backup required"
 }

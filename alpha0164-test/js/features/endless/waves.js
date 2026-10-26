@@ -61,7 +61,7 @@ function replenishAmmo(){
 }
 function general(){
  if(level!==11||boss?.alive||liveCount()>=CAP)return;
- const pt=randomPoint(420,600),hp=Math.max(8,Math.min(24,12+wave));
+ const pt=randomPoint(420,600),hp=Number((Math.max(8,Math.min(24,12+wave))*.85).toFixed(3));
  boss={
   x:pt.x,y:pt.y,r:24,hp,maxHp:hp,
   vx:0,vy:0,ang:pt.ang,alive:true,hf:0,wf:0,

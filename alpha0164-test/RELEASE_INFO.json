@@ -6,6 +6,7 @@
   "androidBuilt": false,
   "aabBuilt": false,
   "developerOnly": true,
-  "note": "Continue DEV testing; release APK/AAB and production only after user approval.",
-  "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending."
+  "note": "DEV only: enemies -15% HP, enemy ammo/shell drops +15%, new 11-stage leaderboard read-only. Legacy Firebase migration pending authorized access.",
+  "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending.",
+  "revision": "0.16.4b"
 }

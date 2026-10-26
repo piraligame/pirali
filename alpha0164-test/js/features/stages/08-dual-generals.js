@@ -9,13 +9,13 @@ function setup(){
  second=null;
  if(level!==8||!boss)return;
  boss.x=CHURCH_X-145;boss.y=CHURCH_Y+335;
- boss.hp=boss.maxHp=HP;boss.enrageHp=4;
+ boss.hp=boss.maxHp=HP;boss.enrageHp=4*.85;
  second={
   x:CHURCH_X+145,y:CHURCH_Y+335,r:24,
   hp:HP,maxHp:HP,vx:0,vy:0,ang:Math.PI,
   alive:true,hf:0,wf:0,
   sT:80,chargeT:0,charging:false,chargeDx:0,chargeDy:0,
-  rageMode:false,enrageHp:4,phase:1,
+  rageMode:false,enrageHp:4*.85,phase:1,
   groundSlamCD:0,groundSlamActive:false,groundSlamT:0,groundSlamX:0,groundSlamY:0
  };
  // Sword-equipped Russian troops, drawn using the existing sprites.

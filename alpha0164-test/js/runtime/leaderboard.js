@@ -1,8 +1,10 @@
 const FB_URL  = 'https://pirali-game-default-rtdb.firebaseio.com';
-const LB_PATH = FB_URL + '/scores';
-const LB_KEY  = 'pirali_lb_alpha0163_dev';
+// New eleven-stage season stays isolated from pre-2026 five-stage /scores records.
+// Existing Firebase /scores will only be edited after authenticated archive/migration.
+const LB_PATH = FB_URL + '/scores_11stage_season2';
+const LB_KEY  = 'pirali_lb_alpha0164_season2';
 const LB_LIMIT=30;
-const DEV_RUN_KEY='pirali_lb_alpha0163_local_runs';
+const DEV_RUN_KEY='pirali_lb_alpha0164_season2_local_runs';
 function lbT(key){return window.PiraliLanguage?window.PiraliLanguage.t(key):({empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',saved:'✅ შენახულია',players:'მოთამაშე'})[key]||key;}
 
 
@@ -48,6 +50,7 @@ function lbDevRecords(){
   }catch(e){return [];}
 }
 let lbLastRows=[];
+const SEASON_LABEL='🏆 11-ტურიანი ახალი რეიტინგი';
 function lbShowPersonal(rows){
   // The public leaderboard presents EXACTLY the ranked TOP 30.
   // Personal records outside those 30 must not be repeated in a separate leaderboard card.
@@ -70,7 +73,7 @@ function lcSave(rows){
   try{ localStorage.setItem(LB_KEY, JSON.stringify(lbBest(rows).slice(0,100))); }catch(e){}
 }
 
-// ── fetch top scores from Firebase ──
+// ── fetch new-season top scores only; old five-stage records stay archived separately ──
 async function lbFetch(){
   try{
     // Simple fetch — no custom headers to avoid CORS preflight blocking
@@ -200,6 +203,7 @@ function escHtml(s){
 
 async function lbShow(){
   window.PiraliStats?.mountLeaderboard();
+  document.getElementById('lb-sub').textContent=SEASON_LABEL;
   document.getElementById('lb-play').style.display='block';bgmFadeIn(0.28);
   const nameEl=document.getElementById('lb-name');
   nameEl.value=localStorage.getItem('pirali_player_name')||'';
@@ -214,7 +218,7 @@ async function lbShow(){
     try{ lbRender(cached,null); }catch(e){}
     document.getElementById('lb-status').textContent=`📱 ${cached.length} (${lbT('cached')}) • ${lbT('loading')}`;
   } else {
-    document.getElementById('lb-status').textContent=lbT('loading');
+    document.getElementById('lb-status').textContent=SEASON_LABEL+' • '+lbT('loading');
   }
 
   // Timeout fallback — if fetch hangs >3s, stop waiting
