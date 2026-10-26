@@ -1,0 +1,43 @@
+{
+  "version": "1.02-beta.1",
+  "channel": "beta-web-player",
+  "base": "0.16.3l DEV",
+  "publishedForPlayers": false,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "developerOnly": false,
+  "note": "Fixed Firebase write method: PUT to unique Beta child, matches $record rules, not parent POST; server rules still need to be published",
+  "qa": "Source-level checks and targeted JS tests; full manual mobile playthrough pending.",
+  "revision": "beta102-rank-best-global",
+  "season": "pirali_beta_1_0_s1",
+  "startLevel": 1,
+  "startScore": 0,
+  "firebasePath": "/pirali_beta_rating",
+  "firebaseWritesBlocked": false,
+  "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
+  "releaseReady": false,
+  "notes": "Result shows online rank of best personal score among all unique players even outside TOP 30; no Firebase saved banner on successful PLAYER submission. Firebase Beta season path unchanged.",
+  "scoreLimits": {
+    "story": 5000,
+    "endlessBonus": 500,
+    "total": 5500
+  },
+  "stage9Shooters": 20,
+  "stage11LiveCap": 20,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  },
+  "leaderboardPath": "/pirali_beta_rating",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "NOT VERIFIED: Firebase admin connection and rules needed",
+  "displayVersion": "BETA 1.02",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json"
+}
