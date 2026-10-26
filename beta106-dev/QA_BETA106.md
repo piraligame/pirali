@@ -20,6 +20,8 @@ Automated run: https://github.com/piraligame/pirali/actions/runs/40400690020
 - Full natural 11-stage playthrough on the user's physical Android phone.
 - End-to-end real Firebase acceptance of scores above 5500.
 - Precise Firebase production security rules: the repository's historical FIREBASE_RULES_SETUP.md has a 5500 validation limit. Verify existing deployed rules, backup, and update **only** the new Beta path to 7000 when authorized; preserve legacy Alpha /scores.
-- Extended browser CI stage-exit tests are pending separate run: https://github.com/piraligame/pirali/actions/runs/40401375963. Do not count them as passed unless this workflow completes successfully.
+## Extended tests — PASSED 4 / 4
+Run: https://github.com/piraligame/pirali/actions/runs/40401375963
+In both DEV and PLAYER on desktop and emulated mobile, verified all five instant level transitions **1→2, 7→8, 8→9, 9→10 and 10→11** after fulfilling their correct clear conditions; no artificial delay. Stage 10 Hell coin collected before gate exit. Four-language exit text matches on KA/EN/RU/ZH. No JavaScript page errors. **Combined browser checks: 8 / 8 passed.**
 
 GitHub web DEV/PLAYER only. **No APK/AAB or Google Play upload.**
