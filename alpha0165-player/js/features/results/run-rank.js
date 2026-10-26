@@ -49,6 +49,13 @@ function paint(){
     foot.textContent=s.preview;
     return;
   }
+  // Do NOT announce a fake global rank for scores that only exist locally.
+  if(phase!=='online'||(typeof lbLastPushStatus!=='undefined'&&lbLastPushStatus!=='saved')){
+    line.textContent=(lang().offlineRank||'ონლაინ რეიტინგში ადგილი ჯერ არ დადასტურდა');
+    foot.textContent=s.offline;
+    element.classList.remove('pirali-in-top30');
+    return;
+  }
   line.textContent=s.position+' №'+rank.position+' / '+rank.total+' '+s.of;
   foot.textContent=(rank.position<=30?s.top:s.outside)+' · '+(phase==='online'?s.online:s.offline);
   element.classList.toggle('pirali-in-top30',rank.position<=30);

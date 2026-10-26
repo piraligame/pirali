@@ -120,15 +120,25 @@ async function lbPostEntry(entry){
  const res=await fetch(LB_PATH+'.json',{
   method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(entry)
  });
- if(!res.ok)throw Error('Firebase HTTP '+res.status);
+ if(!res.ok){
+   let serverMessage='';
+   try{
+     if(typeof res.text==='function'){
+       const raw=(await res.text()).slice(0,320);
+       const obj=JSON.parse(raw);
+       serverMessage=String(obj?.error||'').slice(0,100);
+     }
+   }catch(e){}
+   throw Error('Firebase HTTP '+res.status+(serverMessage?' • '+serverMessage:''));
+ }
  const receipt=await res.json();
  if(!receipt||typeof receipt.name!=='string'||!receipt.name)throw Error('No Firebase confirmation');
  return receipt.name;
 }
-async function lbRetryPending(){
+async function lbRetryPending(force=false){
  if(window.PiraliVisualPreviewReadonly||window.PiraliSeasonReleaseEnabled!==true)return 0;
  if(lbRetrying)return lbRetrying;
- if(Date.now()-lbLastRetryAt<60000)return 0;
+ if(!force&&Date.now()-lbLastRetryAt<60000)return 0;
  lbLastRetryAt=Date.now();
  lbRetrying=(async()=>{
   let saved=0;
@@ -143,7 +153,17 @@ async function lbRetryPending(){
  })();
  try{return await lbRetrying}finally{lbRetrying=null}
 }
-function lbShowCloudStatus(message){
+function lbReadableError(){
+ const reason=String(lbLastError||'');
+ if(/HTTP 401|HTTP 403|permission.denied|Permission denied/i.test(reason))
+   return 'Firebase არ უშვებს ჩაწერას (HTTP 401/403). საჭიროა ახალი სეზონის Database Rules.';
+ if(/HTTP 404/.test(reason))return 'Firebase-ის ბაზა ვერ მოიძებნა (HTTP 404). შესამოწმებელია Database URL.';
+ if(/HTTP 400/.test(reason))return 'Firebase უარყოფს ჩანაწერის ფორმატს (HTTP 400).';
+ if(/HTTP 5\d\d/.test(reason))return 'Firebase-ის სერვერზე დროებითი შეცდომაა ('+reason.slice(0,60)+').';
+ if(/Failed to fetch|NetworkError|fetch/i.test(reason))return 'კავშირის ან CORS-ის შეცდომა — Firebase მიუწვდომელია.';
+ return reason?'Firebase-ის პასუხი: '+reason.slice(0,90):'Firebase-ში ჩაწერა ვერ დადასტურდა.';
+}
+function lbShowCloudStatus(message,allowRetry=false){
  const box=document.querySelector('#screen .sbox');
  if(!box)return;
  let node=box.querySelector('.pirali-cloud-status');
@@ -154,6 +174,23 @@ function lbShowCloudStatus(message){
   box.appendChild(node);
  }
  node.textContent=message;
+ let button=box.querySelector('.pirali-retry-firebase');
+ if(!button&&allowRetry){
+  button=document.createElement('button');button.type='button';button.className='pirali-retry-firebase';
+  button.textContent='↻ Firebase-ზე ხელახლა გაგზავნა';
+  button.style.cssText='display:block;margin:8px auto;padding:10px 15px;border:1px solid #cb9a3d;border-radius:9px;background:#281807;color:#ffdc88;font-weight:bold;';
+  button.addEventListener('click',async()=>{
+   button.disabled=true;lbShowCloudStatus('⏳ ხელახლა იგზავნება...');
+   const count=await lbRetryPending(true);
+   if(count>0&&lbPending().length===0){
+    lbLastPushStatus='saved';lbLastError='';
+    lbShowCloudStatus('✅ შენახული შედეგი Firebase-ში გაიგზავნა');button.remove();
+   }else{
+    lbShowCloudStatus('⚠️ '+lbReadableError(),true);button.disabled=false;
+   }
+  });
+  box.appendChild(button);
+ }else if(button&&!allowRetry&&lbPending().length===0)button.remove();
 }
 // ── push one score to Firebase ──
 async function lbPush(name, sc, lv, win){
@@ -352,8 +389,8 @@ async function autoSaveScore(sc,lv,win){
   await lbPush(name,sc,lv,win);
   lbShowCloudStatus(lbLastPushStatus==='saved'
    ?'✅ შედეგი Firebase-ში შენახულია'
-   :'⚠️ Firebase-ში ჯერ არ ჩაიწერა. შედეგი მოწყობილობაზე შენახულია და მოგვიანებით გაიგზავნება.');
- }catch(e){lbShowCloudStatus('⚠️ Firebase-ში შენახვა ვერ დადასტურდა.');}
+   :'⚠️ '+lbReadableError()+' ქულა მოწყობილობაზე შენახულია.',lbLastPushStatus==='pending');
+ }catch(e){lbLastError=String(e?.message||e);lbShowCloudStatus('⚠️ '+lbReadableError(),true);}
 }
 
 async function lbSave(){
@@ -363,7 +400,7 @@ async function lbSave(){
   document.getElementById('lb-status').textContent=lbT('saving');
   const rows=await lbPush(name,_pendingScore,_pendingLevel,_pendingWin);
   lbRender(rows,name);
-  document.getElementById('lb-status').textContent=lbLastPushStatus==='saved'?'✅ Firebase-ში შენახულია':'⚠️ ონლაინ ჩაწერა ვერ დადასტურდა — ლოკალურადაა';
+  document.getElementById('lb-status').textContent=lbLastPushStatus==='saved'?'✅ Firebase-ში შენახულია':'⚠️ '+lbReadableError();
 }
 
 function lbPlay(){
