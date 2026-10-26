@@ -74,6 +74,7 @@ const PiraliAlphaGear=(function(){
    ammo--;shootCD=window.PiraliShotgunBalance.fireCooldownFrames;updateUI();
    // Same frontal nearest-target rules as Mauser, including both generals.
    const angle=window.PiraliAim.choose();
+   P.ang=angle; // align drawn hunting shotgun with selected frontal target
    const x=P.x+Math.cos(angle)*(P.r+8),y=P.y+Math.sin(angle)*(P.r+8);
    const n=window.PiraliShotgunBalance.pelletCount;
    for(let i=0;i<n;i++){

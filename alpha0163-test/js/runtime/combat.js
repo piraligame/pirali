@@ -40,6 +40,7 @@ function shoot(){
   playGunshot();
   // Do not select foes behind the muzzle; respect the player's look direction.
   const ang=window.PiraliAim.choose();
+  P.ang=ang; // barrel, muzzle flash and bullet must face the SAME target
   const bx=P.x+Math.cos(ang)*(P.r+5),by=P.y+Math.sin(ang)*(P.r+5);
   bullets.push({x:bx,y:by,vx:Math.cos(ang)*BSPD,vy:Math.sin(ang)*BSPD,fp:true,alive:true,life:115});
   PiraliFX.shoot(bx,by,ang);
