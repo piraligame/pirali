@@ -49,30 +49,11 @@ function lbDevRecords(){
 }
 let lbLastRows=[];
 function lbShowPersonal(rows){
+  // The public leaderboard presents EXACTLY the ranked TOP 30.
+  // Personal records outside those 30 must not be repeated in a separate leaderboard card.
+  // The user's own statistics and achievements remain available in the dedicated Stats menu.
   const card=document.getElementById('lb-personal');
-  if(!card)return;
-  const name=localStorage.getItem('pirali_player_name')||'';
-  const ranked=lbBest(rows);
-  const bestName=lbNameKey(name);
-  const position=bestName?ranked.findIndex(x=>lbNameKey(x.name)===bestName):-1;
-  const label=document.createElement('span');
-  label.className='lb-personal-label';
-  label.textContent='🎖 '+lbT('myBest');
-  const value=document.createElement('strong');
-  value.className='lb-personal-score';
-  value.textContent=position>=0?ranked[position].score.toLocaleString():lbT(name?'noPersonalScore':'playToSeeBest');
-  const sub=document.createElement('span');
-  sub.className='lb-personal-rank';
-  sub.textContent=position>=0?'#'+(position+1)+' • '+ranked[position].name:'';
-  if(position>=0){
-    const row=ranked[position];
-    sub.textContent+=[
-      row.churchCleared?' ⛪':'',
-      row.hellCleared?' ✝️':'',
-      (row.devChurch||row.devHell)?' 🧪 DEV':''
-    ].join('');
-  }
-  card.replaceChildren(label,value,sub);
+  if(card){card.replaceChildren();card.hidden=true;}
 }
 
 let _pendingScore = 0, _pendingLevel = 0, _pendingWin = false;
@@ -175,7 +156,7 @@ function lbRender(rows, highlightName){
     return;
   }
 
-  // TOP 30; personal best remains visible below the ranking.
+  // TOP 30 only: one row per player, highest score with milestones; no extra personal row.
   safe.slice(0,LB_LIMIT).forEach(function(r, i){
     const rank = i + 1;
     const row  = document.createElement('div');

@@ -146,3 +146,6 @@
 .pirali-privacy-panel{height:min(94vh,1000px);width:min(100%,820px);background:#15100c;border:1px solid #d3a351;border-radius:10px;display:flex;flex-direction:column;overflow:hidden}
 .pirali-privacy-close{font-size:26px;color:#f3dbab;background:#2d1c0a;border:0;padding:9px 17px;cursor:pointer;align-self:flex-end}
 .pirali-privacy-panel iframe{border:none;width:100%;flex:1;background:#17130d}
+
+/* Alpha 0.16.1: leaderboard shows only the ranked TOP 30. Personal stats remain separate. */
+#lb-overlay #lb-personal{display:none!important}
