@@ -22,6 +22,8 @@ function lbBest(rows){
     if(!row||typeof row!=='object'||typeof row.name!=='string')continue;
     const key=lbNameKey(row.name);
     if(!key||!Number.isFinite(row.score)||row.score<=0)continue;
+    // Official season must never display a developer/prerelease test result.
+    if(window.PiraliSeasonReleaseEnabled===true&&(row.dev===true||row.practice===true))continue;
     const lv=Number(row.level);
     const validLevel=Number.isInteger(lv)&&lv>=1&&lv<=11;
     const won=row.win===true;
