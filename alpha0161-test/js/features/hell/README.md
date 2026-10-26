@@ -1,11 +1,29 @@
-# SIMONA'S HELL — modular features
-These scripts are loaded at the end of `alpha0161-test/index.html` in the following order:
+# სიმონას ჯოჯოხეთი — 0.16.1d მოდულები
 
-1. `text.js` — shared four-language strings (window.PiraliHellText)
-2. `score-bonus.js` — +20% points earned in stage six, capped at +5000
-3. `scenery.js` — fiery atmosphere and embers
-4. `gate.js` — replacement for church: Gate of Fire
-5. `devil.js` — animated Devil appearance (horns, wings, trident)
-6. `boss-hud.js` — localized boss title
+აქედან თითო ფუნქციის პოვნა მარტივია:
 
-Actual gameplay belongs in `../../runtime/` and `../../config/`. This directory owns stage-six visuals and score decoration only. No Firebase writes are performed here.
+| ფაილი | რისთვის არის |
+|---|---|
+| `text.js` | კარიბჭის სახელი და ნივთების წარწერები ოთხივე ენაზე |
+| `score-bonus.js` | +20%-იანი ჩვეულებრივი ქულები; მეექვსე ტურის 5000-ქულიანი ზღვარი; ეშმაკის გულის აღებისას ამ ზღვრამდე შევსება |
+| `enemy-spacing.js` | მეექვსე ტურის ჯარისკაცების გზაზე მიმოფანტვა და დაჯგუფების აცილება |
+| `loot.js` | ყოველი ბატონისგან სიცოცხლის გულის ჩამოგდება; ეშმაკისგან 5000-ქულიანი გულის ჩამოგდება და მისი აღება |
+| `heart-art.js` | ოქროსფრად ანთებული გული, წარწერით „5000“ |
+| `scenery.js` | ჯოჯოხეთის ცეცხლოვანი გარემო |
+| `gate.js` | კარიბჭე „ჯოჯოხეთის ცეცხლოვანი კარიბჭე“ — ეშმაკის სიკვდილის შემდეგაც რჩება |
+| `devil.js` | ბოსი ეშმაკის გრაფიკა |
+| `boss-hud.js` | ეშმაკის სიცოცხლის ზოლი |
+
+`../../runtime/world.js`: ჯარისკაცების რაოდენობა შეიცვალა 3×-დან 1×-მდე (სამჯერ ნაკლები). ბატონები არ შეგვიმცირებია.
+
+`../../runtime/combat.js`: მხოლოდ პატარა გამძახებელი ადგილებია დატოვებული (`PiraliHellLoot.batoni`, `PiraliHellLoot.devil`).
+
+`../../runtime/update.js`: გულის აღების გამძახებელი, ხოლო დანარჩენი pickup ტიპები უცვლელია.
+
+`../../runtime/render.js`: სპეციალური გულის ვიზუალის გამძახებელი.
+
+### ქულების წესი
+მეექვსე ტურში 5000 მაქსიმალური ქულის შეთანხმება შენარჩუნებულია.
+ეშმაკის გულის აღებისას ამ ტურში დაგროვილი ქულა **5000-მდე ივსება**; თუ ჯარისკაცებით მანამდე უკვე მოგროვილია ნაწილი, ბოლო ჯამი არ გადასცდება ამ ზღვარს.
+
+მოქმედი, ძველი GitHub ვერსიები და Firebase უცვლელია; ცვლილებები მხოლოდ `alpha0161-test/`-შია.

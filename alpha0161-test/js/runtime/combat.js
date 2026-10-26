@@ -113,7 +113,7 @@ function killEnemy(e){
     if(level===5){
       finalVictoryPending=true;finalChurchNotice=false;score+=5000;updateScoreUI();
       showBanner('ეკლესიის კარი გაიღო! შედი ეკლესიაში.');
-    }else if(level===6){score+=60;updateScoreUI();}
+    }else if(level===6){window.PiraliHellLoot?.batoni(e);score+=60;updateScoreUI();}
     return;
   }
   // Kill streak bonus
@@ -142,7 +142,7 @@ function hitBoss(b,dmg=1){
   // Phase 2 transition is handled by update() (one source of truth).
   updateBossUI();
   if(b.hp<=0){b.alive=false;window.PiraliStats?.kill();score+=(level===6?1000:1000*level);updateScoreUI();hideBossUI();
-    if(level===6){finalChurchNotice=false;showBanner('ეშმაკი დამარცხებულია! შედი ცეცხლიან კარიბჭეში.');}
+    if(level===6){window.PiraliHellLoot?.devil(b);finalChurchNotice=false;showBanner('ჯოჯოხეთის ცეცხლოვანი კარიბჭე გაიღო!');}
     for(let i=0;i<30;i++) spawnPart(b.x,b.y,(Math.random()-.5)*10,(Math.random()-.5)*10,30,i%4===0?'#f0c020':'#cc1818',4+Math.random()*4);
     corpses.push({x:b.x,y:b.y,ang:b.ang,r:b.r,etype:'boss'});
     if(level===5&&!finalLordSpawned)spawnLandlordNPC(b.x,b.y);

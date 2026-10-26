@@ -27,3 +27,10 @@ Separate six-stage test cloned from alpha015-test. Existing alpha015-play and al
 - `css/result-screen.css`: responsive styles and large touch target.
 - Shows offline provisional rank when Firebase GET is unreachable; shows unranked for zero-score or resumed checkpoint runs.
 - DEV scores remain local-only and never write to Firebase. Public TOP 30 unchanged.
+
+## 0.16.1d — hell balance and loot
+- 3× fewer regular Hell soldiers (`normalCount`, formerly `normalCount * 3`), evenly scattered across the route.
+- 12 Batoni preserved, each always drops +1 HP pickup when killed.
+- Devil always drops collectible, gold-rendered 5000-point heart. Claim fills Hell stage points up to 5000 without exceeding prior cap.
+- Persistent flaming gate labeled exactly `ჯოჯოხეთის ცეცხლოვანი კარიბჭე`; death banner translated.
+- Logic and graphics in separate Hell modules, not one HTML file.
