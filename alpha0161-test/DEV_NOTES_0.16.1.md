@@ -34,3 +34,9 @@ Separate six-stage test cloned from alpha015-test. Existing alpha015-play and al
 - Devil always drops collectible, gold-rendered 5000-point heart. Claim fills Hell stage points up to 5000 without exceeding prior cap.
 - Persistent flaming gate labeled exactly `ჯოჯოხეთის ცეცხლოვანი კარიბჭე`; death banner translated.
 - Logic and graphics in separate Hell modules, not one HTML file.
+
+## 0.16.1e — top-30 frame, version, sword and soldier tuning
+- `js/features/leaderboard/frame.js`, `css/leaderboard-frame.css`: actual 30-row container replaces viewport-sized decorative border.
+- `js/menu.js`: bottom version text now `PIRALI • ALPHA 0.16.1 DEV`.
+- `js/features/combat/sword-cooldown.js`: existing sword cooldown reduced an additional 20%, faster attacks.
+- `js/runtime/world.js`: sixth-stage soldiers 40% of 0.16.1d, rounded; Batoni and Devil unchanged.

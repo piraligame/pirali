@@ -1,5 +1,5 @@
 /* PIRALI 0.16.1 — separate soldier distribution for the sixth stage.
-   Core world.js already spawns 1/3 of the old Hell soldier count.
+   Core world.js now spawns 40% of the previous 0.16.1d soldier count.
    This module redistributes those soldiers away from clusters and the gate. */
 (function(){
 'use strict';

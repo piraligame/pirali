@@ -123,7 +123,7 @@ function genWorld(){
   const ehp=level<=2?1:level<=4?2:PIRALI_BALANCE.finalBaseEnemyHp;
   const usableSegs=path.length-6; // skip first 2 (start) + last 4 (church approach)
   const normalCount=Math.floor(usableSegs*(0.85+level*0.096));
-  const totalEnemies=level===6?normalCount:level===5?Math.max(1,Math.ceil(normalCount*PIRALI_BALANCE.finalEnemyMultiplier)):normalCount;
+  const totalEnemies=level===6?Math.max(1,Math.round(normalCount/2.5)):level===5?Math.max(1,Math.ceil(normalCount*PIRALI_BALANCE.finalEnemyMultiplier)):normalCount;
   for(let e2=0;e2<totalEnemies;e2++){
     const segIdx=2+Math.floor((e2/totalEnemies)*usableSegs);
     const ep=path[Math.min(segIdx,path.length-5)]; // clamp away from church
