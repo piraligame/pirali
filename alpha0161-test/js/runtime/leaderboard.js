@@ -204,6 +204,7 @@ async function lbShow(){
   const nameEl=document.getElementById('lb-name');
   nameEl.value=localStorage.getItem('pirali_player_name')||'';
   document.getElementById('lb-name-row').style.display='none';
+  window.PiraliLeaderboardScrollGuard?.setOpen(true);
   document.getElementById('lb-overlay').style.display='flex';
   setTimeout(()=>nameEl.focus(),120);
 
@@ -274,6 +275,7 @@ async function lbSave(){
 
 function lbPlay(){
   document.getElementById('lb-overlay').style.display='none';
+  window.PiraliLeaderboardScrollGuard?.setOpen(false);
   document.getElementById('lb-play').style.display='none';
   startGame();
 }

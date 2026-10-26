@@ -99,6 +99,7 @@
   back.textContent='← მთავარ მენიუში დაბრუნება';
   back.addEventListener('click',function(){
     leaderboard.style.display='none';
+    window.PiraliLeaderboardScrollGuard?.setOpen(false);
     back.style.display='none';
     if(typeof goToMenu==='function')goToMenu();
   });

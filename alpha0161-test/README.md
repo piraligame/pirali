@@ -51,3 +51,9 @@ DEV შედეგის ადგილი სატესტო შეფა�
 - `js/features/combat/sword-cooldown.js`: ხელახლა მოქნევის რეალური დაყოვნება **1500 ms** ყველა ტურში; კადრების რაოდენობაზე აღარ არის დამოკიდებული.
 - `js/features/leaderboard/scroll-guard.js` + `css/leaderboard-scroll-guard.css`: ცალკე მუქი ფონი რეიტინგის უკან, რომ სწრაფი სქროლისას თამაშის ფონი არ გამოჩნდეს.
 - TOP 30, 6-ე ტურის ჯარისკაცების რაოდენობა, ბატონის სიცოცხლე, ეშმაკის გული და Firebase უცვლელია.
+
+## 0.16.1g — Alpha 0.15 ხმალი და მობილური TOP 30
+- `js/runtime/combat.js`: `swordSwing()` 0.15 სათამაშო ვერსიიდან პირდაპირ აღდგენილია უცვლელად, ყველა მისი cooldown/კომბო პარამეტრით. 1.5 წამი გაუქმდა.
+- `js/features/combat/`: ძველი cooldown-ფაილი აღარ გამოიყენება.
+- `js/features/leaderboard/scroll-guard.js` + `css/leaderboard-scroll-guard.css`: TOP 30-ის გახსნამდე თამაშის წითელი სროლის ღილაკი და სხვა fixed თამაშის UI იმალება; დახურვის შემდეგ ბრუნდება.
+- `js/runtime/leaderboard.js` და `js/menu.js`: გახსნის/დახურვის სინქრონული ფუნქციები; Firebase უცვლელია.

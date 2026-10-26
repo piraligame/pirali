@@ -1,18 +1,35 @@
-/* PIRALI DEV 0.16.1 — anti-overscroll backdrop for TOP 30.
-   A fixed opaque sibling stays in place even if the long leaderboard's
-   scrolling layer is briefly displaced during a fast mobile fling. */
+/* PIRALI 0.16.1 DEV — guard against Chrome bottom overscroll flash.
+   Hide the fixed shooter button and the rest of the gameplay WHILE
+   the leaderboard is open; they restore immediately when it closes. */
 #pirali-lb-overscroll-backdrop{
  position:fixed;inset:0;z-index:299;
  display:none;pointer-events:none;
- background-color:#030201;
+ background:#030201;
  background-image:radial-gradient(ellipse at 50% 30%,#170e05 0%,#030201 85%);
 }
 #pirali-lb-overscroll-backdrop.is-open{display:block}
 html,body{overscroll-behavior-y:none}
 #lb-overlay{
- overscroll-behavior-x:none;
- overscroll-behavior-y:none;
+ overscroll-behavior-x:none;overscroll-behavior-y:none;
  touch-action:pan-y;
  background-color:#030201;
  background-image:radial-gradient(ellipse at 50% 30%,#170e05 0%,#030201 85%);
 }
+/* The overlay itself stays visible. Underlying game layers are hidden to
+   prevent dynamic-viewport compositing from revealing the pistol button. */
+html.pirali-leaderboard-open,
+html.pirali-leaderboard-open body{background:#030201!important}
+html.pirali-leaderboard-open :is(
+ #gameCanvas,#screen,#ui,#progress-bar,#level-badge,#dash-cd,#boss-bar,
+ #ammo-bar,#joy-zone,#joy-base,#joy-knob,#action-zone,#btn-shoot,
+ #alpha-weapon-switch,#alpha-shell-hud,#btn-pause,#inventory,
+ #lvlbanner,#sword-flash,#dash-flash,#dflash,#parry-flash
+){visibility:hidden!important;pointer-events:none!important}
+/* CSS fallback is immediate as soon as inline display:flex is set,
+   before a MutationObserver callback can run on slower mobile devices. */
+body:has(#lb-overlay[style*="display: flex"]) :is(
+ #gameCanvas,#screen,#ui,#progress-bar,#level-badge,#dash-cd,#boss-bar,
+ #ammo-bar,#joy-zone,#joy-base,#joy-knob,#action-zone,#btn-shoot,
+ #alpha-weapon-switch,#alpha-shell-hud,#btn-pause,#inventory,
+ #lvlbanner,#sword-flash,#dash-flash,#dflash,#parry-flash
+){visibility:hidden!important;pointer-events:none!important}

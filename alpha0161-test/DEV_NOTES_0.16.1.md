@@ -48,3 +48,9 @@ Separate six-stage test cloned from alpha015-test. Existing alpha015-play and al
 - No Firebase changes. Live and previous-version links unchanged.
 
 - Combo interval extended from ~0.5s to ~2s to preserve combo moves after the 1.5-second sword gate.
+
+## 0.16.1g — restore original 0.15 sword and fix weapon icon overscroll
+- `swordSwing()` is byte-for-byte identical to `alpha015-play/js/runtime/combat.js` (CD normal 27.2 frames, combo 19.2, timer 30; parry 190ms).
+- Remove 1500ms cooldown module and its index.html inclusion.
+- On TOP 30, synchronously add `pirali-leaderboard-open` class and hide underlying canvas/HUD/action-zone/shoot button; restore on close. A MutationObserver remains as fallback.
+- Separate scroll-guard JS and CSS updated. Existing scores remain read-only.
