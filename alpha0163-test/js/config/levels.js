@@ -1,4 +1,4 @@
-// PIRALI Alpha 0.16.2 DEV — 10 stage roster, four languages.
+// PIRALI Alpha 0.16.3 DEV — eleven stages, four languages.
 const PIRALI_LEVELS=[
   {
     "number": 1,
@@ -79,5 +79,13 @@ const PIRALI_LEVELS=[
     "ru": "Ад Симоны",
     "zh": "西蒙娜的地狱",
     "environment": "hell"
+  },
+  {
+    "number": 11,
+    "ka": "სიმონა უსასრულოდ",
+    "en": "Simona Forever",
+    "ru": "Симона бесконечно",
+    "zh": "西蒙娜无尽之战",
+    "environment": "endless"
   }
 ];

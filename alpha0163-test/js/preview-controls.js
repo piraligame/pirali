@@ -19,7 +19,7 @@ function ready(){
  const levelNames=PIRALI_LEVELS.map(x=>x.ka);
  let selected=1;
  const levelButtons=[];
- for(let n=1;n<=10;n++){
+ for(let n=1;n<=11;n++){
   const b=document.createElement('button');b.type='button';b.dataset.level=String(n);b.textContent=String(n);
   b.style.cssText=btnstyle;
   b.addEventListener('pointerdown',e=>e.stopPropagation());
@@ -68,7 +68,7 @@ function ready(){
  }
  const finalBoss=toggleBtn('⚔️ ბოლო ბოსთან გადასვლა',visitFinal);
  finalBoss.dataset.boss='visit';
- const note=document.createElement('div');note.textContent='Alpha 0.16.2 · 10-ტურიანი DEV';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
+ const note=document.createElement('div');note.textContent='Alpha 0.16.3 · 11-ტურიანი DEV';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
  el.append(header,row,title,immortality,finalBoss,note);document.body.appendChild(el);
  const inner=[row,title,immortality,finalBoss,note];let folded=true;
  function fold(next){folded=next;inner.forEach(n=>n.style.display=folded?'none':(n===row?'grid':'block'));

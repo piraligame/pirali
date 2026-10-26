@@ -16,7 +16,8 @@ const LEVEL_ENV=[null,
  {w:'night',ground:'night',sky:['#080c18','#101828','#0c1420'],tod:'ღამე'},
  {w:'dusk',ground:'desert',sky:['#583c70','#81638b','#c19080'],tod:'უსასრულობა'},
  {w:'night',ground:'night',sky:['#15294d','#253a59','#251f3c'],tod:'ალყა'},
- {w:'dusk',ground:'desert',sky:['#431014','#8c241b','#e25c23'],tod:'ჯოჯოხეთი'}
+ {w:'dusk',ground:'desert',sky:['#431014','#8c241b','#e25c23'],tod:'ჯოჯოხეთი'},
+ {w:'night',ground:'night',sky:['#182337','#324460','#66758c'],tod:'უსასრულოდ'}
 ];
 
 let running=false,score=0,health=5,maxHealth=5,ammo=8,maxAmmo=8,level=1;
@@ -66,7 +67,7 @@ function genWorld(){
   PiraliFX.reset(); // Reset visual-only effects between stages.
   window.PiraliAlphaGear?.reset();
   path=[];trees=[];enemies=[];bullets=[];parts=[];pickups=[];corpses=[];ambients=[];bloodDecals=[];_floats.length=0;done=false;boss=null;finalLordSpawned=false;finalVictoryPending=false;finalChurchNotice=false;
-  const env=LEVEL_ENV[Math.min(level,10)];
+  const env=LEVEL_ENV[Math.min(level,11)];
   weather=env.w;weatherAlpha=0;
 
   // Mountains — regenerate each level

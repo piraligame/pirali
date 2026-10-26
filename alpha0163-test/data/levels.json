@@ -1,5 +1,5 @@
 {
-  "description": "Mirror of js/config/levels.js, 10-stage DEV.",
+  "description": "Mirror of js/config/levels.js, 11-level DEV.",
   "levels": [
     {
       "number": 1,
@@ -80,6 +80,14 @@
       "ru": "Ад Симоны",
       "zh": "西蒙娜的地狱",
       "environment": "hell"
+    },
+    {
+      "number": 11,
+      "ka": "სიმონა უსასრულოდ",
+      "en": "Simona Forever",
+      "ru": "Симона бесконечно",
+      "zh": "西蒙娜无尽之战",
+      "environment": "endless"
     }
   ]
 }

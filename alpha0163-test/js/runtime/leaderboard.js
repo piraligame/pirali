@@ -1,8 +1,8 @@
 const FB_URL  = 'https://pirali-game-default-rtdb.firebaseio.com';
 const LB_PATH = FB_URL + '/scores';
-const LB_KEY  = 'pirali_lb_alpha0162_dev';
+const LB_KEY  = 'pirali_lb_alpha0163_dev';
 const LB_LIMIT=30;
-const DEV_RUN_KEY='pirali_lb_alpha0162_local_runs';
+const DEV_RUN_KEY='pirali_lb_alpha0163_local_runs';
 function lbT(key){return window.PiraliLanguage?window.PiraliLanguage.t(key):({empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',saved:'✅ შენახულია',players:'მოთამაშე'})[key]||key;}
 
 
@@ -20,11 +20,11 @@ function lbBest(rows){
     const key=lbNameKey(row.name);
     if(!key||!Number.isFinite(row.score)||row.score<=0)continue;
     const lv=Number(row.level);
-    const validLevel=Number.isInteger(lv)&&lv>=1&&lv<=10;
+    const validLevel=Number.isInteger(lv)&&lv>=1&&lv<=11;
     const won=row.win===true;
     // Legacy (pre-Hell) level-5 wins retain their church badge.
     const church=row.churchCleared===true || (validLevel&&(lv>=8||(lv===7&&won)||(lv===5&&won)));
-    const hell=row.hellCleared===true || (validLevel&&lv===10&&won);
+    const hell=row.hellCleared===true || (validLevel&&(lv===11||(lv===10&&won)));
     const devChurch=row.devChurch===true||(row.dev===true&&church);
     const devHell=row.devHell===true||(row.dev===true&&hell);
     const previous=byName.get(key);
@@ -99,7 +99,7 @@ async function lbPush(name, sc, lv, win){
     level : lv,
     win   : !!win,
     churchCleared: Number(lv)>=8 || (Number(lv)===7&&!!win),
-    hellCleared: Number(lv)>=10&&!!win,
+    hellCleared: Number(lv)>=11 || (Number(lv)===10&&!!win),
     ts    : Date.now()
   };
   if(window.PiraliVisualPreviewReadonly){

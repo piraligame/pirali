@@ -2,6 +2,7 @@ function update(dt){
   if(!running||P.dead)return;
   frame++;
   window.PiraliDualGenerals?.updateSecond(dt);
+  window.PiraliEndless?.tick(dt);
   PiraliFX.tick(dt);
   weatherTime+=dt;
 
@@ -54,7 +55,7 @@ function update(dt){
   if(health<=2)lowHpPulse=(lowHpPulse+dt*.06)%(Math.PI*2);
 
   // Stage 5 and stage 6 end only when Simona actually enters the exit.
-  if(!done&&Math.hypot(P.x-CHURCH_X,P.y-CHURCH_Y)<120){
+  if(level!==11&&!done&&Math.hypot(P.x-CHURCH_X,P.y-CHURCH_Y)<120){
     if(level===7&&(!boss||!boss.alive)&&finalLordSpawned&&finalVictoryPending){
       done=true;window.PiraliStats?.completeStage(7);level=8;ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();updateScoreUI();
       playLevelUp();const nextLevel=level;window.PiraliCheckpoint?.save(nextLevel);
@@ -99,8 +100,17 @@ function update(dt){
       }
     }else if(level===10){
       if(boss&&!boss.alive){
-        done=true;running=false;showBanner('სიმონამ ჯოჯოხეთი გაიარა!');
-        setTimeout(()=>{if(level===10&&done&&!P.dead)showVictory();},850);
+        done=true;window.PiraliStats?.completeStage(10);
+        level=11;updateScoreUI();
+        ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();playLevelUp();
+        const nextLevel=level;window.PiraliCheckpoint?.save(nextLevel);
+        const runId=window.PiraliCheckpoint?.getSession();
+        showBanner('სიმონამ ჯოჯოხეთი გაიარა! ბონუს ტური: სიმონა უსასრულოდ.');
+        setTimeout(()=>{
+          if(running&&level===nextLevel&&!P.dead&&runId===window.PiraliCheckpoint?.getSession()){
+            genWorld();window.PiraliStats?.stageReady(nextLevel);showBanner(LEVEL_NAMES[nextLevel]);
+          }
+        },1550);
       }else if(!finalChurchNotice){
         showBanner('ჯერ დაამარცხე ეშმაკი!');finalChurchNotice=true;
       }
@@ -128,7 +138,7 @@ function update(dt){
       else if(pk.type==='ammo'){ammo=Math.min(maxAmmo,ammo+5);updateAmmoUI();}
       else if(pk.type==='health'){health=Math.min(maxHealth,health+1);updateHealthUI();}
       else if(pk.type==='herb'){health=Math.min(maxHealth,health+2);updateHealthUI();inventory.herbs++;updateInventoryUI();}
-      else if(pk.type==='medal'){score+=(level===10?100:250*level);updateScoreUI();inventory.medals++;updateInventoryUI();}
+      else if(pk.type==='medal'){if(level!==11){score+=(level===10?100:250*level);updateScoreUI();}inventory.medals++;updateInventoryUI();}
       for(let i=0;i<10;i++) spawnPart(pk.x,pk.y,(Math.random()-.5)*5,(Math.random()-.5)*5,16,
         pk.type==='health'?'#e84040':pk.type==='herb'?'#44cc44':pk.type==='medal'?'#f0c020':'#d09820',4);
     }

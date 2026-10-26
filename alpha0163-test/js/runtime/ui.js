@@ -51,9 +51,9 @@ function goToMenu(){
 document.addEventListener('keydown',e=>{if(e.key==='Escape'||e.key==='p'||e.key==='P'){if(running||paused)togglePause();}});
 function updateAmmoUI(){const c=document.getElementById('bullets');c.innerHTML='';for(let i=0;i<maxAmmo;i++){const b=document.createElement('div');b.className='bi'+(i>=ammo?' e':'');c.appendChild(b);}}
 function updateProgressUI(){
-  document.getElementById('prog-fill').style.width=Math.min(100,(1-P.y/WH)*100)+'%';
+  document.getElementById('prog-fill').style.width=level===11?'100%':Math.min(100,(1-P.y/WH)*100)+'%';
   const badge=document.getElementById('level-badge');
-  if(badge){const tod=((LEVEL_ENV[Math.min(level,10)]||{}).tod||'');badge.textContent=window.PiraliLanguage?window.PiraliLanguage.translateLevel(level,tod):LEVEL_NAMES[Math.min(level,10)];}
+  if(badge){const tod=((LEVEL_ENV[Math.min(level,11)]||{}).tod||'');badge.textContent=window.PiraliLanguage?window.PiraliLanguage.translateLevel(level,tod):LEVEL_NAMES[Math.min(level,11)];}
 }
 function updateInventoryUI(){
   const hi=document.getElementById('inv-herbs');const mi=document.getElementById('inv-medals');
