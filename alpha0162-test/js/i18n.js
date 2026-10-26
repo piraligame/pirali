@@ -124,10 +124,18 @@
   let current='ka';
   try{const stored=localStorage.getItem(KEY);if(['ka','en','ru','zh'].includes(stored))current=stored;}catch(e){}
   // Translations for the current five level environments (kept out of game logic).
+  const tenStageBanners={
+    'ჯერ დაამარცხე ორივე გენერალი!':{
+      ka:'ჯერ დაამარცხე ორივე გენერალი!',en:'Defeat both generals first!',
+      ru:'Сначала победи обоих генералов!',zh:'先击败两名将军！'},
+    'ჯერ დაამარცხე ალყის 30 მსროლელი!':{
+      ka:'ჯერ დაამარცხე ალყის 30 მსროლელი!',en:'Defeat all 30 shooters!',
+      ru:'Сначала победи 30 стрелков!',zh:'先击败30名射手！'}
+  };
   const timeLabels={
-    en:{'დღე':'Day','შუადღე':'Noon','ცხელი სიცხე':'Heatwave','მწუხრი':'Dusk','ღამე':'Night'},
-    ru:{'დღე':'День','შუადღე':'Полдень','ცხელი სიცხე':'Жара','მწუხრი':'Сумерки','ღამე':'Ночь'},
-    zh:{'დღე':'白天','შუადღე':'中午','ცხელი სიცხე':'酷暑','მწუხრი':'黄昏','ღამე':'夜晚'}
+    en:{'დღე':'Day','შუადღე':'Noon','ცხელი სიცხე':'Heatwave','მწუხრი':'Dusk','ღამე':'Night','განახლება':'Ganakhleba','სამება':'Sameba','უსასრულობა':'Infinity','ალყა':'Siege','ჯოჯოხეთი':'Hell'},
+    ru:{'დღე':'День','შუადღე':'Полдень','ცხელი სიცხე':'Жара','მწუხრი':'Сумерки','ღამე':'Ночь','განახლება':'Ганахлеба','სამება':'Самеба','უსასრულობა':'Бесконечность','ალყა':'Окружение','ჯოჯოხეთი':'Ад'},
+    zh:{'დღე':'白天','შუადღე':'中午','ცხელი სიცხე':'酷暑','მწუხრი':'黄昏','ღამე':'夜晚','განახლება':'加纳赫莱巴','სამება':'萨梅巴','უსასრულობა':'无尽','ალყა':'围攻','ჯოჯოხეთი':'地狱'}
   };
   function getLevelName(n){
     const entry=PIRALI_LEVELS[Number(n)-1];
@@ -136,7 +144,7 @@
   function levelTitle(n){return t('level')+' '+n+' — '+getLevelName(n);}
   function translateTime(text){return (timeLabels[current]||{})[text]||text;}
   function translateBanner(text){
-    const devBanners={
+    const devBanners={...tenStageBanners,
       'ეკლესიის კარი გაიღო! შედი ეკლესიაში.':{
         ka:'ეკლესიის კარი გაიღო! შედი ეკლესიაში.',
         en:'The church is open! Enter to reach Simona’s Hell.',
@@ -250,13 +258,13 @@
         if(node)node.textContent=t('score')+': ';
         const small=p.querySelector('span');if(small)small.textContent=t('victoryText');
       }
-      if(typeof level==='number'&&level===6){
+      if(typeof level==='number'&&level===10){
         const hellFinal={
-          ka:['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეექვსე ტური დასრულებულია'],
-          en:['Simona conquered Hell!','The Devil has fallen — the gate is crossed','Stage six completed'],
+          ka:['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეათე ტური დასრულებულია'],
+          en:['Simona conquered Hell!','The Devil has fallen — the gate is crossed','Stage ten completed'],
           ru:['Симона прошёл ад!','Дьявол повержен — врата пройдены','Шестой этап завершён'],
           zh:['西蒙娜闯过了地狱！','恶魔已败——烈焰之门已穿越','第六关已完成']
-        }[current]||['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეექვსე ტური დასრულებულია'];
+        }[current]||['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეათე ტური დასრულებულია'];
         const title=s.querySelector('h1[style*="28px"]'),sub=s.querySelector('.tsub'),small=s.querySelector('.sbox p span');
         if(title)title.textContent=hellFinal[0];
         if(sub)sub.textContent=hellFinal[1];

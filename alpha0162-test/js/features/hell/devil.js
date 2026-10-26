@@ -3,7 +3,7 @@
 'use strict';
 const normalBoss=drawBoss;
 drawBoss=function(b){
- if(level!==6){normalBoss(b);return;}
+ if(level!==10){normalBoss(b);return;}
  const x=sx(b.x),y=sy(b.y);if(x< -120||x>W+120||y< -145||y>H+145)return;
  ctx.save();ctx.translate(x,y);ctx.scale(1.32,1.32);
  const beat=Math.sin(frame*.07),rage=b.rageMode;

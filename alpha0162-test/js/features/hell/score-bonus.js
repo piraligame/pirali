@@ -8,7 +8,7 @@ function resetAtCurrentScore(){
  tracking=true;baseline=score;previous=score;earned=0;
 }
 updateScoreUI=function(){
- if(level!==6){
+ if(level!==10){
    tracking=false;
    baseUpdateScore();
    return;
@@ -25,7 +25,7 @@ updateScoreUI=function(){
 // A 5000-point Devil heart fills the SIXTH-STAGE total to 5000, while
 // respecting the previously agreed maximum of 5000 level-six points.
 function claimHeart(){
- if(level!==6)return false;
+ if(level!==10)return false;
  if(!tracking)resetAtCurrentScore();
  earned=LIMIT;
  score=baseline+earned;previous=score;
@@ -33,6 +33,6 @@ function claimHeart(){
  return true;
 }
 window.PiraliHellScore=Object.freeze({
- claimHeart,stagePoints:()=>level===6?earned:0,cap:LIMIT
+ claimHeart,stagePoints:()=>level===10?earned:0,cap:LIMIT
 });
 })();

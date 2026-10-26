@@ -84,7 +84,7 @@ function update(dt){
       }
     }else if(level===9){
       if(window.PiraliSiege?.clear()){
-        done=true;window.PiraliStats?.completeStage(9);level=10;
+        done=true;window.PiraliStats?.completeStage(9);level=10;updateScoreUI();
         ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();playLevelUp();
         const nextLevel=level;window.PiraliCheckpoint?.save(nextLevel);
         const runId=window.PiraliCheckpoint?.getSession();

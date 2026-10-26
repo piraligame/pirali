@@ -40,7 +40,7 @@ function showVictory(){
   <h1 style="font-size:48px;">🔥</h1>
   <h1 style="font-size:28px;letter-spacing:2px;margin-top:-8px;">სიმონამ ჯოჯოხეთი გაიარა!</h1>
   <div class="tsub">ეშმაკი დამარცხებულია — კარიბჭე გადალახულია</div>
-  <div class="sbox"><p>ქულა: <strong style="color:#f0d020;font-size:24px;" class="score-reveal">${score.toLocaleString()}</strong><br><span style="font-size:11px;color:#907030;">Alpha 0.16.1 • სატესტო ვერსია</span></p></div>
+  <div class="sbox"><p>ქულა: <strong style="color:#f0d020;font-size:24px;" class="score-reveal">${score.toLocaleString()}</strong><br><span style="font-size:11px;color:#907030;">Alpha 0.16.2 • სატესტო ვერსია</span></p></div>
   <button class="sbtn" style="background:linear-gradient(180deg,#5c380a,#2e1a04);border-color:#d8a820;" onclick="document.getElementById('screen').style.display='none';lbShow()">🏆 რეკორდები</button>
   <button class="sbtn alpha-outcome-menu" onclick="goToMenu()">🏠 მთავარ მენიუში</button>`;
   s.style.display='flex';

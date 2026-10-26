@@ -4,7 +4,7 @@
 const t=window.PiraliHellText;
 const normalChurch=drawChurch;
 drawChurch=function(){
- if(level!==6){normalChurch();return;}
+ if(level!==10){normalChurch();return;}
  const x=sx(CHURCH_X),y=sy(CHURCH_Y);if(x< -210||x>W+210||y< -250||y>H+220)return;
  ctx.save();ctx.translate(x,y+34);
  const glow=ctx.createRadialGradient(0,-25,5,0,-25,210);

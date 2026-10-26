@@ -11,13 +11,13 @@ function addPickup(x,y,type){
  pickups.push(pk);return pk;
 }
 function batoni(e){
- if(level!==6||e?.etype!=='landlord')return;
+ if(level!==10||e?.etype!=='landlord')return;
  addPickup(e.x,e.y,'health');
  if(typeof showFloatingText==='function')
   showFloatingText(e.x,e.y-42,t('lifeDrop'),'#ff808e');
 }
 function devil(b){
- if(level!==6||!b)return;
+ if(level!==10||!b)return;
  // Make the collectible visible just south of the fallen boss, on the path
  // players take towards the flaming gate. It stays until picked up.
  const dx=P.x-b.x,dy=P.y-b.y,len=Math.hypot(dx,dy)||1;
@@ -28,7 +28,7 @@ function devil(b){
   showFloatingText(heart.x,heart.y-50,t('heartDrop'),'#ffe494');
 }
 function collect(pk){
- if(level!==6||!pk||pk.type!=='hell-heart')return false;
+ if(level!==10||!pk||pk.type!=='hell-heart')return false;
  window.PiraliHellScore?.claimHeart();
  if(typeof showFloatingText==='function')
   showFloatingText(pk.x,pk.y-38,t('heartTaken'),'#ffe39a');

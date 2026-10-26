@@ -4,7 +4,7 @@
 const baseBackground=drawBG;
 drawBG=function(){
  baseBackground();
- if(level!==6)return;
+ if(level!==10)return;
  ctx.save();ctx.fillStyle='rgba(85,9,14,.28)';ctx.fillRect(0,0,W,H);
  for(const a of trees){
   if(a.kind!=='dead'&&a.kind!=='rock')continue;
