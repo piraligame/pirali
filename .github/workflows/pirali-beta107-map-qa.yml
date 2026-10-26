@@ -5,6 +5,10 @@ on:
     paths:
       - 'qa/pirali-beta107-map-qa.cjs'
       - '.github/workflows/pirali-beta107-map-qa.yml'
+      - 'beta107-*/js/features/map/story-map.js'
+      - 'beta107-*/assets/maps/pirali-road.svg'
+      - 'beta107-*/css/story-map.css'
+      - 'beta107-*/index.html'
   workflow_dispatch:
 permissions:
   contents: read
