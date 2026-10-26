@@ -262,7 +262,7 @@
         const hellFinal={
           ka:['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეათე ტური დასრულებულია'],
           en:['Simona conquered Hell!','The Devil has fallen — the gate is crossed','Stage ten completed'],
-          ru:['Симона прошёл ад!','Дьявол повержен — врата пройдены','Шестой этап завершён'],
+          ru:['Симона прошёл ад!','Дьявол повержен — врата пройдены','Десятый этап завершён'],
           zh:['西蒙娜闯过了地狱！','恶魔已败——烈焰之门已穿越','第十关已完成']
         }[current]||['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეათე ტური დასრულებულია'];
         const title=s.querySelector('h1[style*="28px"]'),sub=s.querySelector('.tsub'),small=s.querySelector('.sbox p span');
@@ -284,7 +284,7 @@
   }
   function apply(){
     document.documentElement.lang=current==='en'?'en-US':current==='ru'?'ru-RU':current==='zh'?'zh-CN':'ka';
-    document.title=t('page')+' · Alpha 0.16.1 DEV';
+    document.title=t('page')+' · Alpha 0.16.2 DEV';
     applyHud();applyMenu();applyLeaderboard();applyOutcome();applyIntro();
     if(typeof updateProgressUI==='function'&&typeof level==='number'&&typeof P!=='undefined')updateProgressUI();
   }
