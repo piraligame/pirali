@@ -1,0 +1,9 @@
+/* Pirali Alpha 0.16.1 — TOP 30 rank badges. */
+#lb-list .lb-name-col{display:flex;align-items:center;flex-wrap:wrap;gap:3px;min-width:0}
+#lb-list .lb-milestone-church,#lb-list .lb-milestone-hell,#lb-list .lb-milestone-dev{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:14px;line-height:1.15;flex-shrink:0;
+}
+#lb-list .lb-milestone-hell{color:#f8deb0;text-shadow:0 0 6px #d3a65f}
+#lb-list .lb-milestone-dev{font-size:11px;opacity:.76}
+@media(max-width:430px){#lb-list .lb-name-col{gap:2px;font-size:12px}#lb-list .lb-milestone-church,#lb-list .lb-milestone-hell{font-size:13px}}
