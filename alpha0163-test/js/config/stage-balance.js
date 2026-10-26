@@ -5,7 +5,7 @@ const PIRALI_STAGE_BALANCE=Object.freeze({
  perLevel:1.20,
  soldierBase(n){return n<=2?1:2;},
  soldierHp(n){
-   const stage=Math.max(1,Math.min(10,Number(n)||1));
+   const stage=Math.max(1,Math.min(11,Number(n)||1));
    // Preserve stages 1–3 exactly as in the approved early Alpha.
    // Add roughly 20% durability for each stage after stage three.
    if(stage<=2)return 1;

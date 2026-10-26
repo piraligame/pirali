@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#c89820">
   <!-- Android APK app icon is handled by native Android assets; no missing Apple icon reference. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ფირალი Alpha 0.16.2 DEV — 10 ტური</title>
+<title>ფირალი Alpha 0.16.3 DEV — 11 ტური</title>
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/style.css?v=20261016d">
 <link rel="stylesheet" href="css/menu.css?v=checkpoint-20261017a">
@@ -34,7 +34,7 @@ window.PiraliAlpha014Test=true;
   const url=typeof input==='string'?input:input?.url||'';
   const method=String(init?.method||input?.method||'GET').toUpperCase();
   if(/firebaseio\.com/i.test(url)&&method!=='GET'&&method!=='HEAD'){
-   return Promise.reject(new Error('PIRALI Alpha 0.16.2 DEV: Firebase writes disabled'));
+   return Promise.reject(new Error('PIRALI Alpha 0.16.3 DEV: Firebase writes disabled'));
   }
   return nativeFetch(input,init);
  };
@@ -110,16 +110,16 @@ window.PiraliAlpha014Test=true;
   <button class="sbtn" onclick="bgmStop();document.getElementById('screen').style.display='none';showIntro(startGame)">თამაშის დაწყება</button>
 </div>
 <script src="js/runtime/audio.js"></script>
-<script src="js/config/levels.js?v=alpha0162c"></script>
+<script src="js/config/levels.js?v=alpha0163b"></script>
 <script src="js/config/balance.js?v=final-20261016a"></script>
-<script src="js/config/stage-balance.js?v=alpha0162e"></script>
+<script src="js/config/stage-balance.js?v=alpha0163b"></script>
 <script src="js/config/alpha-gear-v2.js?v=alpha0162c"></script>
-<script src="js/runtime/world.js?v=alpha0162d"></script>
-<script src="js/runtime/combat.js?v=alpha0162a"></script>
-<script src="js/runtime/update.js?v=alpha0162a"></script>
+<script src="js/runtime/world.js?v=alpha0163b"></script>
+<script src="js/runtime/combat.js?v=alpha0163b"></script>
+<script src="js/runtime/update.js?v=alpha0163b"></script>
 <script src="js/runtime/render.js?v=alpha0162a"></script>
 <script src="js/effects/combat-fx.js?v=combatfx-20261017a"></script>
-<script src="js/levels/environment-alpha012.js?v=alpha0162colors"></script>
+<script src="js/levels/environment-alpha012.js?v=alpha0163b"></script>
 <script src="js/levels/biomes-alpha013.js?v=alpha013-biomes2-3a"></script>
 <script src="js/levels/historical-phase4.js?v=alpha0162colors"></script>
 <script src="js/levels/roads-alpha013.js?v=alpha0162colors"></script>
@@ -131,18 +131,18 @@ window.PiraliAlpha014Test=true;
 <script src="js/characters/simona-weapons-only.js?v=alpha014-approved-study-d"></script>
 <script>window.PiraliHybrid014.enable(true);</script>
 <script src="js/characters/batoni-art-preview.js?v=alpha012-motion-phase2b"></script>
-<script src="js/runtime/ui.js?v=final-20261016a"></script>
-<script src="js/progression/checkpoints.js?v=alpha0162c"></script>
-<script src="js/runtime/leaderboard.js?v=alpha0162c"></script>
-<script src="js/runtime/outcome.js?v=alpha0162c"></script>
+<script src="js/runtime/ui.js?v=alpha0163b"></script>
+<script src="js/progression/checkpoints.js?v=alpha0163b"></script>
+<script src="js/runtime/leaderboard.js?v=alpha0163b"></script>
+<script src="js/runtime/outcome.js?v=alpha0163b"></script>
 <script src="js/runtime/intro.js"></script>
 <script src="js/runtime/game-init.js?v=alpha0161g"></script>
 <script src="js/main.js?v=stats-20261017a"></script>
-<script src="js/i18n.js?v=alpha0162e"></script>
-<script src="js/progression/player-stats.js?v=alpha0162c"></script>
-<script src="js/menu.js?v=alpha0162c"></script>
+<script src="js/i18n.js?v=alpha0163b"></script>
+<script src="js/progression/player-stats.js?v=alpha0163b"></script>
+<script src="js/menu.js?v=alpha0163b"></script>
 <script src="js/platform/mobile-lifecycle.js?v=stats-20261017a"></script>
-<script src="js/preview-controls.js?v=alpha0162c"></script>
+<script src="js/preview-controls.js?v=alpha0163b"></script>
   <!-- Alpha 0.16.2 modular stage 10 Hell features: loaded in dependency order. -->
 <script src="js/features/hell/text.js?v=alpha0161d"></script>
 <script src="js/features/hell/score-bonus.js?v=alpha0162c"></script>

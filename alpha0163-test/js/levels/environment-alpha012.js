@@ -11,7 +11,7 @@ const oldBG=drawBG,BIOMES=[
  {name:'Udabno',tint:'rgba(151,61,24,.34)',leaf:'#956039',hi:'#e8bb7d',ground:'#713b26'},
  {name:'Udabnos Eklesia',tint:'rgba(8,24,69,.39)',leaf:'#354e49',hi:'#c9a063',ground:'#172e3e'}
 ];
-const visualStage=n=>({4:4,5:1,6:4,7:5,8:4,9:5,10:5}[n]||Math.min(5,Math.max(1,n)));
+const visualStage=n=>({4:4,5:1,6:4,7:5,8:4,9:5,10:5,11:2}[n]||Math.min(5,Math.max(1,n)));
 const TS=256,tiles=new Map();
 let enabled=true,lastPath=null,lastLevel=0,objects=[];
 const randFn=(seed)=>{let s=seed|0;return()=>{s=(Math.imul(s,1664525)+1013904223)|0;return(s>>>0)/4294967296;};};
