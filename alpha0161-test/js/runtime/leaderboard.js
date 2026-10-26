@@ -1,6 +1,8 @@
 const FB_URL  = 'https://pirali-game-default-rtdb.firebaseio.com';
 const LB_PATH = FB_URL + '/scores';
 const LB_KEY  = 'pirali_lb_alpha0161_dev';
+const LB_LIMIT=30;
+const DEV_RUN_KEY='pirali_lb_alpha0161_local_runs';
 function lbT(key){return window.PiraliLanguage?window.PiraliLanguage.t(key):({empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',saved:'✅ შენახულია',players:'მოთამაშე'})[key]||key;}
 
 
@@ -10,17 +12,40 @@ function lbNameKey(name){
   return String(name || '').normalize('NFKC').replace(/\s+/g,' ').trim().toLowerCase();
 }
 function lbBest(rows){
+  // Merge milestones across every run for the same normalized name, not just
+  // the highest-scoring run. A later defeat must not erase a completed stage.
   const byName=new Map();
   for(const row of (Array.isArray(rows)?rows:[])){
     if(!row||typeof row!=='object'||typeof row.name!=='string')continue;
     const key=lbNameKey(row.name);
     if(!key||!Number.isFinite(row.score)||row.score<=0)continue;
+    const lv=Number(row.level);
+    const validLevel=Number.isInteger(lv)&&lv>=1&&lv<=6;
+    const won=row.win===true;
+    // Legacy (pre-Hell) level-5 wins retain their church badge.
+    const church=row.churchCleared===true || (validLevel&&(lv>=6||(lv===5&&won)));
+    const hell=row.hellCleared===true || (validLevel&&lv===6&&won);
+    const devChurch=row.devChurch===true||(row.dev===true&&church);
+    const devHell=row.devHell===true||(row.dev===true&&hell);
     const previous=byName.get(key);
-    if(!previous||row.score>previous.score){
-      byName.set(key,{...row,name:row.name.normalize('NFKC').replace(/\s+/g,' ').trim()});
-    }
+    const merged={
+      ...(previous&&previous.score>=row.score?previous:row),
+      name:(previous&&previous.score>=row.score?previous.name:row.name).normalize('NFKC').replace(/\s+/g,' ').trim(),
+      churchCleared:Boolean(previous?.churchCleared||church),
+      hellCleared:Boolean(previous?.hellCleared||hell),
+      devChurch:Boolean(previous?.devChurch||devChurch),
+      devHell:Boolean(previous?.devHell||devHell)
+    };
+    byName.set(key,merged);
   }
   return [...byName.values()].sort((a,b)=>b.score-a.score||lbNameKey(a.name).localeCompare(lbNameKey(b.name)));
+}
+function lbDevRecords(){
+  // Developer preview saves only on this device. Never migrate into Firebase.
+  try{
+    const rows=JSON.parse(localStorage.getItem(DEV_RUN_KEY)||'[]');
+    return Array.isArray(rows)?rows.slice(-100).filter(r=>r?.dev===true):[];
+  }catch(e){return [];}
 }
 let lbLastRows=[];
 function lbShowPersonal(rows){
@@ -39,6 +64,14 @@ function lbShowPersonal(rows){
   const sub=document.createElement('span');
   sub.className='lb-personal-rank';
   sub.textContent=position>=0?'#'+(position+1)+' • '+ranked[position].name:'';
+  if(position>=0){
+    const row=ranked[position];
+    sub.textContent+=[
+      row.churchCleared?' ⛪':'',
+      row.hellCleared?' ✝️':'',
+      (row.devChurch||row.devHell)?' 🧪 DEV':''
+    ].join('');
+  }
   card.replaceChildren(label,value,sub);
 }
 
@@ -64,7 +97,7 @@ async function lbFetch(){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if(!data || typeof data !== 'object') return [];
-    const rows = lbBest(Object.values(data));
+    const rows = lbBest([...Object.values(data),...lbDevRecords()]);
     lcSave(rows);
     return rows;
   }catch(e){
@@ -75,8 +108,7 @@ async function lbFetch(){
 
 // ── push one score to Firebase ──
 async function lbPush(name, sc, lv, win){
-  // NEVER send alpha014 test points to production leaderboard.
-  if(window.PiraliVisualPreviewReadonly)return lcLoad();
+  // Resumed games are unranked, including in the local developer preview.
   // Checkpoint runs are unranked; never send their points to Firebase.
   if(window.PiraliCheckpoint?.isResumedRun())return lcLoad();
   if(!sc || sc <= 0) { const r = await lbFetch(); return r || lcLoad(); }
@@ -85,8 +117,18 @@ async function lbPush(name, sc, lv, win){
     score : sc,
     level : lv,
     win   : !!win,
+    churchCleared: Number(lv)>=6 || (Number(lv)===5&&!!win),
+    hellCleared: Number(lv)>=6&&!!win,
     ts    : Date.now()
   };
+  if(window.PiraliVisualPreviewReadonly){
+    const drafts=lbDevRecords();
+    drafts.push({...entry,dev:true});
+    try{localStorage.setItem(DEV_RUN_KEY,JSON.stringify(drafts.slice(-100)))}catch(e){}
+    const merged=lbBest([...lcLoad(),...drafts,entry]);
+    lcSave(merged);
+    return merged;
+  }
   // Push to Firebase first; only update local cache when push succeeds
   let pushOk = false;
   try{
@@ -133,8 +175,8 @@ function lbRender(rows, highlightName){
     return;
   }
 
-  // Present TOP 20; personal record is shown separately, even below 20th place.
-  safe.slice(0, 20).forEach(function(r, i){
+  // TOP 30; personal best remains visible below the ranking.
+  safe.slice(0,LB_LIMIT).forEach(function(r, i){
     const rank = i + 1;
     const row  = document.createElement('div');
     let cls = 'lb-row';
@@ -149,7 +191,10 @@ function lbRender(rows, highlightName){
     else if(rank === 2) rankHtml = '<span class="lb-rank silver">🥈</span>';
     else if(rank === 3) rankHtml = '<span class="lb-rank bronze">🥉</span>';
 
-    const winBadge = r.win ? ' <span style="font-size:9px;color:#c89820;">⛪</span>' : '';
+    const winBadge=(r.churchCleared?
+      '<span class="lb-milestone-church" title="მეხუთე ტური დასრულებულია">⛪</span>':'')+
+      (r.hellCleared?'<span class="lb-milestone-hell" title="სიმონას ჯოჯოხეთი გავლილია">✝️</span>':'')+
+      ((r.devChurch||r.devHell)?'<span class="lb-milestone-dev" title="მხოლოდ ლოკალური სატესტო ჩანაწერი">🧪</span>':'');
     // Firebase values are untrusted; never inject a raw level field into HTML.
     const lvl=Number(r.level);
     const lvlBadge=Number.isFinite(lvl)&&lvl>0&&lvl<=99 ? '<span class="lb-lvl">Lv' + Math.floor(lvl) + '</span>' : '';
@@ -208,7 +253,7 @@ async function lbShow(){
     if(rows !== null){
       try{ lbRender(rows,null); }catch(e){ console.warn('lbRender error',e); }
       document.getElementById('lb-status').textContent=
-        rows.length?`🌐 ${rows.length} ${lbT('players')}`:'🌐 '+lbT('empty');
+        rows.length?`🌐 ${rows.length} ${lbT('players')}${lbDevRecords().length?' • 🧪 DEV ლოკალური':''}`:'🌐 '+lbT('empty');
     } else {
       // Firebase unreachable — show local cache
       const local=lcLoad();

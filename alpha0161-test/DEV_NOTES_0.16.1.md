@@ -10,3 +10,13 @@ Separate six-stage test cloned from alpha015-test. Existing alpha015-play and al
 - Stage 6: +20% points per earned event, capped to +5000 from this level.
 - Developer six-level selector, optional invincibility and boss teleport.
 - No live leaderboard writes. Development checkpoint, personal-stat, leaderboard cache isolated locally.
+
+## 0.16.1b — modularity, TOP 30 and milestones
+- New explicit folder `js/features/hell/` replaces former single `js/features/alpha0161-visuals.js` include.
+- New separate badge CSS and folder README.
+- Best score + historical milestones combined per normalized username.
+- Church badge: previously won level 5 or entered level 6.
+- Cross: `level >= 6 && win === true`. Developer-only scores have 🧪.
+- No write to Firebase. Local DEV runs stored under isolated `pirali_lb_alpha0161_local_runs` key.
+- Stage 6 time and new achievements Stage Six and Hell Conquered in four languages.
+- Existing live alpha-play and test variants remain unchanged.
