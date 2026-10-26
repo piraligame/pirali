@@ -7,7 +7,7 @@
   "aabBuilt": false,
   "developerOnly": true,
   "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
-  "qa": "BETA 1.06 pending automated verification",
+  "qa": "PASS: 4/4 Playwright Chrome DESKTOP/MOBILE DEV/PLAYER all stage-11 gameplay, 7000 points, house entry, enemy count, stage-6 trees, stage9 15, mock Firebase. Additional exit QA pending.",
   "revision": "beta106-road-home-15-foes-7k",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
@@ -37,7 +37,7 @@
   "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
   "legacyAlpha015LeaderboardPath": "/scores",
   "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
-  "firebaseLiveValidation": "Read-only/previous Beta evidence; BETA 1.05 final victory PUT simulated in browser, not sent live",
+  "firebaseLiveValidation": "NOT VERIFIED at 7000; current Firebase rules may still cap at 5500",
   "displayVersion": "BETA 1.06 DEV",
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "role": "developer-preview",
@@ -84,5 +84,6 @@
       400,
       600
     ]
-  }
+  },
+  "qaReport": "QA_BETA106.md"
 }
