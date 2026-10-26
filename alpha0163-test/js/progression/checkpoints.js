@@ -16,7 +16,10 @@
     if(typeof raw.savedAt!=='number'||!Number.isFinite(raw.savedAt)||raw.savedAt<0)return null;
     return {
       version:1,level:raw.level,health:raw.health,ammo:raw.ammo,score:raw.score,
-      inventory:{herbs:raw.inventory.herbs,medals:raw.inventory.medals},savedAt:raw.savedAt
+      inventory:{herbs:raw.inventory.herbs,medals:raw.inventory.medals},savedAt:raw.savedAt,
+      shotgun:raw.shotgun&&typeof raw.shotgun==='object'&&raw.shotgun.owned===true?
+        {owned:true,shells:int(raw.shotgun.shells,0,16)?raw.shotgun.shells:0,
+         selected:raw.shotgun.selected==='shotgun'?'shotgun':'mauser'}:null
     };
   }
   function get(){
@@ -34,6 +37,7 @@
       const current=normalize({
         version:1,level:nextLevel,health,ammo,score,
         inventory:{herbs:inventory.herbs,medals:inventory.medals},
+        shotgun:window.PiraliAlphaGear?.status?.()||null,
         savedAt:Date.now()
       });
       if(!current)return false;

@@ -1,4 +1,4 @@
-/* PIRALI Alpha — level 5 hunting shotgun and shell pickups. */
+/* PIRALI DEV: stage-7 shotgun stays owned on ALL later stages, with random shell drops. */
 const PiraliAlphaGear=(function(){
  'use strict';
  const style=document.createElement('style');
@@ -15,15 +15,36 @@ const PiraliAlphaGear=(function(){
  let owned=false,ammo=0,selected='mauser',lastNotice=0;
  const originalIcon='assets/icons/mauser-pistol.png?v=20261016a';
  function reset(){
+   // Only at the start of a NEW RUN, never on genWorld stage changes.
    owned=false;ammo=0;selected='mauser';
    updateUI();
  }
+ function onStageEnter(){updateUI();}
+ function restore(snapshot){
+   const valid=!!snapshot&&snapshot.owned===true;
+   owned=valid;
+   ammo=valid&&Number.isInteger(snapshot.shells)?
+     Math.min(16,Math.max(0,snapshot.shells)):0;
+   selected=valid&&snapshot.selected==='shotgun'?'shotgun':'mauser';
+   updateUI();
+ }
+ function maybeDropShell(enemy){
+   if(!owned||level<7||!enemy||Math.random()>=.26)return false;
+   pickups.push({x:enemy.x+(Math.random()-.5)*28,
+     y:enemy.y+(Math.random()-.5)*28,bob:Math.random()*6.28,
+     col:false,type:'alpha-shells'});
+   return true;
+ }
  function scatterOnFinal(path,pickups,level){
-   if(level!==7&&level!==10)return;
+   if(level<7)return;
    const loc=(index,dx,type)=>{const node=path[Math.max(1,Math.min(path.length-2,index))];
      if(node)pickups.push({x:node.x+dx,y:node.y,bob:Math.random()*6.28,col:false,type});};
-   loc(3,12,'alpha-shotgun');
-   loc(5,-55,'alpha-shells');loc(11,45,'alpha-shells');loc(path.length-7,-55,'alpha-shells');
+   // Allow a second chance to find it in Hell if it was missed at church.
+   if(!owned&&(level===7||level===10))loc(3,12,'alpha-shotgun');
+   if(owned||level===7||level===10){
+     loc(5,-55,'alpha-shells');loc(11,45,'alpha-shells');
+     loc(path.length-7,-55,'alpha-shells');
+   }
    loc(7,52,'ammo');loc(path.length-9,50,'ammo');
  }
  function pickup(pk){
@@ -75,7 +96,7 @@ const PiraliAlphaGear=(function(){
    const shoot=document.getElementById('btn-shoot');
    const image=shoot?.querySelector('img');
    if(button){
-     button.hidden=!owned||(typeof level!=='undefined'&&level!==7&&level!==10);
+     button.hidden=!owned;
      // 0.14 test B1: keep the weapon switch a single accessible tap target.
      // Four painted SHOTGUN SHELLS + the real remaining shell count stay on it.
      const name=document.createElement('span');
@@ -158,7 +179,7 @@ const PiraliAlphaGear=(function(){
    document.addEventListener('pirali:languagechange',updateUI);
    updateUI();
  }
- window.PiraliAlphaGear=Object.freeze({reset,scatterOnFinal,pickup,switchWeapon,fireIfSelected,updateUI,drawPickup,
+ window.PiraliAlphaGear=Object.freeze({reset,onStageEnter,restore,maybeDropShell,scatterOnFinal,pickup,switchWeapon,fireIfSelected,updateUI,drawPickup,
   status:()=>({owned,shells:ammo,selected})});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});
  else initialize();

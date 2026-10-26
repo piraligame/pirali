@@ -136,6 +136,8 @@ function killEnemy(e){
   if(bloodDecals.length>40)bloodDecals.shift();
   for(let i=0;i<16;i++) spawnPart(e.x,e.y,(Math.random()-.5)*8,(Math.random()-.5)*8,26,i%3===0?'#7a0808':'#cc1818',3+Math.random()*3.5);
   if(Math.random()>.35) pickups.push({x:e.x+(Math.random()-.5)*22,y:e.y+(Math.random()-.5)*22,bob:Math.random()*6.28,col:false,type:Math.random()>.8?'health':'ammo'});
+  // Separate 26% shotgun shell chance once this run owns the hunting gun.
+  window.PiraliAlphaGear?.maybeDropShell(e);
 
 }
 

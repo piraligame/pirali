@@ -32,6 +32,8 @@ function startGame(savedProgress=null){
   level=restore?restore.level:1;
   inventory.herbs=restore?restore.inventory.herbs:0;
   inventory.medals=restore?restore.inventory.medals:0;
+  window.PiraliAlphaGear?.reset();
+  if(restore?.shotgun)window.PiraliAlphaGear?.restore(restore.shotgun);
   swordCombo=0;swordComboTimer=0;swordCD=0; // reset 0.15-style sword on each new run
   shakePow=0;killStreak=0;killStreakTimer=0;_floats.length=0;bloodDecals=[];
   paused=false;document.getElementById('pause-overlay').style.display='none';
