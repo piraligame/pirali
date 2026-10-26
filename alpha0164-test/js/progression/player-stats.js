@@ -3,7 +3,7 @@
  */
 (function(){
   'use strict';
-  const KEY='pirali_personal_stats_alpha0163_dev',OLD_KEY='pirali_personal_stats_alpha0162_dev',PROFILE_LIMIT=16;
+  const KEY='pirali_personal_stats_alpha0164_11stage_s1_dev',PROFILE_LIMIT=16;
   const labels={
     ka:{button:'📊 ჩემი სტატისტიკა',heading:'ჩემი სტატისტიკა',device:'ინახება მხოლოდ ამ მოწყობილობაზე',close:'← დაბრუნება',runs:'დაწყებული თამაშები',wins:'გამარჯვებები',defeats:'დამარცხებები',kills:'დამარცხებული მტრები',bestScore:'საუკეთესო ქულა',bestRun:'საუკეთესო სრული დრო',levels:'ტურების საუკეთესო დროები',achievements:'მიღწევები',timer:'დრო',practice:'სავარჯიშო გაგრძელება',ranked:'თავიდან დაწყებული',locked:'ჯერ არ არის მიღწეული',none:'—',firstBlood:'პირველი ბრძოლა',tenKills:'10 მტერი',stageThree:'მესამე ტურამდე',stageFive:'მეხუთე ტურამდე',victory:'გამარჯვება!',stageSix:'მეექვსე ტური',stageEight:'მერვე ტური',stageNine:'მეცხრე ტური',stageTen:'მეათე ტური',stageEleven:'სიმონა უსასრულოდ',endless100:'100 მტერი',survival:'გადარჩენის რეკორდი',hell:'ჯოჯოხეთი',scoreNote:'სტატისტიკა მხოლოდ ამ მოწყობილობაზეა; TOP 30 ცალკე რეიტინგშია.'},
     en:{button:'📊 MY STATS',heading:'MY STATS',device:'Stored only on this device',close:'← BACK',runs:'Runs started',wins:'Victories',defeats:'Defeats',kills:'Enemies defeated',bestScore:'Best score',bestRun:'Fastest full run',levels:'Fastest level times',achievements:'Achievements',timer:'Time',practice:'Practice resume',ranked:'New ranked run',locked:'Not unlocked yet',none:'—',firstBlood:'First blood',tenKills:'10 enemies',stageThree:'Reached level 3',stageFive:'Reached level 5',victory:'Victory!',stageSix:'Stage Six',stageEight:'Stage Eight',stageNine:'Stage Nine',stageTen:'Stage Ten',stageEleven:'Simona Forever',endless100:'100 enemies',survival:'Longest survival',hell:'Hell Conquered',scoreNote:'Statistics are local; TOP 30 is in the separate ranking.'},
@@ -30,24 +30,8 @@
   }
   function loadStore(){
     try{
-      let raw=localStorage.getItem(KEY);
-       // Copy the earlier DEV stats once, without altering the old test.
-       if(!raw){
-         const old=localStorage.getItem(OLD_KEY);
-         if(old&&old.length<=32000){
-           try{
-             const prior=JSON.parse(old);
-             if(prior?.version===1&&prior.profiles&&typeof prior.profiles==='object'){
-               for(const v of Object.values(prior.profiles)){
-                 if(Array.isArray(v?.stageBestMs)&&v.stageBestMs.length===10)
-                   v.stageBestMs.push(null);
-               }
-               raw=JSON.stringify(prior);
-               localStorage.setItem(KEY,raw);
-             }
-           }catch(err){console.warn('PIRALI stats migration skipped',err);}
-         }
-       }
+      // Fresh 11-stage season: NEVER import legacy 5-stage or previous DEV statistics.
+      const raw=localStorage.getItem(KEY);
       if(!raw||raw.length>32000)return {version:1,profiles:{}};
       const data=JSON.parse(raw);
       if(data?.version!==1||!data.profiles||typeof data.profiles!=='object'||Array.isArray(data.profiles))throw Error('invalid stats');

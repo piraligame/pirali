@@ -1,7 +1,7 @@
 /* PIRALI checkpoints: local-only, at completed-level boundaries. No Firebase writes. */
 (function(){
   'use strict';
-  const KEY='pirali_checkpoint_alpha0164_dev';
+  const KEY='pirali_checkpoint_alpha0164_11stage_s1_dev';
   let resumedRun=false;
   let session=0;
   const text=key=>window.PiraliLanguage?window.PiraliLanguage.t(key):key;

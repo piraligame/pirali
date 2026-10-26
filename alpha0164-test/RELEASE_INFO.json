@@ -8,5 +8,9 @@
   "developerOnly": true,
   "note": "DEV only: enemies -15% HP, enemy ammo/shell drops +15%, new 11-stage leaderboard read-only. Legacy Firebase migration pending authorized access.",
   "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending.",
-  "revision": "0.16.4b"
+  "revision": "0.16.4c-s1",
+  "season": "11stage_release_s1_2026",
+  "startLevel": 1,
+  "startScore": 0,
+  "firebasePath": "/scores_11stage_release_s1_2026"
 }

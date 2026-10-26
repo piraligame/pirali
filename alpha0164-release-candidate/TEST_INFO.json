@@ -1,0 +1,22 @@
+{
+  "version": "0.16.4",
+  "role": "release-candidate-web-only",
+  "stages": 11,
+  "previewControls": false,
+  "firebaseWritesBlocked": true,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "qa": "Developer-only source inspection and gameplay smoke checks; mobile playtest pending.",
+  "base": "0.16.3l DEV",
+  "revision": "0.16.4c-s1",
+  "enemyHpMultiplier": 0.85,
+  "ammoDropMultiplier": 1.15,
+  "leaderboardPath": "/scores_11stage_season2",
+  "firebaseLegacyMigration": "PENDING: admin access and backup required",
+  "season": "11stage_release_s1_2026",
+  "startLevel": 1,
+  "startScore": 0,
+  "newPlayerStats": true,
+  "firebasePath": "/scores_11stage_release_s1_2026",
+  "releaseReady": false
+}

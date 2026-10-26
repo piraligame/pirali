@@ -1,10 +1,10 @@
 const FB_URL  = 'https://pirali-game-default-rtdb.firebaseio.com';
 // New eleven-stage season stays isolated from pre-2026 five-stage /scores records.
-// Existing Firebase /scores will only be edited after authenticated archive/migration.
-const LB_PATH = FB_URL + '/scores_11stage_season2';
-const LB_KEY  = 'pirali_lb_alpha0164_season2';
+// Legacy /scores are archived intact; new release season begins with an empty independent path.
+const LB_PATH = FB_URL + '/scores_11stage_release_s1_2026';
+const LB_KEY  = 'pirali_lb_alpha0164_11stage_s1_dev';
 const LB_LIMIT=30;
-const DEV_RUN_KEY='pirali_lb_alpha0164_season2_local_runs';
+const DEV_RUN_KEY='pirali_lb_alpha0164_11stage_s1_dev_runs';
 function lbT(key){return window.PiraliLanguage?window.PiraliLanguage.t(key):({empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',saved:'✅ შენახულია',players:'მოთამაშე'})[key]||key;}
 
 
@@ -50,7 +50,7 @@ function lbDevRecords(){
   }catch(e){return [];}
 }
 let lbLastRows=[];
-const SEASON_LABEL='🏆 11-ტურიანი ახალი რეიტინგი';
+const SEASON_LABEL='🏆 11-ტურიანი სეზონი — ახალი შედეგები';
 function lbShowPersonal(rows){
   // The public leaderboard presents EXACTLY the ranked TOP 30.
   // Personal records outside those 30 must not be repeated in a separate leaderboard card.
@@ -105,7 +105,8 @@ async function lbPush(name, sc, lv, win){
     hellCleared: Number(lv)>=11 || (Number(lv)===10&&!!win),
     ts    : Date.now()
   };
-  if(window.PiraliVisualPreviewReadonly){
+  // No DEV/RC scores may enter Firebase before a formally enabled release.
+  if(window.PiraliVisualPreviewReadonly || window.PiraliSeasonReleaseEnabled!==true){
     const drafts=lbDevRecords();
     drafts.push({...entry,dev:true});
     try{localStorage.setItem(DEV_RUN_KEY,JSON.stringify(drafts.slice(-100)))}catch(e){}
