@@ -96,7 +96,7 @@ async function lbFetch(){
     const res = await fetch(LB_PATH + '.json'); // GET only: read existing data, no write or migration
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    if(!data || typeof data !== 'object') return [];
+    if(!data || typeof data !== 'object') return lbBest(lbDevRecords());
     const rows = lbBest([...Object.values(data),...lbDevRecords()]);
     lcSave(rows);
     return rows;

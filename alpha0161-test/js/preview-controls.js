@@ -27,6 +27,7 @@ function ready(){
    e.preventDefault();e.stopPropagation();
    if(typeof running==='undefined'||!running||typeof level==='undefined'||typeof genWorld!=='function')return;
    selected=n;level=n;genWorld();updateScoreUI();
+   window.PiraliStats?.stageReady(n);
    if(typeof updateAmmoUI==='function')updateAmmoUI();
    for(let k=0;k<levelButtons.length;k++)levelButtons[k].style.background=k+1===selected?'#97713e':'#414536';
    title.textContent=levelNames[n-1]||'';
@@ -52,6 +53,7 @@ function ready(){
  function visitFinal(){
    if(typeof running==='undefined'||!running)return;
    const target=level===6?6:5;level=target;genWorld();
+   window.PiraliStats?.stageReady(target);
    const destination=boss||{x:CHURCH_X,y:CHURCH_Y};
    P.x=Math.max(P.r,Math.min(WW-P.r,destination.x));
    P.y=Math.max(P.r,Math.min(WH-P.r,destination.y+195));
