@@ -17,7 +17,7 @@ const LEVEL_ENV=[null,
  {w:'dusk',ground:'desert',sky:['#583c70','#81638b','#c19080'],tod:'უსასრულობა'},
  {w:'hot',ground:'desert',sky:['#f6b24c','#eb812d','#bd531a'],tod:'ალყა'},
  {w:'dusk',ground:'desert',sky:['#431014','#8c241b','#e25c23'],tod:'ჯოჯოხეთი'},
- {w:'night',ground:'night',sky:['#182337','#324460','#66758c'],tod:'უსასრულოდ'}
+ {w:'night',ground:'night',sky:['#34363b','#74777e','#adafb4'],tod:'უსასრულოდ'}
 ];
 
 let running=false,score=0,health=5,maxHealth=5,ammo=8,maxAmmo=8,level=1;

@@ -285,7 +285,8 @@ function drawWeatherOverlay(){
 
 // ── TREES ──
 function drawTrees(){
-  const env=LEVEL_ENV[Math.min(level,10)];
+  const env=LEVEL_ENV[Math.min(level,11)];
+  ctx.save();if(level===11)ctx.filter='grayscale(1)';
   const isDesert=env.ground==='desert';const isNight=env.ground==='night';
   const vis=trees.filter(t=>{const x=sx(t.x),y=sy(t.y);return x>-t.r*3&&x<W+t.r*3&&y>-t.r*3&&y<H+t.r*3;}).sort((a,b)=>a.y-b.y);
   vis.forEach(t=>{
@@ -295,6 +296,10 @@ function drawTrees(){
     ctx.save();ctx.globalAlpha=isNight?.14:.2;ctx.fillStyle='#0a0e04';
     ctx.beginPath();ctx.ellipse(tx+4,ty+7,t.r*1.05,t.r*.44,.18,0,Math.PI*2);ctx.fill();ctx.restore();
 
+    if(t.kind==='grave-cross'){
+      window.PiraliGraveyard?.drawCross(ctx,t,tx,ty);
+      return;
+    }
     if(t.kind==='rock'){
       // Desert boulder
       const rg=ctx.createRadialGradient(tx-t.r*.3,ty-t.r*.3,0,tx,ty,t.r);
@@ -375,6 +380,7 @@ function drawTrees(){
       ctx.beginPath();ctx.arc(tx-t.r*.2,ty-t.r*.18,t.r*.34,0,Math.PI*2);ctx.fill();
     }
   });
+  ctx.restore();
 }
 
 // ── CHURCH ──
