@@ -136,6 +136,28 @@
   function levelTitle(n){return t('level')+' '+n+' — '+getLevelName(n);}
   function translateTime(text){return (timeLabels[current]||{})[text]||text;}
   function translateBanner(text){
+    const devBanners={
+      'ეკლესიის კარი გაიღო! შედი ეკლესიაში.':{
+        ka:'ეკლესიის კარი გაიღო! შედი ეკლესიაში.',
+        en:'The church is open! Enter to reach Simona’s Hell.',
+        ru:'Церковь открыта! Войди, чтобы попасть в ад Симоны.',
+        zh:'教堂已开启！进入后前往西蒙娜的地狱。'},
+      'ჯერ დაამარცხე ეშმაკი!':{
+        ka:'ჯერ დაამარცხე ეშმაკი!',en:'Defeat the Devil first!',
+        ru:'Сначала победи дьявола！',zh:'先击败恶魔！'},
+      'ეშმაკი დამარცხებულია! შედი ცეცხლიან კარიბჭეში.':{
+        ka:'ეშმაკი დამარცხებულია! შედი ცეცხლიან კარიბჭეში.',
+        en:'The Devil is defeated! Enter the Gate of Fire.',
+        ru:'Дьявол повержен! Войди в огненные врата.',
+        zh:'恶魔已被击败！进入烈焰之门。'},
+      '🔥 ეშმაკი მძვინვარებს!':{
+        ka:'🔥 ეშმაკი მძვინვარებს!',en:'🔥 The Devil is enraged!',
+        ru:'🔥 Дьявол в ярости!',zh:'🔥 恶魔暴怒！'},
+      'სიმონამ ჯოჯოხეთი გაიარა!':{
+        ka:'სიმონამ ჯოჯოხეთი გაიარა!',en:'Simona conquered Hell!',
+        ru:'Симона прошёл ад!',zh:'西蒙娜闯过了地狱！'}
+    };
+    if(devBanners[text])return devBanners[text][current]||devBanners[text].ka;
     if(text==='ბატონი გამოჩნდა!\nერთი დარტყმით დაამარცხე!')return gameText('landlordAppears');
     if(text==='ჯერ დაამარცხე გენერალი და ბატონი!')return gameText('churchBlocked');
     if(text==='⚠ RAGE ⚠\nბოსი გააფთრდა!')return gameText('generalRage');
@@ -223,6 +245,18 @@
         if(node)node.textContent=t('score')+': ';
         const small=p.querySelector('span');if(small)small.textContent=t('victoryText');
       }
+      if(typeof level==='number'&&level===6){
+        const hellFinal={
+          ka:['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეექვსე ტური დასრულებულია'],
+          en:['Simona conquered Hell!','The Devil has fallen — the gate is crossed','Stage six completed'],
+          ru:['Симона прошёл ад!','Дьявол повержен — врата пройдены','Шестой этап завершён'],
+          zh:['西蒙娜闯过了地狱！','恶魔已败——烈焰之门已穿越','第六关已完成']
+        }[current]||['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეექვსე ტური დასრულებულია'];
+        const title=s.querySelector('h1[style*="28px"]'),sub=s.querySelector('.tsub'),small=s.querySelector('.sbox p span');
+        if(title)title.textContent=hellFinal[0];
+        if(sub)sub.textContent=hellFinal[1];
+        if(small)small.textContent=hellFinal[2];
+      }
     }
   }
   function applyIntro(){
@@ -237,7 +271,7 @@
   }
   function apply(){
     document.documentElement.lang=current==='en'?'en-US':current==='ru'?'ru-RU':current==='zh'?'zh-CN':'ka';
-    document.title=t('page');
+    document.title=t('page')+' · Alpha 0.16.1 DEV';
     applyHud();applyMenu();applyLeaderboard();applyOutcome();applyIntro();
     if(typeof updateProgressUI==='function'&&typeof level==='number'&&typeof P!=='undefined')updateProgressUI();
   }
