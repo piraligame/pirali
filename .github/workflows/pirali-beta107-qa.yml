@@ -1,0 +1,29 @@
+name: PIRALI BETA 1.07 browser QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'qa/pirali-beta107-qa.cjs'
+      - 'qa/pirali-beta107-extended.cjs'
+      - '.github/workflows/pirali-beta107-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright and browser
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Serve checked-out BETA 1.07 and verify DEV/PLAYER on desktop/mobile
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pirali-qa-web.log 2>&1 &
+          node qa/pirali-beta107-qa.cjs
+          node qa/pirali-beta107-extended.cjs
