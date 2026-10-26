@@ -9,6 +9,13 @@
 let lastKill=null;
 let previousStage=null;
 const STORY_WINDOW=2000,ENDLESS_WINDOW=1000;
+const COMBO_LABELS=Object.freeze({
+ ka:'კომბო',en:'COMBO',ru:'КОМБО',zh:'连击'
+});
+function comboLabel(){
+ const lang=window.PiraliLanguage?.getLanguage?.()||'ka';
+ return COMBO_LABELS[lang]||COMBO_LABELS.ka;
+}
 function reset(){lastKill=null;previousStage=level;}
 function award(base,x,y){
  if(previousStage!==level)reset();
@@ -22,7 +29,7 @@ function award(base,x,y){
  updateScoreUI(); // all story awards are clamped and scaled here
  const gained=score-before;
  if(typeof showFloatingText==='function')
-  showFloatingText(x,y-24,(paired?'⚡ COMBO ×2 ':'')+'+'+gained,
+  showFloatingText(x,y-24,(paired?'⚡ '+comboLabel()+' ×2 ':'')+'+'+gained,
     paired?'#ffd363':'#ffe29a');
  return {paired,raw,gained};
 }

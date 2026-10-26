@@ -28,6 +28,10 @@ function choose(x=P.x,y=P.y,facing=P.ang){
  return best?Math.atan2(best.y-y,best.x-x):facing;
 }
 function segmentCircle(x0,y0,x1,y1,x,y,r){
+ // Broad-phase rejection: avoids quadratic math for off-screen/remote
+ // solid scenery, important on the 80-enemy endless survival map.
+ if(x<Math.min(x0,x1)-r||x>Math.max(x0,x1)+r||
+    y<Math.min(y0,y1)-r||y>Math.max(y0,y1)+r)return null;
  const vx=x1-x0,vy=y1-y0,px=x0-x,py=y0-y;
  const a=vx*vx+vy*vy;
  if(a<1e-8)return px*px+py*py<=r*r?0:null;
