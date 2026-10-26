@@ -116,24 +116,44 @@ function lbQueue(entry){
  if(!rows.some(r=>r.runId===entry.runId))rows.push(entry);
  lbSetPending(rows);
 }
+// Write directly to a unique record child, not to the parent with POST.
+ // The Firebase /pirali_beta_rating/$record ".write" rule is evaluated for PUT.
+function lbRecordUrl(entry){
+ const key=String(entry?.runId||'');
+ if(!/^beta10-[a-z0-9]+-[a-z0-9]{8,12}$/.test(key))throw Error('Invalid Beta record key');
+ return LB_PATH+'/'+key+'.json';
+}
+function lbSameEntry(data,entry){
+ return Boolean(data&&data.runId===entry.runId&&data.season===SEASON_ID&&
+  data.score===entry.score&&data.name===entry.name&&data.level===entry.level);
+}
 async function lbPostEntry(entry){
- const res=await fetch(LB_PATH+'.json',{
-  method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(entry)
- });
- if(!res.ok){
-   let serverMessage='';
-   try{
-     if(typeof res.text==='function'){
-       const raw=(await res.text()).slice(0,320);
-       const obj=JSON.parse(raw);
-       serverMessage=String(obj?.error||'').slice(0,100);
-     }
-   }catch(e){}
-   throw Error('Firebase HTTP '+res.status+(serverMessage?' • '+serverMessage:''));
+ const url=lbRecordUrl(entry);
+ let res;
+ try{res=await fetch(url,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(entry)});}
+ catch(e){throw Error('Network: '+String(e?.message||e));}
+ if(res.ok){
+  const receipt=await res.json();
+  if(!lbSameEntry(receipt,entry))throw Error('Firebase did not confirm Beta entry');
+  return entry.runId;
  }
- const receipt=await res.json();
- if(!receipt||typeof receipt.name!=='string'||!receipt.name)throw Error('No Firebase confirmation');
- return receipt.name;
+ // A previous PUT may have succeeded even if its response was lost; only
+ // treat the retry as saved when Firebase returns the exact same record.
+ let existing=null;
+ try{
+  const read=await fetch(url);
+  if(read.ok)existing=await read.json();
+ }catch(e){}
+ if(lbSameEntry(existing,entry))return entry.runId;
+ let message='';
+ try{
+  if(typeof res.text==='function'){
+   const raw=(await res.text()).slice(0,320);
+   const body=JSON.parse(raw);
+   message=String(body?.error||'').slice(0,100);
+  }
+ }catch(e){}
+ throw Error('Firebase HTTP '+res.status+(message?' • '+message:''));
 }
 async function lbRetryPending(force=false){
  if(window.PiraliVisualPreviewReadonly||window.PiraliSeasonReleaseEnabled!==true)return 0;

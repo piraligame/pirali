@@ -1,14 +1,14 @@
 {
-  "version": "1.0.0-beta.1",
+  "version": "1.0.1-beta.1",
   "channel": "beta-web-player",
   "base": "0.16.3l DEV",
   "publishedForPlayers": false,
   "androidBuilt": false,
   "aabBuilt": false,
   "developerOnly": false,
-  "note": "Beta 1.0 web code routes to /pirali_beta_rating; actual server-side Firebase access not verified; Alpha 0.15 untouched.",
+  "note": "Fixed Firebase write method: PUT to unique Beta child, matches $record rules, not parent POST; server rules still need to be published",
   "qa": "Source-level checks and targeted JS tests; full manual mobile playthrough pending.",
-  "revision": "beta-1.0.0-season1",
+  "revision": "beta-1.0.1-child-PUT",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
   "startScore": 0,
@@ -38,5 +38,6 @@
   "legacyAlpha015LeaderboardPath": "/scores",
   "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
   "firebaseLiveValidation": "NOT VERIFIED: Firebase admin connection and rules needed",
-  "displayVersion": "BETA 1.0"
+  "displayVersion": "BETA 1.0.1",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json"
 }

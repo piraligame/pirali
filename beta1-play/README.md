@@ -9,3 +9,9 @@ New ranking UI: **ფირალი ბეტა რეიტინგი TOP 3
 The new Player attempts Firebase REST POST only to its designated Beta path for finished non-checkpoint runs; green confirmation only on a valid server receipt, otherwise an explicit error and local retry queue. Live Firebase rules/admin access remain **UNVERIFIED**, so cloud saving might fail until server permissions are configured. GitHub code cannot create the Firebase node/rules on its own. See FIREBASE_RULES_SETUP.md.
 
 Alpha 0.15 continues using `/scores` exactly as before, with its data and on-store APK/AAB untouched. Old Alpha 0.16.5c and DEV folders also remain as-is. No Beta Android package or Play Store rollout is included.
+
+
+## BETA 1.0.1 — Firebase permission-denied fix
+The previous BETA 1.0 used `POST /pirali_beta_rating.json` (parent), but the proposed Firebase Rules granted `.write` at `/pirali_beta_rating/$record` (individual child). Firebase evaluates rules at the requested path, so the parent POST was denied. This build uses `PUT /pirali_beta_rating/<runId>.json` with an immutable, unique Beta runId. Its successful Firebase response must exactly match the submitted result; if a response is lost, an exact-child GET prevents duplicate scores on retry.
+
+Firebase administrator STILL MUST publish appropriate Beta child rules at `/pirali_beta_rating/$record`; otherwise 401/403 persists. No rules have been changed remotely from GitHub. Existing pending Beta 1.0 runs can be retried using the on-screen button from the same browser.

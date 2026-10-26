@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#c89820">
   <!-- Android APK app icon is handled by native Android assets; no missing Apple icon reference. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ფირალი BETA 1.0 — 11 ტური და ბეტა რეიტინგი</title>
+<title>ფირალი BETA 1.0.1 — Firebase რეიტინგი</title>
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/style.css?v=20261016d">
 <link rel="stylesheet" href="css/menu.css?v=checkpoint-20261017a">
@@ -26,7 +26,7 @@
 <meta name="robots" content="noindex,nofollow">
 <script>
 // Release candidate: do not enable real-season writes until launch.
-window.PiraliGameVersion='1.0.0-beta.1';
+window.PiraliGameVersion='1.0.1-beta.1';
 window.PiraliSeasonReleaseEnabled=true;
 window.PiraliVisualPreviewReadonly=false;
 window.PiraliAlpha014Test=false; // Player: no development controls.
@@ -36,12 +36,15 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
  window.fetch=function(input,init){
   const url=typeof input==='string'?input:input?.url||'';
   const method=String(init?.method||input?.method||'GET').toUpperCase();
-  // Allow ONLY Firebase POST to the separate 11-stage scoring season.
+  // Allow only create-at-key PUT for the NEW Beta leaderboard.
+  // The old Alpha 0.15 /scores path is NEVER writable from this build.
   if(/firebaseio\.com/i.test(url)&&method!=='GET'&&method!=='HEAD'){
-   const permitted='https://pirali-game-default-rtdb.firebaseio.com/pirali_beta_rating.json';
-   if(!window.PiraliSeasonReleaseEnabled || method!=='POST' || url.split('?')[0]!==permitted){
-    return Promise.reject(new Error('PIRALI: other Firebase writes blocked'));
-   }
+   const prefix='https://pirali-game-default-rtdb.firebaseio.com/pirali_beta_rating/';
+   const target=url.split('?')[0];
+   const key=target.startsWith(prefix)?target.slice(prefix.length,-5):'';
+   const allowed=target.endsWith('.json')&&/^beta10-[a-z0-9]+-[a-z0-9]{8,12}$/.test(key);
+   if(!window.PiraliSeasonReleaseEnabled || method!=='PUT' || !allowed)
+    return Promise.reject(new Error('PIRALI: write outside Beta record denied'));
   }
   return nativeFetch(input,init);
  };
@@ -146,7 +149,7 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
 <script src="js/characters/batoni-art-preview.js?v=alpha012-motion-phase2b"></script>
 <script src="js/runtime/ui.js?v=alpha0164f"></script>
 <script src="js/progression/checkpoints.js?v=beta1-0-s1"></script>
-<script src="js/runtime/leaderboard.js?v=beta1-0-s1"></script>
+<script src="js/runtime/leaderboard.js?v=beta101-direct-put"></script>
 <script src="js/runtime/outcome.js?v=beta1-0-s1"></script>
 <script src="js/runtime/intro.js"></script>
 <script src="js/runtime/game-init.js?v=score5k-0164d"></script>

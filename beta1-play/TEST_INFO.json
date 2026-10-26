@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-beta.1",
+  "version": "1.0.1-beta.1",
   "role": "player-online-web",
   "stages": 11,
   "previewControls": false,
@@ -8,7 +8,7 @@
   "aabBuilt": false,
   "qa": "Source-level checks and targeted JS tests; full manual mobile playthrough pending.",
   "base": "0.16.3l DEV",
-  "revision": "beta-1.0.0-season1",
+  "revision": "beta-1.0.1-child-PUT",
   "enemyHpMultiplier": 0.85,
   "ammoDropMultiplier": 1.15,
   "leaderboardPath": "/pirali_beta_rating",
@@ -33,10 +33,11 @@
     "type": "hell-coins",
     "points": 250
   },
-  "firebaseValidation": "Live Firebase rules and POST not yet verified",
+  "firebaseValidation": "Firebase live permissions not verified",
   "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
   "legacyAlpha015LeaderboardPath": "/scores",
   "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
   "firebaseLiveValidation": "NOT VERIFIED: Firebase admin connection and rules needed",
-  "displayVersion": "BETA 1.0"
+  "displayVersion": "BETA 1.0.1",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json"
 }
