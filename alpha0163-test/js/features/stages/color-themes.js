@@ -4,10 +4,10 @@
  'use strict';
  const oldDraw=drawBG;
  const shades={
-  4:'rgba(155,83,46,.16)',   // Ganakhleba — ochre sunset
+  4:'rgba(255,208,52,.34)',  // Ganakhleba — bright GOLDEN YELLOW
   5:'rgba(38,100,65,.14)',   // Sameba — green woodlands
   8:'rgba(85,56,123,.22)',   // Road to Infinity — violet evening
-  9:'rgba(12,47,106,.23)'    // Under Siege — steel-blue night
+  9:'rgba(245,114,28,.33)'   // Under Siege — vivid CARROT ORANGE
  };
  drawBG=function(){
   oldDraw();
