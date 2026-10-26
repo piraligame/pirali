@@ -4,7 +4,7 @@
 (function(){
 'use strict';
 function distribute(){
- if(level!==6||!Array.isArray(path)||path.length<8)return;
+ if(level!==10||!Array.isArray(path)||path.length<8)return;
  const soldiers=enemies.filter(e=>e.alive&&e.etype!=='landlord');
  const occupied=enemies.filter(e=>e.alive&&e.etype==='landlord')
     .map(e=>({x:e.x,y:e.y}));

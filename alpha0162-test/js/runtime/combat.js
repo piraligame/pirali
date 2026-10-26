@@ -41,6 +41,8 @@ function shoot(){
   let tgt=null,best=1e9;
   enemies.forEach(e=>{if(!e.alive)return;const d=Math.hypot(e.x-P.x,e.y-P.y);if(d<best){best=d;tgt=e;}});
   if(boss&&boss.alive){const d=Math.hypot(boss.x-P.x,boss.y-P.y);if(d<best){best=d;tgt=boss;}}
+  const other=window.PiraliDualGenerals?.target();
+  if(other){const d=Math.hypot(other.x-P.x,other.y-P.y);if(d<best){best=d;tgt=other;}}
   const ang=tgt?Math.atan2(tgt.y-P.y,tgt.x-P.x):P.ang;
   if(tgt)P.ang=ang;
   const bx=P.x+Math.cos(ang)*(P.r+5),by=P.y+Math.sin(ang)*(P.r+5);
@@ -77,6 +79,7 @@ function swordSwing(){
     const d=Math.hypot(boss.x-P.x,boss.y-P.y);
     if(d<78)hitBoss(boss,isCombo?3:2);
   }
+  window.PiraliDualGenerals?.swordHit(isCombo?3:2);
 }
 
 function dash(){

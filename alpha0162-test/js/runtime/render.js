@@ -10,6 +10,7 @@ function render(){
   if(boss&&boss.groundSlamActive)drawGroundSlam();
   const ents=[...enemies.filter(e=>e.alive).map(e=>({y:e.y,fn:()=>drawEnemy(e)})),{y:P.y,fn:drawPlayer}];
   if(boss&&boss.alive)ents.push({y:boss.y,fn:()=>drawBoss(boss)});
+  window.PiraliDualGenerals?.drawEntities(ents);
   ents.sort((a,b)=>a.y-b.y).forEach(e=>e.fn());
   drawBullets();
   PiraliFX.draw(ctx,sx,sy,W,H);

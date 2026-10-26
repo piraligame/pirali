@@ -1,6 +1,7 @@
 function update(dt){
   if(!running||P.dead)return;
   frame++;
+  window.PiraliDualGenerals?.updateSecond(dt);
   PiraliFX.tick(dt);
   weatherTime+=dt;
 
@@ -66,6 +67,36 @@ function update(dt){
       },1800);
     }else if(level===7){
       if(!finalChurchNotice){showBanner('ჯერ დაამარცხე გენერალი და ბატონი!');finalChurchNotice=true;}
+    }else if(level===8){
+      if(window.PiraliDualGenerals?.defeated()){
+        done=true;window.PiraliStats?.completeStage(8);level=9;
+        ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();playLevelUp();
+        const nextLevel=level;window.PiraliCheckpoint?.save(nextLevel);
+        const runId=window.PiraliCheckpoint?.getSession();
+        setTimeout(()=>{
+          if(running&&level===nextLevel&&!P.dead&&runId===window.PiraliCheckpoint?.getSession()){
+            genWorld();window.PiraliStats?.stageReady(nextLevel);showBanner(LEVEL_NAMES[nextLevel]);
+          }
+        },1600);
+        showBanner(LEVEL_NAMES[nextLevel]);
+      }else if(!finalChurchNotice){
+        showBanner('ჯერ დაამარცხე ორივე გენერალი!');finalChurchNotice=true;
+      }
+    }else if(level===9){
+      if(window.PiraliSiege?.clear()){
+        done=true;window.PiraliStats?.completeStage(9);level=10;
+        ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();playLevelUp();
+        const nextLevel=level;window.PiraliCheckpoint?.save(nextLevel);
+        const runId=window.PiraliCheckpoint?.getSession();
+        setTimeout(()=>{
+          if(running&&level===nextLevel&&!P.dead&&runId===window.PiraliCheckpoint?.getSession()){
+            genWorld();window.PiraliStats?.stageReady(nextLevel);showBanner(LEVEL_NAMES[nextLevel]);
+          }
+        },1600);
+        showBanner(LEVEL_NAMES[nextLevel]);
+      }else if(!finalChurchNotice){
+        showBanner('ჯერ დაამარცხე ალყის 30 მსროლელი!');finalChurchNotice=true;
+      }
     }else if(level===10){
       if(boss&&!boss.alive){
         done=true;running=false;showBanner('სიმონამ ჯოჯოხეთი გაიარა!');
@@ -114,6 +145,7 @@ function update(dt){
     if(b.fp){
       enemies.forEach(e=>{if(!e.alive||!b.alive)return;if(Math.hypot(b.x-e.x,b.y-e.y)<e.r+5){b.alive=false;hitEnemy(e);}});
       if(boss&&boss.alive&&b.alive&&Math.hypot(b.x-boss.x,b.y-boss.y)<boss.r+6){b.alive=false;hitBoss(boss,1);}
+      if(b.alive)window.PiraliDualGenerals?.hitBullet(b);
     } else {
       const d=Math.hypot(b.x-P.x,b.y-P.y);
       const arc=Math.atan2(b.y-P.y,b.x-P.x)-P.ang;

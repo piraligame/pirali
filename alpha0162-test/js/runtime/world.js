@@ -157,7 +157,7 @@ function genWorld(){
     e.groupId='church-guard-'+i;
   });
 
-  // BOSS only on level 5 — Russian General with Phase 2
+  // Primary boss: stage 7 Church, stage 8 two-Generals battle and stage 10 Hell
   if(level===7||level===8||level===10){
     const bp={x:CHURCH_X,y:CHURCH_Y+320}; // Keep the final boss in the church approach.
     boss={
