@@ -99,5 +99,8 @@
   "qaReport": "QA_BETA106.md",
   "globalAdditionalEnemyStrengthReduction": 0.1,
   "globalAmmoDropBoostRelative": 0.1,
-  "globalHeartDropBoostRelative": 0.1
+  "globalHeartDropBoostRelative": 0.1,
+  "localizedCampaignMap": "11-stage parchment-style SVG, accurate live names in KA/EN/RU/ZH, main-menu entry",
+  "mapAsset": "assets/maps/pirali-road.svg",
+  "mapUI": "js/features/map/story-map.js"
 }

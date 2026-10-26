@@ -6,3 +6,7 @@
 - Preserved previous 1.06 features: stage-six roadside cover, sight-based AI pursuit, instant exits, stage 11 Gurian home entrance win, Georgian flag and crown, 300+300+400+400+600=2000 final bonus and 5000+2000=7000 total cap.
 - DEV stays local-only and includes testing controls; PLAYER Beta scoreboard cannot be written.
 - No APK/AAB or Play Store change. Live 7000-score Firebase server rule acceptance still unverified.
+
+## Illustrated campaign map (localized)
+
+From the main menu click 🗺️ Map. One vertically scrolling, parchment-style illustrated 11-stop route is loaded from `assets/maps/pirali-road.svg`; **all stop labels come from the actual game `PIRALI_LEVELS` translations**, so Georgian/US English/Russian/Chinese are exact, and the four language controls immediately change those overlays. Completed/current/unreached stages are marked; the map has no level-skip action. This avoids four large duplicate image files and misspellings baked into pictures.
