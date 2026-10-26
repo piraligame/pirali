@@ -27,7 +27,8 @@ function startGame(savedProgress=null){
   }
   bgmStop();
   score=restore?restore.score:0;
-  health=restore?restore.health:5;maxHealth=5;
+  maxHealth=restore?.maxHealth||5;health=restore?Math.min(restore.health,maxHealth):5;
+  window.PiraliBigHearts?.reset(restore?.bigHearts||null);
   ammo=restore?Math.min(10,restore.ammo):10;maxAmmo=10;
   level=restore?restore.level:1;
   // Only carry actually earned points (new season range: 0–7000).

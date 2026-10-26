@@ -496,6 +496,7 @@ function drawPickups(){
     if(pk.col)return;
     const x=sx(pk.x),y=sy(pk.y)+Math.sin(pk.bob||0)*3.5;
     if(x<-24||x>W+24||y<-24||y>H+24)return;
+    if(window.PiraliBigHearts?.draw(ctx,pk,x,y))return;
     if(window.PiraliHellCoinsArt?.draw(ctx,pk,x,y))return;
     if(window.PiraliAlphaGear?.drawPickup(ctx,pk,x,y))return;
     const glowCol=pk.type==='health'?'#e04040':pk.type==='herb'?'#44cc44':pk.type==='medal'?'#f0c020':'#c8941a';

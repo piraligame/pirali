@@ -11,14 +11,19 @@
 
   function normalize(raw){
     if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==1)return null;
-    if(!int(raw.level,2,11)||!int(raw.health,1,5)||!int(raw.ammo,0,10))return null;
+    const max=raw.maxHealth==null?5:raw.maxHealth;
+    if(!int(max,5,7)||!int(raw.level,2,11)||!int(raw.health,1,max)||!int(raw.ammo,0,10))return null;
+    const up=raw.bigHearts&&typeof raw.bigHearts==='object'&&!Array.isArray(raw.bigHearts)?raw.bigHearts:{};
+    if((up.seven!=null&&typeof up.seven!=='boolean')||(up.ten!=null&&typeof up.ten!=='boolean'))return null;
+    const h7=up.seven===true,h10=up.ten===true;
+    if(max!==5+Number(h7)+Number(h10))return null;
     if(!Number.isSafeInteger(raw.score)||raw.score<0||raw.score>7000)return null;
     if(raw.level===11&&raw.endlessBase!=null&&(!int(raw.endlessBase,0,5000)||raw.score<raw.endlessBase||raw.score>raw.endlessBase+2000))return null;
     if(!raw.inventory||typeof raw.inventory!=='object')return null;
     if(!int(raw.inventory.herbs,0,9999)||!int(raw.inventory.medals,0,9999))return null;
     if(typeof raw.savedAt!=='number'||!Number.isFinite(raw.savedAt)||raw.savedAt<0)return null;
     return {
-      version:1,level:raw.level,health:raw.health,ammo:raw.ammo,score:raw.score,
+      version:1,level:raw.level,health:raw.health,maxHealth:max,bigHearts:{seven:h7,ten:h10},ammo:raw.ammo,score:raw.score,
       endlessBase:raw.level===11&&int(raw.endlessBase,0,5000)?raw.endlessBase:null,
       inventory:{herbs:raw.inventory.herbs,medals:raw.inventory.medals},savedAt:raw.savedAt,
       shotgun:raw.shotgun&&typeof raw.shotgun==='object'&&raw.shotgun.owned===true?
@@ -39,7 +44,7 @@
     try{
       const older=get();
       const current=normalize({
-        version:1,level:nextLevel,health,ammo,score,
+        version:1,level:nextLevel,health,maxHealth,bigHearts:window.PiraliBigHearts?.status?.()||{seven:false,ten:false},ammo,score,
         endlessBase:nextLevel===11?window.PiraliStageScoring?.endlessBaseline?.():null,
         inventory:{herbs:inventory.herbs,medals:inventory.medals},
         shotgun:window.PiraliAlphaGear?.status?.()||null,

@@ -141,6 +141,7 @@ function killEnemy(e){
 }
 
 function hitBoss(b,dmg=1){
+  if(!b||!b.alive)return;
   b.hp-=dmg;b.hf=10;
   playHit();
   PiraliFX.hit(b.x,b.y,true);
@@ -155,6 +156,7 @@ function hitBoss(b,dmg=1){
     for(let i=0;i<30;i++) spawnPart(b.x,b.y,(Math.random()-.5)*10,(Math.random()-.5)*10,30,i%4===0?'#f0c020':'#cc1818',4+Math.random()*4);
     corpses.push({x:b.x,y:b.y,ang:b.ang,r:b.r,etype:'boss'});
     if(level===7&&!finalLordSpawned)spawnLandlordNPC(b.x,b.y);
+     if(level===7||level===10)window.PiraliBigHearts?.spawn(level,b);
   }
 }
 

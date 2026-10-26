@@ -57,12 +57,12 @@ function update(dt){
   // BETA 1.06: change level and create the next world in the SAME frame.
   if(level!==11&&!done&&Math.hypot(P.x-CHURCH_X,P.y-CHURCH_Y)<120){
     const oldLevel=level;let allow=true,warning='';
-    if(level===7){allow=!!boss&&!boss.alive&&finalLordSpawned&&finalVictoryPending;warning='ჯერ დაამარცხე გენერალი და ბატონი!';}
+    if(level===7){allow=!!boss&&!boss.alive&&finalLordSpawned&&finalVictoryPending&&!!window.PiraliBigHearts?.claimed(7);warning=!finalVictoryPending?'ჯერ დაამარცხე გენერალი და ბატონი!':window.PiraliBigHearts?.text('need7')||'აიღე დიდი გული!';}
     else if(level===8){allow=!!window.PiraliDualGenerals?.defeated?.();warning='ჯერ დაამარცხე ორივე გენერალი!';}
     else if(level===9){allow=!!window.PiraliSiege?.clear?.();warning='ჯერ დაამარცხე ალყის 15 მსროლელი!';}
     else if(level===10){
-      allow=!!boss&&!boss.alive&&!!window.PiraliHellLoot?.rewardCollected?.();
-      warning=boss&&!boss.alive?'აიღე ეშმაკის ოქროს მონეტები!':'ჯერ დაამარცხე ეშმაკი!';
+      allow=!!boss&&!boss.alive&&!!window.PiraliHellLoot?.rewardCollected?.()&&!!window.PiraliBigHearts?.claimed(10);
+      warning=boss&&!boss.alive?(window.PiraliHellLoot?.rewardCollected?.()?(window.PiraliBigHearts?.text('need10')||'აიღე დიდი გული!'):'აიღე ეშმაკის ოქროს მონეტები!'):'ჯერ დაამარცხე ეშმაკი!';
     }
     if(allow){
       done=true;window.PiraliStats?.completeStage(oldLevel);
@@ -81,10 +81,11 @@ function update(dt){
   // Pickups
   pickups.forEach(pk=>{
     if(pk.col)return;pk.bob+=.05;
-    if(Math.hypot(pk.x-P.x,pk.y-P.y)<(pk.type==='hell-coins'?43:30)){
+    if(Math.hypot(pk.x-P.x,pk.y-P.y)<(pk.type==='large-heart'?49:pk.type==='hell-coins'?43:30)){
       pk.col=true;
       playPickup();
-      if(window.PiraliHellLoot?.collect(pk)){}
+      if(window.PiraliBigHearts?.collect(pk)){}
+       else if(window.PiraliHellLoot?.collect(pk)){}
       else if(window.PiraliAlphaGear?.pickup(pk)){}
       else if(pk.type==='ammo'){
         // Each Mauser package contains 3 or 4 rounds, for ALL 11 stages.
