@@ -7,7 +7,7 @@
   "aabBuilt": false,
   "developerOnly": false,
   "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
-  "qa": "Pending BETA 1.07 automated GitHub Actions regression.",
+  "qa": "PASSED 8/8 Chrome Playwright: DEV and PLAYER desktop & mobile; wave count 10, five-wave points, 50-kill crown, global HP/attack nerf and loot odds, extended stage transitions",
   "revision": "beta107-global-10pct-nerf-wave10-loot10",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
@@ -42,8 +42,8 @@
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
   "qaEvidence": [
-    "qa/pirali-beta107-qa.cjs",
-    "qa/pirali-beta107-extended.cjs"
+    "https://github.com/piraligame/pirali/actions/runs/40407944327",
+    "beta107-play/QA_BETA107.md"
   ],
   "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
   "stage6": {
