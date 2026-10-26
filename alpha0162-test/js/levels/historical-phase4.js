@@ -170,7 +170,7 @@ function renderHistoricalChurch(){
 }
 function roadStones(){
  // Alpha 0.13: the forest, mist and church approach stay completely stone-free.
- if(!(level===3||level===4)||!Array.isArray(path)||path.length<2)return;
+ if(!(level===3||level===4||level===6)||!Array.isArray(path)||path.length<2)return;
  // Consistent, fixed stones on the exterior shoulders. Never cover the main road.
  ctx.save();
  const shades=level===5?['#696b5e','#a9a28b']:level>=4?['#ac8259','#d3a46f']:['#657354','#a2a083'];
@@ -197,7 +197,7 @@ drawBG=function(){
  if(enabled)roadStones();
 };
 drawChurch=function(){
- if(!enabled||level!==5)return previousChurch();
+ if(!enabled||level!==7)return previousChurch();
  return renderHistoricalChurch();
 };
 window.PiraliHistoricalPhase4=Object.freeze({

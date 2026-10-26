@@ -11,6 +11,7 @@ const oldBG=drawBG,BIOMES=[
  {name:'Udabno',tint:'rgba(151,61,24,.34)',leaf:'#956039',hi:'#e8bb7d',ground:'#713b26'},
  {name:'Udabnos Eklesia',tint:'rgba(8,24,69,.39)',leaf:'#354e49',hi:'#c9a063',ground:'#172e3e'}
 ];
+const visualStage=n=>({4:4,5:1,6:4,7:5,8:4,9:5,10:5}[n]||Math.min(5,Math.max(1,n)));
 const TS=256,tiles=new Map();
 let enabled=true,lastPath=null,lastLevel=0,objects=[];
 const randFn=(seed)=>{let s=seed|0;return()=>{s=(Math.imul(s,1664525)+1013904223)|0;return(s>>>0)/4294967296;};};
@@ -40,7 +41,7 @@ function populate(){
  if(lastPath===path&&lastLevel===level)return;
  lastPath=path;lastLevel=level;objects=[];
  if(!path?.length)return;
- const rand=randFn(1771+level*21799),n=level===5?210:level===4?260:290;
+ const rand=randFn(1771+level*21799),n=visualStage(level)===5?210:visualStage(level)===4?260:290;
  for(let k=0;k<n;k++){
   const x=45+rand()*(WW-90),y=190+rand()*(WH-360);
   // Decorations intentionally outside the walkable road and church area.
@@ -106,7 +107,7 @@ function item(o,stage,b){
 }
 function renderScenery(){
  if(!enabled||!path?.length)return;
- const stage=Math.max(1,Math.min(5,level)),b=BIOMES[stage];
+ const stage=visualStage(level),b=BIOMES[stage];
  populate();ctx.save();
  ctx.fillStyle=b.tint;ctx.fillRect(0,0,W,H);
  const pat=ctx.createPattern(tile(stage),'repeat');
@@ -129,7 +130,7 @@ function renderScenery(){
 drawBG=function(){oldBG();renderScenery();};
 window.PiraliAlphaEnvironment=Object.freeze({
  enabled:()=>enabled,enable:v=>(enabled=!!v),
- stats:()=>({version:'alpha012-scenery-phase3',level,biome:BIOMES[level]?.name,decorations:objects.length,cachedTiles:tiles.size}),
+ stats:()=>({version:'alpha012-scenery-phase3',level,biome:BIOMES[visualStage(level)]?.name,decorations:objects.length,cachedTiles:tiles.size}),
  biomes:BIOMES.slice(1).map((b,i)=>({level:i+1,name:b.name}))
 });
 })();

@@ -17,7 +17,7 @@ const rnd=(n)=>{let v=n|0;return()=>{v=(Math.imul(v,1664525)+1013904223)|0;retur
 function prepare(){
  if(path===currentPath&&level===currentLevel)return;
  currentPath=path;currentLevel=level;stoneRows=[];builds++;
- if(!Array.isArray(path)||path.length<2||!(level===3||level===4))return;
+ if(!Array.isArray(path)||path.length<2||!(level===3||level===4||level===6))return;
  const random=rnd(550122+level*9911);
  for(let i=0;i<path.length-1;i++){
   const a=path[i],b=path[i+1],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);
@@ -75,8 +75,8 @@ function stone(v,p){
 function paint(){
  if(!enabled||!Array.isArray(path)||path.length<2)return;
  prepare();
- if(!(level===3||level===4))return;
- const stage=Math.max(1,Math.min(level,5)),palette=shades[stage];
+ if(!(level===3||level===4||level===6))return;
+ const stage=level===6?4:Math.max(1,Math.min(level,5)),palette=shades[stage];
  drawCalls++;
  ctx.save();
  // Alpha 0.12's natural road is already attractive and remains fully visible.
