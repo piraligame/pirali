@@ -11,11 +11,12 @@
    bulletMultiplier:1.20,
    legacyHealthChance:.65*.20,
    legacyAmmoChance:.65*.80,
-   legacyShellChance:.26
+   legacyShellChance:.26,
+   shellDropReduction:.80
  });
  const healthChance=CONFIG.legacyHealthChance*CONFIG.heartMultiplier;
  const ammoChance=CONFIG.legacyAmmoChance*CONFIG.bulletMultiplier;
- const shellChance=CONFIG.legacyShellChance*CONFIG.bulletMultiplier;
+ const shellChance=CONFIG.legacyShellChance*CONFIG.bulletMultiplier*CONFIG.shellDropReduction; // 24.96%
  function rollEnemyDrop(){
    const roll=Math.random();
    if(roll<healthChance)return 'health';

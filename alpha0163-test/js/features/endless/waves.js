@@ -28,8 +28,8 @@ function spawnOne(){
  // unarmed fleeing Batoni that drops health when defeated.
  const type=TYPES[Math.floor(Math.random()*TYPES.length)];
  const landlord=type==='landlord',officer=type==='officer';
- const baseHp=landlord?3:Math.max(3,Math.min(PIRALI_STAGE_BALANCE.soldierHp(11),3+Math.ceil(wave*.8)+(officer?1:0)));
- const hp=Number((baseHp*SETTINGS.healthFactor).toFixed(2)); // 20% less non-boss HP
+ const baseHp=landlord?3:Math.max(3,Math.min(PIRALI_STAGE_BALANCE.oldSoldierHp(11),3+Math.ceil(wave*.8)+(officer?1:0)));
+ const hp=PIRALI_STAGE_BALANCE.scaleRegularHp(baseHp*SETTINGS.healthFactor); // additional 10% reduction
  const enemy={
   x:pt.x,y:pt.y,r:officer?14:landlord?13:12,hp,maxHp:hp,
   vx:0,vy:0,ang:pt.ang+Math.PI,wf:0,hf:0,

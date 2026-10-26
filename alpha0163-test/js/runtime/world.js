@@ -125,7 +125,7 @@ function genWorld(){
   }
 
   // Core enemy density. Hell level: 1/3 of previous triple density; scattering lives in features/hell/enemy-spacing.js.
-  const ehp=PIRALI_STAGE_BALANCE.soldierHp(level); // all growth is in config/stage-balance.js
+  const ehp=PIRALI_STAGE_BALANCE.oldSoldierHp(level); // reduce after officer bonus
   const usableSegs=path.length-6; // skip first 2 (start) + last 4 (church approach)
   const normalCount=Math.floor(usableSegs*(0.85+level*0.096));
   const totalEnemies=level===10?Math.max(1,Math.round(normalCount/2.5)):level===7?Math.max(1,Math.ceil(normalCount*PIRALI_BALANCE.finalEnemyMultiplier)):normalCount;
@@ -135,7 +135,7 @@ function genWorld(){
     const a=Math.random()*6.28,d=28+Math.random()*65;
     const rng=Math.random();
     const etype=rng<.4?'rifle':rng<.75?'saber':'officer';
-    const ehp2=etype==='officer'?ehp+1:ehp;
+    const ehp2=PIRALI_STAGE_BALANCE.scaleRegularHp(etype==='officer'?ehp+1:ehp);
     enemies.push({
       x:ep.x+Math.cos(a)*d,y:ep.y+Math.sin(a)*d,
       r:etype==='officer'?14:12,
@@ -185,7 +185,7 @@ function genWorld(){
     for(let i=0;i<12;i++){
       const n=path[3+Math.floor(i*(path.length-7)/12)];if(!n)continue;
       const x=Math.max(35,Math.min(WW-35,n.x+(i%2?100:-100))),y=n.y+(i%3-1)*45;
-      enemies.push({x,y,r:13,hp:3,maxHp:3,vx:0,vy:0,ang:Math.PI,
+      enemies.push({x,y,r:13,hp:2.7,maxHp:2.7,vx:0,vy:0,ang:Math.PI,
         patrol:{cx:x,cy:y,radius:40,t:Math.random()*6.28,spd:0.1},
         sT:9999,alive:true,hf:0,wf:0,etype:'landlord',isNPC:true,
         alertTimer:0,state:'patrol',flankTimer:0,groupId:'hell-'+i,retreating:false,retreatTimer:0});

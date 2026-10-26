@@ -4,12 +4,13 @@
 const PIRALI_STAGE_BALANCE=Object.freeze({
  perLevel:1.10,
  soldierBase(n){return n<=2?1:2;},
- soldierHp(n){
+ regularHpFactor:.90,
+ oldSoldierHp(n){
    const stage=Math.max(1,Math.min(11,Number(n)||1));
-   // Preserve stages 1–3 exactly as in the approved early Alpha.
-   // Add roughly 10% durability for each stage after stage three.
    if(stage<=2)return 1;
    return Math.max(2,Math.round(2*Math.pow(this.perLevel,stage-3)));
  },
+ scaleRegularHp(value){return Number((value*this.regularHpFactor).toFixed(3));},
+ soldierHp(n){return this.scaleRegularHp(this.oldSoldierHp(n));},
  generalHp(n){return n===8?Math.round(PIRALI_BALANCE.finalBossHp*1.20):PIRALI_BALANCE.finalBossHp;}
 });

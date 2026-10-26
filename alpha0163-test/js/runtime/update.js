@@ -101,7 +101,7 @@ function update(dt){
     }else if(level===10){
       if(boss&&!boss.alive){
         done=true;window.PiraliStats?.completeStage(10);
-        level=11;updateScoreUI();
+        level=11;window.PiraliStageScoring?.beginEndless();updateScoreUI();
         ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();playLevelUp();
         const nextLevel=level;window.PiraliCheckpoint?.save(nextLevel);
         const runId=window.PiraliCheckpoint?.getSession();

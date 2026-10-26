@@ -122,11 +122,11 @@ function killEnemy(e){
   // Kill streak bonus
   killStreak++;killStreakTimer=180;
   const bonus=killStreak>=5?300:killStreak>=3?200:100;
-  score+=(level===11?200:level===10?(killStreak>=5?15:killStreak>=3?12:10):bonus*level);updateScoreUI();
-  if(level===11){window.PiraliEndless?.onKill(e);showFloatingText(e.x,e.y-24,'+200','#ffe29a');}
-  if(level!==11&&killStreak===3)showFloatingText(e.x,e.y,'3 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+Math.round(bonus*level*.9),'#f0c020');
-  else if(level!==11&&killStreak===5)showFloatingText(e.x,e.y,'5 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+Math.round(bonus*level*.9),'#ff8020');
-  else if(level!==11&&killStreak>=7)showFloatingText(e.x,e.y,(window.PiraliLanguage?window.PiraliLanguage.gameText('streak'):'სერია!')+' +'+Math.round(bonus*level*.9),'#ff4444');
+  score+=(level===11?300:level===10?(killStreak>=5?15:killStreak>=3?12:10):bonus*level);updateScoreUI();
+  if(level===11){window.PiraliEndless?.onKill(e);showFloatingText(e.x,e.y-24,'+300','#ffe29a');}
+  if(level!==11&&killStreak===3)showFloatingText(e.x,e.y,'3 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+Math.round(bonus*level*.72),'#f0c020');
+  else if(level!==11&&killStreak===5)showFloatingText(e.x,e.y,'5 '+ (window.PiraliLanguage?window.PiraliLanguage.gameText('combo'):'ჯარი')+'! +'+Math.round(bonus*level*.72),'#ff8020');
+  else if(level!==11&&killStreak>=7)showFloatingText(e.x,e.y,(window.PiraliLanguage?window.PiraliLanguage.gameText('streak'):'სერია!')+' +'+Math.round(bonus*level*.72),'#ff4444');
   playDeath();
   corpses.push({x:e.x,y:e.y,ang:e.ang,r:e.r,etype:e.etype});
   if(level===11&&corpses.length>45)corpses.splice(0,corpses.length-45);
@@ -150,8 +150,8 @@ function hitBoss(b,dmg=1){
   for(let i=0;i<8;i++) spawnPart(b.x,b.y,(Math.random()-.5)*6,(Math.random()-.5)*6,14,'#cc2020',3+Math.random()*3);
   // Phase 2 transition is handled by update() (one source of truth).
   updateBossUI();
-  if(b.hp<=0){b.alive=false;window.PiraliStats?.kill();score+=(level===11?200:level===10?1000:1000*level);updateScoreUI();
-    if(level===11){window.PiraliEndless?.onKill(b);showFloatingText(b.x,b.y-25,'+200','#ffe29a');}
+  if(b.hp<=0){b.alive=false;window.PiraliStats?.kill();score+=(level===11?300:level===10?1000:1000*level);updateScoreUI();
+    if(level===11){window.PiraliEndless?.onKill(b);showFloatingText(b.x,b.y-25,'+300','#ffe29a');}
     hideBossUI();
     if(level===10){window.PiraliHellLoot?.devil(b);finalChurchNotice=false;showBanner('ჯოჯოხეთის ცეცხლოვანი კარიბჭე გაიღო!');}
     for(let i=0;i<30;i++) spawnPart(b.x,b.y,(Math.random()-.5)*10,(Math.random()-.5)*10,30,i%4===0?'#f0c020':'#cc1818',4+Math.random()*4);

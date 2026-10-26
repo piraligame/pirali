@@ -26,7 +26,7 @@ function ready(){
   b.addEventListener('click',e=>{
    e.preventDefault();e.stopPropagation();
    if(typeof running==='undefined'||!running||typeof level==='undefined'||typeof genWorld!=='function')return;
-   selected=n;level=n;genWorld();updateScoreUI();
+   selected=n;level=n;if(n===11)window.PiraliStageScoring?.beginEndless();genWorld();updateScoreUI();
    window.PiraliStats?.stageReady(n);
    if(typeof updateAmmoUI==='function')updateAmmoUI();
    for(let k=0;k<levelButtons.length;k++)levelButtons[k].style.background=k+1===selected?'#97713e':'#414536';
