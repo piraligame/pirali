@@ -12,10 +12,10 @@ function setup(){
  camX=P.x-W*CAM_ZOOM;camY=P.y-H*CAM_ZOOM;
  for(let i=0;i<SHOOTERS;i++){
   const angle=(i/SHOOTERS)*Math.PI*2;
-  const radius=320+(i%5)*34;
+  const radius=258+(i%5)*18;
   const x=Math.max(50,Math.min(WW-50,P.x+Math.cos(angle)*radius));
   const y=Math.max(240,Math.min(WH-180,P.y+Math.sin(angle)*radius));
-  const hp=Math.max(2,Math.round(2*Math.pow(1.2,8))); // about 20% per stage, 4-5 hits.
+  const hp=Math.max(2,Math.round(2*Math.pow(1.2,8))); // about 20% per stage, 9 hits; abundant ammo offsets the challenge.
   enemies.push({
    x,y,r:12,hp,maxHp:hp,vx:0,vy:0,ang:angle+Math.PI,
    patrol:{cx:x,cy:y,radius:22,t:angle,spd:.2},

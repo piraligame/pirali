@@ -1,7 +1,7 @@
 {
   "name": "PIRALI",
   "short_name": "PIRALI",
-  "description": "Story-driven Georgian top-down action game with five stages, sword, Mauser and hunting shotgun.",
+  "description": "PIRALI Alpha 0.16.2 DEV — Georgian 10-stage top-down action adventure with two generals, siege and Hell.",
   "start_url": "index.html",
   "display": "fullscreen",
   "orientation": "portrait-primary",

@@ -1,9 +1,10 @@
 {
-  "version": "0.14.2",
+  "version": "0.16.2",
   "role": "developer-web-only",
+  "stages": 10,
   "previewControls": true,
   "firebaseWritesBlocked": true,
-  "qa": "100 generated worlds across all five stages: bounded descending road ending at church entrance, enemy and pickup bounds, four separated church patrols including 180 update frames; stage 1 and 5 screenshots reviewed.",
   "androidBuilt": false,
-  "aabBuilt": false
+  "aabBuilt": false,
+  "qa": "Code-level syntax & wiring checks; ten-stage mobile playtest still pending."
 }

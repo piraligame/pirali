@@ -263,7 +263,7 @@
           ka:['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეათე ტური დასრულებულია'],
           en:['Simona conquered Hell!','The Devil has fallen — the gate is crossed','Stage ten completed'],
           ru:['Симона прошёл ад!','Дьявол повержен — врата пройдены','Шестой этап завершён'],
-          zh:['西蒙娜闯过了地狱！','恶魔已败——烈焰之门已穿越','第六关已完成']
+          zh:['西蒙娜闯过了地狱！','恶魔已败——烈焰之门已穿越','第十关已完成']
         }[current]||['სიმონამ ჯოჯოხეთი გაიარა!','ეშმაკი დამარცხებულია — კარიბჭე გადალახულია','მეათე ტური დასრულებულია'];
         const title=s.querySelector('h1[style*="28px"]'),sub=s.querySelector('.tsub'),small=s.querySelector('.sbox p span');
         if(title)title.textContent=hellFinal[0];

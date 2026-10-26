@@ -1,11 +1,10 @@
 {
-  "version": "0.15",
-  "versionCode": 18,
-  "channel": "test",
-  "base": "approved Alpha 0.14.2",
-  "fixes": [
-    "Android privacy dialog closes correctly with Back",
-    "Google Play-ready PIRALI app branding",
-    "Gameplay and Firebase unchanged"
-  ]
+  "version": "0.16.2",
+  "channel": "developer-web-only",
+  "base": "alpha0161-test 0.16.1g",
+  "publishedForPlayers": false,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "developerOnly": true,
+  "note": "Do not upload as official Google Play release until all ten stages are tested and user approves."
 }
