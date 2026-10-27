@@ -29,8 +29,11 @@ function copyTree(name){
   for(const e of fs.readdirSync(dir,{withFileTypes:true})){
    const file=path.join(dir,e.name);
    if(e.isDirectory())walk(file);
-   else if(e.isFile()&&!e.name.startsWith('.'))
-    copy(path.relative(input,file).replace(/\\/g,'/'));
+   else if(e.isFile()&&!e.name.startsWith('.')){
+    const rel=path.relative(input,file).replace(/\\/g,'/');
+    if(rel==='js/preview-controls.js')continue; // No developer controls in shipped Android app.
+    copy(rel);
+   }
   }
  }
  walk(source);
