@@ -1,0 +1,21 @@
+name: PIRALI Beta 1.10 Heart Drop QA
+on:
+  push:
+    branches:
+      - 'work/beta-1.10-hearts-map'
+    paths:
+      - 'beta110-play/**'
+      - 'beta110-dev/**'
+      - 'qa/pirali-beta110-hearts.cjs'
+      - '.github/workflows/pirali-beta110-hearts.yml'
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Beta 1.10 heart rate and player/dev isolation
+        run: node qa/pirali-beta110-hearts.cjs

@@ -7,8 +7,8 @@ for(const role of ['play','dev']){
  const old=fs.readFileSync(path.join(oldRoot,'js/features/endless/waves.js'),'utf8');
  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
  const metadata=JSON.parse(fs.readFileSync(path.join(root,'RELEASE_INFO.json'),'utf8'));
- assert.match(file,/const HEART_RESTOCK_MULTIPLIER=1\\.15;/);
- assert.match(file,/endlessHealthChance\\*HEART_RESTOCK_MULTIPLIER/);
+ assert.match(file,/const HEART_RESTOCK_MULTIPLIER=1\.15;/);
+ assert.match(file,/endlessHealthChance\*HEART_RESTOCK_MULTIPLIER/);
  assert(!old.includes('HEART_RESTOCK_MULTIPLIER'));
  assert.match(file,/const CAP=10,FINAL_WAVE=5;/);
  assert.match(file,/wasOutsideHouse/);
