@@ -54,7 +54,7 @@ function updateAmmoUI(){const c=document.getElementById('bullets');c.innerHTML='
 function updateProgressUI(){
   document.getElementById('prog-fill').style.width=level===11?(window.PiraliEndless?.state?.().cleared?Math.min(100,(1-P.y/WH)*100)+'%':'0%'):Math.min(100,(1-P.y/WH)*100)+'%';
   const badge=document.getElementById('level-badge');
-  if(badge){const tod=((LEVEL_ENV[Math.min(level,11)]||{}).tod||'');badge.textContent=window.PiraliLanguage?window.PiraliLanguage.translateLevel(level,tod):LEVEL_NAMES[Math.min(level,11)];}
+  if(badge){const tod=((LEVEL_ENV[Math.min(level,11)]||{}).tod||'');badge.textContent=level===11?(window.PiraliLanguage?.getLevelName?.(11)||'გზა სახლისაკენ 🇬🇪'):(window.PiraliLanguage?window.PiraliLanguage.translateLevel(level,tod):LEVEL_NAMES[Math.min(level,11)]);badge.classList.toggle('pirali-home-stage',level===11);}
   if(level!==11)window.PiraliEndlessHUD?.hide?.();
   const label=document.getElementById('prog-lbl');
   if(label&&level===11){

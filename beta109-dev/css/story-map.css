@@ -1,4 +1,4 @@
-/* PIRALI BETA 1.07 campaign parchment-map UI. */
+/* PIRALI BETA 1.09 chosen portrait map. */
 .story-map-open{width:100%;min-height:43px;padding:10px;border:2px solid #ac7f38;border-radius:11px;color:#ffeac0;background:linear-gradient(180deg,#5e482c,#302619);font:700 14px 'Noto Sans Georgian',system-ui,sans-serif;cursor:pointer;text-shadow:0 1px 3px #000}
 .story-map-open:hover,.story-map-open:focus-visible{outline:2px solid #ffe9ac;background:#715532}
 #pirali-story-map{position:fixed;inset:0;z-index:99999;background:rgba(12,14,17,.96);display:flex;align-items:center;justify-content:center;padding:10px;box-sizing:border-box;overscroll-behavior:contain}
@@ -10,9 +10,9 @@
 .story-map-languages button{background:#4c3c2d;border:1px solid #7d5c30;border-radius:7px;padding:6px 5px;cursor:pointer;color:#f5dfad;font-size:10px;flex:1;min-width:0}
 .story-map-languages button.active{border-color:#ffe693;background:#7b5b2b;color:#fff}
 .story-map-scroll{min-height:0;flex:1;overflow-y:auto;overflow-x:hidden;touch-action:pan-y;background:#c9b788;scrollbar-color:#9d7c45 #e1cfa1;overscroll-behavior:contain}
-.story-map-art{position:relative;width:100%;aspect-ratio:850/1536;background:#c6ac78}
+.story-map-art{position:relative;width:100%;aspect-ratio:956/1536;background:#c6ac78}
 .story-map-art img{width:100%;height:100%;display:block;user-select:none;pointer-events:none}
-.story-map-stage{position:absolute;min-height:1.9%;border:1px solid #65451f;border-radius:6px;background:linear-gradient(180deg,rgba(253,231,173,.98),rgba(231,193,121,.98));box-shadow:2px 3px 5px #36271977;padding:3px 5px;box-sizing:border-box;text-align:center;display:flex;align-items:center;justify-content:center;transform:translateY(-50%);overflow-wrap:anywhere}
+.story-map-stage{position:absolute;min-height:1.9%;border:1px solid #65451f;border-radius:6px;background:linear-gradient(180deg,#f8e1b5,#ecc68f);box-shadow:2px 3px 5px #36271977;padding:3px 5px;box-sizing:border-box;text-align:center;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);overflow-wrap:anywhere}
 .story-map-stage .story-map-name{font:800 clamp(10px,2.2vw,15px)/1.18 'Noto Sans Georgian',system-ui,sans-serif;color:#3e2818}
 .story-map-stage.complete{border:2px solid #42834c;background:linear-gradient(180deg,#d8ebbe,#c2daa4)}
 .story-map-stage.current{border:3px solid #eb9c20;box-shadow:0 0 0 3px #ffe2a9a8,0 3px 9px #39200d;color:#261b0c}

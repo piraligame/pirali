@@ -1,18 +1,13 @@
-/* PIRALI BETA 1.07 — illustrated, localized 11-stage campaign map. */
+/* PIRALI BETA 1.09 — owner-selected illustrated world map, localized overlays. */
 (function(){
 'use strict';
 const STOPS=[
- {n:1,x:190,y:1370,l:29.0,t:89.6,w:29},
- {n:2,x:585,y:1230,l:75.0,t:81.7,w:22},
- {n:3,x:250,y:1100,l:2.5,t:72.4,w:22},
- {n:4,x:595,y:965,l:76.0,t:64.1,w:21},
- {n:5,x:245,y:837,l:2.5,t:55.2,w:22},
- {n:6,x:573,y:705,l:74.0,t:47.0,w:23},
- {n:7,x:252,y:585,l:2.5,t:38.9,w:22},
- {n:8,x:565,y:470,l:74.0,t:31.5,w:23},
- {n:9,x:255,y:360,l:2.5,t:23.4,w:22},
- {n:10,x:580,y:255,l:74.0,t:16.7,w:23},
- {n:11,x:327,y:123,l:49.0,t:7.0,w:43}
+ {n:1,l:48.6,t:97.5,w:29},{n:2,l:72,t:81,w:29},
+ {n:3,l:33,t:73.3,w:31},{n:4,l:24,t:65.2,w:28},
+ {n:5,l:75,t:62.8,w:23},{n:6,l:56,t:55,w:23},
+ {n:7,l:19.6,t:47.3,w:24},{n:8,l:39.5,t:34.5,w:34},
+ {n:9,l:79,t:46.8,w:29},{n:10,l:77.2,t:26.9,w:35},
+ {n:11,l:74.2,t:12.7,w:33}
 ];
 const WORDS={
  ka:{open:'🗺️ ფირალის რუკა',title:'ფირალის თავგადასავლის რუკა',subtitle:'სიმონას გზა ჩოხატაურიდან სახლამდე',back:'← უკან',completed:'გავლილი',current:'მიმდინარე',locked:'შემდეგი',max:'მაქსიმალური ქულა: 7 000'},
@@ -67,7 +62,7 @@ function open(){
    '<button type="button" data-map-lang="ru">🇷🇺 Русский</button>'+
    '<button type="button" data-map-lang="zh">🇨🇳 中文</button>'+
   '</div><div class="story-map-scroll" tabindex="0" aria-label="Route map">'+
-  '<div class="story-map-art"><img src="assets/maps/pirali-road.svg?v=beta107-art" alt="" draggable="false"></div></div>'+
+  '<div class="story-map-art"><img src="assets/maps/pirali-approved.webp?v=beta109" alt="" draggable="false"></div></div>'+
   '<footer><span class="story-map-max"></span></footer></section>';
  const art=overlay.querySelector('.story-map-art');
  for(const item of STOPS){

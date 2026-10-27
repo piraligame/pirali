@@ -82,10 +82,10 @@ const PIRALI_LEVELS=[
   },
   {
     "number": 11,
-    "ka": "სიმონა — გზა სახლისაკენ",
-    "en": "Simona — Road Home",
-    "ru": "Симона — дорога домой",
-    "zh": "西蒙娜：归家之路",
+    "ka": "გზა სახლისაკენ 🇬🇪",
+    "en": "Road Home 🇬🇪",
+    "ru": "Дорога домой 🇬🇪",
+    "zh": "回家的路 🇬🇪",
     "environment": "home"
   }
 ];

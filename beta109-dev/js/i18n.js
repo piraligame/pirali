@@ -284,7 +284,7 @@
   }
   function apply(){
     document.documentElement.lang=current==='en'?'en-US':current==='ru'?'ru-RU':current==='zh'?'zh-CN':'ka';
-    document.title=t('page')+' · Alpha 0.16.2 DEV';
+    document.title=t('page')+' · BETA 1.09';
     applyHud();applyMenu();applyLeaderboard();applyOutcome();applyIntro();
     if(typeof updateProgressUI==='function'&&typeof level==='number'&&typeof P!=='undefined')updateProgressUI();
   }
