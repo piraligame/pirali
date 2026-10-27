@@ -1,4 +1,4 @@
-/* PIRALI BETA 1.11.2 — interactive 11-stage campaign journal, read-only progression. */
+/* PIRALI BETA 1.11.3 — stage-one default and persistent, profile-gated campaign journal. */
 (function(){
 'use strict';
 const STOPS=[
@@ -14,9 +14,9 @@ const WORDS={
   open:'🗺️ ფირალის რუკა',title:'ფირალის თავგადასავლის რუკა',
   subtitle:'სიმონას გზა ჩოხატაურიდან სახლამდე',back:'← უკან',
   completed:'გავლილი',current:'მიმდინარე',locked:'შემდეგი',max:'მაქსიმალური ქულა: 7 000',
-  tour:'ტური',summary:'თავგადასავალი',goal:'მიზანი',reward:'ჯილდო',closeDetails:'დახურვა',
+  tour:'ტური',summary:'თავგადასავალი',goal:'მიზანი',reward:'ჯილდო',closeDetails:'← ჩოხატაური',
   infoOnly:'რუკა საინფორმაციოა — აქედან ტურის დაწყება ან გამოტოვება შეუძლებელია.',
-  lockedDetails:'ეს ტური ჯერ არ არის გახსნილი. შეგიძლია ნახო მისი აღწერა.',
+  lockedDetails:'ეს ტური ჯერ არ არის გახსნილი.',
   chapters:[
    'სიმონას მოგზაურობა ჩოხატაურიდან იწყება. წინ პირველი მტრები და ტყის გზა ელის.',
    'სიმონა გოგოლესუბნის გავლით აგრძელებს გზას და მტრების წინააღმდეგ იბრძვის.',
@@ -49,9 +49,9 @@ const WORDS={
   open:'🗺️ Campaign Map',title:'PIRALI — Adventure Map',
   subtitle:'Simona’s journey from Chokhatauri to home',back:'← Back',
   completed:'Completed',current:'Current',locked:'Ahead',max:'Maximum score: 7,000',
-  tour:'Stage',summary:'Story',goal:'Objective',reward:'Rewards',closeDetails:'Close',
+  tour:'Stage',summary:'Story',goal:'Objective',reward:'Rewards',closeDetails:'← Chokhatauri',
   infoOnly:'This map is informational — you cannot start or skip stages here.',
-  lockedDetails:'This stage is not unlocked yet. You can still read its preview.',
+  lockedDetails:'This stage has not been reached yet.',
   chapters:[
    'Simona sets out from Chokhatauri, facing the first enemies along a forest road.',
    'The journey passes through Gogolesubani, with soldiers standing in the way.',
@@ -84,9 +84,9 @@ const WORDS={
   open:'🗺️ Карта игры',title:'ПИРАЛИ — карта приключения',
   subtitle:'Путь Симоны от Чохатаури до дома',back:'← Назад',
   completed:'Пройдено',current:'Текущий',locked:'Впереди',max:'Максимум очков: 7 000',
-  tour:'Уровень',summary:'История',goal:'Цель',reward:'Награда',closeDetails:'Закрыть',
+  tour:'Уровень',summary:'История',goal:'Цель',reward:'Награда',closeDetails:'← Чохатаури',
   infoOnly:'Карта носит информационный характер — здесь нельзя начать или пропустить уровень.',
-  lockedDetails:'Этот уровень пока закрыт. Можно посмотреть его описание.',
+  lockedDetails:'Этот уровень ещё не достигнут.',
   chapters:[
    'Симона отправляется из Чохатаури: впереди первые враги и лесная дорога.',
    'Путь проходит через Гоголесубани, где дорогу преграждают солдаты.',
@@ -119,9 +119,9 @@ const WORDS={
   open:'🗺️ 冒险地图',title:'PIRALI 冒险地图',
   subtitle:'西蒙娜从乔哈陶里到家乡的旅程',back:'← 返回',
   completed:'已完成',current:'当前',locked:'未解锁',max:'最高分：7,000',
-  tour:'关卡',summary:'故事',goal:'目标',reward:'奖励',closeDetails:'关闭',
+  tour:'关卡',summary:'故事',goal:'目标',reward:'奖励',closeDetails:'← 乔哈陶里',
   infoOnly:'地图仅供查看，不能在这里开始或跳过关卡。',
-  lockedDetails:'这一关尚未解锁，但可以预览内容。',
+  lockedDetails:'尚未到达这一关。',
   chapters:[
    '西蒙娜从乔哈陶里出发，在森林道路上迎战第一批敌人。',
    '旅途经过戈戈莱苏巴尼，士兵们挡住了前进的道路。',
@@ -153,15 +153,25 @@ const WORDS={
 };
 const getLang=()=>window.PiraliLanguage?.getLanguage?.()||'ka';
 const word=()=>WORDS[getLang()]||WORDS.ka;
-const discovered=()=>Math.max(1,Math.min(11,Math.max(Number(window.PiraliCheckpoint?.get?.()?.level||1),Number(typeof level==='number'?level:1))));
+// Only the Developer preview exposes all eleven journals. PLAYER uses the
+// locally persisted, player-name-scoped highest stage; a cleared checkpoint
+// must never remove previously earned discoveries.
+const developer=()=>window.PiraliVisualPreviewReadonly===true;
+const discovered=()=>{
+ if(developer())return 11;
+ const stage=Number(window.PiraliStats?.highestReached?.()??window.PiraliCheckpoint?.get?.()?.level??1);
+ return Number.isInteger(stage)?Math.max(1,Math.min(11,stage)):1;
+};
 const goalKey=n=>n===7?'church':n===8?'generals':n===9?'siege':n===10?'hell':n===11?'home':'route';
 const rewardKey=n=>n===7?'heart7':n===10?'heart10':n===11?'home':'drops';
 let overlay=null,button=null,selectedStage=null;
 function label(n){return window.PiraliLanguage?.getLevelName?.(n)||PIRALI_LEVELS[n-1]?.ka||'';}
 function renderDetails(w,current){
  const pane=overlay.querySelector('.story-map-details');
- if(selectedStage===null){pane.hidden=true;return;}
- const n=selectedStage,state=n<current?w.completed:n===current?w.current:w.locked;
+ if(selectedStage===null)selectedStage=1;
+ const n=selectedStage;
+ if(!developer()&&n>current){selectedStage=1;return renderDetails(w,current);}
+ const state=n<current?w.completed:n===current?w.current:w.locked;
  pane.hidden=false;
  pane.querySelector('.story-map-details-status').textContent=state;
  pane.querySelector('.story-map-details-heading').textContent=w.tour+' '+n+' — '+label(n);
@@ -171,7 +181,7 @@ function renderDetails(w,current){
  pane.querySelector('.story-map-details-goal').textContent=w.goals[goalKey(n)];
  pane.querySelector('.story-map-details-reward-label').textContent=w.reward+': ';
  pane.querySelector('.story-map-details-reward').textContent=w.rewards[rewardKey(n)];
- pane.querySelector('.story-map-details-note').textContent=n>current?w.lockedDetails+' '+w.infoOnly:w.infoOnly;
+ pane.querySelector('.story-map-details-note').textContent=w.infoOnly;
  pane.querySelector('.story-map-details-close').textContent=w.closeDetails;
  pane.setAttribute('aria-label',w.tour+' '+n+' — '+label(n));
 }
@@ -184,12 +194,16 @@ function render(){
  overlay.querySelector('.story-map-back').textContent=w.back;
  overlay.querySelector('.story-map-max').textContent=w.max;
  const current=discovered();
+ if(selectedStage===null||(!developer()&&selectedStage>current))selectedStage=1;
  for(const element of overlay.querySelectorAll('.story-map-stage')){
   const n=Number(element.dataset.stage);
   element.classList.toggle('complete',n<current);
   element.classList.toggle('current',n===current);
-  element.classList.toggle('locked',n>current);
+  const unavailable=!developer()&&n>current;
+  element.classList.toggle('locked',unavailable);
   element.classList.toggle('selected',n===selectedStage);
+  element.disabled=unavailable;
+  element.setAttribute('aria-disabled',String(unavailable));
   const state=n<current?w.completed:n===current?w.current:w.locked;
   const name=element.querySelector('.story-map-name');
   name.textContent=label(n);
@@ -202,19 +216,19 @@ function render(){
  renderDetails(w,current);
 }
 function closeDetails(){
- const n=selectedStage;
- selectedStage=null;render();
- overlay?.querySelector('.story-map-stage[data-stage="'+n+'"]')?.focus();
+ selectedStage=1;render();
+ overlay?.querySelector('.story-map-stage[data-stage="1"]')?.focus();
 }
 function selectStage(n){
  if(!overlay||!Number.isInteger(n)||n<1||n>11)return;
+ if(!developer()&&n>discovered())return;
  selectedStage=n;
  render();
 }
 function close(){if(!overlay)return;overlay.remove();overlay=null;selectedStage=null;button?.focus();}
 function open(){
  if(overlay){render();return;}
- selectedStage=null;
+ selectedStage=1;
  overlay=document.createElement('div');
  overlay.id='pirali-story-map';
  overlay.setAttribute('role','dialog');
@@ -270,7 +284,7 @@ document.addEventListener('pirali:languagechange',render);
 document.addEventListener('keydown',e=>{
  if(e.key!=='Escape'||!overlay)return;
  e.preventDefault();
- if(selectedStage!==null)closeDetails();else close();
+ if(selectedStage!==1)closeDetails();else close();
 });
 const screen=document.getElementById('screen');
 if(screen)new MutationObserver(mount).observe(screen,{childList:true,subtree:true});

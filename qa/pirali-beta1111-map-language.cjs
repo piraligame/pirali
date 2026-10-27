@@ -19,9 +19,9 @@ for(const role of ['play','dev']){
  for(const lang of ['ka','en','ru','zh'])assert(map.includes(lang+':{'),'Translation missing: '+lang);
  assert(i18n.includes("new CustomEvent('pirali:languagechange'"),'Global language event absent');
  assert(html.includes('css/story-map.css?v=beta1112-stage-journal'),'CSS browser cache key absent');
- assert(html.includes('js/features/map/story-map.js?v=beta1112-stage-journal'),'JS browser cache key absent');
+ assert(html.includes('js/features/map/story-map.js?v=beta1113-persistent-unlocks'),'JS browser cache key absent');
  assert.equal(release.mapOwnLanguagePicker,false);
- assert.equal(release.version,role==='play'?'1.11.2-beta.1':'1.11.2-beta.1-dev');
+ assert.equal(release.version,role==='play'?'1.11.3-beta.1':'1.11.3-beta.1-dev');
  assert(html.includes("window.PiraliGameVersion='"+release.version+"'"));
  assert(fs.statSync(path.join(root,'assets/maps/pirali-approved.webp')).size>700000,'Approved HD map changed');
  assert(fs.existsSync(path.join(root,'js/features/map/live-minimap.js')),'In-game mini-map changed');

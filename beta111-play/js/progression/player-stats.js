@@ -3,12 +3,14 @@
  */
 (function(){
   'use strict';
-  const KEY=window.PiraliSeasonReleaseEnabled===true?'pirali_personal_stats_beta_1_0_s1_prod':'pirali_personal_stats_beta_1_0_s1_rc',PROFILE_LIMIT=16;
+  // DEV preview must never inflate the PLAYER's persisted campaign discoveries.
+  const KEY=window.PiraliVisualPreviewReadonly===true?'pirali_personal_stats_beta_1_0_s1_dev_preview':
+    window.PiraliSeasonReleaseEnabled===true?'pirali_personal_stats_beta_1_0_s1_prod':'pirali_personal_stats_beta_1_0_s1_rc',PROFILE_LIMIT=16;
   const labels={
-    ka:{button:'📊 ჩემი სტატისტიკა',heading:'ჩემი სტატისტიკა',device:'ინახება მხოლოდ ამ მოწყობილობაზე',close:'← დაბრუნება',runs:'დაწყებული თამაშები',wins:'გამარჯვებები',defeats:'დამარცხებები',kills:'დამარცხებული მტრები',bestScore:'საუკეთესო ქულა',bestRun:'საუკეთესო სრული დრო',levels:'ტურების საუკეთესო დროები',achievements:'მიღწევები',timer:'დრო',practice:'სავარჯიშო გაგრძელება',ranked:'თავიდან დაწყებული',locked:'ჯერ არ არის მიღწეული',none:'—',firstBlood:'პირველი ბრძოლა',tenKills:'10 მტერი',stageThree:'მესამე ტურამდე',stageFive:'მეხუთე ტურამდე',victory:'გამარჯვება!',stageSix:'მეექვსე ტური',stageEight:'მერვე ტური',stageNine:'მეცხრე ტური',stageTen:'მეათე ტური',stageEleven:'სიმონა უსასრულოდ',endless100:'50 მტერი',survival:'ტურის დრო',hell:'ჯოჯოხეთი',crown:'ხუთი ტალღის გამარჯვებული',scoreNote:'სტატისტიკა მხოლოდ ამ მოწყობილობაზეა; TOP 30 ცალკე რეიტინგშია.'},
-    en:{button:'📊 MY STATS',heading:'MY STATS',device:'Stored only on this device',close:'← BACK',runs:'Runs started',wins:'Victories',defeats:'Defeats',kills:'Enemies defeated',bestScore:'Best score',bestRun:'Fastest full run',levels:'Fastest level times',achievements:'Achievements',timer:'Time',practice:'Practice resume',ranked:'New ranked run',locked:'Not unlocked yet',none:'—',firstBlood:'First blood',tenKills:'10 enemies',stageThree:'Reached level 3',stageFive:'Reached level 5',victory:'Victory!',stageSix:'Stage Six',stageEight:'Stage Eight',stageNine:'Stage Nine',stageTen:'Stage Ten',stageEleven:'Simona Forever',endless100:'50 enemies',survival:'Stage time',hell:'Hell Conquered',crown:'Five-wave champion',scoreNote:'Statistics are local; TOP 30 is in the separate ranking.'},
-    ru:{button:'📊 МОЯ СТАТИСТИКА',heading:'МОЯ СТАТИСТИКА',device:'Только на этом устройстве',close:'← НАЗАД',runs:'Начатые игры',wins:'Победы',defeats:'Поражения',kills:'Побежденные враги',bestScore:'Лучший счет',bestRun:'Лучшее время',levels:'Лучшее время по уровням',achievements:'Достижения',timer:'Время',practice:'Продолжение без рейтинга',ranked:'Новая игра с рейтингом',locked:'Пока не получено',none:'—',firstBlood:'Первая победа',tenKills:'10 врагов',stageThree:'Достигнуть уровня 3',stageFive:'Достигнуть уровня 5',victory:'Победа!',stageSix:'Шестой тур',stageEight:'Восьмой тур',stageNine:'Девятый тур',stageTen:'Десятый тур',stageEleven:'Симона бесконечно',endless100:'50 врагов',survival:'Время этапа',hell:'Ад пройден',crown:'Победитель пяти волн',scoreNote:'Статистика хранится локально; ТОП-30 в рейтинге.'},
-    zh:{button:'📊 我的统计',heading:'我的统计',device:'仅保存在此设备',close:'← 返回',runs:'开始游戏次数',wins:'胜利次数',defeats:'失败次数',kills:'击败敌人数',bestScore:'最高分',bestRun:'最佳通关时间',levels:'各关最佳用时',achievements:'成就',timer:'时间',practice:'存档练习',ranked:'全新排行游戏',locked:'尚未解锁',none:'—',firstBlood:'初战告捷',tenKills:'击败10名敌人',stageThree:'到达第3关',stageFive:'到达第5关',victory:'胜利！',stageSix:'第六关',stageEight:'第八关',stageNine:'第九关',stageTen:'第十关',stageEleven:'西蒙娜无尽之战',endless100:'50名敌人',survival:'关卡时间',hell:'征服地狱',crown:'五波冠军',scoreNote:'统计仅保存在本机；排行榜显示前30名。'}
+    ka:{button:'📊 ჩემი სტატისტიკა',heading:'ჩემი სტატისტიკა',device:'ინახება მხოლოდ ამ მოწყობილობაზე',close:'← დაბრუნება',runs:'დაწყებული თამაშები',wins:'გამარჯვებები',defeats:'დამარცხებები',kills:'დამარცხებული მტრები',bestScore:'საუკეთესო ქულა',bestRun:'საუკეთესო სრული დრო',levels:'ტურების საუკეთესო დროები',achievements:'მიღწევები',timer:'დრო',practice:'სავარჯიშო გაგრძელება',ranked:'თავიდან დაწყებული',locked:'ჯერ არ არის მიღწეული',none:'—',firstBlood:'პირველი ბრძოლა',tenKills:'10 მტერი',stageThree:'მესამე ტურამდე',stageFive:'მეხუთე ტურამდე',victory:'გამარჯვება!',stageSix:'მეექვსე ტური',stageEight:'მერვე ტური',stageNine:'მეცხრე ტური',stageTen:'მეათე ტური',stageEleven:'სიმონა უსასრულოდ',endless100:'50 მტერი',survival:'ტურის დრო',hell:'ჯოჯოხეთი',crown:'ხუთი ტალღის გამარჯვებული',highestStage:'ყველაზე შორს მიღწეული ტური',scoreNote:'სტატისტიკა მხოლოდ ამ მოწყობილობაზეა; TOP 30 ცალკე რეიტინგშია.'},
+    en:{button:'📊 MY STATS',heading:'MY STATS',device:'Stored only on this device',close:'← BACK',runs:'Runs started',wins:'Victories',defeats:'Defeats',kills:'Enemies defeated',bestScore:'Best score',bestRun:'Fastest full run',levels:'Fastest level times',achievements:'Achievements',timer:'Time',practice:'Practice resume',ranked:'New ranked run',locked:'Not unlocked yet',none:'—',firstBlood:'First blood',tenKills:'10 enemies',stageThree:'Reached level 3',stageFive:'Reached level 5',victory:'Victory!',stageSix:'Stage Six',stageEight:'Stage Eight',stageNine:'Stage Nine',stageTen:'Stage Ten',stageEleven:'Simona Forever',endless100:'50 enemies',survival:'Stage time',hell:'Hell Conquered',crown:'Five-wave champion',highestStage:'Furthest stage reached',scoreNote:'Statistics are local; TOP 30 is in the separate ranking.'},
+    ru:{button:'📊 МОЯ СТАТИСТИКА',heading:'МОЯ СТАТИСТИКА',device:'Только на этом устройстве',close:'← НАЗАД',runs:'Начатые игры',wins:'Победы',defeats:'Поражения',kills:'Побежденные враги',bestScore:'Лучший счет',bestRun:'Лучшее время',levels:'Лучшее время по уровням',achievements:'Достижения',timer:'Время',practice:'Продолжение без рейтинга',ranked:'Новая игра с рейтингом',locked:'Пока не получено',none:'—',firstBlood:'Первая победа',tenKills:'10 врагов',stageThree:'Достигнуть уровня 3',stageFive:'Достигнуть уровня 5',victory:'Победа!',stageSix:'Шестой тур',stageEight:'Восьмой тур',stageNine:'Девятый тур',stageTen:'Десятый тур',stageEleven:'Симона бесконечно',endless100:'50 врагов',survival:'Время этапа',hell:'Ад пройден',crown:'Победитель пяти волн',highestStage:'Максимально достигнутый уровень',scoreNote:'Статистика хранится локально; ТОП-30 в рейтинге.'},
+    zh:{button:'📊 我的统计',heading:'我的统计',device:'仅保存在此设备',close:'← 返回',runs:'开始游戏次数',wins:'胜利次数',defeats:'失败次数',kills:'击败敌人数',bestScore:'最高分',bestRun:'最佳通关时间',levels:'各关最佳用时',achievements:'成就',timer:'时间',practice:'存档练习',ranked:'全新排行游戏',locked:'尚未解锁',none:'—',firstBlood:'初战告捷',tenKills:'击败10名敌人',stageThree:'到达第3关',stageFive:'到达第5关',victory:'胜利！',stageSix:'第六关',stageEight:'第八关',stageNine:'第九关',stageTen:'第十关',stageEleven:'西蒙娜无尽之战',endless100:'50名敌人',survival:'关卡时间',hell:'征服地狱',crown:'五波冠军',highestStage:'曾到达的最高关卡',scoreNote:'统计仅保存在本机；排行榜显示前30名。'}
   };
   const ACH=['firstBlood','tenKills','stageThree','stageFive','stageSix','stageEight','stageNine','stageTen','hell','victory','stageEleven','endless100','crown'];
   let run=null,lastClock=null,overlay=null;
@@ -19,13 +21,14 @@
   const key=()=>name().toLocaleLowerCase();
   function empty(){
     return {runs:0,wins:0,defeats:0,kills:0,bestScore:0,bestRunMs:null,
-      stageBestMs:Array(11).fill(null),achievements:{}};
+      stageBestMs:Array(11).fill(null),achievements:{},maxReachedStage:1};
   }
   function valid(s){
     return !!s&&typeof s==='object'&&!Array.isArray(s)&&
       ['runs','wins','defeats','kills','bestScore'].every(k=>safeInt(s[k],999999999))&&
       (s.bestRunMs===null||safeInt(s.bestRunMs,864000000))&&
       Array.isArray(s.stageBestMs)&&s.stageBestMs.length===11&&s.stageBestMs.every(v=>v===null||safeInt(v,864000000))&&
+      (s.maxReachedStage===undefined||(Number.isInteger(s.maxReachedStage)&&s.maxReachedStage>=1&&s.maxReachedStage<=11))&&
       !!s.achievements&&typeof s.achievements==='object'&&!Array.isArray(s.achievements);
   }
   function loadStore(){
@@ -41,6 +44,30 @@
   function current(){
     const s=loadStore().profiles[key()];
     return valid(s)?s:empty();
+  }
+  // Migrate older profiles using completed-stage records. No checkpoint is required:
+  // reaching stage five and dying there still keeps stage five unlocked forever.
+  function historicalMaximum(s){
+    let reached=Number.isInteger(s.maxReachedStage)?s.maxReachedStage:1;
+    for(let i=0;i<10;i++)if(s.stageBestMs[i]!==null)reached=Math.max(reached,i+2);
+    return Math.max(1,Math.min(11,reached));
+  }
+  function highestReached(){
+    if(window.PiraliVisualPreviewReadonly===true)return 11;
+    const stage=Number(window.PiraliCheckpoint?.get?.()?.level);
+    const checkpoint=Number.isInteger(stage)&&stage>=1&&stage<=11?stage:1;
+    const profile=current(),reached=Math.max(historicalMaximum(profile),checkpoint);
+    // One-time migration of old successful stage records or an existing checkpoint.
+    if(profile.maxReachedStage!==reached){profile.maxReachedStage=reached;commit(profile);}
+    return reached;
+  }
+  function recordReached(n){
+    if(window.PiraliVisualPreviewReadonly===true||!Number.isInteger(n)||n<1||n>11)return false;
+    const s=current(),top=Math.max(historicalMaximum(s),n);
+    if(s.maxReachedStage===top)return false;
+    s.maxReachedStage=top;
+    commit(s);
+    return true;
   }
   function commit(data){
     if(!valid(data))return;
@@ -89,6 +116,7 @@
     if(run.level>=10)award(s,'stageTen');
     if(run.level>=11)award(s,'stageEleven');
     commit(s);
+    recordReached(run.level);
   }
   function kill(){
     if(!run||run.ended)return;
@@ -129,6 +157,7 @@
   function stageReady(n){
     if(!run||run.ended)return;
     run.level=n;run.transition=false;run.stageMs=0;lastClock=null;
+    recordReached(n);
     if(n>=6){const s=current();award(s,'stageSix');if(n>=8)award(s,'stageEight');
       if(n>=9)award(s,'stageNine');if(n>=10)award(s,'stageTen');if(n>=11)award(s,'stageEleven');commit(s);}
   }
@@ -161,6 +190,7 @@
       }
     }
     if(!run.practice&&safeInt(sc,999999999)&&sc>s.bestScore)s.bestScore=sc;
+    if(window.PiraliVisualPreviewReadonly!==true)s.maxReachedStage=Math.max(historicalMaximum(s),run.level);
     commit(s);renderResult();
     const hud=document.getElementById('pirali-time-hud');if(hud)hud.hidden=true;
   }
@@ -185,7 +215,7 @@
     box.replaceChildren();
     document.getElementById('pirali-stats-title').textContent=t('heading')+' · '+name();
     document.getElementById('pirali-stats-subtitle').textContent=t('device');
-    for(const [k,v] of [['runs',s.runs],['wins',s.wins],['defeats',s.defeats],['kills',s.kills],['bestScore',s.bestScore.toLocaleString()],['bestRun',fmt(s.bestRunMs)]])
+    for(const [k,v] of [['runs',s.runs],['wins',s.wins],['defeats',s.defeats],['kills',s.kills],['highestStage',highestReached()],['bestScore',s.bestScore.toLocaleString()],['bestRun',fmt(s.bestRunMs)]])
       box.appendChild(line(t(k),v));
     box.appendChild(section(t('levels')));
     for(let n=1;n<=11;n++)box.appendChild(line(
@@ -225,6 +255,6 @@
   }
   document.addEventListener('pirali:languagechange',()=>{if(visible())render();renderResult();document.querySelectorAll('.pirali-show-stats,.menu-stats').forEach(b=>b.textContent=t('button'))});
   window.PiraliStats=Object.freeze({start,kill,completeStage,stageReady,result,clockTick,
-    mountMenu,mountLeaderboard,renderResult,show,hide,visible,get:current,format:fmt,
+    mountMenu,mountLeaderboard,renderResult,show,hide,visible,get:current,highestReached,recordReached,format:fmt,
     debug:()=>run?{...run}:null});
 })();

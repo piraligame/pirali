@@ -1,5 +1,5 @@
 {
-  "version": "1.11.2-beta.1",
+  "version": "1.11.3-beta.1",
   "channel": "beta-web-player",
   "base": "0.16.3l DEV",
   "publishedForPlayers": false,
@@ -7,8 +7,8 @@
   "aabBuilt": false,
   "developerOnly": false,
   "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
-  "qa": "Beta 1.11.2 interactive read-only stage journal QA, stage 7 stability, selected game language and HD campaign map",
-  "revision": "beta1112-interactive-story-map-journal",
+  "qa": "PIRALI Beta 1.11.3 furthest reached stage persist and map unlocking QA, inherited stage 7 and language tests",
+  "revision": "beta1113-per-player-furthest-unlocked-map-journal",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
   "startScore": 0,
@@ -38,7 +38,7 @@
   "legacyAlpha015LeaderboardPath": "/scores",
   "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
   "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
-  "displayVersion": "BETA 1.11.2 PLAYER",
+  "displayVersion": "BETA 1.11.3 PLAYER",
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
   "qaEvidence": [
@@ -47,7 +47,8 @@
     "qa/pirali-beta1102-stage6.cjs",
     "qa/pirali-beta111-stage7-stability.cjs",
     "qa/pirali-beta1111-map-language.cjs",
-    "qa/pirali-beta1112-story-map.cjs"
+    "qa/pirali-beta1112-story-map.cjs",
+    "qa/pirali-beta1113-player-unlocks.cjs"
   ],
   "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
   "stage6": {
@@ -192,6 +193,14 @@
     "selection": "Tap stage pin to view storyline, objective, rewards and checkpoint status",
     "allowStageSkipping": false,
     "allowStageStart": false,
-    "checkpointMutations": false
+    "checkpointMutations": false,
+    "defaultSelectedStage": 1,
+    "lockedStageBehavior": "Player cannot open detail of stage never reached; locked map markers remain visible and disabled.",
+    "developerAllStagesUnlocked": true,
+    "savedProgressField": "PiraliStats.get().maxReachedStage",
+    "persistentScope": "per player name in device/browser localStorage; no cloud synchronization",
+    "checkpointIndependent": true,
+    "resetsOnDeath": false,
+    "historicalMigration": "derive furthest reached from recorded stage completion and existing checkpoint"
   }
 }

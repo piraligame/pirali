@@ -1,0 +1,23 @@
+name: PIRALI Beta 1.11.3 Persistent Map Unlocks QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta111-play/**'
+      - 'beta111-dev/**'
+      - 'qa/pirali-beta1113-player-unlocks.cjs'
+      - 'qa/pirali-beta1112-story-map.cjs'
+      - '.github/workflows/pirali-beta1113-player-unlocks.yml'
+  workflow_dispatch:
+jobs:
+  persistent-unlocks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Player profile highest-stage and Developer isolation
+        run: node qa/pirali-beta1113-player-unlocks.cjs
+      - name: Interactive map default stage and locked-stage selection
+        run: node qa/pirali-beta1112-story-map.cjs
