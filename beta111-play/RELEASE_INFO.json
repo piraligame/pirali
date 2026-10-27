@@ -1,5 +1,5 @@
 {
-  "version": "1.11-beta.1",
+  "version": "1.11.1-beta.1",
   "channel": "beta-web-player",
   "base": "0.16.3l DEV",
   "publishedForPlayers": false,
@@ -8,7 +8,7 @@
   "developerOnly": false,
   "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
   "qa": "Beta 1.11 stage-7 stability QA and inherited Beta 1.10.2/1.10.1 & HD map regressions",
-  "revision": "beta111-stage7-safe-opening-10-percent-balance",
+  "revision": "beta1111-unified-game-map-language",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
   "startScore": 0,
@@ -38,14 +38,15 @@
   "legacyAlpha015LeaderboardPath": "/scores",
   "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
   "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
-  "displayVersion": "BETA 1.11 PLAYER",
+  "displayVersion": "BETA 1.11.1 PLAYER",
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
   "qaEvidence": [
     "qa/pirali-beta110-hearts.cjs",
     "qa/pirali-beta110-hd-map.cjs",
     "qa/pirali-beta1102-stage6.cjs",
-    "qa/pirali-beta111-stage7-stability.cjs"
+    "qa/pirali-beta111-stage7-stability.cjs",
+    "qa/pirali-beta1111-map-language.cjs"
   ],
   "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
   "stage6": {
@@ -173,5 +174,7 @@
     "maxReservedGuardsAtChurch": 4,
     "bossAndLargeHeartRequired": true,
     "remarks": "Soldiers redistributed evenly beyond the safe start; four church guards preserved, general/Batoni/large-heart progression unchanged."
-  }
+  },
+  "campaignMapLanguageControl": "Main menu language exclusively; map reads window.PiraliLanguage and follows pirali:languagechange",
+  "mapOwnLanguagePicker": false
 }

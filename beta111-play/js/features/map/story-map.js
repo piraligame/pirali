@@ -1,4 +1,4 @@
-/* PIRALI BETA 1.09 — owner-selected illustrated world map, localized overlays. */
+/* PIRALI BETA 1.11.1 — map follows the main game's selected language. */
 (function(){
 'use strict';
 const STOPS=[
@@ -40,10 +40,6 @@ function render(){
   element.title=w.title+' — '+n+': '+label(n)+' · '+state;
   element.setAttribute('aria-label',element.title);
  }
- for(const choice of overlay.querySelectorAll('[data-map-lang]')){
-  choice.classList.toggle('active',choice.dataset.mapLang===getLang());
-  choice.setAttribute('aria-pressed',String(choice.dataset.mapLang===getLang()));
- }
 }
 function close(){if(!overlay)return;overlay.remove();overlay=null;button?.focus();}
 function open(){
@@ -56,12 +52,7 @@ function open(){
  overlay.innerHTML='<section class="story-map-shell">'+
   '<header class="story-map-head"><button type="button" class="story-map-back"></button>'+
   '<div class="story-map-title-wrap"><h2 class="story-map-title"></h2><p class="story-map-subtitle"></p></div></header>'+
-  '<div class="story-map-languages" role="group" aria-label="Language">'+
-   '<button type="button" data-map-lang="ka">🇬🇪 ქართული</button>'+
-   '<button type="button" data-map-lang="en">🇺🇸 English</button>'+
-   '<button type="button" data-map-lang="ru">🇷🇺 Русский</button>'+
-   '<button type="button" data-map-lang="zh">🇨🇳 中文</button>'+
-  '</div><div class="story-map-scroll" tabindex="0" aria-label="Route map">'+
+  '<div class="story-map-scroll" tabindex="0" aria-label="Route map">'+
   '<div class="story-map-art"><img src="assets/maps/pirali-approved.webp?v=beta110-hd-20261027" alt="" draggable="false"></div></div>'+
   '<footer><span class="story-map-max"></span></footer></section>';
  const art=overlay.querySelector('.story-map-art');
@@ -74,8 +65,6 @@ function open(){
   art.appendChild(e);
  }
  overlay.querySelector('.story-map-back').addEventListener('click',close);
- for(const lang of overlay.querySelectorAll('[data-map-lang]'))
-  lang.addEventListener('click',()=>window.PiraliLanguage?.setLanguage?.(lang.dataset.mapLang));
  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
  document.body.appendChild(overlay);
  render();

@@ -1,0 +1,20 @@
+name: PIRALI Beta 1.11.1 Unified Map Language QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta111-play/**'
+      - 'beta111-dev/**'
+      - 'qa/pirali-beta1111-map-language.cjs'
+      - '.github/workflows/pirali-beta1111-map-language.yml'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate unified game language and no duplicate map selector
+        run: node qa/pirali-beta1111-map-language.cjs
