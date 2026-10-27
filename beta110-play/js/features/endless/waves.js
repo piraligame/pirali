@@ -1,9 +1,10 @@
-/* PIRALI BETA 1.10 — stage 11 +15% healing supplies, existing five waves untouched. */
+/* PIRALI BETA 1.10.1 — stage 11 +20% healing-heart chance over BETA 1.10, all five waves unchanged. */
 (function(){
 'use strict';
 const CAP=10,FINAL_WAVE=5;
-// Beta 1.10: +15% expected healing-heart pickups during stage 11 periodic supplies.
-const HEART_RESTOCK_MULTIPLIER=1.15;
+// Beta 1.10 had x1.15; new beta is 20% higher: x1.15 * x1.20 = x1.38.
+// Applies only to stage 11 periodic ammunition/health supplies, not global drops.
+const HEART_RESTOCK_MULTIPLIER=1.38;
 const TYPES=['rifle','saber','officer','rifle','saber'];
 let live=false,cleared=false,completed=false,wave=0,kills=0,waveKills=0,spawned=0;
 let spawnClock=0,elapsed=0,nextAmmo=3300,ammoRemainder=0,wasOutsideHouse=false;
