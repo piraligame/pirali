@@ -4,8 +4,11 @@ const root=path.join(__dirname,'..');
 const get=p=>fs.readFileSync(path.join(root,p),'utf8');
 const g=get('android/app/build.gradle');
 assert.match(g,/applicationId "ge\.piraligame\.pirali"/);
-assert.match(g,/versionCode 19/);
-assert.match(g,/versionName "1\.13"/);
+// Historical Beta 1.13 artifacts remain at code 19; the active Android
+// project can legitimately advance for new 1.15+ releases.
+const activeVersionCode=Number(g.match(/versionCode (\d+)/)?.[1]);
+assert(Number.isInteger(activeVersionCode)&&activeVersionCode>=19);
+assert.match(g,/versionName "\d+\.\d+"/);
 assert(g.includes("PIRALI_ALPHA_KEYSTORE_PATH"),'Existing keystore config removed');
 assert(g.includes("PIRALI_ALPHA_STORE_PASSWORD"),'Signing secret input missing');
 assert(!g.includes("storePassword '"),'Hardcoded signing password found');
