@@ -1,0 +1,22 @@
+/* PIRALI BETA 1.09 chosen portrait map. */
+.story-map-open{width:100%;min-height:43px;padding:10px;border:2px solid #ac7f38;border-radius:11px;color:#ffeac0;background:linear-gradient(180deg,#5e482c,#302619);font:700 14px 'Noto Sans Georgian',system-ui,sans-serif;cursor:pointer;text-shadow:0 1px 3px #000}
+.story-map-open:hover,.story-map-open:focus-visible{outline:2px solid #ffe9ac;background:#715532}
+#pirali-story-map{position:fixed;inset:0;z-index:99999;background:rgba(12,14,17,.96);display:flex;align-items:center;justify-content:center;padding:10px;box-sizing:border-box;overscroll-behavior:contain}
+#pirali-story-map .story-map-shell{display:flex;flex-direction:column;max-width:620px;width:100%;max-height:98dvh;height:98dvh;overflow:hidden;background:#231b13;border:2px solid #b38c50;border-radius:16px;box-shadow:0 10px 30px #000b}
+.story-map-head{display:flex;align-items:center;gap:10px;padding:10px 13px;background:linear-gradient(180deg,#604628,#291d14);color:#f8e6bd}
+.story-map-back{white-space:nowrap;flex-shrink:0;cursor:pointer;padding:8px 10px;color:#fff0cb;background:#49331e;border:1px solid #bb9253;border-radius:8px;font:700 12px system-ui}
+.story-map-title-wrap{min-width:0}.story-map-title{font-size:clamp(15px,3.7vw,23px);line-height:1.1;margin:0;color:#ffe9ae}.story-map-subtitle{font-size:11px;margin:4px 0 0;color:#dccda9}
+.story-map-languages{display:flex;gap:4px;padding:7px;justify-content:space-evenly;background:#322619}
+.story-map-languages button{background:#4c3c2d;border:1px solid #7d5c30;border-radius:7px;padding:6px 5px;cursor:pointer;color:#f5dfad;font-size:10px;flex:1;min-width:0}
+.story-map-languages button.active{border-color:#ffe693;background:#7b5b2b;color:#fff}
+.story-map-scroll{min-height:0;flex:1;overflow-y:auto;overflow-x:hidden;touch-action:pan-y;background:#c9b788;scrollbar-color:#9d7c45 #e1cfa1;overscroll-behavior:contain}
+.story-map-art{position:relative;width:100%;aspect-ratio:1024/1536;background:#c6ac78}
+.story-map-art img{width:100%;height:100%;display:block;user-select:none;pointer-events:none}
+.story-map-stage{position:absolute;min-height:1.9%;border:1px solid #65451f;border-radius:6px;background:linear-gradient(180deg,#f8e1b5,#ecc68f);box-shadow:2px 3px 5px #36271977;padding:3px 5px;box-sizing:border-box;text-align:center;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);overflow-wrap:anywhere}
+.story-map-stage .story-map-name{font:800 clamp(10px,2.2vw,15px)/1.18 'Noto Sans Georgian',system-ui,sans-serif;color:#3e2818}
+.story-map-stage.complete{border:2px solid #42834c;background:linear-gradient(180deg,#d8ebbe,#c2daa4)}
+.story-map-stage.current{border:3px solid #eb9c20;box-shadow:0 0 0 3px #ffe2a9a8,0 3px 9px #39200d;color:#261b0c}
+.story-map-stage.locked{opacity:.91;filter:saturate(.72)}
+#pirali-story-map footer{display:flex;justify-content:center;padding:10px;background:#352719;font-weight:800;color:#f1dca4;font-size:13px}
+@media(max-width:480px){#pirali-story-map{padding:0}#pirali-story-map .story-map-shell{max-height:100dvh;height:100dvh;border-radius:0;border-left:none;border-right:none}.story-map-stage{padding:2px 3px}.story-map-stage .story-map-name{font-size:clamp(9px,2.25vw,12px)}}
+@media(prefers-reduced-motion:reduce){.story-map-art,.story-map-stage{animation:none;transition:none}}
