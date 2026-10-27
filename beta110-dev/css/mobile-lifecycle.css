@@ -1,0 +1,14 @@
+/* Safe Android quit confirmation. Touch targets >= 44px. */
+#pirali-exit-dialog[hidden]{display:none!important;}
+#pirali-exit-dialog{position:fixed;inset:0;z-index:11000;background:rgba(0,0,0,.84);
+display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));box-sizing:border-box;}
+.pirali-exit-card{box-sizing:border-box;width:min(380px,100%);max-height:90vh;overflow:auto;
+padding:24px 20px;border:1px solid #c99b46;border-radius:14px;text-align:center;
+background:linear-gradient(160deg,#38240e,#120c07);box-shadow:0 8px 40px #000c;color:#f4d69c;}
+#pirali-exit-title{font:700 21px/1.4 'Noto Sans Georgian',sans-serif;margin:0 0 12px;}
+#pirali-exit-info{font:14px/1.5 'Noto Sans Georgian',sans-serif;color:#d3bc93;margin:0 0 20px;}
+.pirali-exit-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.pirali-exit-actions button{flex:1 1 120px;min-height:48px;padding:10px;border:1px solid #af803a;border-radius:9px;
+background:#65451b;color:#fff3d1;font:700 15px 'Noto Sans Georgian',sans-serif;cursor:pointer;}
+#pirali-exit-confirm{background:#401a15;border-color:#9f493d;}
+.pirali-exit-actions button:focus-visible{outline:2px solid #ffe4a1;outline-offset:2px;}
