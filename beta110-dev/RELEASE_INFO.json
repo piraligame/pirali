@@ -1,5 +1,5 @@
 {
-  "version": "1.10.1-beta.1-dev",
+  "version": "1.10.2-beta.1-dev",
   "channel": "beta-dev-web",
   "base": "0.16.3l DEV",
   "publishedForPlayers": false,
@@ -7,8 +7,8 @@
   "aabBuilt": false,
   "developerOnly": true,
   "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
-  "qa": "PIRALI Beta 1.10.1 Stage 11 Healing QA and HD Campaign Map QA",
-  "revision": "beta1101-stage11-health-20-percent-over-110",
+  "qa": "PIRALI Beta 1.10.2 Stage 6 Route and Heart Drops QA + previous Beta 1.10.1 / HD map QA",
+  "revision": "beta1102-stage6-safe-start-fewer-foes-more-heart-drops",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
   "startScore": 0,
@@ -38,20 +38,27 @@
   "legacyAlpha015LeaderboardPath": "/scores",
   "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
   "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
-  "displayVersion": "BETA 1.10.1 DEVELOPER",
+  "displayVersion": "BETA 1.10.2 DEVELOPER",
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "role": "developer-preview",
   "previewControls": true,
   "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
   "qaEvidence": [
     "qa/pirali-beta110-hearts.cjs",
-    "qa/pirali-beta110-hd-map.cjs"
+    "qa/pirali-beta110-hd-map.cjs",
+    "qa/pirali-beta1102-stage6.cjs"
   ],
   "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
   "stage6": {
     "additionalSoldiersReduction": -0.1,
     "additionalStrengthReduction": -0.1,
-    "roadsideTreeIncrease": 0.2
+    "roadsideTreeIncrease": 0.2,
+    "additionalEnemiesReductionFrom1101": 0.1,
+    "effectiveEnemyCountMultiplierFromUnmodifiedStage6": 0.7290000000000001,
+    "minInitialEnemyDistanceWorldUnits": 660,
+    "startingZone": "Clear opening, surviving enemies uniformly distributed along later route",
+    "enemyHealthDropChanceIncreaseRelative": 0.2,
+    "enemyAmmoDropChance": "Unchanged"
   },
   "stage8": {
     "allEnemyHpAndAttack": -0.15,
