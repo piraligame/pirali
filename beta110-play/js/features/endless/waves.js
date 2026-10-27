@@ -1,7 +1,9 @@
-/* PIRALI BETA 1.06 — five gradual ten-foe waves; walk home to win. */
+/* PIRALI BETA 1.10 — stage 11 +15% healing supplies, existing five waves untouched. */
 (function(){
 'use strict';
 const CAP=10,FINAL_WAVE=5;
+// Beta 1.10: +15% expected healing-heart pickups during stage 11 periodic supplies.
+const HEART_RESTOCK_MULTIPLIER=1.15;
 const TYPES=['rifle','saber','officer','rifle','saber'];
 let live=false,cleared=false,completed=false,wave=0,kills=0,waveKills=0,spawned=0;
 let spawnClock=0,elapsed=0,nextAmmo=3300,ammoRemainder=0,wasOutsideHouse=false;
@@ -68,7 +70,7 @@ function supply(){
   const y=Math.max(220,Math.min(WH-160,P.y+Math.sin(a)*r));
   if(trees.some(t=>Math.hypot(t.x-x,t.y-y)<t.r*.4+22))continue;
   pickups.push({x,y,bob:Math.random()*6.283,col:false,
-   type:i===0&&Math.random()<window.PiraliDropBalance.endlessHealthChance?'health':'ammo'});
+   type:i===0&&Math.random()<Math.min(1,window.PiraliDropBalance.endlessHealthChance*HEART_RESTOCK_MULTIPLIER)?'health':'ammo'});
  }
 }
 function begin(){
@@ -136,6 +138,7 @@ function onKill(enemy){
  window.PiraliEndlessHUD?.refresh();
 }
 window.PiraliEndless=Object.freeze({
+ healingSupplyMultiplier:HEART_RESTOCK_MULTIPLIER,
  setup,tick,onKill,enterHouse,
  state:()=>({active:(live||completed)&&level===11,cleared,completed,
   maxWaves:FINAL_WAVE,wave,kills,waveKills,spawned,
