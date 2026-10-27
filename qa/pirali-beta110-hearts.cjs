@@ -35,7 +35,7 @@ for(const role of ['play','dev']){
  assert.equal(metadata.maxHealthUpgrades.stage10,'Devil large heart: 6→7');
  assert.equal(metadata.stage11EnemiesPerWave,10);
  assert.equal(metadata.stage11MaxWaves,5);
- const version=role==='play'?'1.10.1-beta.1':'1.10.1-beta.1-dev';
+ const version=role==='play'?'1.10.2-beta.1':'1.10.2-beta.1-dev';
  assert.equal(metadata.version,version,role+': release metadata version missing');
  assert(html.includes("window.PiraliGameVersion='"+version+"'"),role+': runtime version missing');
  assert(html.includes('js/features/endless/waves.js?v=beta1101-stage11-hearts-20'),role+': browser caching stale supply script');
