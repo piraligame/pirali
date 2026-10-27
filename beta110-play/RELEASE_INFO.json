@@ -7,7 +7,7 @@
   "aabBuilt": false,
   "developerOnly": false,
   "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
-  "qa": "GitHub Actions PIRALI BETA 1.09.1 map HUD responsive layout test",
+  "qa": "PIRALI Beta 1.10 Heart Drop QA and HD Campaign Map QA",
   "revision": "beta110-stage11-hearts-15-percent",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
@@ -42,7 +42,8 @@
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
   "qaEvidence": [
-    "qa/pirali-beta110-hearts.cjs"
+    "qa/pirali-beta110-hearts.cjs",
+    "qa/pirali-beta110-hd-map.cjs"
   ],
   "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
   "stage6": {
@@ -148,5 +149,6 @@
   },
   "stage11HealingPickupIncreaseRelative": 0.15,
   "stage11HealthSystem": "Regular healing hearts +15% per periodic supply roll in stage 11; maximum capacity remains 7. No effect on levels 1–10.",
-  "mapArtworkStatus": "Pending replacement of existing tiny compressed placeholder with owner-uploaded high-resolution original."
+  "mapArtworkStatus": "Approved 1024x1536 HD WebP (775170 bytes), deployed to Player and Developer on 2026-10-27.",
+  "mapAssetCacheVersion": "beta110-hd-20261027"
 }
