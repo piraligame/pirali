@@ -1,0 +1,241 @@
+{
+  "version": "1.14.0-beta.1",
+  "channel": "beta-web-player",
+  "base": "0.16.3l DEV",
+  "publishedForPlayers": false,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "developerOnly": false,
+  "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
+  "qa": "Beta 1.12 interactive locked-map notice + PC physical keyboard controls, previous stage7 balance and profile persistence regressions",
+  "revision": "beta114-polish-seven-improvements",
+  "season": "pirali_beta_1_0_s1",
+  "startLevel": 1,
+  "startScore": 0,
+  "firebasePath": "/pirali_beta_rating",
+  "firebaseWritesBlocked": false,
+  "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
+  "releaseReady": false,
+  "notes": "Result shows online rank of best personal score among all unique players even outside TOP 30; no Firebase saved banner on successful PLAYER submission. Firebase Beta season path unchanged.",
+  "scoreLimits": {
+    "story": 5000,
+    "endlessBonus": 2000,
+    "total": 7000
+  },
+  "stage9Shooters": 15,
+  "stage11LiveCap": 10,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  },
+  "leaderboardPath": "/pirali_beta_rating",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
+  "displayVersion": "BETA 1.14 PLAYER",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
+  "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
+  "qaEvidence": [
+    "qa/pirali-beta110-hearts.cjs",
+    "qa/pirali-beta110-hd-map.cjs",
+    "qa/pirali-beta1102-stage6.cjs",
+    "qa/pirali-beta111-stage7-stability.cjs",
+    "qa/pirali-beta1111-map-language.cjs",
+    "qa/pirali-beta1112-story-map.cjs",
+    "qa/pirali-beta1113-player-unlocks.cjs",
+    "qa/pirali-beta112-release.cjs",
+    "qa/pirali-beta113-android.cjs",
+    "qa/pirali-beta114-polish.cjs"
+  ],
+  "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
+  "stage6": {
+    "additionalSoldiersReduction": -0.1,
+    "additionalStrengthReduction": -0.1,
+    "roadsideTreeIncrease": 0.2,
+    "additionalEnemiesReductionFrom1101": 0.1,
+    "effectiveEnemyCountMultiplierFromUnmodifiedStage6": 0.7290000000000001,
+    "minInitialEnemyDistanceWorldUnits": 660,
+    "startingZone": "Clear opening, surviving enemies uniformly distributed along later route",
+    "enemyHealthDropChanceIncreaseRelative": 0.2,
+    "enemyAmmoDropChance": "Unchanged"
+  },
+  "stage8": {
+    "allEnemyHpAndAttack": -0.15,
+    "shotgunShellRandomDrop": -0.15
+  },
+  "stage9": {
+    "shooters": 15,
+    "enemyHpAndAttack": -0.2
+  },
+  "stage10": {
+    "enemyHpAndAttack": -0.2
+  },
+  "stage11MaxWaves": 5,
+  "stage11EnemiesPerWave": 10,
+  "stage11PointsPerWave": [
+    300,
+    300,
+    400,
+    400,
+    600
+  ],
+  "crown": "earned only after all 5 waves and valid 11th-level victory",
+  "georgianFlagCelebration": true,
+  "firebaseSchemaChanged": false,
+  "globalEnemyStrengthReduction": 0.05,
+  "stage11": {
+    "maxWaves": 5,
+    "enemiesPerWave": 10,
+    "bossesWave4": 1,
+    "bossesWave5": 2,
+    "landlords": 0,
+    "spawnMs": 600,
+    "weakness": -0.1,
+    "houseEntryRequired": true,
+    "wavePoints": [
+      300,
+      300,
+      400,
+      400,
+      600
+    ],
+    "additionalStrengthReduction": -0.1,
+    "totalWaveEnemies": 50
+  },
+  "qaReport": "QA_BETA106.md",
+  "globalAdditionalEnemyStrengthReduction": 0.1,
+  "globalAmmoDropBoostRelative": 0.1,
+  "globalHeartDropBoostRelative": 0.1,
+  "localizedCampaignMap": "Owner-selected illustrated 11-stage map, live translated KA/US EN/RU/ZH captions",
+  "mapAsset": "assets/maps/pirali-approved.webp",
+  "mapUI": "js/features/map/story-map.js",
+  "maxHealthUpgrades": {
+    "stage7": "General large heart: 5→6",
+    "stage10": "Devil large heart: 6→7",
+    "oneTimePerRun": true,
+    "checkpointPersists": true,
+    "normalHeartsHealOnly": true,
+    "exitRequiresPickup": true,
+    "locales": [
+      "ka",
+      "en-US",
+      "ru",
+      "zh"
+    ]
+  },
+  "inGameMiniMap": {
+    "enabled": true,
+    "worldRelative": true,
+    "playerHeading": true,
+    "enemyAndPickupMarkers": true,
+    "goalForStages7_10_11": true,
+    "hideShow": true,
+    "locales": [
+      "ka",
+      "en",
+      "ru",
+      "zh"
+    ]
+  },
+  "stage11Title": {
+    "ka": "გზა სახლისაკენ 🇬🇪",
+    "en": "Road Home 🇬🇪",
+    "ru": "Дорога домой 🇬🇪",
+    "zh": "回家的路 🇬🇪"
+  },
+  "minimapPosition": {
+    "side": "left",
+    "anchor": "#ui > .ui-panel:first-child",
+    "gapPx": 6,
+    "responsive": true
+  },
+  "minimapEnemyMarkers": {
+    "fill": "#ff2a2a",
+    "radius": 4.2,
+    "stroke": "#5a0000",
+    "previousRadius": 2.5
+  },
+  "stage11HealingPickupIncreaseRelative": 0.38,
+  "stage11HealthSystem": "Stage 11 only: 20% more healing-heart probability for scattered periodic ammo/health supply pickups than BETA 1.10 (multiplier x1.38 over pre-1.10 stage-11 baseline); maximum health remains 7, stages 1–10 untouched.",
+  "mapArtworkStatus": "Approved 1024x1536 HD WebP (775170 bytes), deployed to Player and Developer on 2026-10-27.",
+  "mapAssetCacheVersion": "beta110-hd-20261027",
+  "stage11HealingPickupIncreaseOverBeta110": 0.2,
+  "stage11HealingSupplyMultiplier": 1.38,
+  "stableWebCandidate": true,
+  "stage7": {
+    "enemyCountMultiplierFromBeta1102": 0.9,
+    "regularEnemyHpMultiplierFromBeta1102": 0.9,
+    "enemyAttackMultiplierFromBeta1102": 0.9,
+    "bossHpMultiplierFromBeta1102": 0.9,
+    "bossAttackMultiplierFromBeta1102": 0.9,
+    "bossReinforcementHpMultiplierFromBeta1102": 0.9,
+    "startingEnemyClearRadius": 700,
+    "maxReservedGuardsAtChurch": 4,
+    "bossAndLargeHeartRequired": true,
+    "remarks": "Soldiers redistributed evenly beyond the safe start; four church guards preserved, general/Batoni/large-heart progression unchanged."
+  },
+  "campaignMapLanguageControl": "Main menu language exclusively; map reads window.PiraliLanguage and follows pirali:languagechange",
+  "mapOwnLanguagePicker": false,
+  "mapStageDetails": {
+    "interactive": true,
+    "readOnly": true,
+    "stages": 11,
+    "localized": [
+      "ka",
+      "en",
+      "ru",
+      "zh"
+    ],
+    "followsMainMenuLanguage": true,
+    "selection": "Tap stage pin to view storyline, objective, rewards and checkpoint status",
+    "allowStageSkipping": false,
+    "allowStageStart": false,
+    "checkpointMutations": false,
+    "defaultSelectedStage": 1,
+    "lockedStageBehavior": "Locked stage pin can be pressed; only localized unavailable notice is shown, with no hidden stage story/objective/reward.",
+    "developerAllStagesUnlocked": true,
+    "savedProgressField": "PiraliStats.get().maxReachedStage",
+    "persistentScope": "per player name in device/browser localStorage; no cloud synchronization",
+    "checkpointIndependent": true,
+    "resetsOnDeath": false,
+    "historicalMigration": "derive furthest reached from recorded stage completion and existing checkpoint",
+    "unwantedReturnToChokhatauriButtonRemoved": true,
+    "lockedStageNoticeKa": "ხელმიუწვდომელია — სიმონა ჯერ არ არის აქ ნამყოფი!",
+    "allDevStagesAccessible": true
+  },
+  "keyboardControls": {
+    "movement": "WASD / arrow keys",
+    "shoot": "Space / physical KeyZ",
+    "sword": "physical KeyX",
+    "dash": "physical KeyC",
+    "layouts": "Georgian, US English, Russian",
+    "debounced": true,
+    "ignoredInTextInputs": true
+  },
+  "androidVersionCode": 19,
+  "androidVersionName": "1.13",
+  "androidApplicationId": "ge.piraligame.pirali",
+  "androidUpgradeFrom": "Alpha 0.15 (versionCode 18)",
+  "androidBundledGame": true,
+  "androidPackaging": "Signed release uses beta113-play assets via scripts/build-android-beta113.cjs",
+  "androidArtifactsPrepared": false,
+  "playConsoleUploaded": false,
+  "signingCertificateMatchesAlpha015": true,
+  "androidBuildProof": "Signed with unchanged local upload key; APK and AAB certs matched prior Alpha 0.15; Gradle release success",
+  "polish": {
+    "healthAmmoFeedback": true,
+    "comboStreakVisual": true,
+    "minimapColoredLegend": true,
+    "physicalActionFeedback": true,
+    "nonBlockingStageSummary": true,
+    "lifetimeMapMedals": true,
+    "stabilityAndQA": true,
+    "gameplayBalancePreserved": true
+  }
+}

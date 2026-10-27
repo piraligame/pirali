@@ -1,3 +1,12 @@
+# PIRALI — BETA 1.14 POLISH UPDATE
+
+- Player: https://piraligame.github.io/pirali/beta114-play/
+- Developer: https://piraligame.github.io/pirali/beta114-dev/
+- Release guide: [BETA 1.14 START HERE](BETA_1_14_START_HERE.md)
+- Android update: Signed Beta 1.13 APK/AAB remains unchanged in downloads/beta113/
+
+---
+
 # PIRALI — ფირალი
 
 ## მიმდინარე რელიზი: BETA 1.13 — 11 ტური + ხელმოწერილი Android APK/AAB

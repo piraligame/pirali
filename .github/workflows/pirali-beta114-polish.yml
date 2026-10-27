@@ -1,0 +1,33 @@
+name: PIRALI Beta 1.14 Polish QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta114-play/**'
+      - 'beta114-dev/**'
+      - 'qa/pirali-beta114-polish.cjs'
+      - '.github/workflows/pirali-beta114-polish.yml'
+      - 'BETA_1_14_START_HERE.md'
+  workflow_dispatch:
+jobs:
+  polished-player-and-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Behavioral regression tests — seven features, no balance changes
+        run: node qa/pirali-beta114-polish.cjs
+      - name: Verify syntax of both copies
+        run: |
+          for mode in play dev; do
+            for file in js/runtime/combat.js js/runtime/update.js js/runtime/ui.js js/runtime/outcome.js js/features/scoring/kill-combos.js js/features/map/story-map.js js/features/map/live-minimap.js js/features/polish/feedback.js; do
+              node --check "beta114-$mode/$file"
+            done
+          done
+      - name: Protect signed Beta 1.13 AAB and APK
+        run: |
+          echo "Signed Beta 1.13 remains separate in downloads/beta113/"
+          test -s downloads/beta113/PIRALI_Beta_1.13_Play_Upload.aab
+          test -s downloads/beta113/PIRALI_Beta_1.13_Signed_Update.apk
