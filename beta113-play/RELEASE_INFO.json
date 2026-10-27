@@ -3,8 +3,8 @@
   "channel": "beta-web-player",
   "base": "0.16.3l DEV",
   "publishedForPlayers": false,
-  "androidBuilt": false,
-  "aabBuilt": false,
+  "androidBuilt": true,
+  "aabBuilt": true,
   "developerOnly": false,
   "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
   "qa": "Beta 1.12 interactive locked-map notice + PC physical keyboard controls, previous stage7 balance and profile persistence regressions",
@@ -15,7 +15,7 @@
   "firebasePath": "/pirali_beta_rating",
   "firebaseWritesBlocked": false,
   "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
-  "releaseReady": false,
+  "releaseReady": true,
   "notes": "Result shows online rank of best personal score among all unique players even outside TOP 30; no Firebase saved banner on successful PLAYER submission. Firebase Beta season path unchanged.",
   "scoreLimits": {
     "story": 5000,
@@ -222,5 +222,11 @@
   "androidApplicationId": "ge.piraligame.pirali",
   "androidUpgradeFrom": "Alpha 0.15 (versionCode 18)",
   "androidBundledGame": true,
-  "androidPackaging": "Signed release uses beta113-play assets via scripts/build-android-beta113.cjs"
+  "androidPackaging": "Signed release uses beta113-play assets via scripts/build-android-beta113.cjs",
+  "androidArtifactsPrepared": true,
+  "playConsoleUploaded": false,
+  "apkDownloadUrl": "https://github.com/piraligame/pirali/raw/refs/heads/main/downloads/beta113/PIRALI_Beta_1.13_Signed_Update.apk",
+  "aabDownloadUrl": "https://github.com/piraligame/pirali/raw/refs/heads/main/downloads/beta113/PIRALI_Beta_1.13_Play_Upload.aab",
+  "signingCertificateMatchesAlpha015": true,
+  "androidBuildProof": "Signed with unchanged local upload key; APK and AAB certs matched prior Alpha 0.15; Gradle release success"
 }

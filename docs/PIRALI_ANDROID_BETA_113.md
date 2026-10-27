@@ -16,6 +16,12 @@
 
 არ ატვირთო GitHub-ზე `.p12`, `.jks`, პაროლები, DPAPI ფაილები, გარემოს ცვლადები ან არ გააზიარო ისინი. APK/AAB ფაილებში გასაღები არ ინახება.
 
+## ჩამოსატვირთი ფაილები
+
+- [Beta 1.13 signed APK](https://github.com/piraligame/pirali/raw/refs/heads/main/downloads/beta113/PIRALI_Beta_1.13_Signed_Update.apk)
+- [Beta 1.13 signed AAB](https://github.com/piraligame/pirali/raw/refs/heads/main/downloads/beta113/PIRALI_Beta_1.13_Play_Upload.aab)
+- Upload key შემოწმებულია: ახალი AAB-ის სერტიფიკატი ემთხვევა ძველ Alpha 0.15 AAB-ს; იგივე დადასტურებულია APK-ზეც.
+
 ## Play Console
 
 Closed Testing → Create new release → Upload `PIRALI_Beta_1.13_Play_Upload.aab` → release notes → Review and roll out to testers. წინასწარ გადაამოწმე appId, upload-key acceptance და versionCode. Google Play-ის უკვე არსებული ტესტირების სტატუსი და მიღებული გამოცემები არ წაშალო; production ხელმისაწვდომობა Play-ის წესებზეა დამოკიდებული.

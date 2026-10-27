@@ -1,12 +1,16 @@
-﻿{
-    "source":  "beta113-play",
-    "apkSha256":  "945D31A2F60AFCCA67C52F79165FCF0584A9880FB5463C91FB2F1552FC4EBC2E",
-    "appId":  "ge.piraligame.pirali",
-    "updateFrom":  "Alpha 0.15 versionCode 18",
-    "aabPath":  "C:\\Users\\punis\\Documents\\PIRALI_ANDROID_TOOLS\\PIRALI_BETA113_SOURCE\\downloads\\beta113\\PIRALI_Beta_1.13_Play_Upload.aab",
-    "versionCode":  19,
-    "signedWithExistingKeystore":  true,
-    "aabSha256":  "67D812EA86D3D32890D89B395335F601FE0B9A2549FB856103DC2F8AEE5416EF",
-    "versionName":  "1.13",
-    "apkPath":  "C:\\Users\\punis\\Documents\\PIRALI_ANDROID_TOOLS\\PIRALI_BETA113_SOURCE\\downloads\\beta113\\PIRALI_Beta_1.13_Signed_Update.apk"
+{
+  "source": "beta113-play",
+  "apkSha256": "945D31A2F60AFCCA67C52F79165FCF0584A9880FB5463C91FB2F1552FC4EBC2E",
+  "appId": "ge.piraligame.pirali",
+  "updateFrom": "Alpha 0.15 versionCode 18",
+  "aabPath": "downloads/beta113/PIRALI_Beta_1.13_Play_Upload.aab",
+  "versionCode": 19,
+  "signedWithExistingKeystore": true,
+  "aabSha256": "67D812EA86D3D32890D89B395335F601FE0B9A2549FB856103DC2F8AEE5416EF",
+  "versionName": "1.13",
+  "apkPath": "downloads/beta113/PIRALI_Beta_1.13_Signed_Update.apk",
+  "apkSigningCertificateMatchesAlpha015": true,
+  "aabUploadSigningCertificateMatchesAlpha015": true,
+  "androidBuiltAndSigned": true,
+  "playConsoleUploaded": false
 }
