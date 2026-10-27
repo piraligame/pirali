@@ -1,3 +1,16 @@
+# PIRALI — ფირალი
+
+## მიმდინარე რელიზი: BETA 1.13 — 11 ტური + Android განახლება
+
+- [**Beta 1.13 Player — თამაში**](https://piraligame.github.io/pirali/beta113-play/)
+- [**Beta 1.13 Developer — სატესტო**](https://piraligame.github.io/pirali/beta113-dev/)
+- [**BETA 1.13 — START HERE**](BETA_1_13_START_HERE.md)
+- [Android-ის ხელმოწერილი გამოშვების ინსტრუქცია](docs/PIRALI_ANDROID_BETA_113.md)
+- Android აპის პაკეტი: `ge.piraligame.pirali` · Beta 1.13 = `versionCode 19` / `versionName 1.13` · Alpha 0.15 = `versionCode 18`.
+- Player/Developer განთავსებულია დამოუკიდებლად; ვებსაიტი და Android განახლება ემყარება Player კოდს. ისტორიული ვერსიები უცვლელია.
+
+---
+
 # PIRALI — სიმონას გზა
 
 ქართული top-down სათავგადასავლო ექშენ-თამაში. საჯარო ვერსია: https://piraligame.github.io/pirali/

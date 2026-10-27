@@ -1,0 +1,32 @@
+name: PIRALI Beta 1.13 Android Upgrade QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta113-play/**'
+      - 'beta113-dev/**'
+      - 'android/app/build.gradle'
+      - 'scripts/build-android-beta113.cjs'
+      - 'scripts/build-beta113-signed.ps1'
+      - 'qa/pirali-beta113-android.cjs'
+      - '.github/workflows/pirali-beta113-android.yml'
+  workflow_dispatch:
+jobs:
+  verify-upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Play-compatible package/version and Player/DEV split
+        run: node qa/pirali-beta113-android.cjs
+      - name: Build Beta 1.13 Android web assets from PLAYER sources
+        run: node scripts/build-android-beta113.cjs
+      - name: Verify Android-ready web assets and safety constraints
+        run: node qa/pirali-beta113-android.cjs
+      - name: Check game JavaScript syntax
+        run: |
+          node --check beta113-play/js/features/map/story-map.js
+          node --check beta113-play/js/platform/desktop-controls.js
+          node --check beta113-play/js/runtime/combat.js
