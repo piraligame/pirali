@@ -1,3 +1,10 @@
+## BETA 1.10.1 — 11-ე ტურში +20% გულების შანსი
+- მე-11 ტურში ტყვიებთან ერთად პერიოდულად წარმოქმნილი გულების შანსი 20%-ით გაიზარდა უშუალოდ BETA 1.10-თან შედარებით (წინა x1.15 → ახალი x1.38 საწყის შანსთან შედარებით).
+- ბალანსი ეხება მხოლოდ მე-11 ტურს. 1–10 ტურებში გულის/ტყვიის შანსი უცვლელია.
+- 11 ტურის 5×10 მტრის ტალღები, რეიტინგი, მაღალი ხარისხის რუკა და მაქსიმალური 7 სიცოცხლე უცვლელია.
+- Player და Developer განახლებულია; `js/features/endless/waves.js`-ს ახალი cache-key აქვს: `beta1101-stage11-hearts-20`.
+- სატესტო QA: `node qa/pirali-beta110-hearts.cjs` და HD map-ის ტესტი.
+
 ## BETA 1.10 — HD map verification (2026-10-27)
 - Approved 1024×1536-pixel campaign map now replaces the 5 KB image in both Player and Developer at `assets/maps/pirali-approved.webp` (775,170 bytes).
 - Cached map UI script, styles and image all use the `beta110-hd-20261027` cache key.
