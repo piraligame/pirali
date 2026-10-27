@@ -17,3 +17,20 @@
 #pirali-story-map footer{display:flex;justify-content:center;padding:10px;background:#352719;font-weight:800;color:#f1dca4;font-size:13px}
 @media(max-width:480px){#pirali-story-map{padding:0}#pirali-story-map .story-map-shell{max-height:100dvh;height:100dvh;border-radius:0;border-left:none;border-right:none}.story-map-stage{padding:2px 3px}.story-map-stage .story-map-name{font-size:clamp(9px,2.25vw,12px)}}
 @media(prefers-reduced-motion:reduce){.story-map-art,.story-map-stage{animation:none;transition:none}}
+
+/* PIRALI BETA 1.11.2 — accessible clickable stage markers and story journal. */
+.story-map-stage{appearance:none;-webkit-appearance:none;cursor:pointer;touch-action:manipulation;font:inherit;color:inherit;line-height:inherit;transition:box-shadow .16s ease,filter .16s ease}
+.story-map-stage:hover{filter:brightness(1.08)}
+.story-map-stage:focus-visible{outline:3px solid #fff1a8;outline-offset:3px;z-index:2}
+.story-map-stage.selected{z-index:1;outline:2px solid #fff0a8;outline-offset:2px;box-shadow:0 0 0 4px rgba(90,53,10,.55),0 4px 10px rgba(30,20,10,.5)}
+.story-map-details[hidden]{display:none!important}
+.story-map-details{flex:0 0 auto;max-height:min(38dvh,290px);overflow-y:auto;overscroll-behavior:contain;padding:11px 14px;background:linear-gradient(180deg,#f5e6c0,#dfc898);border-top:2px solid #9c7436;color:#352518;scrollbar-color:#aa8652 #edd9a9}
+.story-map-details-head{display:flex;align-items:center;justify-content:space-between;gap:9px}
+.story-map-details-status{display:inline-flex;align-items:center;font:800 11px/1.2 'Noto Sans Georgian',system-ui,sans-serif;color:#4b351c;background:#ebd49a;border:1px solid #aa8747;border-radius:20px;padding:5px 9px}
+.story-map-details-close{min-height:36px;min-width:68px;cursor:pointer;border-radius:8px;border:1px solid #967041;padding:6px 12px;background:#513922;color:#fff1c8;font:700 12px 'Noto Sans Georgian',system-ui,sans-serif}
+.story-map-details-close:focus-visible{outline:3px solid #c48b20;outline-offset:2px}
+.story-map-details-heading{font:800 clamp(14px,3.8vw,19px)/1.3 'Noto Sans Georgian',system-ui,sans-serif;margin:8px 0;color:#3b2616}
+.story-map-details-content p{font:500 12px/1.5 'Noto Sans Georgian',system-ui,sans-serif;margin:6px 0}
+.story-map-details-content strong{color:#5a381b}
+.story-map-details-note{border-top:1px solid #aa8b59;padding-top:7px;color:#684d30;font-size:11px!important}
+@media(max-width:480px){.story-map-details{padding:9px 12px;max-height:min(39dvh,270px)}.story-map-details-content p{font-size:11px}.story-map-details-heading{margin:6px 0}.story-map-stage{min-height:25px}}

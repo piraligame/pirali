@@ -1,0 +1,20 @@
+name: PIRALI Beta 1.11.2 Interactive Campaign Map QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta111-play/**'
+      - 'beta111-dev/**'
+      - 'qa/pirali-beta1112-story-map.cjs'
+      - '.github/workflows/pirali-beta1112-story-map.yml'
+  workflow_dispatch:
+jobs:
+  interactive-map:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Simulate stage pins, language changes and read-only progress
+        run: node qa/pirali-beta1112-story-map.cjs

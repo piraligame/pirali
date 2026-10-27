@@ -55,7 +55,7 @@ for(const role of ['play','dev']){
     assert.equal(a.ctx.boss.hp,b.ctx.boss.hp,'other stage boss HP changed: '+n);
     assert.equal(a.ctx.window.PiraliStageTuning.attack(n),b.ctx.window.PiraliStageTuning.attack(n),'other stage attack changed: '+n);
   }
-  const version=role==='play'?'1.11.1-beta.1':'1.11.1-beta.1-dev';
+  const version=role==='play'?'1.11.2-beta.1':'1.11.2-beta.1-dev';
   assert.equal(data.version,version,'wrong BETA 1.11 version');
   assert.equal(data.stage7.enemyCountMultiplierFromBeta1102,0.90);
   assert.equal(data.stage7.startingEnemyClearRadius,700);

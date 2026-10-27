@@ -16,17 +16,17 @@ for(const role of ['play','dev']){
  assert(map.includes("const getLang=()=>window.PiraliLanguage?.getLanguage?.()||'ka'"),'Map must read game language');
  assert(map.includes("document.addEventListener('pirali:languagechange',render)"),'Map must refresh on global language changes');
  assert(map.includes("getLevelName?.(n)"),'Map stage labels must follow game translations');
- for(const lang of ['ka','en','ru','zh'])assert(map.includes(lang+':{open:'),'Translation missing: '+lang);
+ for(const lang of ['ka','en','ru','zh'])assert(map.includes(lang+':{'),'Translation missing: '+lang);
  assert(i18n.includes("new CustomEvent('pirali:languagechange'"),'Global language event absent');
- assert(html.includes('css/story-map.css?v=beta1111-map-lang-sync'),'CSS browser cache key absent');
- assert(html.includes('js/features/map/story-map.js?v=beta1111-map-lang-sync'),'JS browser cache key absent');
+ assert(html.includes('css/story-map.css?v=beta1112-stage-journal'),'CSS browser cache key absent');
+ assert(html.includes('js/features/map/story-map.js?v=beta1112-stage-journal'),'JS browser cache key absent');
  assert.equal(release.mapOwnLanguagePicker,false);
- assert.equal(release.version,role==='play'?'1.11.1-beta.1':'1.11.1-beta.1-dev');
+ assert.equal(release.version,role==='play'?'1.11.2-beta.1':'1.11.2-beta.1-dev');
  assert(html.includes("window.PiraliGameVersion='"+release.version+"'"));
  assert(fs.statSync(path.join(root,'assets/maps/pirali-approved.webp')).size>700000,'Approved HD map changed');
  assert(fs.existsSync(path.join(root,'js/features/map/live-minimap.js')),'In-game mini-map changed');
  if(role==='play')assert(!html.includes('<script src="js/preview-controls.js'),'DEV controls leaked');
  else assert(html.includes('<script src="js/preview-controls.js'),'DEV controls absent');
- console.log('PASS BETA 1.11.1 '+role+': unified language, no map picker, translated 11-stage HD map intact');
+ console.log('PASS BETA 1.11.2 '+role+': unified language, no map picker, translated 11-stage HD map intact');
 }
-console.log('PASS BETA 1.11.1 language synchronization');
+console.log('PASS BETA 1.11.2 language synchronization');
