@@ -1,0 +1,36 @@
+name: PIRALI Beta 1.15 Signed Android Release QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'downloads/beta115/**'
+      - 'beta115-play/RELEASE_INFO.json'
+      - 'android/app/build.gradle'
+      - 'qa/pirali-beta115-android.cjs'
+      - 'scripts/build-android-beta115.cjs'
+      - '.github/workflows/pirali-beta115-android.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-upload-bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify 1.15 gameplay, checkpoint and new laurel protection
+        run: node qa/pirali-beta115-laurel.cjs
+      - name: Verify APK and AAB stored SHA-256 and app IDs
+        run: node qa/pirali-beta115-android.cjs
+      - name: Check bundled production files (APK and AAB)
+        run: |
+          unzip -l downloads/beta115/PIRALI_Beta_1.15_Signed_Update.apk | grep -F 'js/features/loot/laurel-shield.js'
+          unzip -l downloads/beta115/PIRALI_Beta_1.15_Play_Upload.aab | grep -F 'js/features/loot/laurel-shield.js'
+          ! unzip -l downloads/beta115/PIRALI_Beta_1.15_Play_Upload.aab | grep -F 'js/preview-controls.js'
+          ! unzip -l downloads/beta115/PIRALI_Beta_1.15_Signed_Update.apk | grep -F 'js/preview-controls.js'
+      - name: Rebuild distributable web assets without signing secrets
+        run: node scripts/build-android-beta115.cjs
+      - name: Verify source-bundle matches Beta 1.15 Player
+        run: node qa/pirali-beta115-android.cjs

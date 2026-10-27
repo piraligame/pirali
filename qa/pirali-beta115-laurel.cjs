@@ -90,7 +90,7 @@ for(const role of ['play','dev']){
  assert(html.includes('css/laurel-shield.css?v=1.15.0'));
  assert.equal(rel.laurelShield.maxCharges,1);
  assert.equal(rel.laurelShield.restoresHealth,false);
- assert.equal(rel.androidBuilt,false);
+ assert.equal(rel.androidBuilt,role==='play','Only Beta 1.15 Player can be packaged as the signed Android release');
  if(role==='play')assert(!html.includes('<script src="js/preview-controls.js'),'DEV controls leaked to Player');
  else assert(html.includes('<script src="js/preview-controls.js'),'Dev tools missing');
  const code=file(role,'js/runtime/combat.js');

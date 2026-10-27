@@ -1,0 +1,19 @@
+{
+  "source": "beta115-play",
+  "apkSha256": "99A6237DC750579280F55B28C469B748887FD1AF6FDEFAAC5CAC3798A46054F9",
+  "appId": "ge.piraligame.pirali",
+  "updateFrom": "Alpha 0.15 versionCode 18",
+  "aabPath": "downloads/beta115/PIRALI_Beta_1.15_Play_Upload.aab",
+  "versionCode": 20,
+  "signedWithExistingKeystore": true,
+  "aabSha256": "17914BA8DA3B7B37D738A4188F8BBF04505A34B7EF3E1C6CFE29DC4C3C6A00E5",
+  "versionName": "1.15",
+  "apkPath": "downloads/beta115/PIRALI_Beta_1.15_Signed_Update.apk",
+  "alpha015ApkCertificateMatches": true,
+  "alpha015AabUploadCertificateMatches": true,
+  "beta113AabUploadCertificateMatches": true,
+  "releaseBuildVerified": true,
+  "beta115WebSourceVerified": true,
+  "devControlsExcluded": true,
+  "playConsoleUploaded": false
+}

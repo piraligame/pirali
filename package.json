@@ -1,12 +1,13 @@
 {
   "name": "pirali",
-  "version": "1.13.0",
+  "version": "1.15.0",
   "private": true,
   "description": "Pirali web game runtime and Android-ready web export",
   "scripts": {
     "build:android-web": "node scripts/build-android-web.cjs",
     "alpha:next": "node scripts/bump-alpha-version.cjs",
-    "build:android-beta113": "node scripts/build-android-beta113.cjs"
+    "build:android-beta113": "node scripts/build-android-beta113.cjs",
+    "build:android-beta115": "node scripts/build-android-beta115.cjs"
   },
   "dependencies": {
     "@capacitor/android": "8.5.3",

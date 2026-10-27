@@ -1,3 +1,14 @@
+# PIRALI — BETA 1.15 SIGNED ANDROID UPDATE ✅
+
+- **APK:** [Beta 1.15 Android update](https://raw.githubusercontent.com/piraligame/pirali/main/downloads/beta115/PIRALI_Beta_1.15_Signed_Update.apk)
+- **AAB:** [Beta 1.15 Google Play upload](https://raw.githubusercontent.com/piraligame/pirali/main/downloads/beta115/PIRALI_Beta_1.15_Play_Upload.aab)
+- [Android release instructions, compatibility and SHA-256](BETA_1_15_ANDROID_START_HERE.md)
+- Same app: `ge.piraligame.pirali`, versionCode **20**, versionName **1.15**. Signed with original Alpha 0.15 upload key.
+- Signed APK/AAB checked against Alpha 0.15/Beta 1.13; original Beta 1.13 backups remain intact.
+- Google Play Console upload **not performed**.
+
+---
+
 # PIRALI — BETA 1.15 LAUREL SHIELD UPDATE
 
 - Player: https://piraligame.github.io/pirali/beta115-play/

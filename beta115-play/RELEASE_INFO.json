@@ -3,8 +3,8 @@
   "channel": "beta-web-player",
   "base": "0.16.3l DEV",
   "publishedForPlayers": false,
-  "androidBuilt": false,
-  "aabBuilt": false,
+  "androidBuilt": true,
+  "aabBuilt": true,
   "developerOnly": false,
   "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
   "qa": "Beta 1.12 interactive locked-map notice + PC physical keyboard controls, previous stage7 balance and profile persistence regressions",
@@ -15,7 +15,7 @@
   "firebasePath": "/pirali_beta_rating",
   "firebaseWritesBlocked": false,
   "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
-  "releaseReady": false,
+  "releaseReady": true,
   "notes": "Result shows online rank of best personal score among all unique players even outside TOP 30; no Firebase saved banner on successful PLAYER submission. Firebase Beta season path unchanged.",
   "scoreLimits": {
     "story": 5000,
@@ -52,7 +52,8 @@
     "qa/pirali-beta112-release.cjs",
     "qa/pirali-beta113-android.cjs",
     "qa/pirali-beta114-polish.cjs",
-    "qa/pirali-beta115-laurel.cjs"
+    "qa/pirali-beta115-laurel.cjs",
+    "qa/pirali-beta115-android.cjs"
   ],
   "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
   "stage6": {
@@ -219,13 +220,13 @@
     "debounced": true,
     "ignoredInTextInputs": true
   },
-  "androidVersionCode": 19,
-  "androidVersionName": "1.13",
+  "androidVersionCode": 20,
+  "androidVersionName": "1.15",
   "androidApplicationId": "ge.piraligame.pirali",
-  "androidUpgradeFrom": "Alpha 0.15 (versionCode 18)",
+  "androidUpgradeFrom": "Alpha 0.15 versionCode 18; Beta 1.13 versionCode 19",
   "androidBundledGame": true,
-  "androidPackaging": "Signed release uses beta113-play assets via scripts/build-android-beta113.cjs",
-  "androidArtifactsPrepared": false,
+  "androidPackaging": "Signed release uses beta115-play assets via scripts/build-android-beta115.cjs",
+  "androidArtifactsPrepared": true,
   "playConsoleUploaded": false,
   "signingCertificateMatchesAlpha015": true,
   "androidBuildProof": "Signed with unchanged local upload key; APK and AAB certs matched prior Alpha 0.15; Gradle release success",
@@ -253,5 +254,9 @@
       "zh"
     ],
     "oldSavesWithoutFieldDefaultToNoShield": true
-  }
+  },
+  "androidReleaseStatus": "signed local release verified; Play Console upload not performed",
+  "apkDownloadUrl": "https://raw.githubusercontent.com/piraligame/pirali/main/downloads/beta115/PIRALI_Beta_1.15_Signed_Update.apk",
+  "aabDownloadUrl": "https://raw.githubusercontent.com/piraligame/pirali/main/downloads/beta115/PIRALI_Beta_1.15_Play_Upload.aab",
+  "aabSigningCertificateMatchesAlpha015AndBeta113": true
 }
