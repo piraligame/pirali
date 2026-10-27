@@ -1,0 +1,22 @@
+name: PIRALI BETA 1.09.2 red enemy minimap QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta1092-*/**'
+      - 'qa/pirali-beta1092-minimap-markers.cjs'
+      - '.github/workflows/pirali-beta1092-minimap.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-enemy-markers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert minimap enemy markers and preserved gameplay assets
+        run: node qa/pirali-beta1092-minimap-markers.cjs

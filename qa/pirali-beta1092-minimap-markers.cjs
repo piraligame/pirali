@@ -1,0 +1,31 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const oldEnemy="drawMarker(p.x,p.y,'#db4d43',2.5)";
+const newEnemy="drawMarker(p.x,p.y,'#ff2a2a',4.2,'#5a0000')";
+for(const role of ['dev','play']){
+ const root=path.join(__dirname,'..','beta1092-'+role);
+ const js=fs.readFileSync(path.join(root,'js/features/map/live-minimap.js'),'utf8');
+ const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+ const css=fs.readFileSync(path.join(root,'css/live-minimap.css'),'utf8');
+ const old=fs.readFileSync(path.join(__dirname,'..','beta1091-'+role,'js/features/map/live-minimap.js'),'utf8');
+ const release=JSON.parse(fs.readFileSync(path.join(root,'RELEASE_INFO.json'),'utf8'));
+ const image=path.join(root,'assets/maps/pirali-approved.webp');
+ assert(!js.includes(oldEnemy),role+': prior faded enemy markers still present');
+ assert(js.includes(newEnemy),role+': bright-red larger enemy marker absent');
+ assert(old.includes(oldEnemy),role+': reference baseline unexpectedly altered');
+ assert(js.includes("drawMarker(p.x,p.y,'#fa9d26',4)"),role+': general marker should be unchanged');
+ assert(js.includes('alignUnderHearts'),role+': mini-map no longer aligns beneath hearts');
+ assert(css.includes('left:12px;right:auto;top:72px'),role+': responsive left position lost');
+ assert(html.includes("js/features/map/live-minimap.js?v=beta1092-red-enemies"),role+': cache-busting URL missing');
+ assert(html.includes(role==='dev'?"1.09.2-beta.1-dev":"1.09.2-beta.1"),role+': build version missing');
+ assert(release.version===(role==='dev'?'1.09.2-beta.1-dev':'1.09.2-beta.1'),role+': release version incorrect');
+ assert(fs.existsSync(image)&&fs.statSync(image).size>1000,role+': approved map illustration missing');
+ assert(fs.existsSync(path.join(root,'js/features/loot/large-heart.js')),role+': 1.08 hearts not preserved');
+ assert(fs.existsSync(path.join(root,'js/features/endless/gurian-home.js')),role+': 11th stage home not preserved');
+ if(role==='play')assert(!html.includes('<script src="js/preview-controls.js'),role+': dev controls leaked into player');
+ else assert(html.includes('<script src="js/preview-controls.js'),role+': dev controls missing');
+ console.log('PASS BETA 1.09.2 '+role+' enemy radar markers, layout, campaign and release files');
+}
+console.log('PASS ALL BETA 1.09.2 CHECKS');
