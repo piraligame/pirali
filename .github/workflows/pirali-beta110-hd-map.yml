@@ -1,0 +1,21 @@
+name: PIRALI Beta 1.10 HD Campaign Map QA
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'beta110-play/**'
+      - 'beta110-dev/**'
+      - 'qa/pirali-beta110-hd-map.cjs'
+      - '.github/workflows/pirali-beta110-hd-map.yml'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check approved HD map, cache busting and Player/Developer separation
+        run: node qa/pirali-beta110-hd-map.cjs
