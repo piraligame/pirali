@@ -1,3 +1,14 @@
+# PIRALI — BETA 1.15 LAUREL SHIELD UPDATE
+
+- Player: https://piraligame.github.io/pirali/beta115-play/
+- Developer: https://piraligame.github.io/pirali/beta115-dev/
+- Release guide: [BETA 1.15 START HERE](BETA_1_15_START_HERE.md)
+- Test: `node qa/pirali-beta115-laurel.cjs`
+- Green herb 🌿 is now one-hit shield, preserved across stages/checkpoints; first-stage map has 4-language tutorial.
+- Existing Beta 1.13 signed Android APK/AAB is unchanged.
+
+---
+
 # PIRALI — BETA 1.14 POLISH UPDATE
 
 - Player: https://piraligame.github.io/pirali/beta114-play/

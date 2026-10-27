@@ -1,0 +1,26 @@
+name: PIRALI Beta 1.15 Laurel Shield QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta115-play/**'
+      - 'beta115-dev/**'
+      - 'qa/pirali-beta115-laurel.cjs'
+      - '.github/workflows/pirali-beta115-laurel.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  laurel-shield:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify one-hit shield, checkpoint migration, four-language Chokhatauri tutorial, 11-stage invariants
+        run: node qa/pirali-beta115-laurel.cjs
+      - name: Verify signed Beta 1.13 remains untouched
+        run: |
+          test -s downloads/beta113/PIRALI_Beta_1.13_Signed_Update.apk
+          test -s downloads/beta113/PIRALI_Beta_1.13_Play_Upload.aab
