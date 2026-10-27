@@ -1,0 +1,146 @@
+{
+  "version": "1.09.1-beta.1-dev",
+  "channel": "beta-dev-web",
+  "base": "0.16.3l DEV",
+  "publishedForPlayers": false,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "developerOnly": true,
+  "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
+  "qa": "GitHub Actions PIRALI BETA 1.09.1 map HUD responsive layout test",
+  "revision": "beta1091-minimap-under-left-side-hearts",
+  "season": "pirali_beta_1_0_s1",
+  "startLevel": 1,
+  "startScore": 0,
+  "firebasePath": "/pirali_beta_rating",
+  "firebaseWritesBlocked": true,
+  "firebaseGoLiveFlag": "window.PiraliSeasonReleaseEnabled",
+  "releaseReady": false,
+  "notes": "Result shows online rank of best personal score among all unique players even outside TOP 30; no Firebase saved banner on successful PLAYER submission. Firebase Beta season path unchanged.",
+  "scoreLimits": {
+    "story": 5000,
+    "endlessBonus": 2000,
+    "total": 7000
+  },
+  "stage9Shooters": 15,
+  "stage11LiveCap": 10,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  },
+  "leaderboardPath": "/pirali_beta_rating",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
+  "displayVersion": "BETA 1.09.1 DEV",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
+  "role": "developer-preview",
+  "previewControls": true,
+  "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
+  "qaEvidence": [
+    ".github/workflows/pirali-beta1091-map-hud.yml",
+    "qa/pirali-beta1091-map-hud.cjs"
+  ],
+  "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
+  "stage6": {
+    "additionalSoldiersReduction": -0.1,
+    "additionalStrengthReduction": -0.1,
+    "roadsideTreeIncrease": 0.2
+  },
+  "stage8": {
+    "allEnemyHpAndAttack": -0.15,
+    "shotgunShellRandomDrop": -0.15
+  },
+  "stage9": {
+    "shooters": 15,
+    "enemyHpAndAttack": -0.2
+  },
+  "stage10": {
+    "enemyHpAndAttack": -0.2
+  },
+  "stage11MaxWaves": 5,
+  "stage11EnemiesPerWave": 10,
+  "stage11PointsPerWave": [
+    300,
+    300,
+    400,
+    400,
+    600
+  ],
+  "crown": "earned only after all 5 waves and valid 11th-level victory",
+  "georgianFlagCelebration": true,
+  "firebaseSchemaChanged": false,
+  "globalEnemyStrengthReduction": 0.05,
+  "stage11": {
+    "maxWaves": 5,
+    "enemiesPerWave": 10,
+    "bossesWave4": 1,
+    "bossesWave5": 2,
+    "landlords": 0,
+    "spawnMs": 600,
+    "weakness": -0.1,
+    "houseEntryRequired": true,
+    "wavePoints": [
+      300,
+      300,
+      400,
+      400,
+      600
+    ],
+    "additionalStrengthReduction": -0.1,
+    "totalWaveEnemies": 50
+  },
+  "qaReport": "QA_BETA106.md",
+  "globalAdditionalEnemyStrengthReduction": 0.1,
+  "globalAmmoDropBoostRelative": 0.1,
+  "globalHeartDropBoostRelative": 0.1,
+  "localizedCampaignMap": "Owner-selected illustrated 11-stage map, live translated KA/US EN/RU/ZH captions",
+  "mapAsset": "assets/maps/pirali-approved.webp",
+  "mapUI": "js/features/map/story-map.js",
+  "maxHealthUpgrades": {
+    "stage7": "General large heart: 5→6",
+    "stage10": "Devil large heart: 6→7",
+    "oneTimePerRun": true,
+    "checkpointPersists": true,
+    "normalHeartsHealOnly": true,
+    "exitRequiresPickup": true,
+    "locales": [
+      "ka",
+      "en-US",
+      "ru",
+      "zh"
+    ]
+  },
+  "inGameMiniMap": {
+    "enabled": true,
+    "worldRelative": true,
+    "playerHeading": true,
+    "enemyAndPickupMarkers": true,
+    "goalForStages7_10_11": true,
+    "hideShow": true,
+    "locales": [
+      "ka",
+      "en",
+      "ru",
+      "zh"
+    ]
+  },
+  "stage11Title": {
+    "ka": "გზა სახლისაკენ 🇬🇪",
+    "en": "Road Home 🇬🇪",
+    "ru": "Дорога домой 🇬🇪",
+    "zh": "回家的路 🇬🇪"
+  },
+  "minimapPosition": {
+    "side": "left",
+    "anchor": "#ui > .ui-panel:first-child",
+    "gapPx": 6,
+    "responsive": true
+  }
+}

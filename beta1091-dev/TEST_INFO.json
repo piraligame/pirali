@@ -1,0 +1,123 @@
+{
+  "version": "1.09.1-beta.1-dev",
+  "role": "developer-preview",
+  "stages": 11,
+  "previewControls": true,
+  "firebaseWritesBlocked": true,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "qa": "GitHub Actions PIRALI BETA 1.09.1 map HUD responsive layout test",
+  "base": "0.16.3l DEV",
+  "revision": "beta1091-minimap-under-left-side-hearts",
+  "enemyHpMultiplier": 0.85,
+  "ammoDropMultiplier": 1.15,
+  "leaderboardPath": "/pirali_beta_rating",
+  "firebaseLegacyMigration": "PENDING: admin access and backup required",
+  "season": "pirali_beta_1_0_s1",
+  "startLevel": 1,
+  "startScore": 0,
+  "newPlayerStats": true,
+  "firebasePath": "/pirali_beta_rating",
+  "releaseReady": false,
+  "maxStoryPoints": 5000,
+  "maxEndlessBonusPoints": 2000,
+  "maxTotalPoints": 7000,
+  "stage9Shooters": 15,
+  "stage11LiveCap": 10,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  },
+  "firebaseValidation": "Firebase live permissions not verified",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
+  "displayVersion": "BETA 1.09.1 DEV",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
+  "channel": "beta-dev-web",
+  "developerOnly": true,
+  "leaderboardMode": "Firebase read-only; local DEV-only rankings never sync",
+  "manualTestNeeded": true,
+  "resultRankMode": "best score among all unique players, including outside TOP 30",
+  "firebaseSavedNotice": "hidden when confirmed; errors still shown",
+  "pcMovement": "WASD / arrow keys / mouse drag left",
+  "mobileControlsPreserved": true,
+  "stage11EnemiesPerWave": 10,
+  "stage11PointsPerWave": [
+    300,
+    300,
+    400,
+    400,
+    600
+  ],
+  "stage11": {
+    "enemiesPerWave": 10,
+    "additionalStrengthReduction": -0.1,
+    "totalWaveEnemies": 50,
+    "bossesWave4": 1,
+    "bossesWave5": 2,
+    "wavePoints": [
+      300,
+      300,
+      400,
+      400,
+      600
+    ]
+  },
+  "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
+  "globalAdditionalEnemyStrengthReduction": 0.1,
+  "globalAmmoDropBoostRelative": 0.1,
+  "globalHeartDropBoostRelative": 0.1,
+  "qaEvidence": [
+    ".github/workflows/pirali-beta1091-map-hud.yml",
+    "qa/pirali-beta1091-map-hud.cjs"
+  ],
+  "maxHealthUpgrades": {
+    "stage7": "General large heart: 5→6",
+    "stage10": "Devil large heart: 6→7",
+    "oneTimePerRun": true,
+    "checkpointPersists": true,
+    "normalHeartsHealOnly": true,
+    "exitRequiresPickup": true,
+    "locales": [
+      "ka",
+      "en-US",
+      "ru",
+      "zh"
+    ]
+  },
+  "mapAsset": "assets/maps/pirali-approved.webp",
+  "localizedCampaignMap": "Owner-selected illustrated 11-stage map, live translated KA/US EN/RU/ZH captions",
+  "inGameMiniMap": {
+    "enabled": true,
+    "worldRelative": true,
+    "playerHeading": true,
+    "enemyAndPickupMarkers": true,
+    "goalForStages7_10_11": true,
+    "hideShow": true,
+    "locales": [
+      "ka",
+      "en",
+      "ru",
+      "zh"
+    ]
+  },
+  "stage11Title": {
+    "ka": "გზა სახლისაკენ 🇬🇪",
+    "en": "Road Home 🇬🇪",
+    "ru": "Дорога домой 🇬🇪",
+    "zh": "回家的路 🇬🇪"
+  },
+  "minimapPosition": {
+    "side": "left",
+    "anchor": "#ui > .ui-panel:first-child",
+    "gapPx": 6,
+    "responsive": true
+  }
+}
