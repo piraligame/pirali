@@ -18,10 +18,13 @@
  const healthChance=CONFIG.legacyHealthChance*CONFIG.heartMultiplier;
  const ammoChance=CONFIG.legacyAmmoChance*CONFIG.bulletMultiplier*CONFIG.enemyAmmoDropBoost; // 10% extra relative to BETA 1.06
  const shellChance=CONFIG.legacyShellChance*CONFIG.bulletMultiplier*CONFIG.shellDropReduction*CONFIG.enemyAmmoDropBoost; // 10% extra relative to BETA 1.06
- function rollEnemyDrop(){
+ // Only stage 6 receives an additional 20% healing-heart drop chance.
+ // Keep the ammo probability unchanged; the additional hearts replace no-drops.
+ function rollEnemyDrop(stage=level){
+   const stageHeartChance=Math.min(1,healthChance*(Number(stage)===6?1.20:1));
    const roll=Math.random();
-   if(roll<healthChance)return 'health';
-   if(roll<healthChance+ammoChance)return 'ammo';
+   if(roll<stageHeartChance)return 'health';
+   if(roll<stageHeartChance+ammoChance)return 'ammo';
    return null;
  }
  function rollHealingDrop(){return Math.random()<CONFIG.heartMultiplier;}
