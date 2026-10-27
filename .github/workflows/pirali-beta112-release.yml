@@ -1,0 +1,37 @@
+name: PIRALI Beta 1.12 Release QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta112-play/**'
+      - 'beta112-dev/**'
+      - 'qa/pirali-beta112-release.cjs'
+      - '.github/workflows/pirali-beta112-release.yml'
+      - 'BETA_1_12_START_HERE.md'
+  workflow_dispatch:
+jobs:
+  release-regressions:
+    name: Player + Developer release tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify stage map locks, unlocked progress, keyboard X/C and 4 languages
+        run: node qa/pirali-beta112-release.cjs
+      - name: Syntax check all modified game modules
+        run: |
+          node --check beta112-play/js/features/map/story-map.js
+          node --check beta112-play/js/platform/desktop-controls.js
+          node --check beta112-play/js/runtime/combat.js
+          node --check beta112-dev/js/features/map/story-map.js
+          node --check beta112-dev/js/platform/desktop-controls.js
+          node --check beta112-dev/js/runtime/combat.js
+      - name: Protect stable 11-stage gameplay files
+        run: |
+          diff -q beta111-play/js/features/stages/beta105-balance.js beta112-play/js/features/stages/beta105-balance.js
+          diff -q beta111-play/js/features/endless/waves.js beta112-play/js/features/endless/waves.js
+          diff -q beta111-play/js/features/loot/drop-balance.js beta112-play/js/features/loot/drop-balance.js
+          diff -q beta111-play/assets/maps/pirali-approved.webp beta112-play/assets/maps/pirali-approved.webp
+          diff -q beta112-play/js/features/stages/beta105-balance.js beta112-dev/js/features/stages/beta105-balance.js
