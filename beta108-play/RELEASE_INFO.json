@@ -1,5 +1,5 @@
 {
-  "version": "1.07-beta.1",
+  "version": "1.08-beta.1-play",
   "channel": "beta-web-player",
   "base": "0.16.3l DEV",
   "publishedForPlayers": false,
@@ -7,8 +7,8 @@
   "aabBuilt": false,
   "developerOnly": false,
   "note": "Current deployed Firebase rules may still cap scores at 5500. BETA 1.06 client permits 7000; rules are NOT changed automatically.",
-  "qa": "PASSED 8/8 Chrome Playwright: DEV and PLAYER desktop & mobile; wave count 10, five-wave points, 50-kill crown, global HP/attack nerf and loot odds, extended stage transitions",
-  "revision": "beta107-global-10pct-nerf-wave10-loot10",
+  "qa": "Automated GitHub Actions BETA 1.08 checks; see latest workflow run for outcome",
+  "revision": "beta108-large-heart-upgrades-and-checkpoint-persistence",
   "season": "pirali_beta_1_0_s1",
   "startLevel": 1,
   "startScore": 0,
@@ -38,12 +38,12 @@
   "legacyAlpha015LeaderboardPath": "/scores",
   "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
   "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
-  "displayVersion": "BETA 1.07",
+  "displayVersion": "BETA 1.08 PLAY",
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "pcControls": "WASD/Arrows movement, Space/Z shoot, X sword, C dash; desktop mouse joystick+mouse combat",
   "qaEvidence": [
-    "https://github.com/piraligame/pirali/actions/runs/40407944327",
-    "beta107-play/QA_BETA107.md"
+    ".github/workflows/pirali-beta108-hearts.yml",
+    "qa/pirali-beta108-hearts.cjs"
   ],
   "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
   "stage6": {
@@ -100,5 +100,19 @@
   "globalHeartDropBoostRelative": 0.1,
   "localizedCampaignMap": "11-stage parchment-style SVG, accurate live names in KA/EN/RU/ZH, main-menu entry",
   "mapAsset": "assets/maps/pirali-road.svg",
-  "mapUI": "js/features/map/story-map.js"
+  "mapUI": "js/features/map/story-map.js",
+  "maxHealthUpgrades": {
+    "stage7": "General large heart: 5→6",
+    "stage10": "Devil large heart: 6→7",
+    "oneTimePerRun": true,
+    "checkpointPersists": true,
+    "normalHeartsHealOnly": true,
+    "exitRequiresPickup": true,
+    "locales": [
+      "ka",
+      "en-US",
+      "ru",
+      "zh"
+    ]
+  }
 }

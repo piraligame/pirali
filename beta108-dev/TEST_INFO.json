@@ -1,14 +1,14 @@
 {
-  "version": "1.07-beta.1-dev",
+  "version": "1.08-beta.1-dev",
   "role": "developer-preview",
   "stages": 11,
   "previewControls": true,
   "firebaseWritesBlocked": true,
   "androidBuilt": false,
   "aabBuilt": false,
-  "qa": "Pending BETA 1.07 automated GitHub Actions regression.",
+  "qa": "Automated GitHub Actions BETA 1.08 checks; see latest workflow run for outcome",
   "base": "0.16.3l DEV",
-  "revision": "beta107-global-10pct-nerf-wave10-loot10",
+  "revision": "beta108-large-heart-upgrades-and-checkpoint-persistence",
   "enemyHpMultiplier": 0.85,
   "ammoDropMultiplier": 1.15,
   "leaderboardPath": "/pirali_beta_rating",
@@ -20,9 +20,9 @@
   "firebasePath": "/pirali_beta_rating",
   "releaseReady": false,
   "maxStoryPoints": 5000,
-  "maxEndlessBonusPoints": 500,
-  "maxTotalPoints": 5500,
-  "stage9Shooters": 20,
+  "maxEndlessBonusPoints": 2000,
+  "maxTotalPoints": 7000,
+  "stage9Shooters": 15,
   "stage11LiveCap": 10,
   "stage11Difficulty": {
     "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
@@ -38,7 +38,7 @@
   "legacyAlpha015LeaderboardPath": "/scores",
   "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
   "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
-  "displayVersion": "BETA 1.07 DEV",
+  "displayVersion": "BETA 1.08 DEV",
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "channel": "beta-dev-web",
   "developerOnly": true,
@@ -75,7 +75,21 @@
   "globalAmmoDropBoostRelative": 0.1,
   "globalHeartDropBoostRelative": 0.1,
   "qaEvidence": [
-    "qa/pirali-beta107-qa.cjs",
-    "qa/pirali-beta107-extended.cjs"
-  ]
+    ".github/workflows/pirali-beta108-hearts.yml",
+    "qa/pirali-beta108-hearts.cjs"
+  ],
+  "maxHealthUpgrades": {
+    "stage7": "General large heart: 5→6",
+    "stage10": "Devil large heart: 6→7",
+    "oneTimePerRun": true,
+    "checkpointPersists": true,
+    "normalHeartsHealOnly": true,
+    "exitRequiresPickup": true,
+    "locales": [
+      "ka",
+      "en-US",
+      "ru",
+      "zh"
+    ]
+  }
 }

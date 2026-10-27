@@ -6,7 +6,7 @@ const {chromium,devices}=require('playwright');
   const ctx=await browser.newContext(mobile?{...devices['Pixel 7']}:{viewport:{width:1280,height:850}});
   const page=await ctx.newPage(),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  await page.route(/firebaseio\\.com/,route=>route.fulfill({status:200,contentType:'application/json',body:'{}'}));
+  await page.route(url=>url.includes('firebaseio.com'),route=>route.fulfill({status:200,contentType:'application/json',body:'{}'}));
   await page.addInitScript(()=>localStorage.setItem('pirali_player_name','B108_CI_NO_FIREBASE'));
   try{
    const res=await page.goto('http://127.0.0.1:8765/beta108-'+mode+'/',{waitUntil:'load',timeout:45000});
