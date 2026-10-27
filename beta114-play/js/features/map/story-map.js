@@ -224,8 +224,10 @@ function render(){
   const medal=element.querySelector('.story-map-medal');
   // Historic markers use permanent player progress, never an unreached preview.
   // The last-stage crown requires a recorded full victory.
-  const won=Number(window.PiraliStats?.get?.()?.wins||0)>0;
-  medal.textContent=n===11?(won?'👑':''):n<current?(n===7?'❤️':n===10?'🔥':'★'):'';
+  const profile=window.PiraliStats?.get?.();
+  const won=Number(profile?.wins||0)>0;
+  const earnedLimit=developer()?Math.max(1,Math.min(11,Number(profile?.maxReachedStage)||1)):current;
+  medal.textContent=n===11?(won?'👑':''):n<earnedLimit?(n===7?'❤️':n===10?'🔥':'★'):'';
   medal.hidden=!medal.textContent;
   element.title=w.tour+' '+n+': '+label(n)+' · '+(unavailable?w.unavailable:state);
   element.setAttribute('aria-label',element.title);

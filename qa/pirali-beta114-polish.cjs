@@ -80,7 +80,7 @@ for(const role of ['play','dev']){
  assert(minimap.includes('pirali-mini-legend'));
  assert(minimap.includes('s.simona')&&minimap.includes('s.enemy')&&minimap.includes('s.goal'));
  const story=get(role,'js/features/map/story-map.js');
- assert(story.includes('story-map-medal')&&story.includes("window.PiraliStats?.get?.()?.wins"));
+ assert(story.includes('story-map-medal')&&story.includes('profile?.wins')&&story.includes('earnedLimit'));
  assert(story.includes('if(!developer()&&n>discovered())'),'Locked stage gate changed');
  const ui=get(role,'js/runtime/ui.js');
  assert(ui.includes('let bannerSequence=0')&&ui.includes('if(seq!==bannerSequence)return'));
