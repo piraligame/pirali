@@ -1,3 +1,9 @@
+## BETA 1.10 — HD map verification (2026-10-27)
+- Approved 1024×1536-pixel campaign map now replaces the 5 KB image in both Player and Developer at `assets/maps/pirali-approved.webp` (775,170 bytes).
+- Cached map UI script, styles and image all use the `beta110-hd-20261027` cache key.
+- The existing 11 tours, level names, translations and in-game mini-map are unchanged.
+- CI regression check: `node qa/pirali-beta110-hd-map.cjs`.
+
 # PIRALI BETA 1.09.2 DEV
 
 - All eleven stages: enemies and generals weakened by an additional **10% HP and attack/movement rates**, on top of BETA 1.06 tuning.
