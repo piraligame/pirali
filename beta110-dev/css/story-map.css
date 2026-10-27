@@ -10,7 +10,7 @@
 .story-map-languages button{background:#4c3c2d;border:1px solid #7d5c30;border-radius:7px;padding:6px 5px;cursor:pointer;color:#f5dfad;font-size:10px;flex:1;min-width:0}
 .story-map-languages button.active{border-color:#ffe693;background:#7b5b2b;color:#fff}
 .story-map-scroll{min-height:0;flex:1;overflow-y:auto;overflow-x:hidden;touch-action:pan-y;background:#c9b788;scrollbar-color:#9d7c45 #e1cfa1;overscroll-behavior:contain}
-.story-map-art{position:relative;width:100%;aspect-ratio:956/1536;background:#c6ac78}
+.story-map-art{position:relative;width:100%;aspect-ratio:1024/1536;background:#c6ac78}
 .story-map-art img{width:100%;height:100%;display:block;user-select:none;pointer-events:none}
 .story-map-stage{position:absolute;min-height:1.9%;border:1px solid #65451f;border-radius:6px;background:linear-gradient(180deg,#f8e1b5,#ecc68f);box-shadow:2px 3px 5px #36271977;padding:3px 5px;box-sizing:border-box;text-align:center;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);overflow-wrap:anywhere}
 .story-map-stage .story-map-name{font:800 clamp(10px,2.2vw,15px)/1.18 'Noto Sans Georgian',system-ui,sans-serif;color:#3e2818}

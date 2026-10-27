@@ -62,7 +62,7 @@ function open(){
    '<button type="button" data-map-lang="ru">🇷🇺 Русский</button>'+
    '<button type="button" data-map-lang="zh">🇨🇳 中文</button>'+
   '</div><div class="story-map-scroll" tabindex="0" aria-label="Route map">'+
-  '<div class="story-map-art"><img src="assets/maps/pirali-approved.webp?v=beta109" alt="" draggable="false"></div></div>'+
+  '<div class="story-map-art"><img src="assets/maps/pirali-approved.webp?v=beta110-hd-20261027" alt="" draggable="false"></div></div>'+
   '<footer><span class="story-map-max"></span></footer></section>';
  const art=overlay.querySelector('.story-map-art');
  for(const item of STOPS){
