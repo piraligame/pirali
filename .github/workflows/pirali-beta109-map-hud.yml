@@ -1,0 +1,36 @@
+name: PIRALI BETA 1.09 approved map, stage 11 title and minimap QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta109-*/**'
+      - 'qa/pirali-beta109-map-hud.cjs'
+      - '.github/workflows/pirali-beta109-map-hud.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  map-and-hud:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Check Beta 1.09 pages on PC and mobile
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pirali-beta109-server.log 2>&1 &
+          sleep 2
+          node qa/pirali-beta109-map-hud.cjs
+      - name: Save QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: beta109-map-hud-screenshots
+          path: qa/screenshots/beta109-*.png
+          if-no-files-found: ignore

@@ -1,14 +1,14 @@
 {
-  "version": "1.08-beta.1-play",
+  "version": "1.09-beta.1",
   "role": "player-online-web",
   "stages": 11,
   "previewControls": false,
   "firebaseWritesBlocked": false,
   "androidBuilt": false,
   "aabBuilt": false,
-  "qa": "Automated GitHub Actions BETA 1.08 checks; see latest workflow run for outcome",
+  "qa": "Automated GitHub Actions BETA 1.09 map + HUD QA; final mobile gameplay manual run remains advised",
   "base": "0.16.3l DEV",
-  "revision": "beta108-large-heart-upgrades-and-checkpoint-persistence",
+  "revision": "beta109-owner-map-minimap-stage11-localization",
   "enemyHpMultiplier": 0.85,
   "ammoDropMultiplier": 1.15,
   "leaderboardPath": "/pirali_beta_rating",
@@ -38,7 +38,7 @@
   "legacyAlpha015LeaderboardPath": "/scores",
   "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
   "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
-  "displayVersion": "BETA 1.08 PLAY",
+  "displayVersion": "BETA 1.09 PLAYER",
   "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
   "resultRankMode": "best score among all unique players, including outside TOP 30",
   "firebaseSavedNotice": "hidden when confirmed; errors still shown",
@@ -71,8 +71,8 @@
   "globalAmmoDropBoostRelative": 0.1,
   "globalHeartDropBoostRelative": 0.1,
   "qaEvidence": [
-    ".github/workflows/pirali-beta108-hearts.yml",
-    "qa/pirali-beta108-hearts.cjs"
+    ".github/workflows/pirali-beta109-map-hud.yml",
+    "qa/pirali-beta109-map-hud.cjs"
   ],
   "maxHealthUpgrades": {
     "stage7": "General large heart: 5→6",
@@ -87,5 +87,27 @@
       "ru",
       "zh"
     ]
+  },
+  "mapAsset": "assets/maps/pirali-approved.webp",
+  "localizedCampaignMap": "Owner-selected illustrated 11-stage map, live translated KA/US EN/RU/ZH captions",
+  "inGameMiniMap": {
+    "enabled": true,
+    "worldRelative": true,
+    "playerHeading": true,
+    "enemyAndPickupMarkers": true,
+    "goalForStages7_10_11": true,
+    "hideShow": true,
+    "locales": [
+      "ka",
+      "en",
+      "ru",
+      "zh"
+    ]
+  },
+  "stage11Title": {
+    "ka": "გზა სახლისაკენ 🇬🇪",
+    "en": "Road Home 🇬🇪",
+    "ru": "Дорога домой 🇬🇪",
+    "zh": "回家的路 🇬🇪"
   }
 }
