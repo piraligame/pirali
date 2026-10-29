@@ -1,0 +1,18 @@
+name: PIRALI Beta 1.17 release QA
+on:
+  push:
+    branches: [feat/beta-1.17-score-hud-spawns]
+  pull_request:
+    paths: ['beta117-*/**','qa/pirali-beta117-regression.cjs']
+  workflow_dispatch:
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 11-stage scoring, spawn separation and layout
+        run: node qa/pirali-beta117-regression.cjs
