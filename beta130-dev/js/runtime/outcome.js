@@ -1,5 +1,5 @@
 function showGameOver(){
-  if(!window.PiraliFullPath?.isActive?.())window.PiraliCheckpoint?.clear(); // Premium replay never erases normal progress.
+  if(!window.PiraliFullPath?.isActive?.())window.PiraliCheckpoint?.clear(); // Premium replay preserves normal checkpoint.
   window.PiraliStats?.result(false,score);
   running=false;paused=false;
   document.getElementById('pause-overlay').style.display='none';
@@ -32,7 +32,7 @@ function showVictory(){
   document.getElementById('pause-overlay').style.display='none';
   document.getElementById('btn-pause').textContent='⏸';
   setTimeout(()=>bgmFadeIn(0.42),800);
-  if(!window.PiraliFullPath?.isActive?.())window.PiraliCheckpoint?.clear(); // Keep earned standard-route save.
+  if(!window.PiraliFullPath?.isActive?.())window.PiraliCheckpoint?.clear(); // Preserve normal checkpoint on privileged replay.
   _pendingScore=score;_pendingLevel=level;_pendingWin=true;
   window.PiraliBetaSavePromise=Promise.resolve(autoSaveScore(score,level,true));
   const s=document.getElementById('screen');
@@ -42,7 +42,7 @@ function showVictory(){
   <h1 style="font-size:48px;">🔥</h1>
   <h1 style="font-size:28px;letter-spacing:2px;margin-top:-8px;">სიმონამ ჯოჯოხეთი გაიარა!</h1>
   <div class="tsub">ეშმაკი დამარცხებულია — კარიბჭე გადალახულია</div>
-  <div class="sbox"><p>ქულა: <strong style="color:#f0d020;font-size:24px;" class="score-reveal">${score.toLocaleString()}</strong></p></div>
+  <div class="sbox"><p>ქულა: <strong style="color:#f0d020;font-size:24px;" class="score-reveal">${score.toLocaleString()}</strong><br><span style="font-size:11px;color:#907030;">BETA 1.14 • DEV</span></p></div>
   <button class="sbtn" style="background:linear-gradient(180deg,#5c380a,#2e1a04);border-color:#d8a820;" onclick="document.getElementById('screen').style.display='none';lbShow()">🏆 რეკორდები</button>
   <button class="sbtn alpha-outcome-menu" onclick="goToMenu()">🏠 მთავარ მენიუში</button>`;
   s.style.display='flex';

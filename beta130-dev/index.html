@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#c89820">
   <!-- Android APK app icon is handled by native Android assets; no missing Apple icon reference. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ფირალი BETA 1.29.1 • CLASSIC — ხუთი ტალღის გამარჯვება</title>
+<title>ფირალი BETA 1.29 • CLASSIC DEV — ხუთი ტალღის გამარჯვება</title>
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/style.css?v=beta120-classic-hud">
 <link rel="stylesheet" href="css/menu.css?v=checkpoint-20261017a">
@@ -29,25 +29,20 @@
 <meta name="robots" content="noindex,nofollow">
 <script>
 // Release candidate: do not enable real-season writes until launch.
-window.PiraliGameVersion='1.30-classic.play';
-window.PiraliSeasonReleaseEnabled=false; // Beta 1.16 joystick preview: local results only
-window.PiraliVisualPreviewReadonly=false;
-window.PiraliAlpha014Test=false; // Player: no development controls.
-// Developer preview should never alter the real Firebase score database.
+window.PiraliGameVersion='1.30-classic.dev';
+window.PiraliSeasonReleaseEnabled=false; // DEV only
+window.PiraliVisualPreviewReadonly=true; // DEV: local scores and statistics only
+window.PiraliAlpha014Test=true; // Enable 11-stage test controls
+// Never allow a DEV run, teleport or immortality test to write production Beta points.
 (function(){
  const nativeFetch=window.fetch.bind(window);
  window.fetch=function(input,init){
   const url=typeof input==='string'?input:input?.url||'';
   const method=String(init?.method||input?.method||'GET').toUpperCase();
-  // Allow only create-at-key PUT for the NEW Beta leaderboard.
-  // The old Alpha 0.15 /scores path is NEVER writable from this build.
+  // DEV safety: Firebase reads are allowed for comparisons; ALL writes blocked.
+  // Includes direct API calls to the legacy Alpha /scores database.
   if(/firebaseio\.com/i.test(url)&&method!=='GET'&&method!=='HEAD'){
-   const prefix='https://pirali-game-default-rtdb.firebaseio.com/pirali_beta_rating/';
-   const target=url.split('?')[0];
-   const key=target.startsWith(prefix)?target.slice(prefix.length,-5):'';
-   const allowed=target.endsWith('.json')&&/^beta10-[a-z0-9]+-[a-z0-9]{8,12}$/.test(key);
-   if(!window.PiraliSeasonReleaseEnabled || method!=='PUT' || !allowed)
-    return Promise.reject(new Error('PIRALI: write outside Beta record denied'));
+   return Promise.reject(new Error('PIRALI BETA 1.0.1 DEV: Firebase writes disabled'));
   }
   return nativeFetch(input,init);
  };
@@ -72,7 +67,7 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
 
 <div id="level-badge"></div>
 <div id="pirali-run-mode" hidden aria-live="polite"></div>
-<div id="pirali-beta117-build" aria-hidden="true">BETA 1.29.1 • CLASSIC</div>
+<div id="pirali-beta117-build" aria-hidden="true">BETA 1.29 • CLASSIC</div>
 <div id="pirali-time-hud" hidden aria-label="Level timer"></div>
 <div id="ammo-bar"><div class="ui-panel"><div id="ammo-lbl">ტყვია</div><div id="bullets"></div></div></div>
 <div id="boss-bar"><div id="boss-lbl">⚔ რუსი გენერალი — ბოსი</div><div id="boss-track"><div id="boss-fill" style="width:100%"></div></div></div>
@@ -174,7 +169,8 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
 <script src="js/menu.js?v=beta1271-auto"></script>
 <script src="js/features/map/story-map.js?v=beta115-tutorial"></script>
 <script src="js/platform/mobile-lifecycle.js?v=beta118-input-reset"></script>
-<!-- Player-facing release candidate: no developer level-jump controls. -->
+<!-- DEV preview only: stage selection and immortality. No hit/shield/boss shortcuts. -->
+<script src="js/preview-controls.js?v=beta122-minimal-test"></script>
   <!-- Alpha 0.16.2 modular stage 10 Hell features: loaded in dependency order. -->
 <script src="js/features/hell/text.js?v=beta106-gate"></script>
 <script src="js/features/hell/score-bonus.js?v=beta117-cap"></script>
