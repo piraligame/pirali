@@ -1,0 +1,21 @@
+name: PIRALI Beta 1.17.1 stage-5 ammo QA
+on:
+  push:
+    branches: [fix/beta1171-stage5-scattered-ammo]
+    paths:
+      - 'beta1171-play/**'
+      - 'beta1171-dev/**'
+      - 'qa/pirali-beta1171-ammo.cjs'
+      - '.github/workflows/pirali-beta1171-ammo.yml'
+  workflow_dispatch:
+jobs:
+  map-ammo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm +10% stage-5 ground ammo in both builds, other stages untouched
+        run: node qa/pirali-beta1171-ammo.cjs
