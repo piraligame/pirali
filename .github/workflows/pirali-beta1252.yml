@@ -1,0 +1,24 @@
+name: PIRALI Beta 1.25.2 Player Progression QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta1252-play/**'
+      - 'beta1252-dev/**'
+      - 'qa/pirali-beta1252.cjs'
+      - '.github/workflows/pirali-beta1252.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beta1252-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check locked Player progression and Developer-only tools
+        run: node qa/pirali-beta1252.cjs
+      - name: Verify 100 and 500 kill milestones unchanged
+        run: node qa/pirali-beta125-milestones.cjs

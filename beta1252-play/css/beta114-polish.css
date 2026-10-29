@@ -1,0 +1,10 @@
+/* BETA 1.14: safe, non-interactive feedback that never obscures controls. */
+.pirali-polish-toast{position:fixed;z-index:1200;pointer-events:none;box-sizing:border-box;opacity:0;visibility:hidden;transform:translate(-50%,-8px) scale(.92);transition:opacity .17s ease,transform .2s ease,visibility .2s;font-family:'Noto Sans Georgian',system-ui,sans-serif;font-size:clamp(12px,2.9vw,17px);font-weight:900;letter-spacing:.2px;line-height:1.35;text-align:center;text-shadow:0 1px 4px #000c;white-space:pre-line}
+.pirali-polish-toast.shown{opacity:1;visibility:visible;transform:translate(-50%,0) scale(1)}
+.pirali-polish-toast.loot{top:15%;left:50%;padding:7px 15px;border:1px solid #a6dbac;border-radius:20px;background:#16492edc;color:#e0ffe0;box-shadow:0 0 18px #31ca6677}
+.pirali-polish-toast.combo{top:24%;left:50%;padding:7px 15px;border:1px solid #e4b44b;border-radius:20px;background:#593711e8;color:#fff0a8;box-shadow:0 0 16px #e2a53d66}
+.pirali-polish-toast.stage{top:19%;left:50%;width:min(85vw,390px);padding:12px 16px;border:2px solid #ebc27b;border-radius:15px;background:#20190ff0;color:#fbe6b1;box-shadow:0 5px 25px #000b;font-size:clamp(12px,3vw,16px)}
+body.pirali-polish-healed #hearts{filter:drop-shadow(0 0 9px #47f579);transition:filter .22s}
+#btn-sword.pirali-polish-action,#btn-shoot.pirali-polish-action,#btn-dash.pirali-polish-action{filter:brightness(1.42) drop-shadow(0 0 11px #e9cd80)!important;transform:scale(.94);transition:transform .1s ease,filter .1s ease}
+@media(max-width:530px){.pirali-polish-toast.loot{top:18%}.pirali-polish-toast.combo{top:27%}.pirali-polish-toast.stage{top:21%;width:min(87vw,370px);padding:9px 11px}}
+@media(prefers-reduced-motion:reduce){.pirali-polish-toast,#btn-sword.pirali-polish-action,#btn-shoot.pirali-polish-action,#btn-dash.pirali-polish-action{animation:none!important;transition:none!important}}
