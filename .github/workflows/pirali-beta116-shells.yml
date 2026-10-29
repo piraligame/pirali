@@ -1,0 +1,23 @@
+name: PIRALI Beta 1.16 shell QA
+on:
+  push:
+    branches:
+      - feat/beta-1.16-balance
+  pull_request:
+    paths:
+      - 'beta116-play/**'
+      - 'beta116-dev/**'
+      - 'qa/pirali-beta116-shells.cjs'
+      - '.github/workflows/pirali-beta116-shells.yml'
+  workflow_dispatch:
+jobs:
+  shells-and-checkpoints:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check shotgun and checkpoint regressions
+        run: node qa/pirali-beta116-shells.cjs
