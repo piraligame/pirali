@@ -1,0 +1,25 @@
+name: PIRALI Beta 1.28.3 Classic Ranking QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta1283-play/**'
+      - 'beta1283-dev/**'
+      - 'qa/pirali-beta1283.cjs'
+      - 'qa/pirali-beta1283-browser.cjs'
+      - '.github/workflows/pirali-beta1283.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  classic-rank:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert exact Beta 1.26 result ranking code and JS syntax
+        run: node qa/pirali-beta1283.cjs
+      - name: Preserve 100 and 500 kill achievements
+        run: node qa/pirali-beta125-milestones.cjs
