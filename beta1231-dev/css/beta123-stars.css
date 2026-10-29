@@ -1,0 +1,11 @@
+/* Beta 1.23: small nonblocking stage completion rating, below HUD. */
+#pirali-stage-stars{
+ position:fixed;left:50%;top:26%;transform:translate(-50%,-12px);
+ max-width:90vw;box-sizing:border-box;padding:9px 15px;
+ border:1px solid rgba(240,195,98,.76);border-radius:9px;
+ background:rgba(23,17,7,.89);box-shadow:0 5px 24px #0009;
+ color:#ffe3a0;font:700 clamp(11px,2.5vw,15px)/1.5 system-ui,sans-serif;
+ text-align:center;white-space:normal;z-index:59;
+ pointer-events:none;opacity:0;transition:opacity .16s,transform .16s;
+}
+#pirali-stage-stars.show{opacity:1;transform:translate(-50%,0)}
