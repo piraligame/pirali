@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#c89820">
   <!-- Android APK app icon is handled by native Android assets; no missing Apple icon reference. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ფირალი BETA 1.22 • CLASSIC DEV — ხუთი ტალღის გამარჯვება</title>
+<title>ფირალი BETA 1.23 • CLASSIC DEV — ხუთი ტალღის გამარჯვება</title>
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/style.css?v=beta120-classic-hud">
 <link rel="stylesheet" href="css/menu.css?v=checkpoint-20261017a">
@@ -28,7 +28,7 @@
 <meta name="robots" content="noindex,nofollow">
 <script>
 // Release candidate: do not enable real-season writes until launch.
-window.PiraliGameVersion='1.22.0-classic.dev';
+window.PiraliGameVersion='1.23.0-classic.dev';
 window.PiraliSeasonReleaseEnabled=false; // DEV only
 window.PiraliVisualPreviewReadonly=true; // DEV: local scores and statistics only
 window.PiraliAlpha014Test=true; // Enable 11-stage test controls
@@ -50,6 +50,7 @@ window.PiraliAlpha014Test=true; // Enable 11-stage test controls
 <link rel="stylesheet" href="css/beta114-polish.css?v=1.14.0">
 <link rel="stylesheet" href="css/laurel-shield.css?v=1.15.0">
 <link rel="stylesheet" href="css/beta117-hud.css?v=1.17.0">
+<link rel="stylesheet" href="css/beta123-stars.css?v=beta123-stars">
 </head>
 <body>
 <canvas id="gameCanvas"></canvas>
@@ -61,7 +62,7 @@ window.PiraliAlpha014Test=true; // Enable 11-stage test controls
 
 <div id="level-badge"></div>
 <div id="pirali-run-mode" hidden aria-live="polite"></div>
-<div id="pirali-beta117-build" aria-hidden="true">BETA 1.22 • CLASSIC</div>
+<div id="pirali-beta117-build" aria-hidden="true">BETA 1.23 • CLASSIC</div>
 <div id="pirali-time-hud" hidden aria-label="Level timer"></div>
 <div id="ammo-bar"><div class="ui-panel"><div id="ammo-lbl">ტყვია</div><div id="bullets"></div></div></div>
 <div id="boss-bar"><div id="boss-lbl">⚔ რუსი გენერალი — ბოსი</div><div id="boss-track"><div id="boss-fill" style="width:100%"></div></div></div>
@@ -134,8 +135,8 @@ window.PiraliAlpha014Test=true; // Enable 11-stage test controls
 <script src="js/runtime/world.js?v=beta115-laurel"></script>
 <script src="js/runtime/combat.js?v=beta122-classic-restored"></script>
 <script src="js/platform/desktop-controls.js?v=beta112-pc-keys"></script>
-<script src="js/runtime/update.js?v=beta117-cap"></script>
-<script src="js/runtime/render.js?v=beta115-laurel"></script>
+<script src="js/runtime/update.js?v=beta123-ai-stars"></script>
+<script src="js/runtime/render.js?v=beta123-pickup-glow"></script>
 <script src="js/effects/combat-fx.js?v=combatfx-20261017a"></script>
 <script src="js/levels/environment-alpha012.js?v=alpha0164f"></script>
 <script src="js/levels/biomes-alpha013.js?v=alpha013-biomes2-3a"></script>
@@ -150,7 +151,7 @@ window.PiraliAlpha014Test=true; // Enable 11-stage test controls
 <script>window.PiraliHybrid014.enable(true);</script>
 <script src="js/characters/batoni-art-preview.js?v=alpha012-motion-phase2b"></script>
 <script src="js/runtime/ui.js?v=beta117-hud"></script>
-<script src="js/progression/checkpoints.js?v=beta122-classic-dev-save"></script>
+<script src="js/progression/checkpoints.js?v=beta123-classic-dev-save"></script>
 <script src="js/runtime/leaderboard.js?v=beta107-crown"></script>
 <script src="js/runtime/outcome.js?v=beta114-result-label"></script>
 <script src="js/runtime/intro.js"></script>
@@ -213,5 +214,9 @@ window.PiraliAlpha014Test=true; // Enable 11-stage test controls
 <script src="js/features/loot/laurel-shield.js?v=1.15.0"></script>
 <!-- Extra +10% scattered map ammo for stage 5 only, after all other world spawns. -->
 <script src="js/features/loot/stage5-scattered-ammo.js?v=beta1171-stage5-ammo10"></script>
+<!-- Beta 1.23: tactical movement, local earned stars, clearer ground pickups. -->
+<script src="js/features/enemies/tactical-ai.js?v=beta123-ai"></script>
+<script src="js/features/results/stage-stars.js?v=beta123-stars"></script>
+<script src="js/features/loot/pickup-visibility.js?v=beta123-pickup-halo"></script>
 </body>
 </html>
