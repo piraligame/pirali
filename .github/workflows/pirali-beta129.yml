@@ -1,0 +1,25 @@
+name: PIRALI Beta 1.29 Full Route Preview QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta129-play/**'
+      - 'beta129-dev/**'
+      - 'qa/pirali-beta129.cjs'
+      - 'qa/pirali-beta129-browser.cjs'
+      - '.github/workflows/pirali-beta129.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate premium map and untouched game mechanics
+        run: node qa/pirali-beta129.cjs
+      - name: Verify 100 and 500 enemy achievements
+        run: node qa/pirali-beta125-milestones.cjs
