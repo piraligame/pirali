@@ -8,6 +8,8 @@
 const STORY_CAP=5000,BONUS_CAP=2000,BONUS_KILL=0;
 const BUDGET=[0,250,300,350,400,450,500,600,760,960,430];
 const PREFIX=[0];for(let i=1;i<=10;i++)PREFIX[i]=PREFIX[i-1]+BUDGET[i];
+ // A true stage-specific ceiling, not a global 5000 that can fill in stage 9.
+ const hardCap=n=>n>=1&&n<=10?PREFIX[n]:STORY_CAP+BONUS_CAP;
 const WAVE_POINTS=[0,300,300,400,400,600];
 const WAVE_CUMULATIVE=[0,300,600,1000,1400,2000];
 const base=updateScoreUI;
@@ -58,15 +60,21 @@ function prepareStage(){
 function stageMax(n=level){return n>=1&&n<=10?PREFIX[n]:n===11?STORY_CAP+BONUS_CAP:0;}
 function update(){
  if(current!==level)enterStage();
- if(level>=1&&level<=10)score=safe(score,baseline+earned+coins);
+ if(level>=1&&level<=10){
+   // Clamp every score refresh even if old checkpoints, an extra reward or
+   // a delayed call tries to carry stage-10 points into stage 9.
+   score=safe(score,Math.min(hardCap(level),baseline+earned+coins));
+ }
  if(level===11)score=Math.max(endlessBase,Math.min(endlessBase+WAVE_CUMULATIVE[wavesPaid],score));
  return base();
 }
 updateScoreUI=update;
 function grant(amount){
  if(!prepared&&level<=10)return 0;
- const permitted=Math.max(0,Math.floor(amount));
- earned+=permitted;score=baseline+earned+coins;
+ const requested=Math.max(0,Math.floor(amount));
+ const permitted=Math.min(requested,Math.max(0,hardCap(level)-baseline-earned-coins));
+ earned+=permitted;
+ score=Math.min(hardCap(level),baseline+earned+coins);
  updateScoreUI();
  return permitted;
 }
@@ -92,7 +100,8 @@ function awardParry(){
 }
 function claimDevilCoins(){
  if(level!==10||!prepared||coins)return false;
- coins=250;score=baseline+earned+coins;updateScoreUI();return true;
+ coins=250;score=Math.min(hardCap(level),baseline+earned+coins);
+ updateScoreUI();return true;
 }
 function beginEndless(){
  endlessBase=safe(score,STORY_CAP);score=endlessBase;current=11;wavesPaid=0;base();
@@ -108,7 +117,7 @@ function completeWave(n){
 }
 window.PiraliStageScoring=Object.freeze({
  enterStage,prepareStage,awardKill,awardMedal,awardParry,claimDevilCoins,
- stageMax,stageBudget:(n)=>BUDGET[n]||0,
+ stageMax,hardCap,stageBudget:(n)=>BUDGET[n]||0,
  stageEarned:()=>earned+coins,
  potential:()=>({stage:level,baseline,killTotal,killCount,killUnits,medalTotal,
   medalsPaid,parryTotal,parriesPaid,killPool,medalPool,parryPool,earned,coins,
