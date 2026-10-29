@@ -1,0 +1,16 @@
+name: PIRALI Beta 1.18 gameplay QA
+on:
+  push:
+    branches: [feat/beta-1.18-stage6-joystick]
+  workflow_dispatch:
+jobs:
+  gameplay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate joystick reversal and stage-six enemy 15 percent nerf
+        run: node qa/pirali-beta118-regression.cjs
