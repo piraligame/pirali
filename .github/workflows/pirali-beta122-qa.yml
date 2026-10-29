@@ -1,0 +1,16 @@
+name: PIRALI Beta 1.22 Classic joystick and DEV-only test controls
+on:
+  push:
+    branches: [feat/beta-1.22-classic-dev-cleanup]
+  workflow_dispatch:
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test both game builds, 11 developer stages and immortality
+        run: node qa/pirali-beta122-regression.cjs
