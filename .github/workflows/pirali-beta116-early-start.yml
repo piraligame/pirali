@@ -1,0 +1,27 @@
+name: PIRALI Beta 1.16 early stage start QA
+on:
+  push:
+    branches: [feat/beta-1.16-balance]
+    paths:
+      - 'beta116-play/**'
+      - 'beta116-dev/**'
+      - 'qa/pirali-beta116-early-start.cjs'
+      - '.github/workflows/pirali-beta116-early-start.yml'
+  pull_request:
+    paths:
+      - 'beta116-play/**'
+      - 'beta116-dev/**'
+      - 'qa/pirali-beta116-early-start.cjs'
+      - '.github/workflows/pirali-beta116-early-start.yml'
+  workflow_dispatch:
+jobs:
+  early-stage-start:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify first five stages begin with a safe approach
+        run: node qa/pirali-beta116-early-start.cjs
