@@ -30,7 +30,8 @@
       inventory:{herbs:raw.inventory.herbs,medals:raw.inventory.medals,laurelShield:raw.inventory.laurelShield===1?1:0},savedAt:raw.savedAt,
       shotgun:raw.shotgun&&typeof raw.shotgun==='object'&&raw.shotgun.owned===true?
         {owned:true,shells:int(raw.shotgun.shells,0,16)?raw.shotgun.shells:0,
-         selected:raw.shotgun.selected==='shotgun'?'shotgun':'mauser'}:null
+         selected:raw.shotgun.selected==='shotgun'?'shotgun':'mauser',
+         shellGrantBase:int(raw.shotgun.shellGrantBase,0,1000000)?raw.shotgun.shellGrantBase:undefined}:null
     };
   }
   function get(){
