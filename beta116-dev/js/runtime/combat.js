@@ -1,22 +1,42 @@
-const joy={active:false,id:-1,bx:0,by:0,dx:0,dy:0,mr:48};
+/* Beta 1.16: instant-direction floating joystick.
+   The ring is only visual; reaching its edge is NOT required to move. */
+const joy={active:false,id:-1,bx:0,by:0,dx:0,dy:0,mr:30,justReleased:false};
 const K={l:false,r:false,u:false,d:false};
 const jZ=document.getElementById('joy-zone');
 const jB=document.getElementById('joy-base');
 const jK=document.getElementById('joy-knob');
-function jStart(e){if(joy.active)return;const t=e.changedTouches[0];joy.active=true;joy.id=t.identifier;joy.bx=t.clientX;joy.by=t.clientY;joy.dx=joy.dy=0;jB.style.left=t.clientX+'px';jB.style.top=t.clientY+'px';jB.style.display='block';jK.style.left=t.clientX+'px';jK.style.top=t.clientY+'px';jK.style.display='block';}
+const JOY_DEAD_ZONE=3; // pixels: reject tap jitter, not intentional swipes
+function jStart(e){
+ if(joy.active||!e.changedTouches.length)return;
+ const t=e.changedTouches[0];
+ joy.active=true;joy.justReleased=false;joy.id=t.identifier;
+ joy.bx=t.clientX;joy.by=t.clientY;joy.dx=joy.dy=0;
+ jB.style.left=t.clientX+'px';jB.style.top=t.clientY+'px';jB.style.display='block';
+ jK.style.left=t.clientX+'px';jK.style.top=t.clientY+'px';jK.style.display='block';
+}
 function jMove(e){
  if(!joy.active)return;
  for(const t of e.changedTouches){
   if(t.identifier!==joy.id)continue;
   const dx=t.clientX-joy.bx,dy=t.clientY-joy.by,dist=Math.hypot(dx,dy);
-  const a=Math.atan2(dy,dx),visible=Math.min(dist,joy.mr);
-  jK.style.left=(joy.bx+Math.cos(a)*visible)+'px';
-  jK.style.top=(joy.by+Math.sin(a)*visible)+'px';
-  const strength=dist<2?0:Math.min(1,dist/(joy.mr*.78));
-  joy.dx=dist?dx/dist*strength:0;joy.dy=dist?dy/dist*strength:0;
+  const radius=Math.min(dist,joy.mr),factor=dist>0?radius/dist:0;
+  jK.style.left=(joy.bx+dx*factor)+'px';
+  jK.style.top=(joy.by+dy*factor)+'px';
+  // Full speed as soon as the finger moves 3px, even INSIDE the ring.
+  // Normalize diagonal input so direction changes without a speed boost.
+  joy.dx=dist>JOY_DEAD_ZONE?dx/dist:0;
+  joy.dy=dist>JOY_DEAD_ZONE?dy/dist:0;
+  break;
  }
 }
-function jEnd(e){for(let i=0;i<e.changedTouches.length;i++){if(e.changedTouches[i].identifier!==joy.id)continue;joy.active=false;joy.dx=joy.dy=0;jB.style.display='none';jK.style.display='none';}}
+function jEnd(e){
+ for(const t of e.changedTouches){
+  if(t.identifier!==joy.id)continue;
+  joy.active=false;joy.id=-1;joy.dx=joy.dy=0;joy.justReleased=true;
+  jB.style.display='none';jK.style.display='none';
+  break;
+ }
+}
 jZ.addEventListener('touchstart',e=>{e.preventDefault();jStart(e);},{passive:false});
 jZ.addEventListener('touchmove',e=>{e.preventDefault();jMove(e);},{passive:false});
 jZ.addEventListener('touchend',e=>{e.preventDefault();jEnd(e);},{passive:false});
