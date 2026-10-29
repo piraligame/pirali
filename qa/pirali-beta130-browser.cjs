@@ -22,7 +22,7 @@ async function run(){
    assert.equal(r.status(),200);
    assert.equal(await page.evaluate(()=>window.PiraliGameVersion),'1.30-classic.'+variant);
    const order=await page.evaluate(()=>[...document.querySelectorAll('#screen .menu-actions>button')].map(x=>x.className));
-   const map=order.indexOf('story-map-open'),full=order.indexOf('pirali-full-menu'),records=order.indexOf('menu-records');
+   const map=order.findIndex(x=>x.split(/\s+/).includes('story-map-open')),full=order.findIndex(x=>x.split(/\s+/).includes('pirali-full-menu')),records=order.findIndex(x=>x.split(/\s+/).includes('menu-records'));
    assert.ok(map>=0&&map<full&&full<records,'Premium action must be between campaign map and leaderboard '+order);
    const button=page.locator('#screen .pirali-full-menu');assert.match(await button.textContent(),/🔒/);
    await button.click();
