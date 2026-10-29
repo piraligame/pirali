@@ -15,6 +15,7 @@ for(const variant of ['play','dev']){
  const update=fs.readFileSync(path.join(base,'js/runtime/update.js'),'utf8');
  const style=fs.readFileSync(path.join(base,'css/style.css'),'utf8');
  const html=fs.readFileSync(path.join(base,'index.html'),'utf8');
+ assert.match(html,/window\.PiraliSeasonReleaseEnabled=false;/,'WIP input testing cannot write live leaderboard records');
  for(const file of ['js/runtime/combat.js','js/runtime/update.js']){
   const checked=spawnSync(process.execPath,['--check',path.join(base,file)],{encoding:'utf8'});
   assert.equal(checked.status,0,file+' failed syntax QA: '+checked.stderr);
