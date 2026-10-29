@@ -1,0 +1,25 @@
+name: PIRALI Beta 1.28 HUD QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta128-play/**'
+      - 'beta128-dev/**'
+      - 'qa/pirali-beta128.cjs'
+      - 'qa/pirali-beta128-browser.cjs'
+      - '.github/workflows/pirali-beta128.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beta128-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Beta 1.28 isolated HUD changes and JS syntax
+        run: node qa/pirali-beta128.cjs
+      - name: Check 100 and 500 enemy achievement milestones
+        run: node qa/pirali-beta125-milestones.cjs
