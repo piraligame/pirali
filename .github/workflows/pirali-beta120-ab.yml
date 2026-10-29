@@ -1,0 +1,16 @@
+name: PIRALI Beta 1.20 A/B joystick comparison QA
+on:
+  push:
+    branches: [feat/beta-1.20-joystick-ab]
+  workflow_dispatch:
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify classic and improved anchored joystick produce identical movement
+        run: node qa/pirali-beta120-joystick-ab.cjs
