@@ -1,53 +1,74 @@
-/* PIRALI Beta 1.18 — responsive floating joystick with thumb-follow.
-   The whole touch zone stays the input surface; the knob is visual only.
-   Moving back should reverse promptly even after a long drag. */
-const joy={active:false,id:-1,bx:0,by:0,dx:0,dy:0,mr:30,justReleased:false,engaged:false};
+/* PIRALI Beta 1.19 — anchored mobile joystick.
+   Base is fixed at the lower-left, ONLY the knob moves inside the circle.
+   A sliding *virtual* origin handles long thumb drags without moving the UI.
+   Small backward swipes can instantly reverse the heading. */
+const joy={
+ active:false,id:-1,bx:0,by:0,dx:0,dy:0,mr:30,justReleased:false,
+ engaged:false,originX:0,originY:0,lastX:0,lastY:0
+};
 const K={l:false,r:false,u:false,d:false};
 const jZ=document.getElementById('joy-zone');
 const jB=document.getElementById('joy-base');
 const jK=document.getElementById('joy-knob');
-const JOY_DEAD_ZONE=3,JOY_RELEASE_ZONE=1.5,JOY_FOLLOW_LIMIT=35;
+const JOY_DEAD_ZONE=4,JOY_RELEASE_ZONE=2,JOY_DRAG_LIMIT=32,JOY_REVERSE_THRESHOLD=6;
+function joystickCenter(){
+ const w=window.innerWidth||document.documentElement.clientWidth||400;
+ const h=window.innerHeight||document.documentElement.clientHeight||800;
+ return {
+  x:Math.max(80,Math.min(142,w*.21)),
+  y:h-Math.max(150,Math.min(260,h*.20))
+ };
+}
 function jStart(e){
  if(joy.active||!e.changedTouches.length)return;
- // Ignore touches while the menu, pause, or death overlay is showing.
+ // Do not start moving during the menu, pause or game-over.
  if(typeof running!=='undefined'&&(!running||P.dead))return;
- const t=e.changedTouches[0];
- joy.active=true;joy.justReleased=false;joy.engaged=false;joy.id=t.identifier;
- joy.bx=t.clientX;joy.by=t.clientY;joy.dx=joy.dy=0;
- jB.style.left=joy.bx+'px';jB.style.top=joy.by+'px';jB.style.display='block';
- jK.style.left=joy.bx+'px';jK.style.top=joy.by+'px';jK.style.display='block';
+ const t=e.changedTouches[0],c=joystickCenter();
+ joy.active=true;joy.id=t.identifier;joy.justReleased=false;joy.engaged=false;
+ joy.originX=joy.lastX=t.clientX;joy.originY=joy.lastY=t.clientY;
+ joy.dx=joy.dy=0;joy.bx=c.x;joy.by=c.y;
+ jB.style.left=c.x+'px';jB.style.top=c.y+'px';jB.style.display='block';
+ jK.style.left=c.x+'px';jK.style.top=c.y+'px';jK.style.display='block';
 }
 function jMove(e){
  if(!joy.active)return;
  for(const t of e.changedTouches){
   if(t.identifier!==joy.id)continue;
-  let dx=t.clientX-joy.bx,dy=t.clientY-joy.by,dist=Math.hypot(dx,dy);
-  // Keep a small reachable origin near the finger. Dragging across the
-  // screen no longer forces the user to return to the original touch point
-  // before changing direction.
-  if(dist>JOY_FOLLOW_LIMIT){
-   const shift=(dist-JOY_FOLLOW_LIMIT)/dist;
-   joy.bx+=dx*shift;joy.by+=dy*shift;
-   jB.style.left=joy.bx+'px';jB.style.top=joy.by+'px';
-   dx=t.clientX-joy.bx;dy=t.clientY-joy.by;
-   dist=Math.hypot(dx,dy);
+  const stepX=t.clientX-joy.lastX,stepY=t.clientY-joy.lastY;
+  const stepLength=Math.hypot(stepX,stepY);
+  if(joy.engaged&&stepLength>=JOY_REVERSE_THRESHOLD){
+   const alignment=(stepX*joy.dx+stepY*joy.dy)/stepLength;
+   if(alignment<-.50){
+    // Reverse within one deliberate swipe, even at the end of a long drag.
+    joy.originX=t.clientX-stepX/stepLength*14;
+    joy.originY=t.clientY-stepY/stepLength*14;
+   }
   }
-  const factor=dist>0?Math.min(dist,joy.mr)/dist:0;
-  jK.style.left=joy.bx+dx*factor+'px';
-  jK.style.top=joy.by+dy*factor+'px';
-  // Tiny reverse movement at the centre stops without visual flicker;
-  // intentional movement still reaches full speed after only 3 pixels.
-  if(!joy.engaged&&dist>JOY_DEAD_ZONE)joy.engaged=true;
-  else if(joy.engaged&&dist<=JOY_RELEASE_ZONE)joy.engaged=false;
-  joy.dx=joy.engaged&&dist>0?dx/dist:0;
-  joy.dy=joy.engaged&&dist>0?dy/dist:0;
+  let dx=t.clientX-joy.originX,dy=t.clientY-joy.originY;
+  let distance=Math.hypot(dx,dy);
+  if(distance>JOY_DRAG_LIMIT){
+   // The logical origin follows the thumb; the VISIBLE ring stays fixed.
+   const extra=(distance-JOY_DRAG_LIMIT)/distance;
+   joy.originX+=dx*extra;joy.originY+=dy*extra;
+   dx=t.clientX-joy.originX;dy=t.clientY-joy.originY;
+   distance=Math.hypot(dx,dy);
+  }
+  if(!joy.engaged&&distance>JOY_DEAD_ZONE)joy.engaged=true;
+  else if(joy.engaged&&distance<=JOY_RELEASE_ZONE)joy.engaged=false;
+  const scale=distance>0?Math.min(distance,joy.mr)/distance:0;
+  jK.style.left=(joy.bx+dx*scale)+'px';
+  jK.style.top=(joy.by+dy*scale)+'px';
+  joy.dx=joy.engaged&&distance>0?dx/distance:0;
+  joy.dy=joy.engaged&&distance>0?dy/distance:0;
+  joy.lastX=t.clientX;joy.lastY=t.clientY;
   break;
  }
 }
 function jEnd(e){
  for(const t of e.changedTouches){
   if(t.identifier!==joy.id)continue;
-  joy.active=false;joy.id=-1;joy.dx=joy.dy=0;joy.engaged=false;joy.justReleased=true;
+  joy.active=false;joy.id=-1;joy.dx=joy.dy=0;
+  joy.engaged=false;joy.justReleased=true;
   jB.style.display='none';jK.style.display='none';
   break;
  }
@@ -56,6 +77,14 @@ jZ.addEventListener('touchstart',e=>{e.preventDefault();jStart(e);},{passive:fal
 jZ.addEventListener('touchmove',e=>{e.preventDefault();jMove(e);},{passive:false});
 jZ.addEventListener('touchend',e=>{e.preventDefault();jEnd(e);},{passive:false});
 jZ.addEventListener('touchcancel',e=>{e.preventDefault();jEnd(e);},{passive:false});
+// Re-anchor visuals on screen rotation; never transport the ring to the thumb.
+window.addEventListener('resize',()=>{
+ if(!joy.active)return;
+ const c=joystickCenter();joy.bx=c.x;joy.by=c.y;
+ jB.style.left=c.x+'px';jB.style.top=c.y+'px';
+ jK.style.left=(c.x+joy.dx*joy.mr)+'px';
+ jK.style.top=(c.y+joy.dy*joy.mr)+'px';
+});
 // Keyboard events are owned by platform/desktop-controls.js (Beta 1.12).
 // Avoid duplicate actions and use KeyboardEvent.code so Georgian/Russian
 // keyboard layouts trigger physical X (sword) and C (dash) reliably.
