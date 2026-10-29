@@ -1,0 +1,21 @@
+name: PIRALI Beta 1.24 QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta124-play/**'
+      - 'beta124-dev/**'
+      - 'qa/pirali-beta124.cjs'
+      - '.github/workflows/pirali-beta124.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node qa/pirali-beta124.cjs
