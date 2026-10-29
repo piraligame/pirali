@@ -1,0 +1,25 @@
+name: PIRALI Beta 1.26 Static QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta126-play/**'
+      - 'beta126-dev/**'
+      - 'qa/pirali-beta126.cjs'
+      - 'qa/pirali-beta126-browser.cjs'
+      - '.github/workflows/pirali-beta126.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beta126-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test Beta 1.26 combat logic, balance and role separation
+        run: node qa/pirali-beta126.cjs
+      - name: Confirm 100 and 500 kill milestones
+        run: node qa/pirali-beta125-milestones.cjs
