@@ -15,8 +15,8 @@ function setMode(next){if(!allowed.has(next))return false;mode=next;
  document.documentElement.dataset.piraliGraphics=mode;return true;
 }
 setMode(mode);
-function drawEffects(frame){return mode==='high'||mode==='medium'?true:frame%3===0;}
-function showWeather(frame){return mode==='high'||mode==='medium'?true:frame%4===0;}
+function drawEffects(frame){return true;} // Draw every frame; selectively lower detail inside FX to avoid flicker.
+function showWeather(frame){return mode==='high';} // No intermittent overlays or visible flicker.
 function mountMenu(parent){
  if(!parent||parent.querySelector('.menu-graphics'))return;
  const row=document.createElement('label');row.className='menu-graphics';

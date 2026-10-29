@@ -19,3 +19,4 @@ jobs:
         with:
           node-version: '22'
       - run: node qa/pirali-beta125.cjs
+      - run: node qa/pirali-beta125-milestones.cjs

@@ -23,6 +23,8 @@ for(const mode of ['play','dev']){
  assert.match(read(b+'/js/progression/checkpoints.js'),/if\(window\.PiraliReplayPracticeActive\)return/);
  assert.match(read(b+'/js/features/map/live-minimap.js'),/PREFERENCE_KEY/);
  assert.match(read(b+'/js/features/settings/graphics.js'),/drawEffects/);
+ assert.match(read(b+'/js/features/settings/graphics.js'),/return mode==='high'/);
+ assert.match(read(b+'/js/effects/combat-fx.js'),/quality==='low'/);
  for(const file of ['js/config/balance.js','js/config/stage-balance.js','js/features/endless/waves.js','js/features/scoring/stage-awards.js','js/runtime/update.js','js/runtime/combat.js','js/runtime/world.js','js/preview-controls.js']){
   if(fs.existsSync(path.join(root,a,file)))assert.equal(read(b+'/'+file),read(a+'/'+file),'Preserve gameplay '+file);
  }

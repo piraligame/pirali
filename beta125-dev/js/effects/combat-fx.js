@@ -41,7 +41,9 @@ const PiraliFX=(function(){
   function draw(ctx,sx,sy,W,H){
     if(!active.length)return;
     ctx.save();
+    const quality=window.PiraliGraphics?.mode?.()||'high';
     for(const fx of active){
+      if(quality==='low'&&(fx.type==='casing'||fx.type==='dash'))continue;
       const x=sx(fx.x),y=sy(fx.y);
       if(x<-120||y<-120||x>W+120||y>H+120)continue;
       const u=1-Math.max(0,fx.life)/fx.max;
