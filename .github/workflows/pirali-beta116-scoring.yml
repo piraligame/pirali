@@ -25,3 +25,5 @@ jobs:
           node-version: '22'
       - name: Verify stage budgets, medal/parry limits, combos, coins, all five waves
         run: node qa/pirali-beta116-scoring.cjs
+      - name: Audit every runtime score assignment
+        run: node qa/pirali-beta116-score-audit.cjs
