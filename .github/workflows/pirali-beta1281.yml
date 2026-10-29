@@ -1,0 +1,25 @@
+name: PIRALI Beta 1.28.1 Firebase Preview QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta1281-play/**'
+      - 'beta1281-dev/**'
+      - 'qa/pirali-beta1281.cjs'
+      - 'qa/pirali-beta1281-browser.cjs'
+      - '.github/workflows/pirali-beta1281.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Firebase preview status, game parity and JS syntax
+        run: node qa/pirali-beta1281.cjs
+      - name: Preserve lifetime 100 and 500 achievements
+        run: node qa/pirali-beta125-milestones.cjs

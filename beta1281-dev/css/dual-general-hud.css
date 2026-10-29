@@ -1,0 +1,14 @@
+/* PIRALI 0.16.2 DEV — second general indicator. Original first bar is retained. */
+#pirali-second-general-bar{
+ position:fixed;top:149px;left:50%;transform:translateX(-50%);
+ z-index:20;width:min(280px,80vw);pointer-events:none;display:none;
+ font-family:'Noto Sans Georgian',system-ui,sans-serif;
+}
+.pirali-general2-title{font-size:10px;font-weight:800;letter-spacing:.3px;
+ color:#ffb879;text-align:center;text-shadow:0 1px 3px #000;margin-bottom:4px}
+.pirali-general2-track{height:12px;background:rgba(0,0,0,.85);border:1px solid #a05a18;
+ border-radius:7px;overflow:hidden;box-shadow:0 0 10px #5a130855}
+.pirali-general2-fill{height:100%;width:100%;background:linear-gradient(90deg,#783011,#d77322,#fac45b);
+ transition:width .22s linear}
+html.pirali-leaderboard-open #pirali-second-general-bar{visibility:hidden!important}
+@media(max-width:380px){#pirali-second-general-bar{top:142px}}
