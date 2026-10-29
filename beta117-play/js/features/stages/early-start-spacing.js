@@ -1,8 +1,8 @@
-/* PIRALI Beta 1.16 — gentle, enemy-free introduction for stages 1–5.
+/* PIRALI Beta 1.17 — gentle opening for stages 1–5, 8 and 10.
    Runs after all other genWorld wrappers. It does NOT remove or weaken enemies. */
 (function(){
 'use strict';
-const SAFE_START_DISTANCE=750;   // enemy eyesight is 560 world units
+const SAFE_RULES=Object.freeze({1:750,2:750,3:750,4:750,5:750,8:700,10:700}); // eyesight: 560
 const ENEMY_SEPARATION=96;
 const ROAD_OFFSETS=[-35,35,0,-55,55];
 const baseGenWorld=genWorld;
@@ -18,7 +18,8 @@ function roadXAt(y){
   return P.x;
 }
 function spaceOpening(){
-  if(level<1||level>5)return;
+  const SAFE_START_DISTANCE=SAFE_RULES[level];
+  if(!SAFE_START_DISTANCE)return;
   const beforeCount=enemies.length;
   const startX=P.x,startY=P.y;
   const distance=e=>Math.hypot(e.x-startX,e.y-startY);
@@ -69,5 +70,5 @@ genWorld=function(...args){
  window.PiraliStageScoring?.prepareStage?.();
  return result;
 };
-window.PiraliEarlyStart=Object.freeze({clearance:SAFE_START_DISTANCE,appliesTo:[1,2,3,4,5]});
+window.PiraliEarlyStart=Object.freeze({clearanceFor:n=>SAFE_RULES[n]||0,appliesTo:[1,2,3,4,5,8,10]});
 })();
