@@ -1,38 +1,53 @@
-/* Beta 1.16: instant-direction floating joystick.
-   The ring is only visual; reaching its edge is NOT required to move. */
-const joy={active:false,id:-1,bx:0,by:0,dx:0,dy:0,mr:30,justReleased:false};
+/* PIRALI Beta 1.18 — responsive floating joystick with thumb-follow.
+   The whole touch zone stays the input surface; the knob is visual only.
+   Moving back should reverse promptly even after a long drag. */
+const joy={active:false,id:-1,bx:0,by:0,dx:0,dy:0,mr:30,justReleased:false,engaged:false};
 const K={l:false,r:false,u:false,d:false};
 const jZ=document.getElementById('joy-zone');
 const jB=document.getElementById('joy-base');
 const jK=document.getElementById('joy-knob');
-const JOY_DEAD_ZONE=3; // pixels: reject tap jitter, not intentional swipes
+const JOY_DEAD_ZONE=3,JOY_RELEASE_ZONE=1.5,JOY_FOLLOW_LIMIT=35;
 function jStart(e){
  if(joy.active||!e.changedTouches.length)return;
+ // Ignore touches while the menu, pause, or death overlay is showing.
+ if(typeof running!=='undefined'&&(!running||P.dead))return;
  const t=e.changedTouches[0];
- joy.active=true;joy.justReleased=false;joy.id=t.identifier;
+ joy.active=true;joy.justReleased=false;joy.engaged=false;joy.id=t.identifier;
  joy.bx=t.clientX;joy.by=t.clientY;joy.dx=joy.dy=0;
- jB.style.left=t.clientX+'px';jB.style.top=t.clientY+'px';jB.style.display='block';
- jK.style.left=t.clientX+'px';jK.style.top=t.clientY+'px';jK.style.display='block';
+ jB.style.left=joy.bx+'px';jB.style.top=joy.by+'px';jB.style.display='block';
+ jK.style.left=joy.bx+'px';jK.style.top=joy.by+'px';jK.style.display='block';
 }
 function jMove(e){
  if(!joy.active)return;
  for(const t of e.changedTouches){
   if(t.identifier!==joy.id)continue;
-  const dx=t.clientX-joy.bx,dy=t.clientY-joy.by,dist=Math.hypot(dx,dy);
-  const radius=Math.min(dist,joy.mr),factor=dist>0?radius/dist:0;
-  jK.style.left=(joy.bx+dx*factor)+'px';
-  jK.style.top=(joy.by+dy*factor)+'px';
-  // Full speed as soon as the finger moves 3px, even INSIDE the ring.
-  // Normalize diagonal input so direction changes without a speed boost.
-  joy.dx=dist>JOY_DEAD_ZONE?dx/dist:0;
-  joy.dy=dist>JOY_DEAD_ZONE?dy/dist:0;
+  let dx=t.clientX-joy.bx,dy=t.clientY-joy.by,dist=Math.hypot(dx,dy);
+  // Keep a small reachable origin near the finger. Dragging across the
+  // screen no longer forces the user to return to the original touch point
+  // before changing direction.
+  if(dist>JOY_FOLLOW_LIMIT){
+   const shift=(dist-JOY_FOLLOW_LIMIT)/dist;
+   joy.bx+=dx*shift;joy.by+=dy*shift;
+   jB.style.left=joy.bx+'px';jB.style.top=joy.by+'px';
+   dx=t.clientX-joy.bx;dy=t.clientY-joy.by;
+   dist=Math.hypot(dx,dy);
+  }
+  const factor=dist>0?Math.min(dist,joy.mr)/dist:0;
+  jK.style.left=joy.bx+dx*factor+'px';
+  jK.style.top=joy.by+dy*factor+'px';
+  // Tiny reverse movement at the centre stops without visual flicker;
+  // intentional movement still reaches full speed after only 3 pixels.
+  if(!joy.engaged&&dist>JOY_DEAD_ZONE)joy.engaged=true;
+  else if(joy.engaged&&dist<=JOY_RELEASE_ZONE)joy.engaged=false;
+  joy.dx=joy.engaged&&dist>0?dx/dist:0;
+  joy.dy=joy.engaged&&dist>0?dy/dist:0;
   break;
  }
 }
 function jEnd(e){
  for(const t of e.changedTouches){
   if(t.identifier!==joy.id)continue;
-  joy.active=false;joy.id=-1;joy.dx=joy.dy=0;joy.justReleased=true;
+  joy.active=false;joy.id=-1;joy.dx=joy.dy=0;joy.engaged=false;joy.justReleased=true;
   jB.style.display='none';jK.style.display='none';
   break;
  }
