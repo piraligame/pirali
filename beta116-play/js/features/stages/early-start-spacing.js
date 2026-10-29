@@ -64,6 +64,9 @@ function spaceOpening(){
 genWorld=function(...args){
  const result=baseGenWorld.apply(this,args);
  spaceOpening();
+ // Final stage generation pass: only now are the exact number of enemies,
+ // two generals, finite pickups, and stage-7 boss rewards known.
+ window.PiraliStageScoring?.prepareStage?.();
  return result;
 };
 window.PiraliEarlyStart=Object.freeze({clearance:SAFE_START_DISTANCE,appliesTo:[1,2,3,4,5]});
