@@ -1,0 +1,62 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),http=require('node:http'),path=require('node:path');
+const {chromium}=require('playwright');
+const root=path.resolve(__dirname,'..');
+const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp'};
+const server=http.createServer((req,res)=>{
+ const file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));
+ if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}
+ fs.readFile(file,(e,data)=>{if(e){res.writeHead(404).end();return;}
+ res.writeHead(200,{'Content-Type':types[path.extname(file)]||'application/octet-stream'});res.end(data)});
+});
+async function run(){
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+ try{
+  for(const variant of ['play','dev']){
+   const context=await browser.newContext({viewport:{width:360,height:760},isMobile:true,hasTouch:true,deviceScaleFactor:2});
+   const page=await context.newPage(),errors=[],requests=[];
+   page.on('pageerror',e=>errors.push(e.message));
+   await page.route(/firebaseio\.com/,r=>{requests.push(r.request().method());r.abort()});
+   const r=await page.goto('http://127.0.0.1:'+server.address().port+'/beta130-'+variant+'/index.html',{waitUntil:'load',timeout:45000});
+   assert.equal(r.status(),200);
+   assert.equal(await page.evaluate(()=>window.PiraliGameVersion),'1.30-classic.'+variant);
+   const order=await page.evaluate(()=>[...document.querySelectorAll('#screen .menu-actions>button')].map(x=>x.className));
+   const map=order.indexOf('story-map-open'),full=order.indexOf('pirali-full-menu'),records=order.indexOf('menu-records');
+   assert.ok(map>=0&&map<full&&full<records,'Premium action must be between campaign map and leaderboard '+order);
+   const button=page.locator('#screen .pirali-full-menu');assert.match(await button.textContent(),/🔒/);
+   await button.click();
+   assert.equal(await page.locator('.pirali-full-pin').count(),0,'Locked route cannot choose stage');
+   assert.match(await page.locator('#pirali-full-overlay').innerText(),/10/);
+   assert.doesNotMatch(await page.locator('#pirali-full-overlay').innerText(),/₾|0\.50|0,50|Billing|გადახდა/);
+   await page.locator('.pirali-full-back').click();
+   const noBypass=await page.evaluate(()=>{localStorage.setItem('pirali_beta129_demo_fullpath_play','yes');return window.PiraliFullPath.unlocked()});
+   assert.equal(noBypass,false,'Old premium demo flag no longer gives access');
+   await page.evaluate(()=>{
+     localStorage.setItem('pirali_player_name','Dato');
+     const key=window.PiraliVisualPreviewReadonly?'pirali_personal_stats_beta_1_0_s1_dev_preview':'pirali_personal_stats_beta_1_0_s1_rc';
+     const profile={runs:1,wins:1,defeats:0,kills:14,bestScore:800,bestRunMs:99000,stageBestMs:Array(11).fill(null),achievements:{victory:1},maxReachedStage:11};
+     localStorage.setItem(key,JSON.stringify({version:1,profiles:{dato:profile}}));
+     window.PiraliFullPath.refresh();
+   });
+   assert.equal(await page.evaluate(()=>window.PiraliFullPath.unlocked()),true);
+   await button.click();
+   assert.equal(await page.locator('.pirali-full-pin').count(),11);
+   await page.locator('.pirali-full-pin[data-stage="10"]').scrollIntoViewIfNeeded();
+   await page.locator('.pirali-full-pin[data-stage="10"]').click();
+   const started=await page.evaluate(()=>({level,health,maxHealth,gear:window.PiraliAlphaGear.status(),active:window.PiraliFullPath.isActive()}));
+   assert.equal(started.level,10);assert.equal(started.health,7);assert.equal(started.maxHealth,7);
+   assert.equal(started.gear.owned,true);assert.equal(started.gear.selected,'shotgun');assert.equal(started.active,true);
+   const coins=await page.evaluate(()=>{const old=score;window.PiraliStageScoring.claimDevilCoins();return score-old;});
+   assert.equal(coins,125,'Devil coins reduced 50%');
+   await page.evaluate(()=>startGame());
+   const normal=await page.evaluate(()=>({level,health,maxHealth,gear:window.PiraliAlphaGear.status(),active:window.PiraliFullPath.isActive()}));
+   assert.equal(normal.level,1);assert.equal(normal.health,5);assert.equal(normal.maxHealth,5);assert.equal(normal.gear.owned,false);assert.equal(normal.active,false);
+   assert.ok(requests.every(m=>m==='GET'),'No Firebase writes');
+   assert.deepEqual(errors,[]);
+   console.log('PASS '+variant+' mobile: locked-until-stage11, real progress unlock, correct menu order, 11 stage pins, 7 hearts shotgun, 50% points, normal game unchanged');
+   await context.close();
+  }
+ }finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
+}
+run().catch(e=>{console.error(e);server.close();process.exitCode=1});

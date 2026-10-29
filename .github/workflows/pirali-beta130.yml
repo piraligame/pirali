@@ -1,0 +1,31 @@
+name: PIRALI Beta 1.30 Full Route Progress Unlock QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta130-play/**'
+      - 'beta130-dev/**'
+      - 'qa/pirali-beta130.cjs'
+      - 'qa/pirali-beta130-browser.cjs'
+      - '.github/workflows/pirali-beta130.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beta130:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify progress unlock, no payment UI, and unchanged game mechanics
+        run: node qa/pirali-beta130.cjs
+      - name: Verify existing kill achievements
+        run: node qa/pirali-beta125-milestones.cjs
+      - name: Install Chromium for real mobile browser QA
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Mobile Chromium Player and Developer smoke
+        run: node qa/pirali-beta130-browser.cjs
