@@ -1,0 +1,24 @@
+name: PIRALI Beta 1.26.1 Required Player Name QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta1261-play/**'
+      - 'beta1261-dev/**'
+      - 'qa/pirali-beta1261.cjs'
+      - '.github/workflows/pirali-beta1261.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  identity-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify name registration and unchanged game mechanics
+        run: node qa/pirali-beta1261.cjs
+      - name: Preserve 100 and 500 enemy achievements
+        run: node qa/pirali-beta125-milestones.cjs
