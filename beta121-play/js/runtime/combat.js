@@ -1,21 +1,33 @@
-/* PIRALI Beta 1.18 — responsive floating joystick with thumb-follow.
-   The whole touch zone stays the input surface; the knob is visual only.
-   Moving back should reverse promptly even after a long drag. */
-const joy={active:false,id:-1,bx:0,by:0,dx:0,dy:0,mr:30,justReleased:false,engaged:false};
+/* PIRALI Beta 1.21 — original Classic A / Beta 1.18 input mathematics.
+   Polish ONLY the displayed ring's travel so a long swipe cannot push
+   the whole joystick up across the map. Logical direction is untouched. */
+const joy={active:false,id:-1,bx:0,by:0,dx:0,dy:0,mr:30,justReleased:false,engaged:false,
+  startX:0,startY:0,visualX:0,visualY:0};
 const K={l:false,r:false,u:false,d:false};
 const jZ=document.getElementById('joy-zone');
 const jB=document.getElementById('joy-base');
 const jK=document.getElementById('joy-knob');
 const JOY_DEAD_ZONE=3,JOY_RELEASE_ZONE=1.5,JOY_FOLLOW_LIMIT=35;
+ // Max distance the drawn circle can drift away from the first touch.
+ const JOY_VISUAL_LIMIT_X=90,JOY_VISUAL_LIMIT_Y=96;
+ function updateJoyVisual(){
+   joy.visualX=Math.max(joy.startX-JOY_VISUAL_LIMIT_X,
+     Math.min(joy.startX+JOY_VISUAL_LIMIT_X,joy.bx));
+   joy.visualY=Math.max(joy.startY-JOY_VISUAL_LIMIT_Y,
+     Math.min(joy.startY+JOY_VISUAL_LIMIT_Y,joy.by));
+   jB.style.left=joy.visualX+'px';
+   jB.style.top=joy.visualY+'px';
+ }
 function jStart(e){
  if(joy.active||!e.changedTouches.length)return;
  // Ignore touches while the menu, pause, or death overlay is showing.
  if(typeof running!=='undefined'&&(!running||P.dead))return;
  const t=e.changedTouches[0];
  joy.active=true;joy.justReleased=false;joy.engaged=false;joy.id=t.identifier;
- joy.bx=t.clientX;joy.by=t.clientY;joy.dx=joy.dy=0;
- jB.style.left=joy.bx+'px';jB.style.top=joy.by+'px';jB.style.display='block';
- jK.style.left=joy.bx+'px';jK.style.top=joy.by+'px';jK.style.display='block';
+ joy.bx=joy.startX=joy.visualX=t.clientX;
+ joy.by=joy.startY=joy.visualY=t.clientY;joy.dx=joy.dy=0;
+ updateJoyVisual();jB.style.display='block';
+ jK.style.left=joy.visualX+'px';jK.style.top=joy.visualY+'px';jK.style.display='block';
 }
 function jMove(e){
  if(!joy.active)return;
@@ -28,13 +40,13 @@ function jMove(e){
   if(dist>JOY_FOLLOW_LIMIT){
    const shift=(dist-JOY_FOLLOW_LIMIT)/dist;
    joy.bx+=dx*shift;joy.by+=dy*shift;
-   jB.style.left=joy.bx+'px';jB.style.top=joy.by+'px';
+   updateJoyVisual();
    dx=t.clientX-joy.bx;dy=t.clientY-joy.by;
    dist=Math.hypot(dx,dy);
   }
   const factor=dist>0?Math.min(dist,joy.mr)/dist:0;
-  jK.style.left=joy.bx+dx*factor+'px';
-  jK.style.top=joy.by+dy*factor+'px';
+  jK.style.left=(joy.visualX+dx*factor)+'px';
+  jK.style.top=(joy.visualY+dy*factor)+'px';
   // Tiny reverse movement at the centre stops without visual flicker;
   // intentional movement still reaches full speed after only 3 pixels.
   if(!joy.engaged&&dist>JOY_DEAD_ZONE)joy.engaged=true;
