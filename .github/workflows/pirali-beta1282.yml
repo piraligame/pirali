@@ -1,0 +1,24 @@
+name: PIRALI Beta 1.28.2 Result Ranking QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta1282-play/**'
+      - 'beta1282-dev/**'
+      - 'qa/pirali-beta1282.cjs'
+      - '.github/workflows/pirali-beta1282.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ranking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preserve results, restrict changes and check JS
+        run: node qa/pirali-beta1282.cjs
+      - name: Preserve milestone achievements
+        run: node qa/pirali-beta125-milestones.cjs
