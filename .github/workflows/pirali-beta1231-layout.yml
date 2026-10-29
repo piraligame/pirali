@@ -1,0 +1,16 @@
+name: PIRALI Beta 1.23.1 stage result layout QA
+on:
+  push:
+    branches: [fix/beta-1.23.1-stage-overlay-spacing]
+  workflow_dispatch:
+jobs:
+  layout-hotfix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate both result layouts and unchanged gameplay files
+        run: node qa/pirali-beta1231-stage-layout.cjs
