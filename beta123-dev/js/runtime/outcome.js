@@ -47,6 +47,7 @@ function showVictory(){
   <button class="sbtn alpha-outcome-menu" onclick="goToMenu()">🏠 მთავარ მენიუში</button>`;
   s.style.display='flex';
   if(window.PiraliLanguage)window.PiraliLanguage.applyOutcome();
+  window.PiraliStageStars?.onVictory?.();
   window.PiraliCheckpoint?.outcomeNotice();
   window.PiraliCheckpoint?.updateMode();
   window.PiraliStats?.renderResult();
