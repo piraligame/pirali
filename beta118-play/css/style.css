@@ -66,7 +66,7 @@ canvas{display:block;position:fixed;top:0;left:0;}
 .bi.e{background:linear-gradient(180deg,#1e160a,#12100a);border-color:rgba(60,45,14,0.2);box-shadow:none;opacity:0.2;height:15px;}
 
 /* ── JOYSTICK ── */
-#joy-zone{position:fixed;left:0;top:0;width:50%;height:100%;z-index:15;}
+#joy-zone{position:fixed;left:0;top:0;width:50%;height:100%;z-index:15;touch-action:none;overscroll-behavior:contain;-webkit-tap-highlight-color:transparent;}
 #joy-base{position:fixed;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle,rgba(20,14,4,0.6),rgba(6,4,1,0.75));border:1.5px solid rgba(200,148,50,0.38);box-shadow:0 0 32px rgba(0,0,0,.65),inset 0 0 32px rgba(0,0,0,.45),0 0 0 1px rgba(0,0,0,.5);display:none;pointer-events:none;transform:translate(-50%,-50%);}
 #joy-base::before{content:'';position:absolute;inset:18px;border-radius:50%;border:1px solid rgba(178,128,42,0.2);}
 #joy-base::after{content:'';position:absolute;inset:35px;border-radius:50%;border:1px solid rgba(178,128,42,0.1);}
