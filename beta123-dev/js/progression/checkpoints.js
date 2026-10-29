@@ -1,8 +1,8 @@
 /* PIRALI checkpoints: local-only, at completed-level boundaries. No Firebase writes. */
 (function(){
   'use strict';
-  const KEY=window.PiraliVisualPreviewReadonly===true?'pirali_checkpoint_beta_1_22_classic_dev':
-    window.PiraliSeasonReleaseEnabled===true?'pirali_checkpoint_beta_1_0_s1_prod':'pirali_checkpoint_beta_1_22_classic_play';
+  const KEY=window.PiraliVisualPreviewReadonly===true?'pirali_checkpoint_beta_1_23_classic_dev':
+    window.PiraliSeasonReleaseEnabled===true?'pirali_checkpoint_beta_1_0_s1_prod':'pirali_checkpoint_beta_1_23_classic_play';
   let resumedRun=false;
   let session=0;
   const text=key=>window.PiraliLanguage?window.PiraliLanguage.t(key):key;
