@@ -1,0 +1,46 @@
+/* PIRALI Beta 1.25: responsive menu, replay picker and achievements. */
+#screen .main-menu-panel{max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+#screen .main-menu-panel .sbox{max-height:min(24vh,160px);overflow-y:auto}
+#screen .menu-actions{gap:7px}
+#screen .menu-replay{
+ width:100%;min-height:42px;border:1px solid #b9945b;border-radius:9px;
+ background:linear-gradient(145deg,#4c331a,#291a0d);color:#f9e0a7;
+ font:800 12px/1.3 'Noto Sans Georgian',sans-serif;cursor:pointer;padding:9px
+}
+#screen .menu-graphics{
+ box-sizing:border-box;width:100%;display:flex;align-items:center;justify-content:space-between;
+ gap:10px;border:1px solid rgba(178,148,92,.65);border-radius:9px;
+ background:#191c13;color:#ffe7b8;padding:8px 11px;
+ font:700 11px 'Noto Sans Georgian',sans-serif
+}
+#screen .menu-graphics select{max-width:58%;border:1px solid #89734c;background:#282e20;color:#ffe9bc;
+ border-radius:7px;padding:6px;font:700 11px 'Noto Sans Georgian',sans-serif}
+#pirali-replay-overlay{position:fixed;inset:0;z-index:12600;display:none;align-items:center;justify-content:center;
+ padding:max(12px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom));
+ background:rgba(4,7,5,.92);box-sizing:border-box}
+.pirali-replay-card{box-sizing:border-box;width:min(640px,100%);max-height:93dvh;overflow:auto;
+ padding:16px;border:1px solid #c59a55;border-radius:15px;color:#ffeac4;
+ background:linear-gradient(165deg,#362613,#14180e);text-align:center}
+.pirali-replay-card h2{margin:0 0 6px;font-size:clamp(17px,3vw,22px)}
+.pirali-replay-card p{font-size:11px;color:#cbb38a;line-height:1.5;margin:0 0 12px}
+.pirali-replay-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.pirali-replay-stage{min-width:0;min-height:45px;cursor:pointer;background:#2e422d;
+ border:1px solid #7d9c66;border-radius:8px;color:#eaf7d6;
+ font:700 11px/1.45 'Noto Sans Georgian',sans-serif;padding:7px;overflow-wrap:anywhere}
+.pirali-replay-stage:disabled{opacity:.46;cursor:not-allowed;border-color:#6a665b;background:#39342a}
+.pirali-replay-close{margin:12px auto 0;border:1px solid #b6965d;border-radius:9px;
+ padding:10px 22px;color:#fff0ce;background:#44301b;cursor:pointer}
+#pirali-achievement-toast{position:fixed;left:50%;top:22%;z-index:3000;transform:translate(-50%,-12px);
+ pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;
+ border:1px solid #ffda77;background:rgba(35,27,9,.96);color:#ffedaa;border-radius:10px;
+ box-shadow:0 8px 24px #0008;padding:13px 19px;text-align:center;font:900 14px 'Noto Sans Georgian',sans-serif}
+#pirali-achievement-toast.show{opacity:1;transform:translate(-50%,0)}
+#pirali-stage-stars{max-width:calc(100vw - 30px)}
+@media(max-height:630px){#screen:not(.gameover-screen):not(.victory-screen){padding:8px!important}
+ #screen .main-menu-panel{max-height:96dvh;padding:10px 13px}
+ #screen .main-menu-panel .sbox{max-height:70px;margin-bottom:8px}
+ .pirali-replay-card{max-height:94dvh;padding:10px}
+ .pirali-replay-stage{min-height:36px;padding:4px}}
+@media(max-width:370px){.pirali-replay-grid{grid-template-columns:1fr 1fr}.pirali-replay-stage{font-size:10px}}
+html[data-pirali-graphics="low"] .pirali-confetti,
+html[data-pirali-graphics="low"] .pirali-polish-toast.combo{animation:none!important}
