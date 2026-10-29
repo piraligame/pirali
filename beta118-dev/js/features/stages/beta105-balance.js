@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 const SET=Object.freeze({
- 6:Object.freeze({count:.81*.90,hp:.85*.90*.95*.90,attack:.85*.90*.95*.90}),
+ 6:Object.freeze({count:.81*.90,hp:.85*.90*.95*.90*.85,attack:.85*.90*.95*.90*.85}), // Beta 1.18: additional -15% effective HP and attack tempo only on stage 6
  7:Object.freeze({count:.90,hp:.95*.90*.90,attack:.95*.90*.90}),
  8:Object.freeze({count:1,hp:.85*.95*.90,attack:.85*.95*.90}),
  9:Object.freeze({count:15,hp:.80*.95*.90,attack:.80*.95*.90}),
