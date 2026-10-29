@@ -66,11 +66,11 @@ canvas{display:block;position:fixed;top:0;left:0;}
 .bi.e{background:linear-gradient(180deg,#1e160a,#12100a);border-color:rgba(60,45,14,0.2);box-shadow:none;opacity:0.2;height:15px;}
 
 /* ── JOYSTICK ── */
-#joy-zone{position:fixed;left:0;top:0;width:50%;height:100%;z-index:15;touch-action:none;overscroll-behavior:contain;-webkit-tap-highlight-color:transparent;}
-#joy-base{position:fixed;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle,rgba(20,14,4,0.6),rgba(6,4,1,0.75));border:1.5px solid rgba(200,148,50,0.38);box-shadow:0 0 32px rgba(0,0,0,.65),inset 0 0 32px rgba(0,0,0,.45),0 0 0 1px rgba(0,0,0,.5);display:none;pointer-events:none;transform:translate(-50%,-50%);}
+#joy-zone{position:fixed;left:0;right:auto;top:auto;bottom:0;width:50%;height:60%;z-index:15;touch-action:none;overscroll-behavior:contain;-webkit-tap-highlight-color:transparent;}
+#joy-base{position:fixed;z-index:16;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle,rgba(20,14,4,0.6),rgba(6,4,1,0.75));border:1.5px solid rgba(200,148,50,0.38);box-shadow:0 0 32px rgba(0,0,0,.65),inset 0 0 32px rgba(0,0,0,.45),0 0 0 1px rgba(0,0,0,.5);display:none;pointer-events:none;transform:translate(-50%,-50%);}
 #joy-base::before{content:'';position:absolute;inset:18px;border-radius:50%;border:1px solid rgba(178,128,42,0.2);}
 #joy-base::after{content:'';position:absolute;inset:35px;border-radius:50%;border:1px solid rgba(178,128,42,0.1);}
-#joy-knob{position:fixed;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 35% 33%,rgba(215,162,56,0.9),rgba(68,40,8,0.98));border:2px solid rgba(220,170,38,0.85);box-shadow:0 0 20px rgba(185,132,40,0.5),inset 0 2px 0 rgba(255,215,95,0.4),0 4px 8px rgba(0,0,0,.6);display:none;pointer-events:none;transform:translate(-50%,-50%);}
+#joy-knob{position:fixed;z-index:17;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 35% 33%,rgba(215,162,56,0.9),rgba(68,40,8,0.98));border:2px solid rgba(220,170,38,0.85);box-shadow:0 0 20px rgba(185,132,40,0.5),inset 0 2px 0 rgba(255,215,95,0.4),0 4px 8px rgba(0,0,0,.6);display:none;pointer-events:none;transform:translate(-50%,-50%);}
 
 /* ── ACTION BUTTONS ── */
 #action-zone{position:fixed;right:0;bottom:0;width:50%;height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;padding:0 20px 28px 0;z-index:15;gap:13px;pointer-events:none;}
