@@ -1,0 +1,24 @@
+name: PIRALI Beta 1.25.1 Fixed Graphics QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta1251-play/**'
+      - 'beta1251-dev/**'
+      - 'qa/pirali-beta1251.cjs'
+      - '.github/workflows/pirali-beta1251.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fixed-quality-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify no graphics choice and unchanged gameplay
+        run: node qa/pirali-beta1251.cjs
+      - name: Verify Beta 1.25 milestone thresholds
+        run: node qa/pirali-beta125-milestones.cjs
