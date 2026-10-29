@@ -66,7 +66,8 @@ for(const variant of ['play','dev']){
  const start=update.indexOf('    const mag=Math.hypot(mx,my);');
  const end=update.indexOf('  if(dashCD>0)',start);
  assert.ok(start>=0&&end>start,'movement block found');
- const movement=update.slice(start,end);
+ // The slice starts inside the parent movement else; remove its final brace.
+ const movement=update.slice(start,end).replace(/\n  }\s*$/, '\n');
  function runMovement(mx,my,touchDriving,touchStopped){
   const player={vx:.8,vy:.5,ang:0,wt:0,wf:0,stepT:0,x:200,y:200};
   const sandbox={mx,my,touchDriving,touchStopped,SPD:1.42,dt:1,
