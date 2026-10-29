@@ -65,7 +65,16 @@ function onVictory(){
  const budget=2000,paid=window.PiraliStageScoring?.bonusEarned?.()||0;
  const earned=Math.max(0,Math.min(budget,paid));
  const result={stage:11,earned,budget,stars:calculate(earned,budget),timeMs:null};
- save(11,result.stars);paint(result);return result;
+ save(11,result.stars);paint(result);
+ const resultBox=document.querySelector('#screen .sbox');
+ if(resultBox){
+  const badge=document.createElement('div');
+  badge.className='pirali-final-stars';
+  badge.textContent='★'.repeat(result.stars)+'☆'.repeat(3-result.stars);
+  badge.style.cssText='font-size:22px;color:#ffd46d;text-align:center;margin:8px 0';
+  resultBox.appendChild(badge);
+ }
+ return result;
 }
 window.PiraliStageStars=Object.freeze({calculate,onStageComplete,onVictory,
  best:(stage)=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'{}');return Number(o[stage])||0;}catch(e){return 0;}},
