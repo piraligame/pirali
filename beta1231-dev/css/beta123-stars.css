@@ -1,6 +1,8 @@
-/* Beta 1.23: small nonblocking stage completion rating, below HUD. */
+/* PIRALI Beta 1.23.1: stack completion details and stars BELOW the upper HUD.
+   Stage toast is about 3 lines high; leave 120–160px before the star card.
+   This is purely layout, not score, timing, controls, or gameplay logic. */
 #pirali-stage-stars{
- position:fixed;left:50%;top:26%;transform:translate(-50%,-12px);
+ position:fixed;left:50%;top:calc(clamp(160px,24vh,430px) + clamp(120px,11vh,160px));transform:translate(-50%,-12px);
  max-width:90vw;box-sizing:border-box;padding:9px 15px;
  border:1px solid rgba(240,195,98,.76);border-radius:9px;
  background:rgba(23,17,7,.89);box-shadow:0 5px 24px #0009;
@@ -9,3 +11,23 @@
  pointer-events:none;opacity:0;transition:opacity .16s,transform .16s;
 }
 #pirali-stage-stars.show{opacity:1;transform:translate(-50%,0)}
+
+/* Old stage-end toast was at 19–21vh and collided with the star card at 26vh.
+   Place it a little lower, then always anchor the star card beneath it. */
+.pirali-polish-toast.stage {
+  top:clamp(160px,24vh,430px);
+  max-width:calc(100vw - 34px);
+}
+/* A compact phone in landscape still gets a legible, non-interactive stack. */
+@media (max-height:760px){
+  .pirali-polish-toast.stage{
+    top:18vh;
+    padding:7px 10px;
+    font-size:clamp(10px,2.2vw,13px);
+  }
+  #pirali-stage-stars{
+    top:calc(18vh + 108px);
+    padding:6px 10px;
+    font-size:clamp(10px,2.1vw,13px);
+  }
+}
