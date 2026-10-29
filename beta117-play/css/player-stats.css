@@ -1,0 +1,68 @@
+/* PIRALI stage 4: local player statistics, achievements and timer. */
+#pirali-time-hud[hidden]{display:none!important;}
+#pirali-time-hud{
+  position:fixed;z-index:15;top:clamp(115px,17vh,144px);right:12px;
+  box-sizing:border-box;min-width:82px;
+  padding:5px 9px;border-radius:8px;
+  background:rgba(13,17,9,.78);border:1px solid rgba(192,161,81,.65);
+  color:#f3d895;font:800 12px/1.2 monospace;text-align:center;
+  pointer-events:none;
+}
+#screen .menu-stats,#pirali-lb-stats,.pirali-show-stats{
+  box-sizing:border-box;min-height:43px;cursor:pointer;
+  border:1px solid rgba(156,184,119,.65);border-radius:10px;
+  background:linear-gradient(145deg,rgba(28,48,31,.95),rgba(12,26,17,.95));
+  color:#d9f4c8;font:800 12px/1.4 'Noto Sans Georgian',sans-serif;
+  letter-spacing:.3px;padding:8px 12px;
+}
+#screen .menu-stats{width:100%;}
+#screen .menu-stats:hover,#pirali-lb-stats:hover,.pirali-show-stats:hover{
+  background:linear-gradient(145deg,#35593b,#1b3d25);
+}
+#pirali-lb-stats{position:relative;z-index:2;margin:0 auto 11px;width:min(320px,100%);}
+.pirali-result-stats{
+  font:700 12px/1.5 'Noto Sans Georgian',sans-serif;
+  margin:6px 0 8px;color:#eacb80;position:relative;z-index:3;text-align:center;
+}
+#screen .pirali-show-stats{
+  position:relative;z-index:3;margin:7px auto 10px;max-width:320px;width:calc(100% - 24px);
+}
+#pirali-stats-overlay{
+  box-sizing:border-box;position:fixed;inset:0;z-index:12500;
+  background:rgba(5,6,4,.93);align-items:center;justify-content:center;
+  padding:max(12px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right))
+          max(12px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));
+}
+#pirali-stats-overlay .pirali-stats-card{
+  box-sizing:border-box;width:min(520px,100%);max-height:min(91vh,820px);
+  display:flex;flex-direction:column;align-items:stretch;min-height:0;
+  padding:16px 15px 12px;border-radius:16px;
+  border:1px solid #ad8442;background:linear-gradient(153deg,#38290e,#13150d);
+  box-shadow:0 6px 38px #000b;color:#f3ddaf;
+}
+#pirali-stats-title{margin:0;text-align:center;color:#ffe5ab;font:800 20px/1.4 'Noto Sans Georgian',sans-serif;overflow-wrap:anywhere;}
+#pirali-stats-subtitle{margin:4px 0 10px;text-align:center;color:#bdac83;font:12px/1.4 'Noto Sans Georgian',sans-serif;}
+#pirali-stats-content{overflow-y:auto;min-height:0;overscroll-behavior:contain;padding:2px 4px 8px;}
+#pirali-stats-content h3{color:#e9ca80;font:800 13px 'Noto Sans Georgian',sans-serif;margin:12px 0 5px;padding-bottom:5px;border-bottom:1px solid #776137;}
+.pirali-stats-line{display:flex;gap:12px;align-items:baseline;justify-content:space-between;padding:6px 4px;border-bottom:1px solid #3e4027;font:12px/1.45 'Noto Sans Georgian',sans-serif;}
+.pirali-stats-line span{overflow-wrap:anywhere;min-width:0;flex:1;}
+.pirali-stats-line strong{font-size:12px;color:#f7dc8e;flex-shrink:0;}
+.pirali-stats-line.pirali-achieved strong{color:#9ae6a0;}
+.pirali-stats-line.pirali-locked{opacity:.6;}
+.pirali-stats-note{margin:12px 0 4px;color:#b4b897;text-align:center;font:11px/1.6 'Noto Sans Georgian',sans-serif;}
+#pirali-stats-close{cursor:pointer;min-height:48px;border-radius:10px;background:#6b491a;
+border:1px solid #e1b55c;color:#fff0ba;font:800 14px 'Noto Sans Georgian',sans-serif;margin-top:10px;}
+#pirali-stats-close:focus-visible,.menu-stats:focus-visible,#pirali-lb-stats:focus-visible{outline:2px solid #eff5b0;outline-offset:2px;}
+@media(max-width:700px){
+  #screen:not(.gameover-screen):not(.victory-screen){overflow-y:auto;}
+  #screen .main-menu-panel{flex-shrink:0;}
+  #screen .menu-actions{gap:6px;}
+  #screen .menu-stats,#screen .menu-records{min-height:43px;font-size:12px;}
+  #pirali-time-hud{top:104px;right:8px;font-size:11px;}
+  #pirali-stats-overlay .pirali-stats-card{max-height:92vh;padding:12px;}
+}
+@media(max-height:550px){
+  #screen:not(.gameover-screen):not(.victory-screen){justify-content:flex-start;}
+  #screen .main-menu-panel .sbox{max-height:58px;overflow-y:auto;}
+  #pirali-stats-overlay .pirali-stats-card{max-height:95vh;}
+}
