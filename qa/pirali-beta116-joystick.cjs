@@ -86,7 +86,7 @@ for(const variant of ['play','dev']){
  near(keyboard.vx,.8+(1.42-.8)*.42,'keyboard preserves original movement');
  assert.match(style,/#joy-base\{[^\n]*width:96px;height:96px/);
  assert.match(style,/#joy-knob\{[^\n]*width:40px;height:40px/);
- for(const ref of ['css/style.css?v=beta116-joystick','js/runtime/combat.js?v=beta116-joystick','js/runtime/update.js?v=beta116-joystick'])
+ for(const ref of ['css/style.css?v=beta116-joystick','js/runtime/combat.js?v=beta116-joystick','js/runtime/update.js?v=beta116-scoring'])
   assert.ok(html.includes(ref),'cache-busted '+ref);
  console.log('PASS Beta 1.16 responsive joystick: '+variant);
 }
