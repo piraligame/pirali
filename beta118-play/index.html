@@ -9,9 +9,9 @@
   <meta name="theme-color" content="#c89820">
   <!-- Android APK app icon is handled by native Android assets; no missing Apple icon reference. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>ფირალი BETA 1.17.1 — ხუთი ტალღის გამარჯვება</title>
+<title>ფირალი BETA 1.18 — ხუთი ტალღის გამარჯვება</title>
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
-<link rel="stylesheet" href="css/style.css?v=beta116-joystick">
+<link rel="stylesheet" href="css/style.css?v=beta118-touch">
 <link rel="stylesheet" href="css/menu.css?v=checkpoint-20261017a">
 <link rel="stylesheet" href="css/levels.css?v=final-20261016a">
 <link rel="stylesheet" href="css/mobile-lifecycle.css?v=20261017a">
@@ -28,7 +28,7 @@
 <meta name="robots" content="noindex,nofollow">
 <script>
 // Release candidate: do not enable real-season writes until launch.
-window.PiraliGameVersion='1.17.1-beta.1';
+window.PiraliGameVersion='1.18.0-beta.1';
 window.PiraliSeasonReleaseEnabled=false; // Beta 1.16 joystick preview: local results only
 window.PiraliVisualPreviewReadonly=false;
 window.PiraliAlpha014Test=false; // Player: no development controls.
@@ -66,7 +66,7 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
 
 <div id="level-badge"></div>
 <div id="pirali-run-mode" hidden aria-live="polite"></div>
-<div id="pirali-beta117-build" aria-hidden="true">BETA 1.17.1 TEST</div>
+<div id="pirali-beta117-build" aria-hidden="true">BETA 1.18 TEST</div>
 <div id="pirali-time-hud" hidden aria-label="Level timer"></div>
 <div id="ammo-bar"><div class="ui-panel"><div id="ammo-lbl">ტყვია</div><div id="bullets"></div></div></div>
 <div id="boss-bar"><div id="boss-lbl">⚔ რუსი გენერალი — ბოსი</div><div id="boss-track"><div id="boss-fill" style="width:100%"></div></div></div>
@@ -137,7 +137,7 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
 <script src="js/features/combat/aim.js?v=alpha0164k1"></script>
 <script src="js/features/scoring/kill-combos.js?v=beta117-cap"></script>
 <script src="js/runtime/world.js?v=beta115-laurel"></script>
-<script src="js/runtime/combat.js?v=beta116-joystick"></script>
+<script src="js/runtime/combat.js?v=beta118-floating-follow"></script>
 <script src="js/platform/desktop-controls.js?v=beta112-pc-keys"></script>
 <script src="js/runtime/update.js?v=beta117-cap"></script>
 <script src="js/runtime/render.js?v=beta115-laurel"></script>
@@ -165,7 +165,7 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
 <script src="js/progression/player-stats.js?v=beta1113-furthest-stage"></script>
 <script src="js/menu.js?v=beta106-menu"></script>
 <script src="js/features/map/story-map.js?v=beta115-tutorial"></script>
-<script src="js/platform/mobile-lifecycle.js?v=stats-20261017a"></script>
+<script src="js/platform/mobile-lifecycle.js?v=beta118-input-reset"></script>
 <!-- Player-facing release candidate: no developer level-jump controls. -->
   <!-- Alpha 0.16.2 modular stage 10 Hell features: loaded in dependency order. -->
 <script src="js/features/hell/text.js?v=beta106-gate"></script>
@@ -206,7 +206,7 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
 <script src="js/features/scenery/solid-cover.js?v=alpha0164g"></script>
 <!-- Final world-generation pass: -10% placed hearts, +20% ammo supplies. -->
 <script src="js/features/loot/map-pickups.js?v=beta107-loot"></script>
-<script src="js/features/stages/beta105-balance.js?v=beta111-stage7-20261027"></script>
+<script src="js/features/stages/beta105-balance.js?v=beta118-stage6-weak15"></script>
 <script src="js/features/stages/beta106-cover.js?v=beta106-roadside"></script>
 <!-- Beta 1.16: safe first steps before soldiers detect Simona in stages 1–5. -->
 <script src="js/features/stages/early-start-spacing.js?v=beta117-safe-start"></script>
