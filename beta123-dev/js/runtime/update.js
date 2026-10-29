@@ -70,7 +70,8 @@ function update(dt){
       warning=boss&&!boss.alive?(window.PiraliHellLoot?.rewardCollected?.()?(window.PiraliBigHearts?.text('need10')||'აიღე დიდი გული!'):'აიღე ეშმაკის ოქროს მონეტები!'):'ჯერ დაამარცხე ეშმაკი!';
     }
     if(allow){
-      done=true;window.PiraliPolish?.onStageComplete(oldLevel,score);window.PiraliStats?.completeStage(oldLevel);
+      done=true;window.PiraliStageStars?.onStageComplete(oldLevel,score);
+      window.PiraliPolish?.onStageComplete(oldLevel,score);window.PiraliStats?.completeStage(oldLevel);
       level=oldLevel+1;
       if(oldLevel===10)window.PiraliStageScoring?.beginEndless();
       ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();updateScoreUI();
@@ -211,8 +212,12 @@ function update(dt){
       // Flanking offset per index
       const flankAng=baseAng+(myIdx%2===0?0.85:-0.85)*(aliveEnemies.length>1?.7:.3);
       const sp=(.36+level*.04+(e.etype==='saber'?.08:0)+(e.etype==='officer'?.04:0))*dt*(level===11?(e.wavePower||1):window.PiraliStageTuning?.attack?.()||1);
-      e.vx+=(Math.cos(flankAng)*sp-e.vx)*.24;
-      e.vy+=(Math.sin(flankAng)*sp-e.vy)*.24;
+      const tacticalAng=window.PiraliTacticalAI?.heading(e,{
+        tx,ty,baseAng,flankAng,aliveEnemies,player:P,level
+      });
+      const steer=Number.isFinite(tacticalAng)?tacticalAng:flankAng;
+      e.vx+=(Math.cos(steer)*sp-e.vx)*.24;
+      e.vy+=(Math.sin(steer)*sp-e.vy)*.24;
       e.ang=baseAng;
     } else if(e.state==='search'&&!e.retreating){
       const aim=Math.atan2((e.lastSeenY??P.y)-e.y,(e.lastSeenX??P.x)-e.x);
