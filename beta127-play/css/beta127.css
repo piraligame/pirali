@@ -1,0 +1,47 @@
+/* Beta 1.27: one fixed mobile visual profile, no quality picker. */
+:root{--pirali-safe-top:env(safe-area-inset-top,0px);--pirali-safe-bottom:env(safe-area-inset-bottom,0px)}
+#ui{padding-top:max(7px,var(--pirali-safe-top));gap:8px}
+#ui .ui-panel{min-width:0;max-width:48vw;padding:7px 9px}
+#score-val{font-size:clamp(16px,4.6vw,25px);overflow:hidden;text-overflow:ellipsis}
+#hearts{flex-wrap:wrap;max-width:42vw}
+#progress-bar{top:clamp(58px,9.2vh,76px);width:min(38vw,200px)}
+#level-badge{top:clamp(92px,14vh,116px);max-width:52vw}
+#dash-cd{top:clamp(66px,10vh,91px);right:9px;width:min(21vw,112px)}
+#boss-bar{top:clamp(120px,18vh,162px);width:min(65vw,280px)}
+#pirali-time-hud{top:clamp(160px,24vh,195px);right:8px}
+#pirali-stage-stars{top:clamp(245px,43vh,420px)!important;bottom:auto;left:50%;width:min(420px,calc(100vw - 26px));transform:translate(-50%,12px);z-index:65;max-height:23vh;overflow:hidden}
+#pirali-stage-stars.show{transform:translate(-50%,0)}
+.pirali-polish-toast.stage{top:clamp(140px,21vh,250px)}
+#pirali-achievement-toast{top:clamp(132px,22vh,255px)}
+#pirali-name-registration{background:radial-gradient(circle at 50% 12%,rgba(81,96,51,.45),rgba(3,8,7,.96) 70%)}
+.pirali-name-card{border-color:#d5a456;box-shadow:0 16px 60px #000b,inset 0 1px 0 #e7c68933;background:linear-gradient(160deg,#2a3728,#111c16 65%,#091008)}
+.pirali-name-card::before{content:'⚔ PIRALI';display:block;text-align:center;color:#f8dba1;font:900 clamp(17px,5vw,25px) Georgia,serif;letter-spacing:.16em}
+.pirali-player-name{border:1px solid rgba(211,168,92,.45);border-radius:9px;background:rgba(15,28,19,.85);padding:7px 10px}
+#screen .pirali-menu-backup{width:100%;min-height:43px;border:1px solid #b9975d;border-radius:10px;background:linear-gradient(140deg,#2b382a,#141f19);color:#f6dfa9;font:700 12px system-ui,sans-serif}
+#pirali-backup-overlay{position:fixed;inset:0;z-index:13000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(5,8,5,.94)}
+.pirali-backup-card{box-sizing:border-box;width:min(430px,100%);max-height:94dvh;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:20px;border:1px solid #d7ab65;border-radius:16px;background:linear-gradient(160deg,#263829,#111b16);color:#f8e6bd;font:14px/1.5 system-ui,sans-serif}
+.pirali-backup-card h2{margin:0;text-align:center;color:#ffe0a1;font-size:20px}
+.pirali-backup-card p{margin:0;font-size:12px}
+.pirali-backup-card button{min-height:44px;border-radius:9px;border:1px solid #ba9456;background:#273e2d;color:#ffe6a9;font:700 13px system-ui,sans-serif}
+.pirali-backup-card button:disabled{opacity:.4}
+.pirali-backup-status{min-height:20px;color:#fbd38f}
+@media(max-width:390px){
+ #ui{padding-inline:6px}
+ #ui .ui-panel{padding:6px}
+ #progress-bar{top:76px;width:39vw}
+ #dash-cd{top:78px}
+ #level-badge{top:118px}
+ #boss-bar{top:144px}
+ #pirali-time-hud{top:184px}
+ #pirali-stage-stars{top:clamp(245px,44vh,330px)!important;bottom:auto;max-height:25vh}
+}
+@media(max-height:590px) and (orientation:landscape){
+ #ui{padding-top:5px}
+ #progress-bar{top:47px}
+ #level-badge{top:70px}
+ #dash-cd{top:48px}
+ #boss-bar{top:90px}
+ #pirali-time-hud{top:116px;right:6px}
+ #pirali-stage-stars{top:auto!important;bottom:12px;max-height:35vh;max-width:50vw}
+ .pirali-polish-toast.stage{top:68px}
+}

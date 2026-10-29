@@ -1,0 +1,24 @@
+name: PIRALI Beta 1.27 QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta127-play/**'
+      - 'beta127-dev/**'
+      - 'qa/pirali-beta127.cjs'
+      - '.github/workflows/pirali-beta127.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beta127-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Beta 1.27 static contracts
+        run: node qa/pirali-beta127.cjs
+      - name: Confirm 100/500 milestones
+        run: node qa/pirali-beta125-milestones.cjs
