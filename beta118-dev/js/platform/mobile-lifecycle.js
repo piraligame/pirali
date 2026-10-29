@@ -8,7 +8,8 @@
   function resetInputs(){
     // Prevent stuck movement when Android swallows the last touch event.
     if(typeof joy!=='undefined'){
-      joy.active=false;joy.id=-1;joy.dx=0;joy.dy=0;
+      joy.active=false;joy.id=-1;joy.dx=0;joy.dy=0;joy.engaged=false;joy.justReleased=true;
+      if(typeof P!=='undefined'&&!dashing){P.vx=0;P.vy=0;}
     }
     if(typeof K!=='undefined')K.l=K.r=K.u=K.d=false;
     for(const id of ['joy-base','joy-knob'])if(el(id))el(id).style.display='none';
