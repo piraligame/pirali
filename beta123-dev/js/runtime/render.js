@@ -504,6 +504,8 @@ function drawPickups(){
     if(pk.col)return;
     const x=sx(pk.x),y=sy(pk.y)+Math.sin(pk.bob||0)*3.5;
     if(x<-24||x>W+24||y<-24||y>H+24)return;
+    // Visual halo goes behind every item, including specialized pickups.
+    window.PiraliPickupVisibility?.draw(ctx,pk,x,y,frame);
     if(window.PiraliBigHearts?.draw(ctx,pk,x,y))return;
     if(window.PiraliHellCoinsArt?.draw(ctx,pk,x,y))return;
     if(window.PiraliAlphaGear?.drawPickup(ctx,pk,x,y))return;
