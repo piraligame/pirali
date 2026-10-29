@@ -12,11 +12,18 @@ const PiraliAlphaGear=(function(){
  };
  const lang=()=>window.PiraliLanguage?.getLanguage()||'ka';
  const t=k=>(WORDS[lang()]||WORDS.ka)[k];
- let owned=false,ammo=0,selected='mauser',lastNotice=0;
+ let owned=false,ammo=0,selected='mauser',lastNotice=0,shellGrantBase=0;
+ // Grant integer shells at 85% of the old amount cumulatively: five 4-shell
+ // rewards now provide 17 shells instead of 20, without random rounding.
+ function reducedShellGrant(base){
+   const before=Math.floor(shellGrantBase*.85+1e-9);
+   shellGrantBase+=base;
+   return Math.floor(shellGrantBase*.85+1e-9)-before;
+ }
  const originalIcon='assets/icons/mauser-pistol.png?v=20261016a';
  function reset(){
    // Only at the start of a NEW RUN, never on genWorld stage changes.
-   owned=false;ammo=0;selected='mauser';
+   owned=false;ammo=0;selected='mauser';shellGrantBase=0;
    updateUI();
  }
  function onStageEnter(){updateUI();}
@@ -26,6 +33,9 @@ const PiraliAlphaGear=(function(){
    ammo=valid&&Number.isInteger(snapshot.shells)?
      Math.min(16,Math.max(0,snapshot.shells)):0;
    selected=valid&&snapshot.selected==='shotgun'?'shotgun':'mauser';
+   // Old Beta 1.15 checkpoints have no shellGrantBase field.
+   shellGrantBase=valid&&Number.isInteger(snapshot.shellGrantBase)&&snapshot.shellGrantBase>=0
+     ?Math.min(1000000,snapshot.shellGrantBase):Math.round(ammo/.85);
    updateUI();
  }
  function maybeDropShell(enemy){
@@ -49,13 +59,14 @@ const PiraliAlphaGear=(function(){
  }
  function pickup(pk){
    if(pk.type==='alpha-shotgun'){
-     owned=true;ammo=Math.max(ammo,4);selected='shotgun';updateUI();
+     owned=true;ammo=Math.max(ammo,reducedShellGrant(4));selected='shotgun';updateUI();
      if(typeof showFloatingText==='function')showFloatingText(pk.x,pk.y-26,t('found'),'#ffd792');
      return true;
    }
    if(pk.type==='alpha-shells'){
-     ammo=Math.min(16,ammo+4);updateUI();
-     if(typeof showFloatingText==='function')showFloatingText(pk.x,pk.y-24,'+4 '+t('shells'),'#f6c76c');
+     const before=ammo;
+     ammo=Math.min(16,ammo+reducedShellGrant(4));updateUI();
+     if(typeof showFloatingText==='function')showFloatingText(pk.x,pk.y-24,'+'+(ammo-before)+' '+t('shells'),'#f6c76c');
      return true;
    }
    return false;
@@ -179,7 +190,7 @@ const PiraliAlphaGear=(function(){
    updateUI();
  }
  window.PiraliAlphaGear=Object.freeze({reset,onStageEnter,restore,maybeDropShell,scatterOnFinal,pickup,switchWeapon,fireIfSelected,updateUI,drawPickup,
-  status:()=>({owned,shells:ammo,selected})});
+  status:()=>({owned,shells:ammo,selected,shellGrantBase})});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});
  else initialize();
 })();
