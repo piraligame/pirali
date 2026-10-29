@@ -1,0 +1,24 @@
+name: PIRALI Beta 1.27.2 Layout QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta1272-play/**'
+      - 'beta1272-dev/**'
+      - 'qa/pirali-beta1272.cjs'
+      - '.github/workflows/pirali-beta1272.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  layout-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate layout-only changes, menu restrictions, script syntax
+        run: node qa/pirali-beta1272.cjs
+      - name: Verify 100/500 enemy achievements
+        run: node qa/pirali-beta125-milestones.cjs
