@@ -76,7 +76,7 @@ for(const variant of ['play','dev']){
   const before=balance(oldBalance,n),after=balance(newBalance,n);
   near(after.config.hp/before.config.hp,n===6?.85:1,'HP multiplier on stage '+n);
   near(after.attack/before.attack,n===6?.85:1,'attack multiplier on stage '+n);
-  near(after.hp/before.hp,n===6?.85:1,'actual HP on stage '+n);
+  assert.ok(Math.abs(after.hp/before.hp-(n===6?.85:1))<.002,'actual rounded HP stage '+n);
   assert.equal(after.count,before.count,'enemy count unchanged stage '+n);
  }
  const html=take('index.html');
