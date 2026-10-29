@@ -35,8 +35,10 @@ for(const mode of ['play','dev']){
  const samples=[[103,700],[110,700],[130,690],[180,630],[210,540],[190,410],
   [120,270],[100,220],[90,280],[70,500],[80,650],[120,760],
   [160,900],[220,930],[110,690],[101,701],[100,700]];
+ let lowestOldBaseY=Number.POSITIVE_INFINITY;
  for(const [x,y] of samples){
   eq('touchmove',[[1,x,y]]);
+  lowestOldBaseY=Math.min(lowestOldBaseY,old.joy.by);
   assert.ok(Math.abs(next.joy.visualX-firstX)<=90+1e-6,'ring moves max 90px horizontally');
   assert.ok(Math.abs(next.joy.visualY-firstY)<=96+1e-6,'ring moves max 96px vertically');
   near(parseFloat(next.base.style.left),next.joy.visualX,'ring X matches visible center');
@@ -45,7 +47,7 @@ for(const mode of ['play','dev']){
     parseFloat(next.knob.style.left)-next.joy.visualX,
     parseFloat(next.knob.style.top)-next.joy.visualY)<=30+1e-6,'knob stays inside ring');
  }
- assert.ok(old.joy.by<firstY-96,'older A visual ring can travel much higher');
+ assert.ok(lowestOldBaseY<firstY-96,'older A visual ring can travel much higher');
  assert.ok(next.joy.visualY>=firstY-96,'new A keeps visual ring near first touch');
  eq('touchmove',[[22,400,100]]);assert.equal(next.joy.id,1,'second finger ignored');
  eq('touchend',[[22,400,100]]);assert.equal(next.joy.active,true);
