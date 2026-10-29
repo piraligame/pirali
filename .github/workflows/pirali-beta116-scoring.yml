@@ -1,0 +1,27 @@
+name: PIRALI Beta 1.16 earned-score QA
+on:
+  push:
+    branches: [feat/beta-1.16-balance]
+    paths:
+      - 'beta116-play/**'
+      - 'beta116-dev/**'
+      - 'qa/pirali-beta116-scoring.cjs'
+      - '.github/workflows/pirali-beta116-scoring.yml'
+  pull_request:
+    paths:
+      - 'beta116-play/**'
+      - 'beta116-dev/**'
+      - 'qa/pirali-beta116-scoring.cjs'
+      - '.github/workflows/pirali-beta116-scoring.yml'
+  workflow_dispatch:
+jobs:
+  earned-scores:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify stage budgets, medal/parry limits, combos, coins, all five waves
+        run: node qa/pirali-beta116-scoring.cjs
