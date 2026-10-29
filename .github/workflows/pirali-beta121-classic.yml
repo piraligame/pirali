@@ -1,0 +1,16 @@
+name: PIRALI Beta 1.21 Classic A joystick regression
+on:
+  push:
+    branches: [feat/beta-1.21-classic-polish]
+  workflow_dispatch:
+jobs:
+  classic-joystick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test movement parity and bounded ring
+        run: node qa/pirali-beta121-classic-polish.cjs
