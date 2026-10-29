@@ -6,10 +6,13 @@ function update(dt){
   PiraliFX.tick(dt);
   weatherTime+=dt;
 
-  // Input
+  // Input: touchscreen direction is immediate; keyboard keeps its classic easing.
   let mx=0,my=0;
-  if(joy.active){mx=joy.dx;my=joy.dy;}
+  const touchDriving=joy.active;
+  const touchStopped=joy.justReleased;
+  if(touchDriving){mx=joy.dx;my=joy.dy;}
   else{if(K.l)mx-=1;if(K.r)mx+=1;if(K.u)my-=1;if(K.d)my+=1;const ll=Math.hypot(mx,my);if(ll>1){mx/=ll;my/=ll;}}
+  joy.justReleased=false;
 
   // Dash
   if(dashing){
@@ -23,7 +26,8 @@ function update(dt){
     const mag=Math.hypot(mx,my);
     if(mag>0.08){
       const sp=SPD*dt*Math.min(mag,1);
-      P.vx+=(mx*sp-P.vx)*.42;P.vy+=(my*sp-P.vy)*.42;
+      if(touchDriving){P.vx=mx*sp;P.vy=my*sp;} // no inertia or 0.42-frame interpolation
+      else{P.vx+=(mx*sp-P.vx)*.42;P.vy+=(my*sp-P.vy)*.42;}
       P.ang=Math.atan2(my,mx);
       P.wt+=dt;if(P.wt>6){P.wf++;P.wt=0;}
       const spd_=Math.hypot(P.vx,P.vy);
@@ -32,7 +36,8 @@ function update(dt){
       // Walking dust
       P.stepT=(P.stepT||0)+dt;
       if(P.stepT>14){P.stepT=0;spawnPart(P.x+(Math.random()-.5)*8,P.y+(Math.random()-.5)*4,(Math.random()-.5)*.8,(Math.random()-.5)*.8,8,'rgba(140,100,50,0.28)',3);}
-    } else {P.vx*=0.58;P.vy*=0.58;}
+    } else if(touchDriving||touchStopped){P.vx=0;P.vy=0;} // immediate stop on lift / inside dead zone
+    else {P.vx*=0.58;P.vy*=0.58;}
   }
   if(dashCD>0)dashCD-=dt;
   updateDashUI();
