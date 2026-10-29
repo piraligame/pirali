@@ -1,4 +1,4 @@
-/* Alpha 0.14.2 Study D dedicated test: level selection, optional immortality and final-stage teleports, read-only web preview.
+/* PIRALI Beta 1.22 DEV: ONLY stages 1–11 and optional immortality. Read-only web preview.
    Never bundled into Android APK, never writes production Firebase scores. */
 (function(){
 'use strict';
@@ -50,39 +50,9 @@ function ready(){
  });
  immortality.dataset.immortality='toggle';
  immortality.setAttribute('aria-pressed','false');
- function visitFinal(){
-   if(typeof running==='undefined'||!running)return;
-   const target=level===10?10:level===8?8:7;level=target;genWorld();
-   window.PiraliStats?.stageReady(target);
-   const destination=boss||{x:CHURCH_X,y:CHURCH_Y};
-   P.x=Math.max(P.r,Math.min(WW-P.r,destination.x));
-   P.y=Math.max(P.r,Math.min(WH-P.r,destination.y+195));
-   P.vx=P.vy=0;P.ang=-Math.PI/2;
-   camX=Math.max(0,Math.min(WW-W,P.x-W/2));
-   camY=Math.max(0,Math.min(WH-H,P.y-H/2));
-   selected=target;
-   levelButtons.forEach((b,i)=>b.style.background=i===target-1?'#97713e':'#414536');
-   title.textContent=levelNames[target-1];
-   if(typeof updateAmmoUI==='function')updateAmmoUI();
-   fold(true);
- }
- const laurelButton=toggleBtn('🌿 დაფნის ფარი: ჩართე',b=>{
-   if(typeof running==='undefined'||!running)return;
-   inventory.laurelShield=1;
-   updateInventoryUI();
-   b.textContent='🌿 ფარი მზადაა — 1 დარტყმა';
- });
- const hitButton=toggleBtn('🎯 ტესტი: 1 დარტყმა',()=>{
-   if(typeof running==='undefined'||!running)return;
-   if(immortal){showBanner('გამორთე უკვდავება ფარის შესამოწმებლად!');return;}
-   if(typeof invincible!=='undefined')invincible=false;
-   takeDmg();
- });
- const finalBoss=toggleBtn('⚔️ ბოლო ბოსთან გადასვლა',visitFinal);
- finalBoss.dataset.boss='visit';
- const note=document.createElement('div');note.textContent='PIRALI BETA 1.15 DEV · Firebase-ში ჩაწერა გამორთულია';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
- el.append(header,row,title,immortality,laurelButton,hitButton,finalBoss,note);document.body.appendChild(el);
- const inner=[row,title,immortality,laurelButton,hitButton,finalBoss,note];let folded=true;
+ const note=document.createElement('div');note.textContent='PIRALI BETA 1.22 DEV · Firebase-ში ჩაწერა გამორთულია';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
+ el.append(header,row,title,immortality,note);document.body.appendChild(el);
+ const inner=[row,title,immortality,note];let folded=true;
  function fold(next){folded=next;inner.forEach(n=>n.style.display=folded?'none':(n===row?'grid':'block'));
   header.textContent=folded?'🧪 ტესტი ▾':'🧪 ტესტი ▴';
  }
