@@ -1,0 +1,58 @@
+/* Beta 1.40: compact face-first menu. Keeps the full original portrait visible
+   where the viewport allows; below ~680px the panel is scroll-safe. */
+#screen.pirali-menu-135.pirali139-compact:not(.gameover-screen):not(.victory-screen){
+ padding-left:8px!important;padding-right:8px!important;padding-bottom:4px!important;
+ justify-content:flex-start!important;overflow-y:auto!important;scrollbar-width:thin;
+}
+#screen.pirali139-compact .main-menu-panel{width:min(440px,100%)!important;
+ padding:5px 9px 5px!important;border-radius:13px!important;gap:0!important}
+#screen.pirali139-compact .main-menu-panel .tdeco{font-size:8px!important;letter-spacing:2px!important;margin:0!important}
+#screen.pirali139-compact .main-menu-panel h1{font-size:clamp(36px,10vw,47px)!important;line-height:1!important;margin:0!important}
+#screen.pirali139-compact .main-menu-panel .tsub{font-size:9px!important;letter-spacing:1.7px!important;margin:0 0 4px!important}
+#screen.pirali139-compact .main-menu-panel .sbtn{min-height:32px!important;padding:4px 8px!important;font-size:clamp(12px,3.6vw,15px)!important}
+#screen.pirali139-compact .main-menu-panel .menu-continue{min-height:26px!important;margin:0 0 3px!important;padding:2px 7px!important;font-size:10px!important}
+#screen.pirali139-compact .menu-actions{margin-top:3px!important;gap:3px!important}
+#screen.pirali139-compact .menu-actions > button,
+#screen.pirali139-compact .menu-actions > a{
+ min-height:30px!important;padding:3px 6px!important;margin:0!important;
+ font-size:clamp(10px,3vw,13px)!important;line-height:1.15!important;border-radius:8px!important
+}
+#screen.pirali139-compact .menu-actions .pirali-community-menu img{width:23px!important;height:23px!important}
+#screen.pirali139-compact .menu-actions .pirali-player-name{margin:0!important;min-height:20px!important;padding:2px 5px!important;font-size:10px!important}
+#screen.pirali139-compact .menu-actions .pirali139-collection-link{
+ background:linear-gradient(145deg,#45321a,#1c291e);color:#f6dda6;border:1px solid #bb9450;
+}
+#screen.pirali139-compact .menu-language{margin:2px 0 0!important;padding:3px 0 0!important}
+#screen.pirali139-compact .menu-lang-title{font-size:9px!important;margin:0 0 2px!important}
+#screen.pirali139-compact .menu-language-choices{gap:3px!important}
+#screen.pirali139-compact .menu-language-option{min-height:26px!important;padding:3px 0!important;font-size:clamp(8px,2.4vw,10px)!important}
+#screen.pirali139-compact .menu-privacy{margin:1px auto 0!important;padding:0 5px!important;font-size:9px!important}
+#screen.pirali139-compact .menu-version{margin:0!important;font-size:8px!important;letter-spacing:1px!important}
+#screen.pirali139-compact > .menu-story-lore{top:5px!important;right:7px!important;width:52%!important}
+#screen.pirali139-compact > .menu-story-lore p{font-size:clamp(8px,2.15vw,10px)!important;line-height:1.07!important;letter-spacing:-.15px!important}
+@media(max-width:390px){
+ #screen.pirali139-compact .menu-actions > button,#screen.pirali139-compact .menu-actions > a{min-height:28px!important}
+ #screen.pirali139-compact .menu-language-option{min-height:25px!important}
+}
+.pirali139-hud{position:fixed;top:93px;left:8px;z-index:24;max-width:min(42vw,190px);pointer-events:none;
+ background:#1b1a12db;border:1px solid #b28b42;border-radius:7px;color:#ffe0a4;padding:5px 7px;
+ font:700 10px/1.3 'Noto Sans Georgian',sans-serif}
+.pirali139-interact{position:fixed;z-index:26;touch-action:manipulation;border:1px solid #9ab982;
+ border-radius:9px;background:linear-gradient(145deg,#234331,#11271e);color:#f0f1da;
+ font:700 11px 'Noto Sans Georgian',sans-serif;padding:7px 9px}
+.pirali139-interact{left:50%;transform:translateX(-50%);bottom:min(30dvh,195px);white-space:nowrap;background:#61471c;border-color:#e0b95c}
+ .pirali139-hud[hidden],.pirali139-interact[hidden]{display:none!important}
+.pirali139-backdrop{position:fixed;inset:0;z-index:99999;background:#070502eb;padding:14px;display:flex;align-items:center;justify-content:center}
+.pirali139-collection-panel{width:min(520px,100%);max-height:90dvh;display:flex;flex-direction:column;overflow:hidden;
+ background:#20160d;border:1px solid #cda054;border-radius:12px;box-shadow:0 8px 35px #000b;color:#f3d8a4}
+.pirali139-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #624827;padding:10px}
+.pirali139-header h2{font-size:16px;color:#efc26c}.pirali139-header button{border:0;background:transparent;color:#f7dbad;font-size:21px;padding:5px 9px}
+.pirali139-tabs{display:flex;gap:6px;padding:8px}
+.pirali139-tabs button{flex:1;background:#50351b;color:#f3deb3;border:1px solid #946d39;border-radius:7px;padding:8px}
+.pirali139-body{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;padding:4px 12px 16px}
+.pirali139-letter{border-bottom:1px solid #5b432d;padding:9px 0}
+.pirali139-letter strong{font-size:12px}
+.pirali139-letter p{font-size:12px;line-height:1.5;margin:5px 0;color:#e8d2a8}
+.pirali139-letter small{font-size:10px;color:#ae916a}
+.pirali139-outfit{width:100%;margin:4px 0;padding:9px;text-align:left;color:#f3e2b6;background:#3a2b1a;border:1px solid #9f7e46;border-radius:8px}
+.pirali139-outfit:disabled{opacity:.45}
