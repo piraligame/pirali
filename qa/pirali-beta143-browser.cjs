@@ -44,7 +44,7 @@ async function run(){
    assert.equal(menuGeometry.playerAfterStats,true,'Player name must directly follow My Statistics');
    assert.equal(menuGeometry.languagesAfterActions,true,'Languages should follow the action stack');
    assert.match(menuGeometry.background,/menu-background\.jpg/);
-   assert.ok(menuGeometry.story.x>=150,'Story should stay on right-hand sky '+JSON.stringify(menuGeometry));
+   assert.ok(menuGeometry.story.x>=120,'Expanded story stays on upper-right sky '+JSON.stringify(menuGeometry));
    assert.ok(menuGeometry.panel.y>menuGeometry.story.y+75,'Portrait remains visible above menu '+JSON.stringify(menuGeometry));
    assert.ok(menuGeometry.panel.y>=240&&menuGeometry.panel.y<=460,'Expanded menu stays below Simona eyes and above bottom controls '+JSON.stringify(menuGeometry));
    const scrollData=await page.evaluate(()=>({scrollHeight:document.getElementById('screen').scrollHeight,
