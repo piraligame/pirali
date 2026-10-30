@@ -35,7 +35,7 @@ for(const variant of ['play','dev']){
  assert.match(scores,/Math\.floor\(total\/5\)/);
  assert.match(scores,/Math\.floor\(WAVE_CUMULATIVE\[wavesPaid\]\/5\)/);
  assert.match(scores,/\?50:250/);
- assert.match(read(now+'/js/features/endless/waves.js'),/window\\.PiraliAlphaGear\\?\\.status\\?\\.\\(\\)\\.owned===true/,'Stage 11 shells only after unlock');
+ assert.ok(read(now+'/js/features/endless/waves.js').includes('window.PiraliAlphaGear?.status?.().owned===true'),'Stage 11 shells only after unlock');
  assert.equal(read(old+'/js/runtime/game-init.js'),read(now+'/js/runtime/game-init.js'));
  assert.equal(read(old+'/js/features/loot/drop-balance.js'),read(now+'/js/features/loot/drop-balance.js'));
  assert.equal(read(old+'/js/features/loot/map-pickups.js'),read(now+'/js/features/loot/map-pickups.js'));
