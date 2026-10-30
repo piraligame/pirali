@@ -24,3 +24,9 @@ jobs:
         run: node qa/pirali-beta145.cjs
       - name: Confirm unchanged Beta 1.44 baseline
         run: node qa/pirali-beta144.cjs
+      - name: Install Chromium for Beta 1.46 Player and Developer browser smoke tests
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Run mobile Chromium Player and Developer smoke tests
+        run: node qa/pirali-beta146-browser.cjs
