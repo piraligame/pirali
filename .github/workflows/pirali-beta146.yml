@@ -1,0 +1,26 @@
+name: PIRALI Beta 1.46 Repeatable Quests and Character Art
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta146-play/**'
+      - 'beta146-dev/**'
+      - 'qa/pirali-beta146.cjs'
+      - '.github/workflows/pirali-beta146.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beta146:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify cumulative mission collection, replay, NPC, art and regression
+        run: node qa/pirali-beta146.cjs
+      - name: Confirm unchanged Beta 1.45 baseline
+        run: node qa/pirali-beta145.cjs
+      - name: Confirm unchanged Beta 1.44 baseline
+        run: node qa/pirali-beta144.cjs
