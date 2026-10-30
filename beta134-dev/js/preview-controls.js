@@ -90,8 +90,8 @@ function ready(){
   const x=Math.round(Math.max(6,Math.min(window.innerWidth-el.offsetWidth-6,rect.left)));
   const y=Math.round(Math.max(6,Math.min(window.innerHeight-64,rect.bottom+8)));
   const height=Math.max(52,window.innerHeight-y-8);
-  if(x!==dockX){el.style.left=x+'px';dockX=x;}
-  if(y!==dockY){el.style.top=y+'px';dockY=y;}
+  if(x!==dockX){el.style.setProperty('left',x+'px','important');el.style.setProperty('right','auto','important');dockX=x;}
+  if(y!==dockY){el.style.setProperty('top',y+'px','important');dockY=y;}
   if(height!==dockHeight){el.style.maxHeight=height+'px';dockHeight=height;}
  }
  window.addEventListener('resize',dockBelowMap,{passive:true});
