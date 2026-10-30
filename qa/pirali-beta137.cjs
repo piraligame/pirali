@@ -64,7 +64,7 @@ for(const variant of ['play','dev']){
  assert.equal(api.mayFire({x:400,y:170,r:12},player,[],315),false,'Offscreen shooter cannot fire');
  assert.equal(api.mayFire(shooter,player,[{x:108,y:170,r:24}],315),false,'Tree obstructs shot');
  assert.equal(api.mayFire(shooter,{x:500,y:170},[],315),false,'Beyond range cannot fire');
- const projectile={vx:3.7,vy:0,fp:false};
+ const projectile={vx:3.7,vy:0,fp:false,maxTravel137:395};
  assert.equal(api.expired(projectile,100),false);
  assert.equal(api.expired(projectile,7),true,'Enemy shot disappears after bounded travel');
  assert.equal(api.expired({vx:20,vy:0,fp:true},999),false,'Simona shots unaffected');
