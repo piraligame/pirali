@@ -42,21 +42,50 @@ function chooseStage(n){
 }
 function mount(){
  const actions=document.querySelector('#screen .main-menu-panel .menu-actions');
- if(!actions||actions.querySelector('.pirali-full-menu'))return;
+ if(!actions)return;
  const records=actions.querySelector('.menu-records');
  if(!records)return;
- const btn=document.createElement('button');btn.type='button';btn.className='pirali-full-menu';
- btn.onclick=open;
- actions.insertBefore(btn,records);refresh();
+ let full=actions.querySelector('.pirali-full-menu');
+ if(!full){
+  full=document.createElement('button');full.type='button';full.className='pirali-full-menu';
+  full.onclick=open;actions.insertBefore(full,records);
+ }
+ let community=actions.querySelector('.pirali-community-menu');
+ if(!community){
+  community=document.createElement('a');
+  community.className='pirali-community-menu';
+  community.href='https://www.facebook.com/share/1LfEa8WSfU/';
+  community.target='_blank';
+  community.rel='noopener noreferrer';
+  community.setAttribute('aria-label','Georgian Gamers Guild — Facebook');
+  const img=document.createElement('img');
+  img.src='assets/icons/ggg-community.webp';img.alt='Georgian Gamers Guild';img.width=36;img.height=36;
+  const label=document.createElement('span');label.className='pirali-community-label';
+  const arrow=document.createElement('span');arrow.className='pirali-community-external';
+  arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');
+  community.append(img,label,arrow);
+  actions.insertBefore(community,records);
+ }
+ if(full.nextElementSibling!==community)actions.insertBefore(community,full.nextSibling);
+ refresh();
 }
+const COMMUNITY_LABELS={
+ ka:'გეიმერების საზოგადოება',
+ en:'Gaming Community',
+ ru:'Сообщество игроков',
+ zh:'玩家社区'
+};
 function refresh(){
  const btn=document.querySelector('#screen .main-menu-panel .pirali-full-menu');
- if(!btn)return;
- const granted=unlocked();
- btn.textContent=(granted?'🗺️ ':'🔒 ')+t('button');
- btn.classList.toggle('is-locked',!granted);
- btn.setAttribute('aria-expanded',String(!!overlay));
- btn.setAttribute('aria-label',btn.textContent+(granted?'':'. '+t('locked')));
+ if(btn){
+  const granted=unlocked();
+  btn.textContent=(granted?'🗺️ ':'🔒 ')+t('button');
+  btn.classList.toggle('is-locked',!granted);
+  btn.setAttribute('aria-expanded',String(!!overlay));
+  btn.setAttribute('aria-label',btn.textContent+(granted?'':'. '+t('locked')));
+ }
+ const label=document.querySelector('#screen .main-menu-panel .pirali-community-label');
+ if(label)label.textContent=COMMUNITY_LABELS[lang()]||COMMUNITY_LABELS.ka;
 }
 function open(){
  close();

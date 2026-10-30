@@ -21,3 +21,8 @@ Based on Beta 1.29, separate Player and Developer web builds.
 - Developer: https://piraligame.github.io/pirali/beta130-dev/index.html
 
 This is a web release; no Google Play APK/AAB or Firebase real data/rules were modified.
+
+## Georgian Gamers Guild test placement
+- Added **გეიმერების საზოგადოება** directly after **სიმონას სრული გზა** and before **საუკეთესო მოთამაშეები** in both Player and Developer menu builds.
+- The full-width 47px link includes the original circular emblem cropped from the supplied screenshot; it links to https://www.facebook.com/share/1LfEa8WSfU/ in a separate tab.
+- This is a web preview only; no changes to Android releases, scoring, or Firebase.

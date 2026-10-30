@@ -6,7 +6,10 @@ function files(dir){return fs.readdirSync(path.join(root,dir),{withFileTypes:tru
 for(const variant of ['play','dev']){
  const old='beta129-'+variant,now='beta130-'+variant;
  const a=files(old).map(x=>x.slice(old.length+1)).sort(),b=files(now).map(x=>x.slice(now.length+1)).sort();
- assert.deepEqual(a,b,'Preserve all resources '+variant);
+ const logo='assets/icons/ggg-community.webp';
+ assert.ok(b.includes(logo),'Community badge exists');
+ assert.deepEqual(a,b.filter(f=>f!==logo),'All previous resources preserved '+variant);
+ assert.ok(fs.statSync(path.join(root,now,logo)).size>1000,'Real badge graphic saved');
  const changed=new Set(['index.html','TEST_INFO.json','js/menu.js','js/runtime/outcome.js','js/features/full-path/demo.js','css/beta129-full-path.css']);
  for(const f of a){
   if(!changed.has(f))assert.equal(read(old+'/'+f),read(now+'/'+f),'Unrequested edit '+f);
@@ -15,7 +18,10 @@ for(const variant of ['play','dev']){
  const html=read(now+'/index.html'),menu=read(now+'/js/menu.js'),demo=read(now+'/js/features/full-path/demo.js'),outcome=read(now+'/js/runtime/outcome.js');
  assert.match(html,/1\.30-classic\./);
  assert.match(menu,/PIRALI • BETA 1\.30/);
- assert.match(demo,/actions\.insertBefore\(btn,records\)/,'Between map and leaderboard');
+ assert.match(demo,/actions\\.insertBefore\\(community,records\\)/,'Community comes before leaderboard');
+ assert.match(demo,/actions\\.insertBefore\\(community,full\\.nextSibling\\)/,'Community comes after full route');
+ assert.match(demo,/გეიმერების საზოგადოება/,'Georgian label');
+ assert.match(demo,/facebook\\.com\\/share\\/1LfEa8WSfU\\//,'Correct community URL');
  assert.match(demo,/PiraliStats\?\.get/);
  assert.match(demo,/stageBestMs\[9\]/);
  assert.match(demo,/maxReachedStage>=11/);

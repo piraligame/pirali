@@ -24,6 +24,16 @@ async function run(){
    const order=await page.evaluate(()=>[...document.querySelectorAll('#screen .menu-actions>button')].map(x=>x.className));
    const map=order.findIndex(x=>x.split(/\s+/).includes('story-map-open')),full=order.findIndex(x=>x.split(/\s+/).includes('pirali-full-menu')),records=order.findIndex(x=>x.split(/\s+/).includes('menu-records'));
    assert.ok(map>=0&&map<full&&full<records,'Premium action must be between campaign map and leaderboard '+order);
+   const community=page.locator('#screen .pirali-community-menu');
+   assert.equal(await community.getAttribute('href'),'https://www.facebook.com/share/1LfEa8WSfU/');
+   assert.equal(await community.getAttribute('target'),'_blank');
+   assert.match(await community.innerText(),/გეიმერების საზოგადოება/);
+   assert.equal(await community.locator('img').evaluate(i=>i.complete&&i.naturalWidth>0),true,'Original community emblem loads');
+   const menuClasses=await page.evaluate(()=>[...document.querySelector('#screen .menu-actions').children].map(e=>e.className));
+   const fullAt=menuClasses.indexOf('pirali-full-menu'),communityAt=menuClasses.indexOf('pirali-community-menu'),recordsAt=menuClasses.indexOf('menu-records');
+   assert.ok(fullAt>=0&&communityAt===fullAt+1&&recordsAt===communityAt+1,'Full Route -> Community -> Leaderboard '+menuClasses);
+   const cb=await community.boundingBox(),rb=await page.locator('#screen .menu-records').boundingBox();
+   assert.ok(Math.abs(cb.width-rb.width)<=2,'Community button same width as leaderboard');
    const button=page.locator('#screen .pirali-full-menu');assert.match(await button.textContent(),/🔒/);
    await button.click();
    assert.equal(await page.locator('.pirali-full-pin').count(),0,'Locked route cannot choose stage');
