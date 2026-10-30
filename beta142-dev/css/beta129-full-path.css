@@ -1,0 +1,43 @@
+/* PIRALI 1.30 — earned full-route unlock beneath the campaign map. */
+#screen .menu-actions .pirali-full-menu{width:100%;margin:0;min-height:46px;padding:10px 7px;border:1px solid #e8bc62;border-radius:10px;background:linear-gradient(#344529,#1c271a);color:#ffe5a7;font:800 clamp(11px,3.1vw,14px) 'Noto Sans Georgian',system-ui,sans-serif;cursor:pointer}
+#screen .main-menu-panel{max-height:calc(100dvh - 25px);overflow-y:auto;overscroll-behavior:contain}
+#pirali-full-overlay{position:fixed;inset:0;z-index:15000;display:flex;align-items:center;justify-content:center;padding:9px;background:rgba(4,9,5,.96);color:#ffe8bd}
+.pirali-full-panel{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:10px;width:min(450px,100%);max-height:97dvh;overflow-y:auto;padding:20px 14px;border:2px solid #dfad65;border-radius:17px;background:linear-gradient(150deg,#343b27,#192418 64%,#09110a);box-shadow:0 9px 45px #000a;font:13px/1.5 'Noto Sans Georgian',system-ui,sans-serif;text-align:center}
+.pirali-full-panel h2{margin:0;color:#fce1a1;font-size:clamp(23px,5vw,29px)}
+.pirali-full-panel h3{margin:0;font-size:16px;color:#fff0c9}
+.pirali-full-panel p{margin:0}
+.pirali-full-price{padding:7px 17px;border:1px solid #dcb46b;border-radius:22px;background:#40301a;font-size:16px}
+.pirali-full-fair{font-weight:700;color:#cfedc8}
+.pirali-full-warning{padding:10px;border:1px solid #a77d3d;border-radius:8px;background:#493618;color:#ffdeb1}
+.pirali-full-back{width:100%;min-height:46px;padding:10px 12px;border:1px solid #ddae61;border-radius:10px;background:linear-gradient(#edc168,#a87928);color:#281906;font-weight:900;font-size:14px}
+.pirali-full-back{background:#283d28;color:#ffe4b4}
+#screen .menu-actions .pirali-full-menu.is-locked{opacity:.76;background:linear-gradient(#272a23,#141b15);border-color:#8e835c;color:#d5c5a2}
+.pirali-full-unlocked{color:#aef1a9;font-weight:800}
+
+.pirali-full-scroll{width:100%;height:min(53dvh,510px);overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;border:2px solid #dfbb82;border-radius:9px;background:#d5ba82}
+.pirali-full-art{position:relative;width:100%;aspect-ratio:1024/1536}
+.pirali-full-art img{display:block;width:100%;height:100%;pointer-events:none;user-select:none}
+.pirali-full-pin{position:absolute;transform:translate(-50%,-50%);min-height:24px;padding:3px;border:2px solid #b38a42;border-radius:6px;background:linear-gradient(#fff1c4,#ddb977);font:800 clamp(9px,2.4vw,12px)/1.15 'Noto Sans Georgian',system-ui,sans-serif;color:#39230d;box-shadow:0 2px 9px #3a270977;cursor:pointer}
+.pirali-full-pin:focus-visible{outline:3px solid #3e8951;outline-offset:3px}
+@media(max-width:375px){#pirali-full-overlay{padding:3px}.pirali-full-panel{padding:14px 9px;max-height:99dvh}.pirali-full-scroll{height:49dvh}}
+
+/* Georgian Gamers Guild — same-size menu link, with the real round emblem. */
+#screen .menu-actions .pirali-community-menu{
+ box-sizing:border-box;display:flex;align-items:center;justify-content:center;
+ width:100%;min-height:47px;padding:4px 9px;gap:8px;
+ background:rgba(14,11,7,.85);border:1px solid rgba(236,185,89,.65);
+ border-radius:10px;color:#f9d88e;text-decoration:none;
+ font:700 clamp(11px,3.4vw,14px)/1.3 'Noto Sans Georgian',system-ui,sans-serif;
+ letter-spacing:.1px;cursor:pointer;
+}
+#screen .menu-actions .pirali-community-menu:hover,
+#screen .menu-actions .pirali-community-menu:focus-visible{
+ background:rgba(92,61,16,.8);border-color:#ffe09b;
+}
+#screen .menu-actions .pirali-community-menu:focus-visible{outline:2px solid #ffe09b;outline-offset:2px}
+#screen .pirali-community-menu img{
+ display:block;flex:none;width:36px;height:36px;object-fit:cover;
+ border-radius:50%;border:1px solid #9d412b;background:#110907;
+}
+#screen .pirali-community-label{flex:1;min-width:0;text-align:center}
+#screen .pirali-community-external{flex:none;font-size:18px;font-weight:700;opacity:.86}
