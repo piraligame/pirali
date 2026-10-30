@@ -18,10 +18,10 @@ for(const variant of ['play','dev']){
  const html=read(now+'/index.html'),menu=read(now+'/js/menu.js'),demo=read(now+'/js/features/full-path/demo.js'),outcome=read(now+'/js/runtime/outcome.js');
  assert.match(html,/1\.30-classic\./);
  assert.match(menu,/PIRALI • BETA 1\.30/);
- assert.match(demo,/actions\\.insertBefore\\(community,records\\)/,'Community comes before leaderboard');
- assert.match(demo,/actions\\.insertBefore\\(community,full\\.nextSibling\\)/,'Community comes after full route');
+ assert.ok(demo.includes('actions.insertBefore(community,records)'),'Community comes before leaderboard');
+ assert.ok(demo.includes('actions.insertBefore(community,full.nextSibling)'),'Community comes after full route');
  assert.match(demo,/გეიმერების საზოგადოება/,'Georgian label');
- assert.match(demo,/facebook\\.com\\/share\\/1LfEa8WSfU\\//,'Correct community URL');
+ assert.ok(demo.includes('https://www.facebook.com/share/1LfEa8WSfU/'),'Correct community URL');
  assert.match(demo,/PiraliStats\?\.get/);
  assert.match(demo,/stageBestMs\[9\]/);
  assert.match(demo,/maxReachedStage>=11/);
