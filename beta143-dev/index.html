@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
+  <meta name="apple-mobile-web-app-title" content="ფირალი">
+  <meta name="theme-color" content="#c89820">
+  <!-- Android APK app icon is handled by native Android assets; no missing Apple icon reference. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>ფირალი BETA 1.43 • CLASSIC DEV — ხუთი ტალღის გამარჯვება</title>
+<link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css?v=beta138-joystick-zone">
+<link rel="stylesheet" href="css/menu.css?v=beta136-portrait">
+<link rel="stylesheet" href="css/levels.css?v=final-20261016a">
+<link rel="stylesheet" href="css/mobile-lifecycle.css?v=20261017a">
+<link rel="stylesheet" href="css/player-stats.css?v=beta133-timer">
+<link rel="stylesheet" href="css/player-identity.css?v=beta1261-required">
+<link rel="stylesheet" href="css/alpha014-hud.css?v=controls-B1">
+<link rel="stylesheet" href="css/leaderboard-milestones.css?v=beta106-crown">
+<link rel="stylesheet" href="css/leaderboard-frame.css?v=alpha0161e">
+<link rel="stylesheet" href="css/leaderboard-scroll-guard.css?v=alpha0161g">
+<link rel="stylesheet" href="css/result-screen.css?v=alpha0161c">
+<link rel="stylesheet" href="css/beta134-experience.css?v=134">
+<link rel="stylesheet" href="css/beta139.css?v=140-menu-low">
+<link rel="stylesheet" href="css/objective141.css?v=141-separate-hud">
+<link rel="stylesheet" href="css/outcome142.css?v=142-compact-result">
+<link rel="stylesheet" href="css/ui143.css?v=143-expanded-menu-raised-results">
+<link rel="stylesheet" href="css/dual-general-hud.css?v=alpha0162d">
+<link rel="stylesheet" href="css/endless-hud.css?v=alpha0164a">
+<link rel="stylesheet" href="css/beta105-victory.css?v=beta105-flag">
+<link rel="stylesheet" href="css/story-map.css?v=beta115-tutorial"><link rel="stylesheet" href="css/live-minimap.css?v=beta1272-compact">
+<meta name="robots" content="noindex,nofollow">
+<script>
+// Release candidate: do not enable real-season writes until launch.
+window.PiraliGameVersion='1.43-classic.dev';
+window.PiraliSeasonReleaseEnabled=false; // DEV only
+window.PiraliVisualPreviewReadonly=true; // DEV: local scores and statistics only
+window.PiraliAlpha014Test=true; // Enable 11-stage test controls
+// Never allow a DEV run, teleport or immortality test to write production Beta points.
+(function(){
+ const nativeFetch=window.fetch.bind(window);
+ window.fetch=function(input,init){
+  const url=typeof input==='string'?input:input?.url||'';
+  const method=String(init?.method||input?.method||'GET').toUpperCase();
+  // DEV safety: Firebase reads are allowed for comparisons; ALL writes blocked.
+  // Includes direct API calls to the legacy Alpha /scores database.
+  if(/firebaseio\.com/i.test(url)&&method!=='GET'&&method!=='HEAD'){
+   return Promise.reject(new Error('PIRALI BETA 1.0.1 DEV: Firebase writes disabled'));
+  }
+  return nativeFetch(input,init);
+ };
+})();
+</script>
+<link rel="stylesheet" href="css/beta114-polish.css?v=1.14.0">
+<link rel="stylesheet" href="css/laurel-shield.css?v=1.15.0">
+<link rel="stylesheet" href="css/beta117-hud.css?v=1.17.0">
+<link rel="stylesheet" href="css/beta123-stars.css?v=beta124-result-layout">
+<link rel="stylesheet" href="css/beta125.css?v=beta1252-layout">
+<link rel="stylesheet" href="css/beta127.css?v=1272-stars">
+<link rel="stylesheet" href="css/beta128.css?v=128-compact-map-rewards">
+<link rel="stylesheet" href="css/beta129-full-path.css?v=beta130-ggg-core2">
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<div id="ui">
+  <div class="ui-panel"><div class="ui-lbl">სიცოცხლე</div><div id="hearts"></div></div>
+  <div class="ui-panel" style="text-align:right"><div class="ui-lbl">ქულა</div><div id="score-val">0</div></div>
+</div>
+<div id="progress-bar"><div id="prog-lbl">ეკლესიისკენ</div><div id="prog-track"><div id="prog-fill" style="width:0%"></div></div></div>
+
+<div id="level-badge"></div>
+<div id="pirali-run-mode" hidden aria-live="polite"></div>
+<div id="pirali-beta117-build" aria-hidden="true">BETA 1.43 • CLASSIC</div>
+<div id="pirali-time-hud" hidden aria-label="Level timer"></div>
+<div id="ammo-bar"><div class="ui-panel"><div id="ammo-lbl">ტყვია</div><div id="bullets"></div></div></div>
+<div id="boss-bar"><div id="boss-lbl">⚔ რუსი გენერალი — ბოსი</div><div id="boss-track"><div id="boss-fill" style="width:100%"></div></div></div>
+<div id="joy-zone"></div><div id="joy-base"></div><div id="joy-knob"></div>
+<button id="btn-pause" onclick="togglePause()">⏸</button>
+<div id="pause-overlay">
+  <h2>⏸ პაუზა</h2>
+  <p>თამაში შეჩერებულია</p>
+  <button class="pause-btn" onclick="togglePause()">▶ გაგრძელება</button>
+  <button class="pause-btn secondary" id="btn-go-menu" onclick="showMenuConfirm()">🏠 მთავარ მენიუში</button>
+  <div id="menu-confirm" style="display:none;flex-direction:column;align-items:center;gap:8px;margin-top:4px;">
+    <div style="font-size:11px;color:#a07828;letter-spacing:1px;margin-bottom:2px;">პროგრესი დაიკარგება. დარწმუნებული ხარ?</div>
+    <div style="display:flex;gap:10px;">
+      <button class="pause-btn secondary" style="width:90px;padding:10px 0;" onclick="goToMenu()">✔ კი</button>
+      <button class="pause-btn secondary" style="width:90px;padding:10px 0;" onclick="document.getElementById('menu-confirm').style.display='none'">✘ არა</button>
+    </div>
+  </div>
+</div>
+<div id="action-zone">
+  <div id="alpha-shell-hud" hidden></div>
+  <button id="alpha-weapon-switch" type="button" hidden></button>
+  <div class="btn-row">
+    <div class="act-btn" id="btn-sword">⚔️</div>
+    <div class="alpha014-dash-stack">
+      <div id="dash-cd" aria-label="მოი აგერ! — მზადყოფნა"><div id="dash-lbl">მოი აგერ!</div><div id="dash-cd-track"><div id="dash-fill" style="width:100%;height:100%;"></div></div></div>
+      <div class="act-btn" id="btn-dash" role="button" aria-label="მოი აგერ!" title="მოი აგერ!">მოი აგერ!</div>
+    </div>
+  </div>
+  <div class="act-btn" id="btn-shoot" role="button" aria-label="მაუზერით სროლა" title="მაუზერი — სროლა"><img class="mauser-icon" src="assets/icons/mauser-pistol.png?v=20261016a" alt="" draggable="false"></div>
+</div>
+<div id="dflash"></div><div id="sword-flash"></div><div id="dash-flash"></div><div id="parry-flash"></div>
+<div id="inventory">
+  <div class="inv-item" id="inv-herbs" role="status" aria-label="Laurel shield">🌿🛡 <span id="inv-herbs-n">1</span></div>
+  <div class="inv-item" id="inv-medals">🏅 <span id="inv-medals-n">0</span></div>
+</div>
+<div id="lvlbanner"></div>
+<div id="lb-overlay">
+  <div id="lb-title">🏆 რეკორდები</div>
+  <div id="lb-sub">საუკეთესო მოთამაშეები</div>
+  <div id="lb-status" style="font-size:10px;color:#6a8a3a;letter-spacing:1px;margin-bottom:8px;z-index:1;min-height:14px;text-align:center;"></div>
+  <div id="lb-setup-row" style="display:none!important;"></div>
+  <div id="lb-name-row" style="display:none;">
+    <input id="lb-name" type="text" maxlength="14" placeholder="შეიყვანე სახელი..." autocomplete="off" spellcheck="false"/>
+    <button id="lb-save" onclick="lbSave()">შენახვა</button>
+  </div>
+  <div id="lb-personal" aria-live="polite"></div>
+  <div id="lb-list"></div>
+  <button id="lb-play" onclick="lbPlay()">თავიდან თამაში</button>
+</div>
+<div id="screen">
+  <div id="screen-overlay"></div>
+  <div class="tdeco" style="letter-spacing:8px;color:#c8a040;">— ქართული ლეგენდა —</div>
+  <h1 style="font-size:62px;letter-spacing:10px;text-shadow:0 0 60px rgba(224,168,32,.9),0 4px 0 #0a0500,0 0 120px rgba(200,140,20,.4);">ფირალი</h1>
+  <div style="font-size:11px;color:#a08030;letter-spacing:6px;text-transform:uppercase;margin-bottom:4px;z-index:1;position:relative;">Rise of the Outlaw</div>
+  <div class="tsub">სიმონას გზა</div>
+  <div class="sbox"><p>როცა სამართალი ხმას კარგავს,<br>ტყე ხდება თავშესაფარი.<br><br>სიმონა დოლიძე —<br>კაცი, რომელმაც არჩევანი გააკეთა:<br>დაემორჩილოს… ან იბრძოლოს.<br><br>მოღალატედ შერაცხული,<br>მაგრამ ხალხისთვის — გმირი.<br><br>მისი გზა სიბნელიდან იწყება,<br>მაგრამ სინათლისკენ მიდის.<br><br>ეს არის ისტორია — ფირალი</p></div>
+  <button class="sbtn" onclick="bgmStop();document.getElementById('screen').style.display='none';showIntro(startGame)">თამაშის დაწყება</button>
+</div>
+<script src="js/runtime/audio.js"></script>
+<script src="js/config/levels.js?v=beta106-home"></script>
+<script src="js/config/balance.js?v=final-20261016a"></script>
+<script src="js/config/stage-balance.js?v=alpha0164b2"></script>
+<!-- Centralized loot odds and shotgun raw DPS (+20%). -->
+<script src="js/features/loot/drop-balance.js?v=beta1102-stage6-hearts"></script>
+<script src="js/features/combat/shotgun-balance.js?v=alpha0164b2"></script>
+<script src="js/config/alpha-gear-v2.js?v=beta131-all-stages"></script>
+<!-- Exact directional targeting and 2s/1s timed kill streak scoring. -->
+<script src="js/features/combat/aim.js?v=alpha0164k1"></script>
+<script src="js/features/scoring/kill-combos.js?v=beta124-hud"></script>
+<script src="js/runtime/world.js?v=beta115-laurel"></script>
+<script src="js/runtime/combat.js?v=beta139-keep-stick"></script>
+<script src="js/platform/desktop-controls.js?v=beta112-pc-keys"></script>
+<script src="js/runtime/update.js?v=beta140-normal-speed"></script>
+<script src="js/features/enemies/range137.js?v=beta138-old-rules-fixed"></script>
+<script src="js/runtime/render.js?v=beta139-world"></script>
+<script src="js/effects/combat-fx.js?v=beta133-compare"></script>
+<script src="js/levels/environment-alpha012.js?v=alpha0164f"></script>
+<script src="js/levels/biomes-alpha013.js?v=alpha013-biomes2-3a"></script>
+<script src="js/levels/historical-phase4.js?v=alpha0162colors"></script>
+<script src="js/levels/roads-alpha013.js?v=alpha0162colors"></script>
+<script src="js/characters/simona-style.js"></script>
+<script src="js/characters/simona.js?v=alpha014-hybrid-d"></script>
+<script src="js/characters/motion-alpha012.js?v=beta134-motion"></script>
+<script src="js/characters/enemy-motion-alpha013.js?v=alpha013-soldier-motion-c"></script>
+<script src="js/characters/topdown-polish.js?v=alpha014-hybrid-d"></script>
+<script src="js/characters/simona-weapons-only.js?v=alpha014-approved-study-d"></script>
+<script>window.PiraliHybrid014.enable(true);</script>
+<script src="js/characters/batoni-art-preview.js?v=alpha012-motion-phase2b"></script>
+<script src="js/runtime/ui.js?v=beta117-hud"></script>
+<script src="js/progression/checkpoints.js?v=beta129-preserve-normal"></script>
+<script src="js/runtime/leaderboard.js?v=beta1281-preview-local"></script>
+<script src="js/runtime/outcome.js?v=130-checkpoint-protection"></script>
+<script src="js/runtime/intro.js"></script>
+<script src="js/runtime/game-init.js?v=beta129-premium-start"></script>
+<script src="js/main.js?v=beta134-combo"></script>
+<script src="js/i18n.js?v=beta135-lore"></script>
+<script src="js/progression/player-identity.js?v=beta1261-required"></script>
+<script src="js/progression/player-stats.js?v=beta125-achievements"></script>
+<script src="js/features/profile/stats-backup.js?v=1271-auto"></script>
+<script src="js/menu.js?v=beta143-version"></script>
+<script src="js/features/map/story-map.js?v=beta115-tutorial"></script>
+<script src="js/platform/mobile-lifecycle.js?v=beta118-input-reset"></script>
+<!-- DEV preview only: stage selection and immortality. No hit/shield/boss shortcuts. -->
+<script src="js/preview-controls.js?v=beta143-display"></script>
+  <!-- Alpha 0.16.2 modular stage 10 Hell features: loaded in dependency order. -->
+<script src="js/features/hell/text.js?v=beta106-gate"></script>
+<script src="js/features/hell/score-bonus.js?v=beta117-cap"></script>
+<!-- Story cap 5000, endless +500; gate +0, Devil's large coin pickup +250. -->
+<script src="js/features/scoring/stage-awards.js?v=beta131-xp20"></script>
+<!-- Final-stage enemies, rewards and big collectible gold coins live in separate JS files. -->
+<script src="js/features/hell/enemy-spacing.js?v=alpha0162a"></script>
+<script src="js/features/hell/loot.js?v=alpha0164f"></script>
+<script src="js/features/hell/heart-art.js?v=alpha0164f"></script>
+<script src="js/features/loot/large-heart.js?v=beta108-hp"></script>
+<script src="js/features/hell/scenery.js?v=alpha0162c"></script>
+<script src="js/features/hell/gate.js?v=alpha0162c"></script>
+<script src="js/features/hell/devil.js?v=alpha0162c"></script>
+<script src="js/features/hell/boss-hud.js?v=alpha0162c"></script>
+<!-- Results: ranking current run, then restart button. -->
+<script src="js/features/results/run-rank.js?v=beta1283-classic-rank"></script>
+<script src="js/features/results/retry.js?v=alpha0161c"></script>
+<script src="js/features/leaderboard/frame.js?v=alpha0161e"></script>
+<script src="js/features/leaderboard/scroll-guard.js?v=alpha0161g"></script>
+<!-- Independent ten-stage battle modules; loaded AFTER core and visual wrappers. -->
+<script src="js/features/stages/08-dual-generals.js?v=beta137-general-range"></script>
+<!-- Stage 9 separate tuning and scattered first-aid hearts. -->
+<script src="js/features/stages/09-siege-balance.js?v=beta105-difficulty"></script>
+<script src="js/features/stages/09-heart-scatter.js?v=alpha0164h"></script>
+<script src="js/features/stages/09-siege.js?v=alpha0164f"></script>
+<script src="js/features/stages/flow.js?v=alpha0162a"></script>
+<script src="js/features/stages/color-themes.js?v=alpha0164f"></script>
+<script src="js/features/stages/08-boss-hud.js?v=alpha0162d"></script>
+<!-- Bonus survival modules: after all world-gen wrappers. -->
+<script src="js/features/endless/hud.js?v=beta117-hud"></script>
+<!-- Stage 11 grey graveyard with MAX 20 live enemies. -->
+<script src="js/features/endless/11-wave-balance.js?v=beta104-fixed20"></script>
+<script src="js/features/endless/graveyard.js?v=alpha0164h"></script>
+<script src="js/features/endless/waves.js?v=beta131-shells-stage11"></script>
+<script src="js/features/endless/outcome.js?v=beta106-endless"></script>
+<!-- Collision-aware 20% extra cover after all other world modifications. -->
+<script src="js/features/scenery/solid-cover.js?v=alpha0164g"></script>
+<!-- Final world-generation pass: -10% placed hearts, +20% ammo supplies. -->
+<script src="js/features/loot/map-pickups.js?v=beta107-loot"></script>
+<script src="js/features/stages/beta105-balance.js?v=beta118-stage6-weak15"></script>
+<script src="js/features/stages/beta106-cover.js?v=beta106-roadside"></script>
+<!-- Beta 1.16: safe first steps before soldiers detect Simona in stages 1–5. -->
+<script src="js/features/stages/early-start-spacing.js?v=beta117-safe-start"></script>
+<script src="js/features/endless/victory.js?v=beta107-victory"></script>
+<script src="js/features/endless/gurian-home.js?v=beta106-house"></script>
+<script src="js/features/map/live-minimap.js?v=beta133-compare"></script>
+<script src="js/features/polish/feedback.js?v=beta134-victory"></script>
+<script src="js/features/loot/laurel-shield.js?v=1.15.0"></script>
+<!-- Extra +10% scattered map ammo for stage 5 only, after all other world spawns. -->
+<script src="js/features/loot/stage5-scattered-ammo.js?v=beta1171-stage5-ammo10"></script>
+<!-- Beta 1.23: tactical movement, local earned stars, clearer ground pickups. -->
+<script src="js/features/enemies/tactical-ai.js?v=beta133-compare"></script>
+<script src="js/features/results/stage-stars.js?v=beta124-records"></script>
+<script src="js/features/loot/pickup-visibility.js?v=beta136-no-ammo-halo"></script>
+<script src="js/features/loot/bullet-art136.js?v=beta137-enemy-2x"></script>
+<script src="js/features/bosses/beta126-specials.js?v=beta133-compare"></script>
+<script src="js/features/scenery/interactables.js?v=127-props"></script>
+<script src="js/features/hud/layout128.js?v=128-score-side-rewards"></script>
+<script src="js/features/full-path/demo.js?v=beta131-xp20"></script>
+<script src="js/features/polish/beta134-experience.js?v=beta136-old-on"></script>
+<script src="js/features/evolution/game139.js?v=141-objective-notify"></script>
+<script src="js/features/evolution/menu139.js?v=143-expanded-menu"></script>
+<script src="js/features/hud/objective141.js?v=141-dynamic-layout"></script>
+<script src="js/features/results/outcome142.js?v=143-raised-fit"></script>
+</body>
+</html>
