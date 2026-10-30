@@ -43,7 +43,7 @@ for(const dir of ['assets','css','js','data','firebase']){
    if(e.isDirectory())walk(full);
    else if(e.isFile()&&!e.name.startsWith('.')){
     const rel=path.relative(source,full).replace(/\\/g,'/');
-    if(rel==='js/preview-controls.js')throw Error('Developer controls accidentally included');
+    if(rel==='js/preview-controls.js')continue; // This legacy file is not referenced by Player and must never be packaged.
     copy(rel);
    }
   }
