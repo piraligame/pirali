@@ -1,0 +1,14 @@
+/* PIRALI Beta 1.25.2: responsive menu and achievements. Replay removed. */
+#screen .main-menu-panel{max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+#screen .main-menu-panel .sbox{max-height:min(24vh,160px);overflow-y:auto}
+#screen .menu-actions{gap:7px}
+#pirali-achievement-toast{position:fixed;left:50%;top:22%;z-index:3000;transform:translate(-50%,-12px);
+ pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;
+ border:1px solid #ffda77;background:rgba(35,27,9,.96);color:#ffedaa;border-radius:10px;
+ box-shadow:0 8px 24px #0008;padding:13px 19px;text-align:center;font:900 14px 'Noto Sans Georgian',sans-serif}
+#pirali-achievement-toast.show{opacity:1;transform:translate(-50%,0)}
+#pirali-stage-stars{max-width:calc(100vw - 30px)}
+@media(max-height:630px){#screen:not(.gameover-screen):not(.victory-screen){padding:8px!important}
+ #screen .main-menu-panel{max-height:96dvh;padding:10px 13px}
+ #screen .main-menu-panel .sbox{max-height:70px;margin-bottom:8px}
+/* One fixed visual profile: no quality-dependent CSS or stored settings. */
