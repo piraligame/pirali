@@ -1,0 +1,214 @@
+{
+  "version": "1.32-beta.1",
+  "role": "player-online-web",
+  "stages": 11,
+  "previewControls": false,
+  "firebaseWritesBlocked": false,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "qa": "qa/pirali-beta126.cjs and live mobile browser smoke",
+  "base": "0.16.3l DEV",
+  "revision": "beta1261-required-name-persistent-local-player-stats",
+  "enemyHpMultiplier": 0.85,
+  "ammoDropMultiplier": 1.15,
+  "leaderboardPath": "/pirali_beta_rating",
+  "firebaseLegacyMigration": "PENDING: admin access and backup required",
+  "season": "pirali_beta_1_0_s1",
+  "startLevel": 1,
+  "startScore": 0,
+  "newPlayerStats": true,
+  "firebasePath": "/pirali_beta_rating",
+  "releaseReady": false,
+  "maxStoryPoints": 5000,
+  "maxEndlessBonusPoints": 2000,
+  "maxTotalPoints": 7000,
+  "stage9Shooters": 15,
+  "stage11LiveCap": 10,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  },
+  "firebaseValidation": "Firebase live permissions not verified",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
+  "displayVersion": "BETA 1.32 PLAYER",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
+  "resultRankMode": "best score among all unique players, including outside TOP 30",
+  "firebaseSavedNotice": "hidden when confirmed; errors still shown",
+  "pcMovement": "WASD / arrow keys / mouse drag left",
+  "mobileControlsPreserved": true,
+  "stage11EnemiesPerWave": 10,
+  "stage11PointsPerWave": [
+    300,
+    300,
+    400,
+    400,
+    600
+  ],
+  "stage11": {
+    "enemiesPerWave": 10,
+    "additionalStrengthReduction": -0.1,
+    "totalWaveEnemies": 50,
+    "bossesWave4": 1,
+    "bossesWave5": 2,
+    "wavePoints": [
+      300,
+      300,
+      400,
+      400,
+      600
+    ]
+  },
+  "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
+  "globalAdditionalEnemyStrengthReduction": 0.1,
+  "globalAmmoDropBoostRelative": 0.1,
+  "globalHeartDropBoostRelative": 0.1,
+  "qaEvidence": [
+    "qa/pirali-beta110-hearts.cjs"
+  ],
+  "maxHealthUpgrades": {
+    "stage7": "General large heart: 5→6",
+    "stage10": "Devil large heart: 6→7",
+    "oneTimePerRun": true,
+    "checkpointPersists": true,
+    "normalHeartsHealOnly": true,
+    "exitRequiresPickup": true,
+    "locales": [
+      "ka",
+      "en-US",
+      "ru",
+      "zh"
+    ]
+  },
+  "mapAsset": "assets/maps/pirali-approved.webp",
+  "localizedCampaignMap": "Owner-selected illustrated 11-stage map, live translated KA/US EN/RU/ZH captions",
+  "inGameMiniMap": {
+    "enabled": true,
+    "worldRelative": true,
+    "playerHeading": true,
+    "enemyAndPickupMarkers": true,
+    "goalForStages7_10_11": true,
+    "hideShow": true,
+    "locales": [
+      "ka",
+      "en",
+      "ru",
+      "zh"
+    ]
+  },
+  "stage11Title": {
+    "ka": "გზა სახლისაკენ 🇬🇪",
+    "en": "Road Home 🇬🇪",
+    "ru": "Дорога домой 🇬🇪",
+    "zh": "回家的路 🇬🇪"
+  },
+  "minimapPosition": {
+    "side": "left",
+    "anchor": "#ui > .ui-panel:first-child",
+    "gapPx": 6,
+    "responsive": true
+  },
+  "minimapEnemyMarkers": {
+    "fill": "#ff2a2a",
+    "radius": 4.2,
+    "stroke": "#5a0000",
+    "previousRadius": 2.5
+  },
+  "stage11HealingPickupIncreaseRelative": 0.15,
+  "stage11HealthSystem": "Regular healing hearts +15% per periodic supply roll in stage 11; maximum capacity remains 7. No effect on levels 1–10.",
+  "mapArtworkStatus": "Pending replacement of existing tiny compressed placeholder with owner-uploaded high-resolution original.",
+  "features126": [
+    "coordinated sword/rifle/officer squads",
+    "telegraphed boss crossfire and devil inferno (volley replacement)",
+    "visual-only impact reaction",
+    "spatial AI + tree collision indexing",
+    "boss/goal minimap markers"
+  ],
+  "mandatoryRegistration": {
+    "minimumLetters": 3,
+    "maxCharacters": 14,
+    "skipAllowed": false,
+    "confirmOnlyWhenValid": true,
+    "languages": [
+      "ka",
+      "en",
+      "ru",
+      "zh"
+    ],
+    "storage": "existing pirali_player_name key in origin-local localStorage",
+    "statsStorage": "existing per-name local device profile with legacy invalid-name migration"
+  },
+  "features127": [
+    "destructible crates/carts and rigid roadside barricades",
+    "responsive HUD/stage stars",
+    "lower render allocations, capped props",
+    "polished required-name and profile UI",
+    "offline same-name validated merge backups"
+  ],
+  "features1271": [
+    "statistics backup menu button removed",
+    "automatic mirrored local statistics safety copy",
+    "on-pagehide and visibility loss backup flush",
+    "recover missing or malformed personal statistics from local copy",
+    "no automatic downloads or cloud syncing"
+  ],
+  "features1272": [
+    "stage stars card moved upward 36/42 CSS pixels to clear centered stage banner",
+    "minimap lower visual legend DOM/CSS removed",
+    "minimap padding tightened without changing markers or toggle"
+  ],
+  "features128": [
+    "medal/laurel reward HUD moved underneath score panel",
+    "minimap frame width tightly matched to canvas and label width",
+    "developer test panel lower to avoid reward row overlap",
+    "all Beta 1.27.2 gameplay mechanics unchanged"
+  ],
+  "features1281": [
+    "false Firebase write error removed in read-only web preview",
+    "real public Firebase READ retained; preview write remains disabled",
+    "local score save explicitly marked local, no retry button",
+    "unsent preview rank and personal-best/online footer removed from outcomes",
+    "official-only rank widget still available after release enablement"
+  ],
+  "firebaseWrites": false,
+  "features1282": [
+    "restore result rank card",
+    "show projected position based on points in THIS run not old personal best",
+    "keep extra TOP30/best/online footer removed",
+    "keep preview Firebase writes disabled and fake connection warning suppressed"
+  ],
+  "features1283": [
+    "restore exact Beta 1.26 result rank layout and personal-best ranking",
+    "show original TOP 30 and personal best / online rank details in ranking card",
+    "keep current attempt score in central score card",
+    "retain Beta 1.28.2 visual/gameplay and Beta 1.28.1 Firebase preview write restrictions"
+  ],
+  "premiumFullRoute": {
+    "name": "სიმონას სრული გზა",
+    "priceGEL": 0,
+    "paymentEnabled": false,
+    "unlocksWhen": "stage10 completed, stage11 reached",
+    "stageAccess": 11,
+    "startingHearts": 7,
+    "shotgun": true,
+    "pointsMultiplier": 0.2,
+    "checkpointProtected": true,
+    "profileScoped": true,
+    "shellDropsAllStagesIfOwned": true,
+    "shellPlacementAllStagesIfOwned": true
+  },
+  "features132": [
+    "capped paired impact flashes and directional muzzle streaks; unchanged damage/cooldowns",
+    "three-role AI steering refinement; unchanged movement speeds, shots and HP",
+    "high contrast shape-coded ammo/heart/shell outlines; unchanged pickup mechanics",
+    "boss warning progress and second general readout; unchanged attacks/timings",
+    "offscreen bullet draw culling and allocation-reduced minimap; no graphics selector"
+  ]
+}
