@@ -30,7 +30,7 @@ for(const variant of ['play','dev']){
  const css=read(now+'/css/player-stats.css');
  assert.match(css,/left:calc\(50% \+ 23px\);right:auto/);
  assert.match(css,/top:10px/);
- assert.match(html,/css\/player-stats\.css\?v=beta133-timer/);
+ assert.match(html,/css\/player-stats\.css\?v=beta133-(?:timer|time-near-pause)/);
  for(const file of ['js/runtime/combat.js','js/runtime/update.js','js/runtime/world.js','js/runtime/game-init.js',
  'js/config/balance.js','js/features/scoring/stage-awards.js',
  'js/runtime/leaderboard.js','js/progression/player-stats.js','js/features/full-path/demo.js',
