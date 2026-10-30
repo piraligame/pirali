@@ -79,13 +79,14 @@ function refresh(){
  const btn=document.querySelector('#screen .main-menu-panel .pirali-full-menu');
  if(btn){
   const granted=unlocked();
-  btn.textContent=(granted?'🗺️ ':'🔒 ')+t('button');
+  const nextText=(granted?'🗺️ ':'🔒 ')+t('button');
+  if(btn.textContent!==nextText)btn.textContent=nextText;
   btn.classList.toggle('is-locked',!granted);
   btn.setAttribute('aria-expanded',String(!!overlay));
   btn.setAttribute('aria-label',btn.textContent+(granted?'':'. '+t('locked')));
  }
  const label=document.querySelector('#screen .main-menu-panel .pirali-community-label');
- if(label)label.textContent=COMMUNITY_LABELS[lang()]||COMMUNITY_LABELS.ka;
+ if(label){const nextText=COMMUNITY_LABELS[lang()]||COMMUNITY_LABELS.ka;if(label.textContent!==nextText)label.textContent=nextText;}
 }
 function open(){
  close();
