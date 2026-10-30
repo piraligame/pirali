@@ -368,7 +368,7 @@ async function run(){
    const boss144=await page.evaluate(()=>{
      level=10;genWorld();return {
        hp:boss?.maxHp,
-       expected:PIRALI_BALANCE.finalBossHp*3*.85*1.20,
+       expected:PIRALI_BALANCE.finalBossHp*3*.85*1.20*window.PiraliStageTuning.config(10).hp,
        aim:window.PiraliBoss144.aim({x:0,y:0},{x:110,y:40,vx:1,vy:2},20)
      };
    });
