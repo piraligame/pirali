@@ -66,10 +66,14 @@ function before(dt){
  // Story items and captives activate simply by approaching them.
  if(goal?.done&&rescue(goal.level)&&goal.escape>0)goal.escape+=dt;
  if(goal?.kind==='lookout'&&!goal.done){
+  const oldX=goal.x,oldY=goal.y;
   goal.runT+=dt;
-  goal.x=goal.baseX+Math.sin(goal.runT*.085)*155;
-  goal.y=goal.baseY+Math.sin(goal.runT*.17)*18;
-  goal.dir=Math.cos(goal.runT*.085)>=0?1:-1;
+  // ~3x Simona's speed, not faster than his bullets. Still visibly fast.
+  goal.x=goal.baseX+Math.sin(goal.runT*.033)*135;
+  goal.y=goal.baseY+Math.sin(goal.runT*.11)*14;
+  goal.vx=(goal.x-oldX)/Math.max(.25,dt);
+  goal.vy=(goal.y-oldY)/Math.max(.25,dt);
+  goal.dir=Math.cos(goal.runT*.033)>=0?1:-1;
  }
  if(goal&&!goal.done&&!combatQuest(level)&&Math.hypot(P.x-goal.x,P.y-goal.y)<49)interact();
  if(scout?.alive&&!scout.evoDormant&&!scout.evoAlarmed){

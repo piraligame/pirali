@@ -16,18 +16,22 @@ function targetCandidates(){
 }
 function angleDelta(a,b){return Math.atan2(Math.sin(a-b),Math.cos(a-b));}
 function choose(x=P.x,y=P.y,facing=P.ang){
- let best=null,dist=Infinity;
+ let best=null,dist=Infinity,bestAngle=facing;
  for(const obj of targetCandidates()){
   const dx=obj.x-x,dy=obj.y-y,centre=Math.hypot(dx,dy);
   const difference=Math.abs(angleDelta(Math.atan2(dy,dx),facing));
   // Broad initial forward cone, scaled by the target's apparent radius.
   if(difference>HALF_CONE+Math.atan2(obj.r||12,Math.max(1,centre)))continue;
+  // Lead the fast stage-8 lookout just enough that Mauser shots remain fair.
+  const lead=obj.kind==='lookout'?Math.min(16,centre/BSPD):0;
+  const predictedAngle=Math.atan2(obj.y+(obj.vy||0)*lead-y,
+    obj.x+(obj.vx||0)*lead-x);
   // Distance to the front edge, not centre, so a large boss standing
   // before ordinary troops is prioritized appropriately.
   const near=Math.max(0,centre-(obj.r||12));
-  if(near<dist){dist=near;best=obj;}
+  if(near<dist){dist=near;best=obj;bestAngle=predictedAngle;}
  }
- return best?Math.atan2(best.y-y,best.x-x):facing;
+ return best?bestAngle:facing;
 }
 function segmentCircle(x0,y0,x1,y1,x,y,r){
  // Broad-phase rejection: avoids quadratic math for off-screen/remote
