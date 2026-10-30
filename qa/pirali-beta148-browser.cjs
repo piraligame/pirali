@@ -367,7 +367,7 @@ async function run(){
      P.x=WW/2;P.y=WH/2;
      for(let i=0;i<120;i++)update(0);
      const moving={screenY:(P.y-camY)/H,offset:camY,
-       expected:P.y-H*.70,anchor:CAMERA_PLAYER_SCREEN_Y};
+       expected:P.y-H*.70,anchor:CAMERA_PLAYER_SCREEN_Y,height:H};
      P.x=snap.x;P.y=snap.y;invincible=snap.invincible;enemies=snap.enemies;boss=snap.boss;
      return {initial,moving};
    });
@@ -376,7 +376,7 @@ async function run(){
       'Camera starts with the requested target (no first-move lurch) '+JSON.stringify(cam148));
    assert.ok(Math.abs(cam148.moving.screenY-.70)<.025,
       'Simona remains near 70% on normal gameplay scrolling '+JSON.stringify(cam148));
-   assert.ok(Math.abs(cam148.moving.offset-cam148.moving.expected)<H*.025,
+   assert.ok(Math.abs(cam148.moving.offset-cam148.moving.expected)<cam148.moving.height*.025,
       'More visible road ahead on mobile '+JSON.stringify(cam148));
 
    assert.ok(requests.every(m=>m==='GET'),'No Firebase writes');
