@@ -180,7 +180,8 @@ function killEnemy(e){
   killStreak++;killStreakTimer=level===11?60:120;
   const base=level===11?5:level===10?1:5*level;
   window.PiraliKillCombo?.award(base,e.x,e.y);
-  window.PiraliPolish?.onStreak(killStreak);
+  // Keep the real ×2 combo visible; only show kill count without an active pair.
+  if(!window.PiraliKillCombo?.status?.().paired)window.PiraliPolish?.onStreak(killStreak);
   if(level===11)window.PiraliEndless?.onKill(e);
   playDeath();
   corpses.push({x:e.x,y:e.y,ang:e.ang,r:e.r,etype:e.etype});

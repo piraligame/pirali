@@ -49,7 +49,7 @@ for(const v of ['play','dev']){
  assert.match(feedback,/function onStreak\(count\)/);
  assert.match(feedback,/const group=type==='stage'\?'stage':'flash'/);
  assert.match(feedback,/else if\(kind==='medal'\)/);
- assert.match(read(now+'/js/runtime/combat.js'),/PiraliPolish\?\.onStreak\(killStreak\)/);
+ assert.match(read(now+'/js/runtime/combat.js'),/if\(!window\.PiraliKillCombo\?\.status\?\.\(\)\.paired\)window\.PiraliPolish\?\.onStreak\(killStreak\)/);
  assert.match(read(now+'/js/runtime/update.js'),/onPickup\('medal',1\)/);
  assert.match(read(now+'/js/features/evolution/game139.js'),/onPickup\('quest',message\)/);
  assert.match(read(now+'/js/features/loot/laurel-shield.js'),/onPickup\('shield',1\)/);
