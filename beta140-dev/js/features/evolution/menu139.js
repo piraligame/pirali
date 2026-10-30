@@ -67,7 +67,7 @@ function fit(){
  // Use available space below the menu to reveal Simona's complete hooded face.
  // On short displays, cap displacement before the language selector leaves the viewport.
  const portraitTarget=Math.max(400,Math.min(505,Math.round(viewport*.56)));
- const bottomReserve=Math.max(14,Math.min(27,Math.round(viewport*.025)));
+ const bottomReserve=Math.max(9,Math.min(17,Math.round(viewport*.017)));
  screen.style.setProperty('padding-top',portraitTarget+'px','important');
  const height=panel.getBoundingClientRect().height;
  const freeTop=viewport-height-bottomReserve;

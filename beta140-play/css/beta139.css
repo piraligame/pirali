@@ -56,3 +56,23 @@
 .pirali139-letter small{font-size:10px;color:#ae916a}
 .pirali139-outfit{width:100%;margin:4px 0;padding:9px;text-align:left;color:#f3e2b6;background:#3a2b1a;border:1px solid #9f7e46;border-radius:8px}
 .pirali139-outfit:disabled{opacity:.45}
+
+/* Keep all menu items legible but recover roughly 40px on mobile portraits.
+ * This space is repurposed for the full illustrated face, not wasted below. */
+@media(max-width:700px) and (max-height:850px){
+ #screen.pirali139-compact .main-menu-panel{padding:3px 8px 3px!important}
+ #screen.pirali139-compact .main-menu-panel .tdeco{font-size:7px!important;line-height:1.1!important}
+ #screen.pirali139-compact .main-menu-panel h1{font-size:clamp(35px,9vw,42px)!important;line-height:.98!important}
+ #screen.pirali139-compact .main-menu-panel .tsub{font-size:9px!important;margin:0 0 2px!important}
+ #screen.pirali139-compact .main-menu-panel .sbtn{min-height:28px!important;padding:3px 7px!important}
+ #screen.pirali139-compact .main-menu-panel .menu-continue{min-height:23px!important;margin-bottom:2px!important}
+ #screen.pirali139-compact .menu-actions{gap:1px!important;margin-top:1px!important}
+ #screen.pirali139-compact .menu-actions > button,
+ #screen.pirali139-compact .menu-actions > a{min-height:27px!important;padding:2px 6px!important}
+ #screen.pirali139-compact .menu-actions .pirali-player-name{min-height:18px!important;padding:1px 5px!important}
+ #screen.pirali139-compact .menu-language{margin:1px 0 0!important;padding:2px 0 0!important}
+ #screen.pirali139-compact .menu-lang-title{margin:0 0 1px!important}
+ #screen.pirali139-compact .menu-language-option{min-height:24px!important;padding:2px 0!important}
+ #screen.pirali139-compact .menu-privacy{margin:0!important}
+ #screen.pirali139-compact .menu-version{margin:0!important}
+}
