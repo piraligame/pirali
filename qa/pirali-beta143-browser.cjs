@@ -100,7 +100,7 @@ async function run(){
        return {bottom:language.bottom,screen:innerHeight,top:panel.top};
      });
      assert.ok(box.bottom<=box.screen+2,'Languages without scroll in '+language+' '+JSON.stringify(box));
-     assert.ok(box.top>=345,'Menu lowered in '+language+' '+JSON.stringify(box));
+     assert.ok(box.top>=235&&box.top<=470,'Expanded menu beneath the hero portrait in '+language+' '+JSON.stringify(box));
    }
    const newCombat=await page.evaluate(()=>{
      const api=window.PiraliEnemyRange137,rules=api.rules;
