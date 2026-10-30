@@ -10,7 +10,7 @@ for(const variant of ['play','dev']){
  const after=files(now).map(p=>p.slice(now.length+1)).sort();
  assert.deepEqual(after,before,'Beta 1.31 must preserve all Beta 1.30 assets '+variant);
  const allowed=new Set(['index.html','js/menu.js','js/config/alpha-gear-v2.js',
- 'js/features/scoring/stage-awards.js','js/features/full-path/demo.js','TEST_INFO.json']);
+ 'js/features/scoring/stage-awards.js','js/features/full-path/demo.js','js/features/endless/waves.js','TEST_INFO.json']);
  for(const f of before){
   if(!allowed.has(f))assert.equal(read(old+'/'+f),read(now+'/'+f),'Unexpected edit '+f);
   if(f.endsWith('.js'))new vm.Script(read(now+'/'+f),{filename:now+'/'+f});
@@ -35,6 +35,7 @@ for(const variant of ['play','dev']){
  assert.match(scores,/Math\.floor\(total\/5\)/);
  assert.match(scores,/Math\.floor\(WAVE_CUMULATIVE\[wavesPaid\]\/5\)/);
  assert.match(scores,/\?50:250/);
+ assert.match(read(now+'/js/features/endless/waves.js'),/window\\.PiraliAlphaGear\\?\\.status\\?\\.\\(\\)\\.owned===true/,'Stage 11 shells only after unlock');
  assert.equal(read(old+'/js/runtime/game-init.js'),read(now+'/js/runtime/game-init.js'));
  assert.equal(read(old+'/js/features/loot/drop-balance.js'),read(now+'/js/features/loot/drop-balance.js'));
  assert.equal(read(old+'/js/features/loot/map-pickups.js'),read(now+'/js/features/loot/map-pickups.js'));
