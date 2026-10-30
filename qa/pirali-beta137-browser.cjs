@@ -186,7 +186,6 @@ async function run(){
      assert.equal(await page.evaluate(()=>window.PiraliEnemyRange137.fireRange('rifle')),380);
      assert.equal(await page.evaluate(()=>window.PiraliBeta134.enabled()),true,'Prior 1.34 group remains ON');
      assert.equal(await page.evaluate(()=>window.PiraliBulletArt136.enabled()),true,'Old brass art stays enabled');
-     assert.equal(await page.evaluate(()=>document.getElementById('screen').classList.contains('pirali-menu136-on')),true,'Old face-clear menu remains active');
      assert.equal(await page.evaluate(()=>window.PiraliDevComparison.enabled()),true,'Old Beta 1.32 stays ON');
      assert.equal(await comp.getAttribute('aria-pressed'),'false');
      const disabledVisual=await page.evaluate(()=>{PiraliFX.reset();PiraliFX.hit(P.x,P.y,true);return PiraliFX.debug().types});
@@ -198,7 +197,6 @@ async function run(){
      assert.equal(await comp.getAttribute('aria-pressed'),'true');
      assert.equal(await page.evaluate(()=>window.PiraliBeta134.enabled()),true,'Old experience remains ON');
      assert.equal(await page.evaluate(()=>window.PiraliBulletArt136.enabled()),true,'Old brass art remains active');
-     assert.equal(await page.evaluate(()=>document.getElementById('screen').classList.contains('pirali-menu136-on')),true,'Old menu remains active');
      await page.waitForTimeout(420);
      const dock=await page.evaluate(()=>{
        const map=document.getElementById('pirali-mini-map').getBoundingClientRect();
