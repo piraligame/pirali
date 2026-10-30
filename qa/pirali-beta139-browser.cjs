@@ -144,8 +144,8 @@ async function run(){
    assert.match(await community.innerText(),/გეიმერების საზოგადოება/);
    assert.equal(await community.locator('img').evaluate(i=>i.complete&&i.naturalWidth>0),true,'Original community emblem loads');
    const menuClasses=await page.evaluate(()=>[...document.querySelector('#screen .menu-actions').children].map(e=>e.className));
-   const fullAt=menuClasses.findIndex(x=>x.split(/\s+/).includes('pirali-full-menu')),communityAt=menuClasses.indexOf('pirali-community-menu'),recordsAt=menuClasses.indexOf('menu-records');
-   assert.ok(fullAt>=0&&communityAt===fullAt+1&&recordsAt===communityAt+1,'Full Route -> Community -> Leaderboard '+menuClasses);
+   const fullAt=menuClasses.findIndex(x=>x.split(/\s+/).includes('pirali-full-menu')),communityAt=menuClasses.indexOf('pirali-community-menu'),collectionAt=menuClasses.indexOf('pirali139-collection-link'),recordsAt=menuClasses.indexOf('menu-records');
+   assert.ok(fullAt>=0&&communityAt===fullAt+1&&collectionAt===communityAt+1&&recordsAt===collectionAt+1,'Full Route -> Community -> Collection -> Leaderboard '+menuClasses);
    const cb=await community.boundingBox(),rb=await page.locator('#screen .menu-records').boundingBox();
    assert.ok(Math.abs(cb.width-rb.width)<=2,'Community button same width as leaderboard');
    const button=page.locator('#screen .pirali-full-menu');assert.match(await button.textContent(),/🔒/);
