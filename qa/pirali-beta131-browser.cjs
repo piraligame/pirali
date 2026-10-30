@@ -75,6 +75,12 @@ async function run(){
    });
    assert.equal(stageShells.length,11);
    for(const n of stageShells)assert.ok(n.boxes>=3,'Owned shotgun shell placements stage '+n.stage);
+   const bonusStageShells=await page.evaluate(()=>{
+     level=11;
+     window.PiraliEndless.setup();
+     return pickups.filter(p=>p.type==='alpha-shells'&&!p.col).length;
+   });
+   assert.ok(bonusStageShells>=3,'Stage 11 wave reset retains acquired shotgun shell supply');
    await page.evaluate(()=>startGame());
    const normal=await page.evaluate(()=>({level,health,maxHealth,gear:window.PiraliAlphaGear.status(),active:window.PiraliFullPath.isActive()}));
    assert.equal(normal.level,1);assert.equal(normal.health,5);assert.equal(normal.maxHealth,5);assert.equal(normal.gear.owned,false);assert.equal(normal.active,false);
