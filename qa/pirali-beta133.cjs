@@ -28,7 +28,7 @@ for(const variant of ['play','dev']){
  assert.equal(info.features133.length,3);
  assert.equal(read(now+'/js/features/loot/pickup-visibility.js'),read('beta131-'+variant+'/js/features/loot/pickup-visibility.js'),'Exact original pickup visual restored');
  const css=read(now+'/css/player-stats.css');
- assert.match(css,/left:calc\(50% \+ 23px\);right:auto/);
+ assert.match(css,/left:calc\(50% \+ 23px\)!important;right:auto!important/);
  assert.match(css,/top:10px/);
  assert.match(html,/css\/player-stats\.css\?v=beta133-(?:timer|time-near-pause)/);
  for(const file of ['js/runtime/combat.js','js/runtime/update.js','js/runtime/world.js','js/runtime/game-init.js',
