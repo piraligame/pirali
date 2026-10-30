@@ -23,6 +23,46 @@
   document.addEventListener('pirali:languagechange',refreshPrivacyLabel);
   document.addEventListener('keydown',event=>{if(event.key==='Escape')document.getElementById('pirali-privacy-overlay')?.remove()});
 
+
+  // Make the community link part of the core menu. This also protects against
+  // a cached Full Route script which may not include the community addition.
+  const communityLabels={ka:'გეიმერების საზოგადოება',en:'Gaming Community',ru:'Сообщество игроков',zh:'玩家社区'};
+  function ensureCommunity(actions){
+    if(!actions?.isConnected)return;
+    const records=actions.querySelector('.menu-records');
+    if(!records)return;
+    let link=actions.querySelector('.pirali-community-menu');
+    if(!link){
+      link=document.createElement('a');
+      link.className='pirali-community-menu';
+      link.href='https://www.facebook.com/share/1LfEa8WSfU/';
+      link.target='_blank';
+      link.rel='noopener noreferrer';
+      link.setAttribute('aria-label','Georgian Gamers Guild — Facebook');
+      const emblem=document.createElement('img');
+      emblem.src='assets/icons/ggg-community.webp';
+      emblem.alt='Georgian Gamers Guild';
+      emblem.width=36;emblem.height=36;
+      const label=document.createElement('span');
+      label.className='pirali-community-label';
+      const arrow=document.createElement('span');
+      arrow.className='pirali-community-external';
+      arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');
+      link.append(emblem,label,arrow);
+      actions.insertBefore(link,records);
+    }
+    const full=actions.querySelector('.pirali-full-menu');
+    if(full&&full.nextElementSibling!==link)actions.insertBefore(link,full.nextSibling);
+    else if(!full&&link.nextElementSibling!==records)actions.insertBefore(link,records);
+    const label=link.querySelector('.pirali-community-label');
+    const nextText=communityLabels[window.PiraliLanguage?.getLanguage?.()||'ka']||communityLabels.ka;
+    if(label&&label.textContent!==nextText)label.textContent=nextText;
+  }
+  document.addEventListener('pirali:languagechange',()=>{
+    const actions=document.querySelector('#screen .main-menu-panel .menu-actions');
+    if(actions)ensureCommunity(actions);
+  });
+
   function addMenuPanel(){
     if(screen.classList.contains('gameover-screen')||screen.classList.contains('victory-screen'))return;
     if(screen.querySelector('.main-menu-panel'))return;
@@ -51,6 +91,10 @@
     actions.appendChild(records);
     window.PiraliStats?.mountMenu(actions);
     card.appendChild(actions);
+    // Track subsequent Full Route insertion; never remove or duplicate this link.
+    const communityObserver=new MutationObserver(()=>ensureCommunity(actions));
+    communityObserver.observe(actions,{childList:true});
+    ensureCommunity(actions);
     window.PiraliCheckpoint?.mountMenu(card);
     window.PiraliPlayerIdentity?.mountMenu(card);
 
