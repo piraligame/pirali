@@ -61,6 +61,17 @@ function addOne(){
  return true;
 }
 function supply(){
+ // Stage 11 resets pickups on entering the graveyard. Keep shotgun
+ // ammunition available there after the gun has been acquired.
+ if(window.PiraliAlphaGear?.status?.().owned===true){
+  const remaining=pickups.filter(p=>!p.col&&p.type==='alpha-shells').length;
+  for(let i=remaining;i<3;i++){
+   const angle=i*2.39996323,dist=105+i*60;
+   const x=Math.max(55,Math.min(WW-55,P.x+Math.cos(angle)*dist));
+   const y=Math.max(220,Math.min(WH-160,P.y+Math.sin(angle)*dist));
+   pickups.push({x,y,bob:(i*.8)%6.283,col:false,type:'alpha-shells'});
+  }
+ }
  const waiting=pickups.filter(pk=>!pk.col&&(pk.type==='ammo'||pk.type==='health'));
  if(waiting.length>=65)return;
  const exact=12*window.PiraliDropBalance.endlessRestockMultiplier+ammoRemainder;
