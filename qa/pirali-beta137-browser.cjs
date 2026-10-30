@@ -83,13 +83,13 @@ async function run(){
    }
    const newCombat=await page.evaluate(()=>{
      const api=window.PiraliEnemyRange137,rules=api.rules;
-     const player={x:130,y:190},visibleEnemy={x:75,y:190,r:12},hiddenEnemy={x:510,y:190,r:12};
+     const player={x:camX+130,y:camY+190},visibleEnemy={x:camX+75,y:camY+190,r:12};
      const clear=api.mayFire(visibleEnemy,player,[],315);
-     const treeBlocked=api.mayFire(visibleEnemy,player,[{x:102,y:190,r:20}],315);
-     const tooFar=api.mayFire(visibleEnemy,{x:800,y:190},[],315);
+     const treeBlocked=api.mayFire(visibleEnemy,player,[{x:camX+102,y:camY+190,r:20}],315);
+     const tooFar=api.mayFire(visibleEnemy,{x:camX+800,y:camY+190},[],315);
      const deadBullet={fp:false,alive:true,vx:4,vy:0,maxTravel137:40};
      const early=api.expired(deadBullet,8),late=api.expired(deadBullet,3);
-     const draw=async fp=>{
+     const draw=fp=>{
        const cv=document.createElement('canvas');cv.width=90;cv.height=90;
        const ctx=cv.getContext('2d');
        window.PiraliBulletArt136.drawProjectile(ctx,{fp,alive:true,vx:8,vy:0},45,45);
@@ -100,7 +100,7 @@ async function run(){
        }
        return {w:maxx-minx+1,h:maxy-miny+1};
      };
-     return {rules,clear,treeBlocked,tooFar,early,late,playerArt:await draw(true),enemyArt:await draw(false)};
+     return {rules,clear,treeBlocked,tooFar,early,late,playerArt:draw(true),enemyArt:draw(false)};
    });
    assert.equal(newCombat.rules.sightAcquire,455);
    assert.equal(newCombat.rules.rifleFire,315);
