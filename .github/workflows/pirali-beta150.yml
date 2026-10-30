@@ -1,0 +1,34 @@
+name: PIRALI Beta 1.50 Thin Green Armor and Stage 4 QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta150-play/**'
+      - 'beta150-dev/**'
+      - 'scripts/prepare-android-beta150.cjs'
+      - 'qa/pirali-beta150.cjs'
+      - 'qa/pirali-beta150-browser.cjs'
+      - '.github/workflows/pirali-beta150.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beta150:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test Beta 1.50 armor, stage 4 and binary asset parity
+        run: node qa/pirali-beta150.cjs
+      - name: Preserve baseline Beta 1.49 regressions
+        run: node qa/pirali-beta149.cjs
+      - name: Verify unsigned Player-only Android bundle preparation
+        run: node scripts/prepare-android-beta150.cjs
+      - name: Install mobile Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Player and Developer mobile browser checks
+        run: node qa/pirali-beta150-browser.cjs
