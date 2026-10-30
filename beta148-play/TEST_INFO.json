@@ -1,0 +1,425 @@
+{
+  "version": "1.48-beta.1",
+  "role": "player-online-web",
+  "stages": 11,
+  "previewControls": false,
+  "firebaseWritesBlocked": false,
+  "androidBuilt": false,
+  "aabBuilt": false,
+  "qa": "qa/pirali-beta126.cjs and live mobile browser smoke",
+  "base": "0.16.3l DEV",
+  "revision": "beta1261-required-name-persistent-local-player-stats",
+  "enemyHpMultiplier": 0.85,
+  "ammoDropMultiplier": 1.15,
+  "leaderboardPath": "/pirali_beta_rating",
+  "firebaseLegacyMigration": "PENDING: admin access and backup required",
+  "season": "pirali_beta_1_0_s1",
+  "startLevel": 1,
+  "startScore": 0,
+  "newPlayerStats": true,
+  "firebasePath": "/pirali_beta_rating",
+  "releaseReady": false,
+  "maxStoryPoints": 5000,
+  "maxEndlessBonusPoints": 2000,
+  "maxTotalPoints": 7000,
+  "stage9Shooters": 15,
+  "stage11LiveCap": 10,
+  "stage11Difficulty": {
+    "ordinaryEnemyHpMultiplierFromPrevious": 0.9,
+    "bossHpMultiplierFromPrevious": 0.9
+  },
+  "stage5Theme": "light pink",
+  "devilReward": {
+    "type": "hell-coins",
+    "points": 250
+  },
+  "firebaseValidation": "Firebase live permissions not verified",
+  "leaderboardDisplayName": "ფირალი ბეტა რეიტინგი",
+  "legacyAlpha015LeaderboardPath": "/scores",
+  "previousAlpha0165ExperimentPath": "/scores_11stage_s1_5k_2026",
+  "firebaseLiveValidation": "BETA 1.07 final score 7000 remains browser-tested only; live Firebase rules might still cap at 5500.",
+  "displayVersion": "BETA 1.45 PLAYER",
+  "firebaseTransport": "PUT /pirali_beta_rating/<runId>.json",
+  "resultRankMode": "best score among all unique players, including outside TOP 30",
+  "firebaseSavedNotice": "hidden when confirmed; errors still shown",
+  "pcMovement": "WASD / arrow keys / mouse drag left",
+  "mobileControlsPreserved": true,
+  "stage11EnemiesPerWave": 10,
+  "stage11PointsPerWave": [
+    300,
+    300,
+    400,
+    400,
+    600
+  ],
+  "stage11": {
+    "enemiesPerWave": 10,
+    "additionalStrengthReduction": -0.1,
+    "totalWaveEnemies": 50,
+    "bossesWave4": 1,
+    "bossesWave5": 2,
+    "wavePoints": [
+      300,
+      300,
+      400,
+      400,
+      600
+    ]
+  },
+  "waveMode": "Five 10-enemy gradual waves; no landlords, 1 general in wave 4, 2 generals in wave 5; win only after house entry.",
+  "globalAdditionalEnemyStrengthReduction": 0.1,
+  "globalAmmoDropBoostRelative": 0.1,
+  "globalHeartDropBoostRelative": 0.1,
+  "qaEvidence": [
+    "qa/pirali-beta110-hearts.cjs"
+  ],
+  "maxHealthUpgrades": {
+    "stage7": "General large heart: 5→6",
+    "stage10": "Devil large heart: 6→7",
+    "oneTimePerRun": true,
+    "checkpointPersists": true,
+    "normalHeartsHealOnly": true,
+    "exitRequiresPickup": true,
+    "locales": [
+      "ka",
+      "en-US",
+      "ru",
+      "zh"
+    ]
+  },
+  "mapAsset": "assets/maps/pirali-approved.webp",
+  "localizedCampaignMap": "Owner-selected illustrated 11-stage map, live translated KA/US EN/RU/ZH captions",
+  "inGameMiniMap": {
+    "enabled": true,
+    "worldRelative": true,
+    "playerHeading": true,
+    "enemyAndPickupMarkers": true,
+    "goalForStages7_10_11": true,
+    "hideShow": true,
+    "locales": [
+      "ka",
+      "en",
+      "ru",
+      "zh"
+    ]
+  },
+  "stage11Title": {
+    "ka": "გზა სახლისაკენ 🇬🇪",
+    "en": "Road Home 🇬🇪",
+    "ru": "Дорога домой 🇬🇪",
+    "zh": "回家的路 🇬🇪"
+  },
+  "minimapPosition": {
+    "side": "left",
+    "anchor": "#ui > .ui-panel:first-child",
+    "gapPx": 6,
+    "responsive": true
+  },
+  "minimapEnemyMarkers": {
+    "fill": "#ff2a2a",
+    "radius": 4.2,
+    "stroke": "#5a0000",
+    "previousRadius": 2.5
+  },
+  "stage11HealingPickupIncreaseRelative": 0.15,
+  "stage11HealthSystem": "Regular healing hearts +15% per periodic supply roll in stage 11; maximum capacity remains 7. No effect on levels 1–10.",
+  "mapArtworkStatus": "Pending replacement of existing tiny compressed placeholder with owner-uploaded high-resolution original.",
+  "features126": [
+    "coordinated sword/rifle/officer squads",
+    "telegraphed boss crossfire and devil inferno (volley replacement)",
+    "visual-only impact reaction",
+    "spatial AI + tree collision indexing",
+    "boss/goal minimap markers"
+  ],
+  "mandatoryRegistration": {
+    "minimumLetters": 3,
+    "maxCharacters": 14,
+    "skipAllowed": false,
+    "confirmOnlyWhenValid": true,
+    "languages": [
+      "ka",
+      "en",
+      "ru",
+      "zh"
+    ],
+    "storage": "existing pirali_player_name key in origin-local localStorage",
+    "statsStorage": "existing per-name local device profile with legacy invalid-name migration"
+  },
+  "features127": [
+    "destructible crates/carts and rigid roadside barricades",
+    "responsive HUD/stage stars",
+    "lower render allocations, capped props",
+    "polished required-name and profile UI",
+    "offline same-name validated merge backups"
+  ],
+  "features1271": [
+    "statistics backup menu button removed",
+    "automatic mirrored local statistics safety copy",
+    "on-pagehide and visibility loss backup flush",
+    "recover missing or malformed personal statistics from local copy",
+    "no automatic downloads or cloud syncing"
+  ],
+  "features1272": [
+    "stage stars card moved upward 36/42 CSS pixels to clear centered stage banner",
+    "minimap lower visual legend DOM/CSS removed",
+    "minimap padding tightened without changing markers or toggle"
+  ],
+  "features128": [
+    "medal/laurel reward HUD moved underneath score panel",
+    "minimap frame width tightly matched to canvas and label width",
+    "developer test panel lower to avoid reward row overlap",
+    "all Beta 1.27.2 gameplay mechanics unchanged"
+  ],
+  "features1281": [
+    "false Firebase write error removed in read-only web preview",
+    "real public Firebase READ retained; preview write remains disabled",
+    "local score save explicitly marked local, no retry button",
+    "unsent preview rank and personal-best/online footer removed from outcomes",
+    "official-only rank widget still available after release enablement"
+  ],
+  "firebaseWrites": false,
+  "features1282": [
+    "restore result rank card",
+    "show projected position based on points in THIS run not old personal best",
+    "keep extra TOP30/best/online footer removed",
+    "keep preview Firebase writes disabled and fake connection warning suppressed"
+  ],
+  "features1283": [
+    "restore exact Beta 1.26 result rank layout and personal-best ranking",
+    "show original TOP 30 and personal best / online rank details in ranking card",
+    "keep current attempt score in central score card",
+    "retain Beta 1.28.2 visual/gameplay and Beta 1.28.1 Firebase preview write restrictions"
+  ],
+  "premiumFullRoute": {
+    "name": "სიმონას სრული გზა",
+    "priceGEL": 0,
+    "paymentEnabled": false,
+    "unlocksWhen": "stage10 completed, stage11 reached",
+    "stageAccess": 11,
+    "startingHearts": 7,
+    "shotgun": true,
+    "pointsMultiplier": 0.2,
+    "checkpointProtected": true,
+    "profileScoped": true,
+    "shellDropsAllStagesIfOwned": true,
+    "shellPlacementAllStagesIfOwned": true
+  },
+  "features132": [
+    "capped paired impact flashes and directional muzzle streaks; unchanged damage/cooldowns",
+    "three-role AI steering refinement; unchanged movement speeds, shots and HP",
+    "high contrast shape-coded ammo/heart/shell outlines; unchanged pickup mechanics",
+    "boss warning progress and second general readout; unchanged attacks/timings",
+    "offscreen bullet draw culling and allocation-reduced minimap; no graphics selector"
+  ],
+  "features133": [
+    "Ground-item outlines reverted exactly to Beta 1.31 in Player and Developer",
+    "Developer-only latest-changes comparison switch under immortality (Beta 1.32 combat/AI/boss/performance on/off without reload)",
+    "In-game stage timer positioned immediately right of top-center pause button, without overlap"
+  ],
+  "developerComparison": null,
+  "features134": [
+    "original synthesized audio accents for Mauser, shotgun, sword and impact",
+    "subtle pulse only for last health heart",
+    "cosmetic walking/running cloth sway refinement without input changes",
+    "winner stats and stage completion polish with score, real combo and achievements",
+    "Developer test panel underneath minimap"
+  ],
+  "features135": [
+    "cinematic menu matching approved reference: visible original Simona background portrait",
+    "full original introduction moved to right-hand background and remains translated in all four languages",
+    "language selector moved below action buttons",
+    "player's existing saved name immediately below My Statistics",
+    "scrollable responsive small-screen menu without modifying player gameplay or developer tools"
+  ],
+  "menuLayout": "portrait-lowered-v136",
+  "features136": [
+    "menu about 100px lower in mobile portrait; scroll all menu actions; full Simona face visible",
+    "ammo ground pickups are small solid vertical brass cartridges, no outline ring",
+    "flying bullets are narrow direction-aligned metallic projectiles instead of dots",
+    "shotgun shell halo removed; heart and other pickup visuals unchanged",
+    "Developer comparison toggles Beta 1.36 visuals only; previous Beta 1.34 improvements preserved"
+  ],
+  "features137": [
+    "enemy fired bullets visually doubled in length and thickness; same damage and hitbox; Simona bullets unchanged",
+    "ordinary enemy detection sight 560 -> 455 acquisition, 475 hold with existing tree occlusion",
+    "rifle shooting distance 380 -> 315 and officer 450 -> 365, require visible shooter and clear trees",
+    "enemy projectile travel capped: rifle 395, officer 445, boss 500, second general 445; old shots still parryable",
+    "all boss types avoid new offscreen or blocked firing, level 11 enemy pursuit and full-stage balance retained"
+  ],
+  "enemyRange137": {
+    "sightAcquire": 455,
+    "sightHold": 475,
+    "rifleFire": 315,
+    "officerFire": 365,
+    "bossFire": 445,
+    "secondGeneralFire": 440,
+    "rifleTravel": 395,
+    "officerTravel": 445,
+    "bossTravel": 500,
+    "secondGeneralTravel": 445,
+    "enemyBulletScale": 2,
+    "playerBulletScale": 1
+  },
+  "features138": [
+    "Movement touch zone constrained to lower-left 48% viewport width, lower 48% viewport height",
+    "Floating joystick base remains anchored at initial thumb position (clamped to safe zone); knob stays within 29 px",
+    "Earlier engagement at 2 px, full joystick strength by 6.5 px, immediate neutral at finger release",
+    "Other fingers, pause, attack buttons, desktop controls, dash and player maximum speed preserved",
+    "Single Developer-only switch compares current bounded joystick against previous floating thumb-follow mode"
+  ],
+  "features139": [
+    "compact responsive menu with visible languages and full Simona portrait",
+    "watchman raises local alarm after 2 seconds",
+    "sneak in brush and high grass breaks on firing or dash",
+    "11 optional side objectives and persistent fictional story letters",
+    "2-soldier delayed ambush using existing enemy count in stages 2-9",
+    "coordinating commander replaces one existing soldier",
+    "three earned cosmetic cloak variants without HP or scoring changes"
+  ],
+  "evolution139": {
+    "roleCounts": "replacement only",
+    "rankedPointsChanged": false,
+    "regularMaxPoints": 5000,
+    "endlessMaxPoints": 2000,
+    "fullPathMultiplier": 0.2,
+    "saveScope": "player-local"
+  },
+  "features140": [
+    "lower compact menu within available vertical space to reveal all of Simona's face while keeping languages visible",
+    "remove sneak touch button and all active stealth, camouflage, slowdown and extra grass mechanics",
+    "retain lookout, leader coordination, optional quests, two-soldier ambush, story collection and cosmetic rewards",
+    "retain Beta 1.38 joystick and original movement, 1.37 enemy sight, 7000 points and full-route balance"
+  ],
+  "evolution140": {
+    "sneakRemoved": true,
+    "menuLayout": "portrait-lower-no-scroll",
+    "pointsUnchanged": true
+  },
+  "features141": [
+    "Side mission text in a dedicated row below hearts and above minimap",
+    "Live minimap lowered dynamically just enough to avoid any overlap",
+    "Automatic four-language, screen-resize, rotation and minimap-collapse layout",
+    "Developer test panel remains below map; game logic and score untouched"
+  ],
+  "objectiveHud141": {
+    "mode": "measured-between-hearts-and-minimap",
+    "scoringChanged": false,
+    "previewOnly": true
+  },
+  "features142": [
+    "Defeat/victory full-screen outcome uses a 2-column action grid and compact summary without vertical scrolling",
+    "Simona's portrait is shown on the left of the original background above the outcome details",
+    "Fit runs on outcome creation, result updates, language switch, viewport resize and rotation",
+    "All results, retry, stats, records, stage 11 flag, scoring and previously approved gameplay are unchanged"
+  ],
+  "outcome142": {
+    "layout": "portrait-first-two-column",
+    "noScrollMobile": true,
+    "gameplayChanged": false,
+    "androidBuilt": false
+  },
+  "features143": [
+    "victory and defeat complete result panel raised toward the upper mark on the user screenshot while keeping score and four actions visible",
+    "menu extends upward and slightly downward into marked available space without covering Simona's eyes or requiring scrolling",
+    "four-language introductory story larger, wider and more balanced in top-right illustrated sky",
+    "mobile fitting, saved game progress, leaderboard and all prior gameplay remain unchanged"
+  ],
+  "ui143": {
+    "outcome": "raised-dynamic-bottom-space",
+    "menu": "expanded-with-no-scroll-safe-fit",
+    "story": "wider-larger-four-language",
+    "gameplayChanged": false
+  },
+  "features144": [
+    "full health, full Mauser ammo, full one-hit shield and 16 shotgun shells preserve on-ground pickups until needed",
+    "primary, dual and stage-11 general bosses gain 20 percent HP; devil also gains faster pursuit and attack interval",
+    "smart boss target leading and readable lateral movement while keeping projectile damage and warning patterns",
+    "all story letter goals auto-collect on approach; stage-2 captive is a human figure who flees when rescued",
+    "active laurel shield appears as a bright yellow upper semicircle instead of green full ellipse",
+    "all previous game versions, scoring, leaderboard, joystick, 11 stages and developer features retained"
+  ],
+  "update144": {
+    "gameplayChanged": true,
+    "heartsPreservedAtFull": true,
+    "ammoPreservedAtFull": true,
+    "shieldPreservedAtFull": true,
+    "shellsPreservedAtFull": true,
+    "bossHealthMultiplier": 1.2,
+    "devilMoveMultiplier": 1.15,
+    "autoQuest": true,
+    "captiveRescue": true,
+    "shieldArc": "yellow-semicircle"
+  },
+  "features145": [
+    "Stage 5 villager shown as restrained human; walking close frees villager and he runs away",
+    "Stage 8 fast back-and-forth sentry patrol target, defeated by actual player bullets or sword, no parchment pickup",
+    "Stage 9 physical 4-hit guard outpost; player gunfire is required, shotgun burst counts as one shot, no parchment pickup",
+    "Stage 11 final letter outside southern house-yard gate, before entering the fenced courtyard",
+    "On replay quests 2, 5, 8, 9 and 11 can be completed again without awarding collection milestones twice",
+    "All existing scoring, joystick, bosses, pickups, leaderboard, saving and Beta 1.44 mechanics retained"
+  ],
+  "quests145": {
+    "villagerStage5": true,
+    "runningLookoutStage8": true,
+    "destructibleOutpostStage9": true,
+    "outpostHits": 4,
+    "lastLetterBeforeYardStage11": true,
+    "scoreChanged": false
+  },
+  "features146": [
+    "All 11 quest objectives replay after restart while saved collection tracks unique mission milestones",
+    "Stage 2 captive is a bound, pale-yellow, lightly clothed NPC freed by touch and running away; not a letter",
+    "Cumulative quest progress (0/11, 3/7/10 cosmetic milestones, 11-complete) shown in Personal Achievements and Collection",
+    "Simona, enemy soldier categories, generals and Devil refined with mobile-friendly top-down uniform and armour details",
+    "Same enemy HP, combat timing, bullet behavior, stage scoring, joystick, Firebase rules and 11 stages",
+    "Player and Developer standalone web previews only; no APK/AAB built"
+  ],
+  "quests146": {
+    "total": 11,
+    "uniqueAcrossRuns": true,
+    "replayableAll": true,
+    "stage2TouchRescue": true,
+    "cosmeticMilestones": [
+      3,
+      7,
+      10
+    ],
+    "scoreChanged": false
+  },
+  "features147": [
+    "Remove top combo gauge, bottom enemy-counter and large canvas kill streak/sword popups",
+    "One compact center translucent popup for combos, kills and all picked-up items",
+    "Quick fade for health, ammo, shells, shield, medals, Devil coins and completed quest notes",
+    "Preserve Beta 1.46 story collection, combo ×2 scoring, boss tactics, joystick and Firebase",
+    "Player/Developer web previews only, no Android APK/AAB"
+  ],
+  "notifications147": {
+    "mode": "single-center",
+    "position": "48%",
+    "backgroundOpacity": 0.26,
+    "visibleOpacity": 0.86,
+    "comboMs": 640,
+    "streakMs": 620,
+    "pickupMs": 580,
+    "questMs": 650,
+    "topComboRemoved": true,
+    "bottomEnemyCounterRemoved": true,
+    "canvasStreakRemoved": true,
+    "scoreChanged": false
+  },
+  "features148": [
+    "Move gameplay camera tracking from 50% screen height to 70%, increasing forward visibility while moving",
+    "Match camera initialization to the same 70% anchor; remove initial-to-moving camera jump",
+    "Keep camera inside world boundaries: the character can shift away from 70% near the top and bottom of a stage",
+    "Preserve Beta 1.47 combo/loot notices, joystick, aim, player movement, enemies, bosses, Firebase, scores, and 11 quests",
+    "Player and Developer web previews; Android release assets are NOT signed or uploaded to Google Play"
+  ],
+  "camera148": {
+    "playerScreenY": 0.7,
+    "priorGameplayScreenY": 0.5,
+    "initialMatchesTracking": true,
+    "worldClamp": true,
+    "zoomUnchanged": true,
+    "physicsUnchanged": true
+  }
+}

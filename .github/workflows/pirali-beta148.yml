@@ -1,0 +1,34 @@
+name: PIRALI Beta 1.48 Camera and Android Web Source QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta148-play/**'
+      - 'beta148-dev/**'
+      - 'scripts/prepare-android-beta148.cjs'
+      - 'qa/pirali-beta148.cjs'
+      - 'qa/pirali-beta148-browser.cjs'
+      - '.github/workflows/pirali-beta148.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beta148:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 70-percent camera and Beta 1.47 content
+        run: node qa/pirali-beta148.cjs
+      - name: Build unsigned Android Player web export
+        run: node scripts/prepare-android-beta148.cjs
+      - name: Verify Beta 1.47 baseline
+        run: node qa/pirali-beta147.cjs
+      - name: Install Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Mobile Chromium camera and gameplay regression
+        run: node qa/pirali-beta148-browser.cjs
