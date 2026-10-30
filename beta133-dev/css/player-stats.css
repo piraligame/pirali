@@ -1,8 +1,8 @@
 /* PIRALI stage 4: local player statistics, achievements and timer. */
 #pirali-time-hud[hidden]{display:none!important;}
 #pirali-time-hud{
-  position:fixed;z-index:22;top:10px;left:calc(50% + 23px);right:auto;
-  box-sizing:border-box;min-width:74px;height:32px;
+  position:fixed;z-index:22;top:10px!important;left:calc(50% + 23px)!important;right:auto!important;
+  box-sizing:border-box;width:82px!important;min-width:0!important;height:32px;
   padding:8px 7px;border-radius:7px;white-space:nowrap;
   background:rgba(13,17,9,.78);border:1px solid rgba(192,161,81,.65);
   color:#f3d895;font:800 12px/1.2 monospace;text-align:center;
@@ -58,7 +58,7 @@ border:1px solid #e1b55c;color:#fff0ba;font:800 14px 'Noto Sans Georgian',sans-s
   #screen .main-menu-panel{flex-shrink:0;}
   #screen .menu-actions{gap:6px;}
   #screen .menu-stats,#screen .menu-records{min-height:43px;font-size:12px;}
-  #pirali-time-hud{top:10px;left:calc(50% + 23px);right:auto;font-size:11px;}
+  #pirali-time-hud{top:10px!important;left:calc(50% + 23px)!important;right:auto!important;font-size:11px;}
   #pirali-stats-overlay .pirali-stats-card{max-height:92vh;padding:12px;}
 }
 @media(max-height:550px){
