@@ -22,7 +22,7 @@ async function run(){
    assert.equal(r.status(),200);
    assert.equal(await page.evaluate(()=>window.PiraliGameVersion),'1.32-classic.'+variant);
    const polish=await page.evaluate(()=>{
-     const fx=window.PiraliFX;
+     const fx=PiraliFX;
      fx.reset();fx.shoot(800,800,0);fx.hit(810,810,false);
      for(let i=0;i<85;i++)fx.hit(810,810,true);
      const snapshot=fx.debug();
