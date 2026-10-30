@@ -1,0 +1,33 @@
+name: PIRALI Beta 1.47 Clean Transparent HUD QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'beta147-play/**'
+      - 'beta147-dev/**'
+      - 'qa/pirali-beta147.cjs'
+      - 'qa/pirali-beta147-browser.cjs'
+      - '.github/workflows/pirali-beta147.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beta147:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Beta 1.47 scripts and baseline parity
+        run: node qa/pirali-beta147.cjs
+      - name: Verify Beta 1.46 quest regression
+        run: node qa/pirali-beta146.cjs
+      - name: Verify Beta 1.45 mission regression
+        run: node qa/pirali-beta145.cjs
+      - name: Install mobile Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Browser check Player and Developer Beta 1.47
+        run: node qa/pirali-beta147-browser.cjs
