@@ -18,6 +18,10 @@ for(const variant of ['play','dev']){
  const html=read(now+'/index.html'),menu=read(now+'/js/menu.js'),demo=read(now+'/js/features/full-path/demo.js'),outcome=read(now+'/js/runtime/outcome.js');
  assert.match(html,/1\.30-classic\./);
  assert.match(menu,/PIRALI • BETA 1\.30/);
+ assert.ok(menu.includes('function ensureCommunity(actions)'),'Core menu always mounts community');
+ assert.ok(menu.includes('communityObserver.observe(actions,{childList:true})'),'Core menu tracks Full Route insertion');
+ assert.ok(menu.includes('https://www.facebook.com/share/1LfEa8WSfU/'),'Core menu uses requested Facebook URL');
+ assert.ok(html.includes('js/menu.js?v=beta130-ggg-core2'),'New core menu URL invalidates cache');
  assert.ok(demo.includes('actions.insertBefore(community,records)'),'Community comes before leaderboard');
  assert.ok(demo.includes('actions.insertBefore(community,full.nextSibling)'),'Community comes after full route');
  assert.match(demo,/გეიმერების საზოგადოება/,'Georgian label');
