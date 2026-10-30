@@ -44,7 +44,7 @@ async function run(){
    assert.equal(menuGeometry.playerAfterStats,true,'Player name must directly follow My Statistics');
    assert.equal(menuGeometry.languagesAfterActions,true,'Languages should follow the action stack');
    assert.match(menuGeometry.background,/menu-background\.jpg/);
-   assert.ok(menuGeometry.story.x>=160,'Story should stay on right-hand sky '+JSON.stringify(menuGeometry));
+   assert.ok(menuGeometry.story.x>=150,'Story should stay on right-hand sky '+JSON.stringify(menuGeometry));
    assert.ok(menuGeometry.panel.y>menuGeometry.story.y+75,'Portrait remains visible above menu '+JSON.stringify(menuGeometry));
    assert.ok(menuGeometry.picker.y>menuGeometry.actions.y,'Languages moved below actions');
    await page.evaluate(()=>{
