@@ -80,7 +80,7 @@ async function run(){
    const pauseBox=await page.locator('#btn-pause').boundingBox();
    assert.ok(timerBox&&pauseBox,'Visible game timer and pause');
    assert.ok(timerBox.x>=pauseBox.x+pauseBox.width+4,'Timer to the right of pause');
-   assert.ok(Math.abs(timerBox.y-pauseBox.y)<=3,'Timer aligned with pause');
+   assert.ok(Math.abs(timerBox.y-pauseBox.y)<=3,'Timer aligned with pause: timer='+JSON.stringify(timerBox)+' pause='+JSON.stringify(pauseBox));
    assert.ok(timerBox.x+timerBox.width<=360,'Timer fits the mobile viewport');
    if(variant==='dev'){
      const test=page.locator('#pirali-scenery-test-panel');
