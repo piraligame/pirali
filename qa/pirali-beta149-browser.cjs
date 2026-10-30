@@ -65,7 +65,7 @@ async function run(){
    assert.match(notice147.streakText,/4/);
    assert.equal(notice147.pointerEvents,'none');
    assert.ok(notice147.background.includes('0.26'),'Compact toast is translucent '+JSON.stringify(notice147));
-   assert.match(notice147.version,/1.48/);
+   assert.match(notice147.version,/1.49/);
    // Approved cinematic menu layout: full translated text outside the card,
    // language options at bottom and saved player label after stats.
    const menuGeometry=await page.evaluate(()=>{
