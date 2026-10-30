@@ -374,7 +374,7 @@ async function run(){
           'No result scrolling '+JSON.stringify({kind,width,height,language,obj}));
         assert.ok(obj.background.startsWith('0%'),'Face-first background left '+obj.background);
         if(height>=690)assert.ok(obj.card.top<=height*.70,
-          'Outcome should be raised toward user's indicated area '+JSON.stringify({kind,width,height,language,obj}));
+          'Outcome raised toward requested marked area '+JSON.stringify({kind,width,height,language,obj}));
         assert.match(obj.score,/884/);
         assert.ok(obj.title.length>0);
         if(height>=700)assert.ok(obj.card.top>=height*.20,
