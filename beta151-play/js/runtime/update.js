@@ -72,16 +72,20 @@ function update(dt){
       warning=boss&&!boss.alive?(window.PiraliHellLoot?.rewardCollected?.()?(window.PiraliBigHearts?.text('need10')||'აიღე დიდი გული!'):'აიღე ეშმაკის ოქროს მონეტები!'):'ჯერ დაამარცხე ეშმაკი!';
     }
     if(allow){
-      const firstFullRoute=oldLevel===10 && !window.PiraliFullPath.unlocked();
-      done=true;window.PiraliStageStars?.onStageComplete(oldLevel,score);
-      window.PiraliPolish?.onStageComplete(oldLevel,score);window.PiraliStats?.completeStage(oldLevel);
-      level=oldLevel+1;
-      if(oldLevel===10)window.PiraliStageScoring?.beginEndless();
-      ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();updateScoreUI();
-      window.PiraliCheckpoint?.save(level);
-      genWorld();window.PiraliStats?.stageReady(level);window.PiraliPolish?.onStageBegin(level);
-      playLevelUp();showBanner(LEVEL_NAMES[level]);updateProgressUI();
-      if(firstFullRoute)window.PiraliRoute151.celebrate();
+      done=true;
+      const enterNextStage=()=>{
+        window.PiraliStageStars?.onStageComplete(oldLevel,score);
+        window.PiraliPolish?.onStageComplete(oldLevel,score);window.PiraliStats?.completeStage(oldLevel);
+        level=oldLevel+1;
+        if(oldLevel===10)window.PiraliStageScoring?.beginEndless();
+        ammo=Math.min(maxAmmo,ammo+6);updateAmmoUI();updateScoreUI();
+        window.PiraliCheckpoint?.save(level);
+        genWorld();window.PiraliStats?.stageReady(level);window.PiraliPolish?.onStageBegin(level);
+        playLevelUp();showBanner(LEVEL_NAMES[level]);updateProgressUI();
+      };
+      if(oldLevel===10){
+        window.PiraliRoute151.celebrate({first:!window.PiraliFullPath.unlocked(), afterMap:enterNextStage, preview:false});
+      }else enterNextStage();
       return;
     }
     if(warning&&!finalChurchNotice){showBanner(warning);finalChurchNotice=true;}

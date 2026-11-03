@@ -25,12 +25,21 @@
     else if (img.complete) img.naturalWidth ? ready() : failed();
     else { img.onload = ready; img.onerror = failed; }
   }
-  function celebrate() {
+  function celebrate({ first = true, afterMap, preview = true } = {}) {
+    if (document.getElementById('route151-unlocked')) return;
+    const language = window.PiraliLanguage?.getLanguage?.() || 'ka';
+    const messages = {
+      ka:['მე-10 ტური დასრულებულია','გაგრძელება','შენ გახსენი „სიმონას სრული გზა“ მთავარ მენიუში!','ტესტში დაბრუნება'],
+      en:['Stage 10 complete','Continue','You unlocked Simona’s Full Route in the main menu!','Return to test'],
+      ru:['Уровень 10 пройден','Продолжить','Вы открыли «Весь путь Симоны» в главном меню!','Вернуться к тесту'],
+      zh:['第10关已完成','继续','你已解锁主菜单中的「西蒙娜的完整旅程」！','返回测试']
+    };
+    const [mapTitle,next,unlocked,returnToTest] = messages[language] || messages.ka;
     const dialog = document.createElement('dialog');
     dialog.id = 'route151-unlocked';
-    const [,,heading,action] = labels();
+    const [,,,action] = labels();
     const title = document.createElement('h2');
-    title.textContent = heading;
+    title.textContent = mapTitle;
     const map = document.createElement('div');
     map.className = 'route151-art';
     const img = new Image();
@@ -46,12 +55,33 @@
     svg.append(line);
     map.append(img,svg);
     const button = document.createElement('button');
-    button.textContent = action;
+    button.textContent = first ? next : action;
     dialog.append(title,map,button);
     document.body.append(dialog);
     dialog.showModal();
-    if (!paused) togglePause();
-    const resume = () => { dialog.close(); dialog.remove(); if (paused) togglePause(); };
+    const pauseHere = running && !paused;
+    if (pauseHere) togglePause();
+    line.style.animationPlayState = 'paused';
+    const animate = () => { line.style.animationPlayState = 'running'; };
+    if (img.decode) img.decode().then(animate, animate);
+    else animate();
+    let showingMap = true;
+    const resume = () => {
+      if (showingMap) {
+        showingMap = false;
+        if (afterMap) afterMap();
+        if (first) {
+          map.remove();
+          title.textContent = '🧭 ' + unlocked;
+          if (!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)
+            title.animate?.([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],{duration:520,easing:'ease-out'});
+          button.textContent = preview ? returnToTest : action;
+          return;
+        }
+      }
+      dialog.close(); dialog.remove();
+      if (pauseHere && paused) togglePause();
+    };
     dialog.onclick = resume;
     dialog.oncancel = e => { e.preventDefault(); resume(); };
     button.focus();

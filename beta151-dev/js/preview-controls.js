@@ -77,9 +77,6 @@ function ready(){
  const replay=toggleBtn('🎬 მე-10 ტურის ფინალი',()=>{
    if(!running || paused || document.getElementById('route151-unlocked'))return;
    window.PiraliRoute151.celebrate();
-   const button=document.querySelector('#route151-unlocked button');
-   const backLabels={ka:'ტესტში დაბრუნება',en:'Return to test',ru:'Вернуться к тесту',zh:'返回测试'};
-   button.textContent=backLabels[window.PiraliLanguage?.getLanguage?.()] || backLabels.ka;
  });
  const note=document.createElement('div');note.textContent='PIRALI BETA 1.51 DEV · Firebase-ში ჩაწერა გამორთულია';note.style.cssText='font:10px system-ui;color:#ccb992;text-align:center';
  el.append(header,row,title,immortality,compare,art,replay,note);document.body.appendChild(el);
