@@ -25,7 +25,18 @@
     else if (img.complete) img.naturalWidth ? ready() : failed();
     else { img.onload = ready; img.onerror = failed; }
   }
-  function celebrate({ first = true, afterMap, preview = true } = {}) {
+  const acknowledged = new Set();
+  function noticeKey() {
+    let name = '';
+    try { name = localStorage.getItem('pirali_player_name') || ''; } catch {}
+    const variant = window.PiraliVisualPreviewReadonly ? 'dev' : 'play';
+    return 'pirali_route_notice_v1:' + variant + ':' + name.normalize('NFKC').trim().toLocaleLowerCase();
+  }
+  function celebrate({ afterMap, preview = true } = {}) {
+    const key = noticeKey();
+    let seen = acknowledged.has(key);
+    try { seen ||= localStorage.getItem(key) === '1'; } catch {}
+    const first = preview || !seen;
     if (document.getElementById('route151-unlocked')) return;
     const language = window.PiraliLanguage?.getLanguage?.() || 'ka';
     const messages = {
@@ -79,10 +90,15 @@
           return;
         }
       }
+      if (first && !preview) {
+        acknowledged.add(key);
+        try { localStorage.setItem(key, '1'); } catch {}
+      }
       dialog.close(); dialog.remove();
       if (pauseHere && paused) togglePause();
     };
-    dialog.onclick = resume;
+    // A tap ending on the map while the player is fighting must not skip it.
+    button.onclick = resume;
     dialog.oncancel = e => { e.preventDefault(); resume(); };
     button.focus();
   }

@@ -84,7 +84,7 @@ function update(dt){
         playLevelUp();showBanner(LEVEL_NAMES[level]);updateProgressUI();
       };
       if(oldLevel===10){
-        window.PiraliRoute151.celebrate({first:!window.PiraliFullPath.unlocked(), afterMap:enterNextStage, preview:false});
+        window.PiraliRoute151.celebrate({afterMap:enterNextStage, preview:false});
       }else enterNextStage();
       return;
     }
