@@ -1,0 +1,6 @@
+/* Beta 1.15: wreath shield HUD, visible only when charge is armed. */
+#inv-herbs.visible{display:inline-flex;align-items:center;gap:3px;padding:5px 8px;border:1px solid #a3e4a5;border-radius:13px;background:rgba(22,74,38,.91);color:#ecffde;box-shadow:0 0 16px rgba(82,241,111,.4);font-weight:900;font-size:16px;animation:laurel-breathe 1.8s ease-in-out infinite}
+#inv-herbs:not(.visible){display:none!important}
+#inv-herbs-n{font-size:12px}
+@keyframes laurel-breathe{0%,100%{box-shadow:0 0 10px rgba(82,241,111,.25)}50%{box-shadow:0 0 23px rgba(82,241,111,.65)}}
+@media(prefers-reduced-motion:reduce){#inv-herbs.visible{animation:none}}
