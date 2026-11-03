@@ -1,0 +1,84 @@
+/* PIRALI Beta 1.43: breathe into the cinematic menu and move complete
+ * victory/defeat results UP, while keeping all buttons in a single viewport.
+ * These styles intentionally do not affect combat or saved data.
+ */
+
+/* Lower portion of the sky: legible story, spread into the pink-marked area.
+   The hero's eyes and face remain outside the menu card. */
+#screen.pirali-menu-135.pirali139-compact.pirali143-menu:not(.gameover-screen):not(.victory-screen) > .menu-story-lore{
+ width:min(58%,320px)!important;
+ right:2.5%!important;
+ top:9px!important;
+ max-height:min(42dvh,295px)!important;
+ overflow:visible!important;
+}
+#screen.pirali-menu-135.pirali139-compact.pirali143-menu > .menu-story-lore p{
+ font-size:clamp(10px,2.95vw,12.5px)!important;
+ line-height:1.25!important;
+ letter-spacing:0!important;
+ color:#35210f!important;
+ text-shadow:0 1px 1px rgba(246,203,119,.45)!important;
+ text-wrap:pretty;
+}
+
+/* Expand ONLY when sufficient physical viewport height exists. On the
+   smallest displays, retain Beta 1.42's no-scroll compact layout. */
+@media (min-height:690px) and (max-width:700px){
+ #screen.pirali143-menu.pirali139-compact .main-menu-panel{
+  padding:8px 10px 7px!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .main-menu-panel .tdeco{
+  font-size:8px!important;line-height:1.25!important;margin-bottom:2px!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .main-menu-panel h1{
+  font-size:clamp(38px,10.6vw,48px)!important;
+  line-height:1.02!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .main-menu-panel .tsub{
+  margin:2px 0 5px!important;
+  font-size:10px!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .main-menu-panel .sbtn{
+  min-height:35px!important;padding:5px 9px!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .menu-actions{
+  gap:4px!important;margin-top:4px!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .menu-actions > button,
+ #screen.pirali143-menu.pirali139-compact .menu-actions > a{
+  min-height:34px!important;padding:4px 7px!important;
+  font-size:clamp(11px,3.25vw,14px)!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .menu-actions .pirali-player-name{
+  min-height:22px!important;padding:3px 6px!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .menu-language{
+  margin-top:4px!important;padding-top:5px!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .menu-lang-title{
+  margin:0 0 3px!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .menu-language-option{
+  min-height:29px!important;padding:4px 1px!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .menu-privacy{
+  margin:2px auto 0!important;
+ }
+ #screen.pirali143-menu.pirali139-compact .menu-version{
+  margin:1px 0 0!important;
+ }
+}
+
+/* The user-marked result target is roughly 15% above the old bottom-anchored
+   layout. Use calculated safe space instead of arbitrary document scrolling. */
+#screen.pirali142-outcome.pirali143-result.gameover-screen,
+#screen.pirali142-outcome.pirali143-result.victory-screen{
+ padding-bottom:var(--pirali143-bottom-space,100px)!important;
+ overflow:hidden!important;
+}
+@media(max-height:620px){
+ #screen.pirali142-outcome.pirali143-result.gameover-screen,
+ #screen.pirali142-outcome.pirali143-result.victory-screen{
+  padding-bottom:var(--pirali143-bottom-space,8px)!important;
+ }
+}

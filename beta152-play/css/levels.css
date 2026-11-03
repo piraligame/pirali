@@ -1,0 +1,32 @@
+/* Long translated stage names: readable and mobile-safe. */
+#level-badge{
+  box-sizing:border-box;
+  max-width:calc(100vw - 22px);
+  min-width:0;
+  width:max-content;
+  padding:4px 11px;
+  font-size:clamp(10px,1.25vw,12px);
+  line-height:1.35;
+  letter-spacing:.7px;
+  overflow-wrap:anywhere;
+  background:rgba(6,4,1,.74);
+  border:1px solid rgba(213,156,49,.37);
+  border-radius:8px;
+  color:#edc47c;
+  text-shadow:0 1px 2px #000;
+}
+#lvlbanner{
+  box-sizing:border-box;
+  max-width:calc(100vw - 22px);
+  min-width:0;
+  width:max-content;
+  padding:clamp(12px,3vw,18px) clamp(14px,5vw,36px);
+  font-size:clamp(17px,4vw,25px);
+  line-height:1.4;
+  white-space:pre-line;
+  overflow-wrap:anywhere;
+}
+@media(max-width:420px){
+  #level-badge{top:92px;font-size:10px;max-width:calc(100vw - 16px);padding:5px 7px;}
+  #lvlbanner{font-size:18px;}
+}

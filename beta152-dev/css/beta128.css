@@ -1,0 +1,61 @@
+/* PIRALI Beta 1.28 — compact minimap and score-side rewards. Layout only. */
+#inventory{
+  position:fixed;
+  left:auto!important;
+  right:12px;
+  top:65px;
+  z-index:25;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+  max-width:min(48vw,215px);
+  gap:4px;
+  pointer-events:none;
+}
+#inventory .inv-item{font-size:12px;max-width:100%;white-space:nowrap;padding:3px 6px}
+#inventory #inv-herbs.visible{font-size:14px;padding:4px 6px}
+#pirali-mini-map{
+  box-sizing:border-box;
+  width:136px!important;
+  max-width:calc(48vw - 8px);
+  min-width:0;
+  padding:4px!important;
+  overflow:hidden;
+}
+#pirali-mini-map-toggle{
+  box-sizing:border-box;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  padding:5px 2px!important;
+}
+#pirali-mini-map-canvas{
+  box-sizing:border-box;
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:1 / 1;
+  margin-top:3px!important;
+}
+#pirali-mini-map.collapsed{width:min(136px,calc(48vw - 8px))!important}
+#pirali-mini-map.collapsed #pirali-mini-map-canvas{display:none!important}
+@media(max-width:530px){
+  #pirali-mini-map{width:111px!important;max-width:calc(48vw - 8px)}
+  #pirali-mini-map.collapsed{width:111px!important;max-width:calc(48vw - 8px)}
+  #pirali-mini-map-toggle{font-size:8px!important;padding:4px 2px!important}
+  #inventory{right:8px;max-width:min(43vw,170px)}
+  #inventory .inv-item{font-size:11px}
+}
+@media(max-height:620px) and (orientation:landscape){
+  #pirali-mini-map{width:105px!important}
+  #pirali-mini-map.collapsed{width:105px!important}
+  #inventory{right:6px;max-width:38vw}
+}
+body.pirali-beta128-dev #pirali-scenery-test-panel{
+  top:124px!important;
+  right:7px!important;
+}
