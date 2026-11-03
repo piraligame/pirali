@@ -6,10 +6,10 @@
 'use strict';
 let pending=0,active=false,overlay=null;
 const STRINGS={
- ka:{button:'სიმონას სრული გზა',title:'სიმონას სრული გზა',description:'ყველა 11 ტური • 7 გული • სანადირო თოფი',locked:'🔒 გაიხსნება მე-10 ტურის დასრულებისა და მე-11 ტურში გადასვლის შემდეგ.',open:'🏆 გზა გახსნილია — აირჩიე ნებისმიერი ტური!',choose:'აირჩიე ტური რუკაზე',back:'← მთავარ მენიუში',fair:'⚖ ამ რეჟიმში ქულები 80%-ით ნაკლებია (×0.2), რათა რეიტინგი სამართლიანი დარჩეს.',tryAgain:'ჯერ გააგრძელე სიმონას თავგადასავალი.'},
- en:{button:'Simona’s Full Route',title:'Simona’s Full Route',description:'All 11 stages • 7 hearts • hunting shotgun',locked:'🔒 Unlock by completing stage 10 and reaching stage 11.',open:'🏆 Route unlocked — choose any stage!',choose:'Choose a stage on the map',back:'← Main menu',fair:'⚖ This mode earns 80% fewer points (×0.2) for fair rankings.',tryAgain:'Continue Simona’s adventure to unlock.'},
- ru:{button:'Весь путь Симоны',title:'Весь путь Симоны',description:'Все 11 уровней • 7 сердец • ружьё',locked:'🔒 Откроется после завершения 10-го уровня и перехода на 11-й.',open:'🏆 Путь открыт — выберите любой уровень!',choose:'Выберите уровень на карте',back:'← Главное меню',fair:'⚖ В этом режиме очки уменьшены на 80% (×0,2).',tryAgain:'Продолжайте путешествие Симоны.'},
- zh:{button:'西蒙娜的完整旅程',title:'西蒙娜的完整旅程',description:'全部11关 • 7颗心 • 猎枪',locked:'🔒 完成第10关并进入第11关后解锁。',open:'🏆 全部路线已解锁，可以选择任意关卡！',choose:'在地图上选择关卡',back:'← 主菜单',fair:'⚖ 此模式得分减少80%（×0.2），确保排行公平。',tryAgain:'请继续西蒙娜的旅程。'}
+ ka:{button:'სიმონას სრული გზა',title:'სიმონას სრული გზა',description:'ყველა 11 ტური • 7 გული • სანადირო თოფი',locked:'🔒 გაიხსნება მე-10 ტურის დასრულებისა და მე-11 ტურში გადასვლის შემდეგ.',open:'🏆 გზა გახსნილია — აირჩიე ნებისმიერი ტური!',choose:'აირჩიე ტური რუკაზე',back:'← მთავარ მენიუში',fair:'⚖ ამ რეჟიმში ქულები 25%-ით ნაკლებია (×0.75), რათა რეიტინგი სამართლიანი დარჩეს.',tryAgain:'ჯერ გააგრძელე სიმონას თავგადასავალი.'},
+ en:{button:'Simona’s Full Route',title:'Simona’s Full Route',description:'All 11 stages • 7 hearts • hunting shotgun',locked:'🔒 Unlock by completing stage 10 and reaching stage 11.',open:'🏆 Route unlocked — choose any stage!',choose:'Choose a stage on the map',back:'← Main menu',fair:'⚖ This mode earns 25% fewer points (×0.75) for fair rankings.',tryAgain:'Continue Simona’s adventure to unlock.'},
+ ru:{button:'Весь путь Симоны',title:'Весь путь Симоны',description:'Все 11 уровней • 7 сердец • ружьё',locked:'🔒 Откроется после завершения 10-го уровня и перехода на 11-й.',open:'🏆 Путь открыт — выберите любой уровень!',choose:'Выберите уровень на карте',back:'← Главное меню',fair:'⚖ В этом режиме очки уменьшены на 25% (×0,75).',tryAgain:'Продолжайте путешествие Симоны.'},
+ zh:{button:'西蒙娜的完整旅程',title:'西蒙娜的完整旅程',description:'全部11关 • 7颗心 • 猎枪',locked:'🔒 完成第10关并进入第11关后解锁。',open:'🏆 全部路线已解锁，可以选择任意关卡！',choose:'在地图上选择关卡',back:'← 主菜单',fair:'⚖ 此模式得分减少25%（×0.75），确保排行公平。',tryAgain:'请继续西蒙娜的旅程。'}
 };
 const lang=()=>window.PiraliLanguage?.getLanguage?.()||'ka';
 const t=key=>(STRINGS[lang()]||STRINGS.ka)[key];
@@ -28,6 +28,7 @@ function unlocked(){
 function isActive(){return active;}
 function clearActive(){active=false;pending=0;document.body.classList.remove('pirali-full-run');}
 function consumeStart(){
+ window.PiraliStageScoring?.resetFraction();
  const stage=pending;pending=0;
  active=unlocked()&&Number.isInteger(stage)&&stage>=1&&stage<=11;
  document.body.classList.toggle('pirali-full-run',active);

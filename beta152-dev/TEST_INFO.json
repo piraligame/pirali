@@ -290,7 +290,7 @@
     "rankedPointsChanged": false,
     "regularMaxPoints": 5000,
     "endlessMaxPoints": 2000,
-    "fullPathMultiplier": 0.2,
+    "fullPathMultiplier": 0.75,
     "saveScope": "developer-local"
   },
   "features140": [

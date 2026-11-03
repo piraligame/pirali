@@ -20,7 +20,7 @@ let endlessBase=0,wavesPaid=0,bonusRemainder=0;
 const safe=(x,limit)=>Math.max(0,Math.min(limit,Number.isFinite(x)?Math.floor(x):0));
 function enterStage(force=false){
  if(current===level&&!force)return;
- current=level;prepared=false;earned=0;coins=0;bonusRemainder=0;
+ current=level;prepared=false;earned=0;coins=0;
  killTotal=killCount=killUnits=medalTotal=medalsPaid=parryTotal=parriesPaid=0;
  killPool=medalPool=parryPool=0;
  if(level>=1&&level<=10){
@@ -29,7 +29,7 @@ function enterStage(force=false){
    baseline=safe(score,PREFIX[level-1]);score=baseline;
  }else if(level===11){
    wavesPaid=0;
-   const saved=window.PiraliCheckpoint?.endlessBase?.();
+   const saved=window.PiraliFullPath?.isActive?.()?null:window.PiraliCheckpoint?.endlessBase?.();
    endlessBase=Number.isFinite(saved)?safe(saved,STORY_CAP):safe(score,STORY_CAP);
    score=endlessBase;
  }
@@ -69,15 +69,17 @@ function update(){
  return base();
 }
 updateScoreUI=update;
+// Keep fractional points across awards and stages within one Full Route run.
+function scaledAward(points){
+ if(!window.PiraliFullPath?.isActive?.())return points;
+ const quarters=points*3+bonusRemainder;
+ bonusRemainder=quarters%4;
+ return Math.floor(quarters/4);
+}
 function grant(amount){
  if(!prepared&&level<=10)return 0;
  const original=Math.max(0,Math.floor(amount));
- const premium=window.PiraliFullPath?.isActive?.()===true;
- // Full Route awards 20% of normal XP/points: 80% less than standard.
- // Carry the remainder to avoid losing tiny awards to integer rounding.
- const total=original+(premium?bonusRemainder:0);
- const requested=premium?Math.floor(total/5):original;
- bonusRemainder=premium?total%5:0;
+ const requested=scaledAward(original);
  const permitted=Math.min(requested,Math.max(0,hardCap(level)-baseline-earned-coins));
  earned+=permitted;
  score=Math.min(hardCap(level),baseline+earned+coins);
@@ -106,7 +108,7 @@ function awardParry(){
 }
 function claimDevilCoins(){
  if(level!==10||!prepared||coins)return false;
- coins=window.PiraliFullPath?.isActive?.()?50:250;score=Math.min(hardCap(level),baseline+earned+coins);
+ coins=scaledAward(250);score=Math.min(hardCap(level),baseline+earned+coins);
  updateScoreUI();return true;
 }
 function beginEndless(){
@@ -116,13 +118,13 @@ function completeWave(n){
  if(level!==11||!Number.isInteger(n)||n!==wavesPaid+1||n<1||n>5)return 0;
  wavesPaid=n;
  const before=score;
- score=endlessBase+(window.PiraliFullPath?.isActive?.()?Math.floor(WAVE_CUMULATIVE[wavesPaid]/5):WAVE_CUMULATIVE[wavesPaid]);updateScoreUI();
+ score=endlessBase+(window.PiraliFullPath?.isActive?.()?WAVE_CUMULATIVE[wavesPaid]*0.75:WAVE_CUMULATIVE[wavesPaid]);updateScoreUI();
  if(typeof showFloatingText==='function')
-   showFloatingText(P.x,P.y-47,'🏆 +'+WAVE_POINTS[n],'#f5da71');
+   showFloatingText(P.x,P.y-47,'🏆 +'+(score-before),'#f5da71');
  return score-before;
 }
 window.PiraliStageScoring=Object.freeze({
- enterStage,prepareStage,awardKill,awardMedal,awardParry,claimDevilCoins,
+ resetFraction:()=>{bonusRemainder=0;},enterStage,prepareStage,awardKill,awardMedal,awardParry,claimDevilCoins,
  stageMax,hardCap,stageBudget:(n)=>BUDGET[n]||0,
  stageEarned:()=>earned+coins,
  potential:()=>({stage:level,baseline,killTotal,killCount,killUnits,medalTotal,

@@ -32,10 +32,11 @@ function devil(b){
 }
 function collect(pk){
  if(level!==10||!pk||pk.type!=='hell-coins')return false;
+ const before=score;
  const awarded=window.PiraliHellScore?.claimHeart();
  if(!awarded)return false;
  rewardCollected=true;
- if(window.PiraliPolish?.onPickup)window.PiraliPolish.onPickup('coins',Number(pk.points)||250);
+ if(window.PiraliPolish?.onPickup)window.PiraliPolish.onPickup('coins',score-before);
  else if(typeof showFloatingText==='function')showFloatingText(pk.x,pk.y-38,t('coinTaken'),'#ffe39a');
  for(let i=0;i<24;i++){
    const a=i*Math.PI*2/24,spd=2+Math.random()*3;
