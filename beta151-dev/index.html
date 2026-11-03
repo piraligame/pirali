@@ -180,7 +180,7 @@ window.PiraliAlpha014Test=true; // Enable 11-stage test controls
 <script src="js/features/map/story-map.js?v=beta115-tutorial"></script>
 <script src="js/platform/mobile-lifecycle.js?v=beta118-input-reset"></script>
 <!-- DEV preview only: stage selection and immortality. No hit/shield/boss shortcuts. -->
-<script src="js/preview-controls.js?v=beta149-display"></script>
+<script src="js/preview-controls.js?v=beta151-finale2"></script>
   <!-- Alpha 0.16.2 modular stage 10 Hell features: loaded in dependency order. -->
 <script src="js/features/hell/text.js?v=beta106-gate"></script>
 <script src="js/features/hell/score-bonus.js?v=beta117-cap"></script>
@@ -247,5 +247,35 @@ window.PiraliAlpha014Test=true; // Enable 11-stage test controls
 <script src="js/features/evolution/menu139.js?v=beta146-quest-total"></script>
 <script src="js/features/hud/objective141.js?v=141-dynamic-layout"></script>
 <script src="js/features/results/outcome142.js?v=143-raised-fit"></script>
+<script>
+(() => {
+  const screen = document.getElementById('screen');
+  function previewFinale() {
+    if (document.getElementById('route151-unlocked')) return;
+    window.PiraliRoute151.celebrate();
+    const dialog = document.getElementById('route151-unlocked');
+    dialog.querySelector('button').textContent = 'ტესტში დაბრუნება';
+    const line = dialog.querySelector('polyline');
+    line.style.animationPlayState = 'paused';
+    const image = dialog.querySelector('img');
+    const animate = () => { line.style.animationPlayState = 'running'; };
+    if (image.decode) image.decode().then(animate, animate);
+    else animate();
+  }
+  function addPreviewButton() {
+    const actions = screen.querySelector('.main-menu-panel .menu-actions');
+    if (!actions || actions.querySelector('.dev-finale-preview')) return;
+    const button = document.createElement('button');
+    button.className = 'dev-finale-preview menu-records';
+    button.type = 'button';
+    button.textContent = '🎬 მე-10 ტურის ფინალი';
+    button.onclick = previewFinale;
+    actions.prepend(button);
+  }
+  new MutationObserver(addPreviewButton).observe(screen, { childList:true, subtree:true });
+  addPreviewButton();
+  if (location.hash === '#finale') previewFinale();
+})();
+</script>
 </body>
 </html>
