@@ -1,0 +1,125 @@
+/* PIRALI 0.14 TEST B1 — only approved Study D HUD polish.
+   The shotgun switch carries its OWN shell icons and exact count.
+   Dash cooldown track follows the dash button directly. No change to game logic. */
+
+/* Former standalone ammo panel collided with the switch. Put shells on the switch. */
+#action-zone #alpha-shell-hud { display:none !important; }
+
+#action-zone #alpha-weapon-switch {
+  position:relative;
+  top:-13px; /* Slightly above previous position, as requested. */
+  align-self:flex-end;
+  margin-right:1px;
+  width:130px;
+  min-width:130px;
+  min-height:58px;
+  height:58px;
+  padding:6px 8px;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  background:linear-gradient(160deg,#624421 0%,#2d200f 52%,#17120e 100%);
+  border:1.5px solid #d7ae62;
+  color:#fae2a9;
+  font-family:'Noto Sans Georgian',sans-serif;
+  box-shadow:0 4px 18px #000b, inset 0 1px 0 #fce3a02b;
+  text-shadow:0 1px 3px #000;
+  -webkit-tap-highlight-color:transparent;
+  pointer-events:all;
+  touch-action:manipulation;
+}
+#action-zone #alpha-weapon-switch[hidden] { display:none !important; }
+#action-zone #alpha-weapon-switch:active { filter:brightness(1.22); transform:scale(.97); }
+
+#action-zone .alpha-switch-name {
+  display:block;
+  max-width:100%;
+  color:#ffe2a6;
+  font:800 11px/1.15 'Noto Sans Georgian',sans-serif;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+#action-zone .alpha-shell-meter {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:17px;
+  gap:4px;
+}
+#action-zone .alpha-shell-cartridges {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  height:16px;
+}
+/* Short copper-tipped shotgun cartridges, distinct from Mauser pistol bullets. */
+#action-zone .alpha-shell-cartridge {
+  position:relative;
+  display:inline-block;
+  width:7px;
+  height:15px;
+  flex:0 0 7px;
+  border-radius:2px 2px 1px 1px;
+  border:1px solid #f2be84;
+  background:linear-gradient(to bottom,#c94a34 0%,#a12f27 63%,#d5a459 64%,#f0cc83 100%);
+  box-shadow:inset 1px 0 #f8cbb065,0 0 5px #f19c4f45;
+}
+#action-zone .alpha-shell-cartridge.is-empty {
+  filter:grayscale(.9);
+  opacity:.24;
+  box-shadow:none;
+}
+#action-zone .alpha-shell-count {
+  min-width:19px;
+  color:#f8e7bc;
+  text-align:right;
+  font:800 12px/1 Georgia,serif;
+  letter-spacing:.2px;
+}
+#action-zone .alpha-switch-selected {
+  border-color:#ffca69 !important;
+  box-shadow:0 0 14px #daa34c55,inset 0 1px 0 #ffecae55 !important;
+}
+
+/* The cooldown has been moved from the top-right corner to above Mo i ager! */
+#action-zone .alpha014-dash-stack {
+  position:relative;
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  pointer-events:none;
+}
+#action-zone #dash-cd {
+  position:absolute;
+  top:auto;
+  right:auto;
+  bottom:calc(100% + 8px);
+  left:50%;
+  transform:translateX(-50%);
+  width:84px;  /* exactly matches the 84px button width */
+  z-index:21;
+  pointer-events:none;
+}
+#action-zone #dash-lbl { display:none; }
+#action-zone #dash-cd-track {
+  height:8px;
+  width:100%;
+  border:1px solid #71c6ef99;
+  border-radius:8px;
+  background:#071d2dbd;
+  overflow:hidden;
+  box-shadow:0 2px 11px #000b;
+}
+#action-zone #dash-fill { height:100%; box-shadow:0 0 11px #60c4f9af; }
+
+@media(max-width:400px) {
+  #action-zone #alpha-weapon-switch { width:126px;min-width:126px; }
+}

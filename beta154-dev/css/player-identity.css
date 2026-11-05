@@ -1,0 +1,15 @@
+/* PIRALI Beta 1.26.1 — mobile-first mandatory identity dialog */
+#pirali-name-registration{position:fixed;inset:0;z-index:999998;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(4,9,9,.96);overscroll-behavior:contain;touch-action:pan-y}
+.pirali-name-card{box-sizing:border-box;width:min(100%,420px);display:flex;flex-direction:column;gap:11px;max-height:calc(100dvh - 36px);overflow:auto;padding:clamp(18px,5vw,30px);border:2px solid #cba05e;border-radius:18px;background:linear-gradient(160deg,#24392c,#111c16 75%);color:#f8e8c7;box-shadow:0 18px 65px #000a;font:15px/1.45 system-ui,sans-serif}
+.pirali-name-card h2{font-size:clamp(22px,5vw,27px);margin:0;color:#ffe0a2;text-align:center}
+.pirali-name-description,.pirali-name-device,.pirali-name-help{margin:0}
+.pirali-name-label{font-weight:600;font-size:13px;color:#f5d19b}
+#pirali-name-input{box-sizing:border-box;width:100%;min-height:52px;padding:12px;border-radius:10px;border:2px solid #987b54;background:#fdf7e9;color:#16251d;font:bold 19px system-ui,sans-serif;outline-offset:2px;touch-action:manipulation}
+#pirali-name-input:focus{outline:3px solid #e5ae54}
+.pirali-name-help{font-size:12px;color:#ffc6aa;min-height:20px}
+.pirali-name-help[data-valid="true"]{color:#baf3bb}
+.pirali-name-confirm{min-height:51px;border-radius:11px;border:1px solid #d7ad6b;background:#c99c4a;color:#172016;font:bold 15px system-ui,sans-serif;cursor:pointer}
+.pirali-name-confirm:disabled{opacity:.39;filter:grayscale(.75);cursor:not-allowed}
+.pirali-name-device{font-size:12px;color:#e2cda5;text-align:center}
+.pirali-player-name{font:600 12px system-ui,sans-serif;text-align:center;color:#e4c18c;padding:4px 8px;overflow-wrap:anywhere}
+.pirali-player-name[hidden]{display:none!important}

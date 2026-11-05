@@ -1,0 +1,176 @@
+{
+  "rules": {
+    "scores": {
+      ".read": true,
+      ".write": true,
+      ".indexOn": [
+        "score"
+      ]
+    },
+    "pirali_beta_rating": {
+      ".read": true,
+      ".indexOn": [
+        "score"
+      ],
+      "$record": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['name','score','level','season','gameVersion','win','churchCleared','hellCleared','naganCleared','kills','endlessKills','durationMs','runId','ts']) && newData.child('season').val() === 'pirali_beta_1_0_s1' && newData.child('runId').val() === $record",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 20"
+        },
+        "score": {
+          ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= 5500"
+        },
+        "level": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 11"
+        },
+        "season": {
+          ".validate": "newData.val() === 'pirali_beta_1_0_s1'"
+        },
+        "gameVersion": {
+          ".validate": "newData.isString() && newData.val().length <= 30"
+        },
+        "win": {
+          ".validate": "newData.isBoolean()"
+        },
+        "churchCleared": {
+          ".validate": "newData.isBoolean()"
+        },
+        "hellCleared": {
+          ".validate": "newData.isBoolean()"
+        },
+        "naganCleared": {
+          ".validate": "newData.isBoolean()"
+        },
+        "kills": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+        },
+        "endlessKills": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+        },
+        "durationMs": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 86400000"
+        },
+        "runId": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 90"
+        },
+        "ts": {
+          ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now + 300000"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "pirali_release_152_rating": {
+      ".read": true,
+      ".indexOn": [
+        "score"
+      ],
+      "$record": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['name','score','level','season','gameVersion','win','churchCleared','hellCleared','naganCleared','kills','endlessKills','durationMs','runId','ts']) && newData.child('season').val() === 'pirali_release_152_s1' && newData.child('runId').val() === $record && newData.child('gameVersion').val() === '1.52-beta.1'",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 20"
+        },
+        "score": {
+          ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= 7000"
+        },
+        "level": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 11"
+        },
+        "season": {
+          ".validate": "newData.val() === 'pirali_release_152_s1'"
+        },
+        "gameVersion": {
+          ".validate": "newData.isString() && newData.val() === '1.52-beta.1'"
+        },
+        "win": {
+          ".validate": "newData.isBoolean()"
+        },
+        "churchCleared": {
+          ".validate": "newData.isBoolean()"
+        },
+        "hellCleared": {
+          ".validate": "newData.isBoolean()"
+        },
+        "naganCleared": {
+          ".validate": "newData.isBoolean()"
+        },
+        "kills": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+        },
+        "endlessKills": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+        },
+        "durationMs": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 86400000"
+        },
+        "runId": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 90"
+        },
+        "ts": {
+          ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now + 300000"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "pirali_release_154_rating": {
+      ".read": true,
+      ".indexOn": [
+        "score"
+      ],
+      "$record": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['name','score','level','season','gameVersion','win','churchCleared','hellCleared','naganCleared','kills','endlessKills','durationMs','runId','ts']) && newData.child('season').val() === 'pirali_release_154_s1' && newData.child('runId').val() === $record && newData.child('gameVersion').val() === '1.54-beta.1'",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 20"
+        },
+        "score": {
+          ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= 7000"
+        },
+        "level": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 11"
+        },
+        "season": {
+          ".validate": "newData.val() === 'pirali_release_154_s1'"
+        },
+        "gameVersion": {
+          ".validate": "newData.isString() && newData.val() === '1.54-beta.1'"
+        },
+        "win": {
+          ".validate": "newData.isBoolean()"
+        },
+        "churchCleared": {
+          ".validate": "newData.isBoolean()"
+        },
+        "hellCleared": {
+          ".validate": "newData.isBoolean()"
+        },
+        "naganCleared": {
+          ".validate": "newData.isBoolean()"
+        },
+        "kills": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+        },
+        "endlessKills": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+        },
+        "durationMs": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 86400000"
+        },
+        "runId": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 90"
+        },
+        "ts": {
+          ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now + 300000"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+﻿{
+    "apk":  "PIRALI_Beta_1.54_Reset_Signed_v23.apk",
+    "firebaseWritesEnabled":  true,
+    "oldLeaderboardPreserved":  true,
+    "aab":  "PIRALI_Beta_1.54_Reset_Play_v23.aab",
+    "builtOn":  "2026-11-05T12:42:50.7931561+04:00",
+    "apkSha256":  "6012F8FF999A8FE8CFAA414213D124CE6065D21CA62B60A257CB4E734EDD8B66",
+    "leaderboardPath":  "/pirali_release_154_rating",
+    "season":  "pirali_release_154_s1",
+    "versionCode":  23,
+    "aabSha256":  "F2495270CBB92415E2BDD72E0005F060EA2B3EC8DA1AF8EF1C4C8E03EECC4B5A",
+    "certificatesMatchAlpha015":  true,
+    "versionName":  "1.54",
+    "packageId":  "ge.piraligame.pirali",
+    "sourceIndexSha256":  "F53D0E32B52EBA22B7A79C051C9E799542F933701CDA706B57E378CE35306303"
+}

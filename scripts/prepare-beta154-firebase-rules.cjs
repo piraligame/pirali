@@ -1,0 +1,22 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..');
+const backup=path.join(process.env.USERPROFILE,'Documents','PiraliFirebaseBackups','rules-live-before-beta154-20261105.json');
+const pre=JSON.parse(fs.readFileSync(backup,'utf8').replace(/^\uFEFF/,''));
+const rules=pre.rules;
+for(const key of ['scores','pirali_beta_rating','pirali_release_152_rating'])
+ assert.ok(rules[key],'Missing live Firebase path '+key);
+assert.ok(!rules.pirali_release_154_rating,'Target 154 season is not new; abort');
+const old=JSON.parse(JSON.stringify(rules.pirali_release_152_rating));
+const next=JSON.parse(JSON.stringify(old));
+for(const key of ['.validate']) next.$record[key]=next.$record[key].replaceAll('pirali_release_152_s1','pirali_release_154_s1').replaceAll('1.52-beta.1','1.54-beta.1');
+next.$record.season['.validate']=next.$record.season['.validate'].replaceAll('pirali_release_152_s1','pirali_release_154_s1');
+next.$record.gameVersion['.validate']=next.$record.gameVersion['.validate'].replaceAll('1.52-beta.1','1.54-beta.1');
+assert.ok(next.$record.score['.validate'].includes('<= 7000'),'Expected max 7000');
+assert.ok(next.$record['.validate'].includes('pirali_release_154_s1'),'Expected new season');
+assert.ok(next.$record['.validate'].includes('1.54-beta.1'),'Expected new client version');
+rules.pirali_release_154_rating=next;
+const out=path.join(root,'firebase','firebase.beta154.rules.json');
+fs.writeFileSync(out,JSON.stringify(pre,null,2)+'\n');
+fs.writeFileSync(path.join(root,'firebase.beta154.deploy.json'),JSON.stringify({database:{rules:'firebase/firebase.beta154.rules.json'}},null,2)+'\n');
+console.log('Beta 1.54 fresh Firebase season rules prepared, old three paths preserved.');

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 128" role="img">
+<title>Double-barrel hunting shotgun</title>
+<defs>
+<linearGradient id="steel" y2="1" x2="0"><stop stop-color="#d2c4a0"/><stop offset=".35" stop-color="#6d706b"/><stop offset="1" stop-color="#272f32"/></linearGradient>
+<linearGradient id="wood" x2=".2" y2="1"><stop stop-color="#a16c36"/><stop offset="1" stop-color="#40251b"/></linearGradient>
+</defs>
+<path d="M85 57 L238 57 L250 62 L238 67 L86 67Z" fill="url(#steel)" stroke="#212222" stroke-width="3"/>
+<path d="M85 70 L238 70 L250 74 L238 79 L86 79Z" fill="#4e565a" stroke="#1a1e20" stroke-width="3"/>
+<path d="M95 51 L150 51 L160 86 L94 86 L82 76Z" fill="#343a39" stroke="#1b1f21" stroke-width="3"/>
+<path d="M97 73 Q74 76 58 86 L27 107 Q9 115 6 103 L8 84 Q28 65 67 62 L89 57Z" fill="url(#wood)" stroke="#35241a" stroke-width="4"/>
+<path d="M20 91 L49 83 M19 98 L54 88 M57 83 L80 71" stroke="#d3a46c" stroke-width="2" opacity=".65"/>
+<path d="M106 85 L114 103 Q118 110 132 108 L148 96" fill="none" stroke="#9c8c6d" stroke-width="7"/>
+<path d="M105 84 L128 84 L132 89 L109 93Z" fill="#bdad87"/>
+<circle cx="141" cy="68" r="4" fill="#dbc485"/>
+</svg>

@@ -1,0 +1,23 @@
+/* PIRALI Beta 1.41 — mission label gets its own readable row.
+ * Prevent any overlay with the heart panel and minimap in all languages.
+ * The original minimap's alignment is restored outside active gameplay.
+ */
+body.pirali141-quest-hud #pirali139-hud{
+ position:fixed!important;
+ top:var(--pirali141-quest-top)!important;
+ left:var(--pirali141-quest-left)!important;
+ width:var(--pirali141-quest-width)!important;
+ max-width:none!important;
+ box-sizing:border-box!important;
+ padding:4px 6px!important;
+ margin:0!important;
+ font-size:clamp(9px,2.5vw,11px)!important;
+ line-height:1.15!important;
+ text-align:left!important;
+ white-space:normal!important;
+ overflow-wrap:break-word;
+ z-index:23;
+}
+body.pirali141-quest-hud #pirali-mini-map{
+ top:var(--pirali141-map-top)!important;
+}

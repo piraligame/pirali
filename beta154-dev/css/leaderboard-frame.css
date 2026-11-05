@@ -1,0 +1,22 @@
+/* PIRALI Alpha 0.16.1 DEV — actual TOP 30 border; no viewport-height fake frame. */
+#lb-overlay::before{display:none!important;content:none!important}
+#lb-overlay #lb-rank-frame{
+ position:relative;z-index:1;box-sizing:border-box;
+ width:min(100%,420px);max-width:100%;
+ display:flex;flex-direction:column;align-items:center;flex:0 0 auto;
+ padding:20px 13px 16px;margin:2px auto 18px;
+ border:1px solid rgba(200,145,52,.62);border-radius:14px;
+ background:linear-gradient(180deg,rgba(58,38,12,.16),rgba(18,10,2,.12));
+ box-shadow:inset 0 1px rgba(255,217,137,.08),0 0 20px rgba(0,0,0,.24);
+}
+#lb-overlay #lb-rank-frame #lb-title,#lb-overlay #lb-rank-frame #lb-sub,
+#lb-overlay #lb-rank-frame #lb-status{max-width:100%;text-align:center;}
+#lb-overlay #lb-rank-frame #lb-list{
+ box-sizing:border-box;width:100%;max-width:350px;
+ margin:0;flex:0 0 auto;
+}
+#lb-overlay #lb-rank-frame .lb-row{max-width:100%;box-sizing:border-box}
+@media(max-width:430px){
+ #lb-overlay #lb-rank-frame{width:100%;padding:16px 7px 13px;margin-top:0}
+ #lb-overlay #lb-rank-frame #lb-list{max-width:100%}
+}
