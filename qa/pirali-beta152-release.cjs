@@ -8,10 +8,10 @@ for (const variant of ['play', 'dev']) {
   const html = read('index.html');
   const info = JSON.parse(read('RELEASE_INFO.json'));
   assert.match(html, new RegExp("window\\.PiraliGameVersion='1\\.52-classic\\." + variant + "'"));
-  assert.match(html, /window\.PiraliSeasonReleaseEnabled=false;/);
+  assert.ok(html.includes('window.PiraliSeasonReleaseEnabled='+(variant==='play'?'true;':'false;')));
   assert.match(html, /window\.PiraliVisualPreviewReadonly=(true|false);/);
   assert.equal(info.version, '1.52-beta.1' + (variant === 'dev' ? '-dev' : ''));
-  assert.equal(info.firebaseWritesBlocked, true, 'Do not unexpectedly turn on live writes');
+  assert.equal(info.firebaseWritesBlocked, variant === 'dev', 'Only Player may use live writes');
   assert.equal(info.developerOnly, variant === 'dev');
   for (const m of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
     const rel = m[1].split('?')[0];
@@ -34,6 +34,13 @@ for (const variant of ['play', 'dev']) {
   assert.match(scoring, /points\*3\+bonusRemainder/);
   assert.match(scoring, /Math\.floor\(quarters\/4\)/);
   assert.match(scoring, /WAVE_CUMULATIVE\[wavesPaid\]\*0\.75/);
+  const board = read('js/runtime/leaderboard.js');
+  assert.ok(board.includes('/pirali_release_152_rating'));
+  assert.ok(board.includes('pirali_release_152_s1'));
+  assert.ok(board.includes("gameVersion:'1.52-beta.1'"));
+  assert.ok(board.includes('beta152-'));
+  assert.ok(!board.includes("const LB_PATH = FB_URL + '/pirali_beta_rating'"));
+  assert.equal(info.leaderboardPath, '/pirali_release_152_rating');
   const fullPath = read('js/features/full-path/demo.js');
   assert.match(fullPath, /25%-ით/);
   assert.match(fullPath, /25% fewer points/);

@@ -35,7 +35,7 @@
 <script>
 // Release candidate: do not enable real-season writes until launch.
 window.PiraliGameVersion='1.52-classic.play';
-window.PiraliSeasonReleaseEnabled=false; // Beta 1.16 joystick preview: local results only
+window.PiraliSeasonReleaseEnabled=true; // Beta 1.52 new season live-score writes enabled
 window.PiraliVisualPreviewReadonly=false;
 window.PiraliAlpha014Test=false; // Player: no development controls.
 // Developer preview should never alter the real Firebase score database.
@@ -47,10 +47,10 @@ window.PiraliAlpha014Test=false; // Player: no development controls.
   // Allow only create-at-key PUT for the NEW Beta leaderboard.
   // The old Alpha 0.15 /scores path is NEVER writable from this build.
   if(/firebaseio\.com/i.test(url)&&method!=='GET'&&method!=='HEAD'){
-   const prefix='https://pirali-game-default-rtdb.firebaseio.com/pirali_beta_rating/';
+   const prefix='https://pirali-game-default-rtdb.firebaseio.com/pirali_release_152_rating/';
    const target=url.split('?')[0];
    const key=target.startsWith(prefix)?target.slice(prefix.length,-5):'';
-   const allowed=target.endsWith('.json')&&/^beta10-[a-z0-9]+-[a-z0-9]{8,12}$/.test(key);
+   const allowed=target.endsWith('.json')&&/^beta152-[a-z0-9]+-[a-z0-9]{8,12}$/.test(key);
    if(!window.PiraliSeasonReleaseEnabled || method!=='PUT' || !allowed)
     return Promise.reject(new Error('PIRALI: write outside Beta record denied'));
   }

@@ -1,11 +1,11 @@
 const FB_URL  = 'https://pirali-game-default-rtdb.firebaseio.com';
 // New eleven-stage season stays isolated from pre-2026 five-stage /scores records.
 // Legacy /scores are archived intact; new release season begins with an empty independent path.
-const LB_PATH = FB_URL + '/pirali_beta_rating';
-const LB_KEY  = window.PiraliSeasonReleaseEnabled===true?'pirali_lb_beta_1_0_s1_prod':'pirali_lb_beta_1_0_s1_rc';
+const LB_PATH = FB_URL + '/pirali_release_152_rating';
+const LB_KEY  = window.PiraliSeasonReleaseEnabled===true?'pirali_lb_release_152_s1_prod':'pirali_lb_release_152_s1_rc';
 const LB_LIMIT=30;
-const DEV_RUN_KEY='pirali_lb_beta_1_0_s1_rc_runs';
-const SEASON_ID='pirali_beta_1_0_s1';
+const DEV_RUN_KEY='pirali_lb_release_152_s1_rc_runs';
+const SEASON_ID='pirali_release_152_s1';
 function lbT(key){return window.PiraliLanguage?window.PiraliLanguage.t(key):({empty:'ჩანაწერი ჯერ არ არის',loading:'⏳ იტვირთება...',saving:'⏳ ინახება...',saved:'✅ შენახულია',players:'მოთამაშე'})[key]||key;}
 
 
@@ -63,7 +63,7 @@ function lbDevRecords(){
   }catch(e){return [];}
 }
 let lbLastRows=[];
-const SEASON_LABEL='🏆 ფირალი BETA 1.28.1 • TOP 30';
+const SEASON_LABEL='PIRALI BETA 1.52 • TOP 30';
 function lbShowPersonal(rows){
   // The public leaderboard presents EXACTLY the ranked TOP 30.
   // Personal records outside those 30 must not be repeated in a separate leaderboard card.
@@ -104,7 +104,7 @@ async function lbFetch(){
 }
 
 // PLAYER 0.16.5 cloud status and offline retry queue; not shared with DEV.
-const LB_PENDING_KEY='pirali_lb_beta_1_0_s1_pending';
+const LB_PENDING_KEY='pirali_lb_release_152_s1_pending';
 let lbLastPushStatus='idle',lbLastError='',lbRetrying=null,lbLastRetryAt=0;
 function lbPending(){
  try{
@@ -121,10 +121,10 @@ function lbQueue(entry){
  lbSetPending(rows);
 }
 // Write directly to a unique record child, not to the parent with POST.
- // The Firebase /pirali_beta_rating/$record ".write" rule is evaluated for PUT.
+ // The Firebase /pirali_release_152_rating/$record ".write" rule is evaluated for PUT.
 function lbRecordUrl(entry){
  const key=String(entry?.runId||'');
- if(!/^beta10-[a-z0-9]+-[a-z0-9]{8,12}$/.test(key))throw Error('Invalid Beta record key');
+ if(!/^beta152-[a-z0-9]+-[a-z0-9]{8,12}$/.test(key))throw Error('Invalid Beta record key');
  return LB_PATH+'/'+key+'.json';
 }
 function lbSameEntry(data,entry){
@@ -228,7 +228,7 @@ async function lbPush(name, sc, lv, win){
     score : sc,
     level : lv,
     season: SEASON_ID,
-    gameVersion:'1.07-beta.1',
+    gameVersion:'1.52-beta.1',
     win   : !!win,
     churchCleared: Number(lv)>=8 || (Number(lv)===7&&!!win),
     hellCleared: Number(lv)>=11 || (Number(lv)===10&&!!win),
@@ -238,7 +238,7 @@ async function lbPush(name, sc, lv, win){
     kills:Number.isInteger(runStats.kills)?Math.min(100000,Math.max(0,runStats.kills)):0,
     endlessKills:Number.isInteger(runStats.endlessKills)?Math.min(100000,Math.max(0,runStats.endlessKills)):0,
     durationMs:Number.isFinite(runStats.totalMs)?Math.min(86400000,Math.max(0,Math.round(runStats.totalMs))):0,
-    runId:'beta10-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,11),
+    runId:'beta152-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,11),
     ts    : Date.now()
   };
   // No DEV/RC scores may enter Firebase before a formally enabled release.
