@@ -1,0 +1,47 @@
+name: WEEKLY+ Alpha 0.01 Android APK
+on:
+  push:
+    branches: [weekly-plus-alpha001]
+    paths-ignore: ['apks/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Extract and verify WEEKLY+ sources
+        run: |
+          cat .build/source.part* | base64 -d > /tmp/weeklyplus-source.tar.xz
+          echo '0566a5bf04c79f3d0b762aa2cddb95b97f8a3d15a603a19264cdb579e9620ae6  /tmp/weeklyplus-source.tar.xz' | sha256sum -c -
+          tar -xJf /tmp/weeklyplus-source.tar.xz
+      - name: Install Android SDK 36
+        run: sdkmanager --install "platforms;android-36" "build-tools;36.0.0"
+      - name: Compile installable debug APK
+        run: gradle :app:assembleDebug --no-daemon --stacktrace
+      - name: Upload APK as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WEEKLY_PLUS_Alpha_0.01_Debug_APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+      - name: Publish standalone installable APK to branch
+        run: |
+          mkdir -p apks
+          cp app/build/outputs/apk/debug/app-debug.apk apks/WEEKLY_PLUS_Alpha_0.01.apk
+          sha256sum apks/WEEKLY_PLUS_Alpha_0.01.apk
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f apks/WEEKLY_PLUS_Alpha_0.01.apk
+          git commit -m "Build WEEKLY+ Alpha 0.01 installable Android APK" || exit 0
+          git push

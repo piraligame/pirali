@@ -1,5 +1,0 @@
-{
-  "database": {
-    "rules": "firebase/firebase.beta152.rules.json"
-  }
-}
