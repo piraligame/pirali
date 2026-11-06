@@ -25,7 +25,12 @@ jobs:
           echo '0566a5bf04c79f3d0b762aa2cddb95b97f8a3d15a603a19264cdb579e9620ae6  /tmp/weeklyplus-source.tar.xz' | sha256sum -c -
           tar -xJf /tmp/weeklyplus-source.tar.xz
       - name: Install Android SDK 36
-        run: sdkmanager --install "platforms;android-36" "build-tools;36.0.0"
+        run: |
+          echo "ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          SDKM=$(find "${ANDROID_HOME:-/usr/local/lib/android/sdk}/cmdline-tools" -type f -name sdkmanager | head -n 1)
+          echo "sdkmanager path: $SDKM"
+          test -n "$SDKM"
+          "$SDKM" --install "platforms;android-36" "build-tools;36.0.0"
       - name: Compile installable debug APK
         run: gradle :app:assembleDebug --no-daemon --stacktrace
       - name: Upload APK as workflow artifact
