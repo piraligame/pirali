@@ -97,6 +97,47 @@ class PlannerStore(private val context: Context) {
         }) }
         prefs.edit().putString("tasks", ts.toString()).putString("goals", gs.toString()).apply()
     }
+    fun exportBackup():String = JSONObject().apply {
+        put("app","DGIURI")
+        put("format",1)
+        put("exportedAt",java.time.Instant.now().toString())
+        put("tasks",JSONArray(prefs.getString("tasks","[]") ?: "[]"))
+        put("goals",JSONArray(prefs.getString("goals","[]") ?: "[]"))
+        put("settings",JSONObject().apply {
+            put("language",language);put("dark",dark);put("reminder_default",reminderDefault)
+            put("quiet_enabled",quietEnabled);put("quiet_start",quietStart);put("quiet_end",quietEnd)
+        })
+    }.toString(2)
+    fun importBackup(raw:String):Boolean = runCatching {
+        val json=JSONObject(raw)
+        require(json.optString("app")=="DGIURI")
+        val ts=json.getJSONArray("tasks")
+        val gs=json.getJSONArray("goals")
+        for(i in 0 until ts.length()) {
+            val row=ts.getJSONObject(i)
+            require(row.getString("id").isNotBlank() && row.getString("title").isNotBlank())
+            LocalDate.parse(row.getString("date"))
+        }
+        for(i in 0 until gs.length()) { require(gs.getJSONObject(i).getString("id").isNotBlank()) }
+        val opts=json.optJSONObject("settings") ?: JSONObject()
+        prefs.edit().putString("tasks",ts.toString()).putString("goals",gs.toString())
+            .putString("language",opts.optString("language",language).takeIf{ code->DiaryWords.languages.any{it.first==code} } ?: language)
+            .putBoolean("dark",opts.optBoolean("dark",dark))
+            .putInt("reminder_default",opts.optInt("reminder_default",reminderDefault))
+            .putBoolean("quiet_enabled",opts.optBoolean("quiet_enabled",quietEnabled))
+            .putString("quiet_start",opts.optString("quiet_start",quietStart))
+            .putString("quiet_end",opts.optString("quiet_end",quietEnd))
+            .commit()
+        tasks.clear();goals.clear();load()
+        dark=prefs.getBoolean("dark",false)
+        language=prefs.getString("language","ka") ?: "ka";DiaryWords.code=language
+        reminderDefault=prefs.getInt("reminder_default",-1)
+        quietEnabled=prefs.getBoolean("quiet_enabled",false)
+        quietStart=prefs.getString("quiet_start","22:00") ?: "22:00"
+        quietEnd=prefs.getString("quiet_end","08:00") ?: "08:00"
+        ReminderScheduler.rescheduleAll(context,tasks.toList())
+        true
+    }.getOrDefault(false)
     fun addTask(t: PlanTask) { tasks.add(t); persistAndReschedule() }
     fun updateTask(t: PlanTask) { val i = tasks.indexOfFirst { it.id == t.id }; if (i >= 0) { tasks[i] = t; persistAndReschedule() } }
     fun deleteTask(id: String) { tasks.removeAll { it.id == id }; persistAndReschedule() }

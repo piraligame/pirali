@@ -10,8 +10,8 @@ android {
         applicationId = "ge.weeklyplus.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 3
-        versionName = "0.03-alpha"
+        versionCode = 4
+        versionName = "0.04-alpha"
     }
     buildTypes { release { isMinifyEnabled = false } }
     compileOptions {

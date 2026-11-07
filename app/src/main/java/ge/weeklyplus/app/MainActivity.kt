@@ -19,6 +19,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.platform.LocalFocusManager
@@ -52,6 +53,7 @@ class MainActivity : ComponentActivity() {
 private fun WeeklyApp() {
     val context = androidx.compose.ui.platform.LocalContext.current
     val store = remember { PlannerStore(context.applicationContext) }
+    LaunchedEffect(store.onboarded) { if (!store.onboarded) store.finishOnboarding() }
     DiaryWords.code = store.language
     val lang = store.english
     val colors = if (store.dark) darkColorScheme(primary = Color(0xFF79D9AF), secondary = Color(0xFF9BCDB5), background = Color(0xFF12241D), surface = Color(0xFF1D3228), surfaceVariant = Color(0xFF294639))
@@ -91,13 +93,13 @@ private fun WeeklyApp() {
                 ) { insets ->
                     Column(Modifier.fillMaxSize().padding(insets).padding(horizontal = if (tablet) 26.dp else 16.dp)) {
                         Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Box(Modifier.size(42.dp).background(Pine, RoundedCornerShape(14.dp)), contentAlignment = Alignment.Center) { Text("✓", color=Color.White, fontSize=23.sp, fontWeight=FontWeight.Bold) }
+                            Box(Modifier.size(46.dp).background(Brush.linearGradient(listOf(Color(0xFF126850),Color(0xFF29AB88))), RoundedCornerShape(16.dp)), contentAlignment = Alignment.Center) { Text("✓", color=Color.White, fontSize=23.sp, fontWeight=FontWeight.Bold) }
                             Spacer(Modifier.width(10.dp))
                             Column(Modifier.weight(1f)) {
                                 Text(DiaryWords.appName(), style=MaterialTheme.typography.titleLarge, fontWeight = FontWeight.ExtraBold)
                                 Text(tr("შენი დღეები, ლამაზად დაგეგმილი","Your days, beautifully planned"), style=MaterialTheme.typography.labelSmall, color=MaterialTheme.colorScheme.onSurfaceVariant)
                             }
-                            Text("α 0.03", style=MaterialTheme.typography.labelSmall, color=Pine)
+                            Text("α 0.04", style=MaterialTheme.typography.labelSmall, color=MaterialTheme.colorScheme.primary)
                         }
                         if (notice.isNotEmpty()) {
                             Surface(color=Mint,shape=RoundedCornerShape(12.dp)) {
@@ -114,7 +116,7 @@ private fun WeeklyApp() {
                                 "calendar" -> CalendarScreen(store,date,{date=it},view,{view=it},{creating=true},{editing=it},{notice=it})
                                 "goals" -> GoalsScreen(store,{newGoal=true},{editing=it})
                                 "insights" -> InsightsScreen(store)
-                                "settings" -> SettingsScreen(store,::askPermission)
+                                "settings" -> SettingsScreen(store,::askPermission) { notice=it }
                             }
                         }
                     }
@@ -123,20 +125,7 @@ private fun WeeklyApp() {
         }
         if (creating || editing!=null) TaskDialog(store, editing, date, onClose={ creating=false; editing=null }, onInfo={notice=it})
         if (newGoal) GoalDialog(store) { newGoal=false }
-        if (!store.onboarded) AlertDialog(
-            onDismissRequest = { store.finishOnboarding() },
-            title={ Text(tr("მოგესალმება დღიური","Welcome to Diary")) },
-            text={ Column(verticalArrangement=Arrangement.spacedBy(12.dp)) {
-                Text(tr("შენი გეგმები ამ ტელეფონში ინახება. აირჩიე შეხსენების ნაგულისხმევი წესი; მოგვიანებით შეცვლას შეძლებ.","Your plans stay private and on this phone. Choose a default reminder rule. You can change it later."))
-                listOf(-1 to (tr("გამორთული — თავად ჩავრთავ","Off until I enable")), 15 to (tr("15 წუთით ადრე","15 min before")), 0 to (tr("ზუსტად დაწყების დროს","At the start time"))).forEach { (value,label) ->
-                    Row(verticalAlignment=Alignment.CenterVertically, modifier=Modifier.fillMaxWidth().clickable {store.changeReminderDefault(value)}) {
-                        RadioButton(store.reminderDefault==value,{store.changeReminderDefault(value)})
-                        Text(label, fontSize=14.sp)
-                    }
-                }
-            } },
-            confirmButton={Button(onClick={store.finishOnboarding()}) { Text(tr("დაწყება","Start planning")) } }
-        )
+
     }
 }
 
@@ -170,22 +159,24 @@ private fun Heading(title:String,subtitle:String="",action:String?=null,onAction
     }
 }
 @Composable private fun Panel(content:@Composable ColumnScope.()->Unit) {
-    Surface(shape=MaterialShape,color=MaterialTheme.colorScheme.surface,tonalElevation=1.dp, modifier=Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(15.dp),verticalArrangement=Arrangement.spacedBy(10.dp),content=content)
+    Surface(shape=RoundedCornerShape(22.dp),color=MaterialTheme.colorScheme.surface,tonalElevation=1.dp,border=BorderStroke(1.dp,MaterialTheme.colorScheme.outlineVariant.copy(alpha=.55f)), modifier=Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(17.dp),verticalArrangement=Arrangement.spacedBy(12.dp),content=content)
     }
 }
 @Composable private fun Tag(text:String,highlight:Boolean=false) {
     Surface(color=if(highlight) Mint else MaterialTheme.colorScheme.surfaceVariant,shape=RoundedCornerShape(10.dp)) { Text(text,Modifier.padding(horizontal=9.dp,vertical=4.dp),color=if(highlight) DarkPine else MaterialTheme.colorScheme.onSurface,fontSize=11.sp) }
 }
 @Composable
-private fun DateStrip(date:LocalDate,onDate:(LocalDate)->Unit,lang:Boolean) {
+private fun DateStrip(date:LocalDate,onDate:(LocalDate)->Unit,lang:Boolean,mode:String="day") {
+    val prev: () -> Unit = { onDate(when(mode) {"week"->date.minusWeeks(1);"month"->date.minusMonths(1);"year"->date.minusYears(1);else->date.minusDays(1)}) }
+    val next: () -> Unit = { onDate(when(mode) {"week"->date.plusWeeks(1);"month"->date.plusMonths(1);"year"->date.plusYears(1);else->date.plusDays(1)}) }
     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceBetween) {
-        TextButton(onClick={onDate(date.minusDays(1))}) { Text("‹",fontSize=25.sp) }
+        TextButton(onClick=prev) { Text("‹",fontSize=25.sp) }
         Column(horizontalAlignment=Alignment.CenterHorizontally) {
-            Text(date.format(DateTimeFormatter.ofPattern("d MMMM yyyy",DiaryWords.locale())),fontWeight=FontWeight.Bold,fontSize=16.sp)
-            Text(date.dayOfWeek.getDisplayName(TextStyle.FULL,DiaryWords.locale()),fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(when(mode) { "year"->date.year.toString(); "month"->date.format(DateTimeFormatter.ofPattern("LLLL yyyy",DiaryWords.locale()));else->date.format(DateTimeFormatter.ofPattern("d MMMM yyyy",DiaryWords.locale())) },fontWeight=FontWeight.Bold,fontSize=17.sp)
+            Text(if(mode=="year") tr("12 თვის მიმოხილვა","12-month overview") else date.dayOfWeek.getDisplayName(TextStyle.FULL,DiaryWords.locale()),fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        TextButton(onClick={onDate(date.plusDays(1))}) { Text("›",fontSize=25.sp) }
+        TextButton(onClick=next) { Text("›",fontSize=25.sp) }
         TextButton(onClick={onDate(LocalDate.now())}) { Text(tr("დღეს","Today"),fontSize=11.sp) }
     }
 }
@@ -196,13 +187,44 @@ private fun HomeScreen(store:PlannerStore,date:LocalDate,onDate:(LocalDate)->Uni
     val top = today.filter {(it.priorities[date.toString()] ?: 0)>0}.sortedBy {it.priorities[date.toString()] ?: 0}
     var query by remember { mutableStateOf("") }
     var filter by remember { mutableStateOf("all") }
+    var quickTitle by remember(date) { mutableStateOf("") }
+    var sort by remember { mutableStateOf("time") }
+    val overdue = store.tasks.filter { task ->
+        task.repeat == "none" && runCatching { LocalDate.parse(task.date).isBefore(LocalDate.now()) }.getOrDefault(false) && !task.completed.contains(task.date)
+    }.sortedBy { it.date }
     val shown = today.filter { t ->
         (query.isBlank() || t.title.contains(query,ignoreCase=true) || t.details.contains(query,ignoreCase=true)) &&
             (filter=="all" || (filter=="done" && taskComplete(t,date)) || (filter=="open" && !taskComplete(t,date)))
-    }
+    }.let { list -> when(sort) {
+        "name" -> list.sortedBy { it.title.lowercase(DiaryWords.locale()) }
+        "status" -> list.sortedWith(compareBy({taskComplete(it,date)},{it.time.ifBlank { "99:99" }}))
+        else -> list
+    } }
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(15.dp)) {
         Heading(tr("ჩემი დღე","My day"),tr("მთავარზე კონცენტრირდი","Focus on what matters"), "＋") { onAdd() }
         DateStrip(date,onDate,lang)
+        Surface(shape=RoundedCornerShape(21.dp),color=MaterialTheme.colorScheme.surface,shadowElevation=1.dp,border=BorderStroke(1.dp,MaterialTheme.colorScheme.outlineVariant.copy(alpha=.7f))) {
+            Row(Modifier.fillMaxWidth().padding(9.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+                OutlinedTextField(value=quickTitle,onValueChange={quickTitle=it},singleLine=true,
+                    placeholder={Text(tr("სწრაფად დაამატე საქმე...","Quickly add a task..."),fontSize=12.sp)},
+                    modifier=Modifier.weight(1f),shape=RoundedCornerShape(15.dp))
+                FilledIconButton(onClick={store.addTask(PlanTask(title=quickTitle.trim(),date=date.toString()));quickTitle=""},enabled=quickTitle.isNotBlank()) {
+                    Text("+",fontSize=24.sp)
+                }
+            }
+        }
+        if(date==LocalDate.now() && overdue.isNotEmpty()) Panel {
+            Text(tr("დაგვიანებული საქმეები","Overdue tasks")+" · ${overdue.size}",fontWeight=FontWeight.Bold,color=MaterialTheme.colorScheme.error)
+            overdue.take(4).forEach { t ->
+                Row(verticalAlignment=Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(t.title,maxLines=1,overflow=TextOverflow.Ellipsis,fontSize=13.sp,fontWeight=FontWeight.SemiBold)
+                        Text(t.date,fontSize=10.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    TextButton(onClick={store.updateTask(t.copy(date=date.toString(),completed=t.completed-t.date))}) { Text(tr("დღეს გადმოტანა","Move to today"),fontSize=11.sp) }
+                }
+            }
+        }
         Surface(shape=MaterialShape,color=if(store.dark) Color(0xFF254538) else Mint,modifier=Modifier.fillMaxWidth()) {
             Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(10.dp)) {
                 Row(verticalAlignment=Alignment.CenterVertically) {
@@ -230,6 +252,12 @@ private fun HomeScreen(store:PlannerStore,date:LocalDate,onDate:(LocalDate)->Uni
                 Text("${today.count {taskComplete(it,date)}}/${today.size}",color=Pine,fontWeight=FontWeight.Bold)
             }
             if(today.isNotEmpty()) {
+                Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(6.dp)) {
+                    Text(tr("დალაგება:","Sort:"),fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                    listOf("time" to tr("დრო","Time"),"name" to tr("სახელი","Name"),"status" to tr("სტატუსი","Status")).forEach { (v,label) ->
+                        FilterChip(selected=sort==v,onClick={sort=v},label={Text(label,fontSize=10.sp)})
+                    }
+                }
                 LinearProgressIndicator(progress={today.count {taskComplete(it,date)}.toFloat()/today.size},modifier=Modifier.fillMaxWidth().height(6.dp),color=Pine,trackColor=Mint)
                 OutlinedTextField(value=query,onValueChange={query=it},label={Text(tr("საქმის ძიება","Search tasks"))},singleLine=true,modifier=Modifier.fillMaxWidth())
                 Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(6.dp)) {
@@ -241,6 +269,16 @@ private fun HomeScreen(store:PlannerStore,date:LocalDate,onDate:(LocalDate)->Uni
             if(shown.isEmpty()) {
                 Text(if(today.isEmpty()) (tr("ამ დღისთვის საქმე ჯერ არ არის. დაამატე პირველი გეგმა!","No tasks yet. Make your first plan!")) else (tr("ამ ფილტრში საქმე ვერ მოიძებნა","No matches for this filter")),color=MaterialTheme.colorScheme.onSurfaceVariant,fontSize=13.sp)
             } else shown.forEach { t -> TaskRow(t,date,store,onEdit,onInfo) }
+        }
+        if(date==LocalDate.now()) {
+            val tomorrow=date.plusDays(1)
+            val tomorrowCount=store.tasks.count { occurrence(it,tomorrow) && !taskComplete(it,tomorrow) }
+            Surface(shape=MaterialShape,color=MaterialTheme.colorScheme.surfaceVariant.copy(alpha=.65f),modifier=Modifier.fillMaxWidth()) {
+                Row(Modifier.padding(horizontal=14.dp,vertical=10.dp),verticalAlignment=Alignment.CenterVertically) {
+                    Text(tr("ხვალ","Tomorrow")+" · $tomorrowCount ${tr("საქმე","tasks")}",Modifier.weight(1f),fontSize=13.sp,fontWeight=FontWeight.SemiBold)
+                    TextButton(onClick={onDate(tomorrow)}){Text(tr("ნახვა","View"))}
+                }
+            }
         }
         Spacer(Modifier.height(14.dp))
     }
@@ -275,13 +313,16 @@ private fun CalendarScreen(store:PlannerStore,date:LocalDate,onDate:(LocalDate)-
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(14.dp)) {
         Heading(tr("კალენდარი","Calendar"),tr("ნახე დღე, კვირა და თვე","See your plans at a glance"), "＋") {onAdd()}
         SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
-            listOf("day","week","month").forEachIndexed { index,v ->
-                SegmentedButton(selected=view==v,onClick={onView(v)},shape=SegmentedButtonDefaults.itemShape(index,3)) {
-                    Text(when(v){"day"->tr("დღე","Day");"week"->tr("კვირა","Week");else->tr("თვე","Month")},fontSize=12.sp)
+            listOf("day","week","month","year").forEachIndexed { index,v ->
+                SegmentedButton(selected=view==v,onClick={onView(v)},shape=SegmentedButtonDefaults.itemShape(index,4)) {
+                    Text(when(v){"day"->tr("დღე","Day");"week"->tr("კვირა","Week");"month"->tr("თვე","Month");else->tr("წელი","Year")},fontSize=11.sp)
                 }
             }
         }
-        DateStrip(date,onDate,lang)
+        DateStrip(date,onDate,lang,view)
+        if(view=="year") {
+            YearCalendar(store,date,onDate,onView)
+        }
         if(view=="week") {
             val start=date.minusDays((date.dayOfWeek.value-1).toLong())
             Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(3.dp)) {
@@ -328,6 +369,33 @@ private fun CalendarScreen(store:PlannerStore,date:LocalDate,onDate:(LocalDate)-
     }
 }
 
+
+@Composable
+private fun YearCalendar(store:PlannerStore,date:LocalDate,onDate:(LocalDate)->Unit,onView:(String)->Unit) {
+    Panel {
+        Text(tr("წლის კალენდარი","Year calendar"),fontWeight=FontWeight.Bold,fontSize=16.sp)
+        (0..3).forEach { row ->
+            Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+                (1..3).forEach { column ->
+                    val month=row*3+column
+                    val first=LocalDate.of(date.year,month,1)
+                    val days=(1..first.lengthOfMonth()).map { first.withDayOfMonth(it) }
+                    val count=store.tasks.count { task -> days.any { occurrence(task,it) } }
+                    val selected=date.monthValue==month
+                    Surface(shape=RoundedCornerShape(17.dp),border=BorderStroke(1.dp,if(selected) Pine else MaterialTheme.colorScheme.outlineVariant),
+                        color=if(selected) Mint else MaterialTheme.colorScheme.surfaceVariant.copy(alpha=.50f),
+                        modifier=Modifier.weight(1f).clickable { onDate(first); onView("month") }) {
+                        Column(Modifier.padding(vertical=13.dp,horizontal=5.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(3.dp)) {
+                            Text(first.month.getDisplayName(TextStyle.SHORT,DiaryWords.locale()),fontSize=12.sp,fontWeight=FontWeight.Bold,color=if(selected) DarkPine else MaterialTheme.colorScheme.onSurface,maxLines=1)
+                            Text(if(count>0) "$count ${tr("საქმე","tasks")}" else "—",fontSize=10.sp,color=if(selected) Pine else MaterialTheme.colorScheme.onSurfaceVariant,maxLines=1)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @Composable
 private fun GoalsScreen(store:PlannerStore,onAdd:()->Unit,onEditTask:(PlanTask)->Unit) {
     val lang=store.english
@@ -367,12 +435,28 @@ private fun InsightsScreen(store:PlannerStore) {
     val total=days.sumOf {date->store.tasks.count {occurrence(it,date)}}
     val done=days.sumOf {date->store.tasks.count {occurrence(it,date)&&taskComplete(it,date)}}
     val ratio=if(total==0)0 else (100*done/total)
+    val monthStart=end.withDayOfMonth(1)
+    val monthDays=(0 until end.dayOfMonth).map { monthStart.plusDays(it.toLong()) }
+    val monthTotal=monthDays.sumOf { d->store.tasks.count {occurrence(it,d)} }
+    val monthDone=monthDays.sumOf { d->store.tasks.count {occurrence(it,d)&&taskComplete(it,d)} }
+    val streakAnchor=if(store.tasks.any{occurrence(it,end)&&taskComplete(it,end)})end else end.minusDays(1)
+    val streak=(0..365).takeWhile { n->val day=streakAnchor.minusDays(n.toLong());store.tasks.any { occurrence(it,day)&&taskComplete(it,day) } }.count()
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(14.dp)) {
         Heading(tr("ჩემი შედეგები","My results"),tr("ბოლო 7 დღე","Last 7 days"))
         Row(horizontalArrangement=Arrangement.spacedBy(10.dp)) {
             listOf((tr("შესრულებულია","Completed")) to "$done", (tr("შესრულება","Completion")) to "$ratio%").forEach { (label,value)->
                 Surface(shape=MaterialShape,color=MaterialTheme.colorScheme.surface,modifier=Modifier.weight(1f)) {
                     Column(Modifier.padding(15.dp)) { Text(value,fontSize=29.sp,color=Pine,fontWeight=FontWeight.Bold);Text(label,fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant) }
+                }
+            }
+        }
+        Row(horizontalArrangement=Arrangement.spacedBy(10.dp)) {
+            listOf(tr("ამ თვეში","This month") to "$monthDone/$monthTotal",tr("აქტიური დღეები","Day streak") to "$streak").forEach { (label,value)->
+                Surface(shape=MaterialShape,color=MaterialTheme.colorScheme.surface,modifier=Modifier.weight(1f)) {
+                    Column(Modifier.padding(15.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
+                        Text(value,fontWeight=FontWeight.Bold,color=MaterialTheme.colorScheme.primary,fontSize=21.sp)
+                        Text(label,fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
                 }
             }
         }
@@ -402,9 +486,22 @@ private fun InsightsScreen(store:PlannerStore) {
 }
 
 @Composable
-private fun SettingsScreen(store:PlannerStore,requestPermission:()->Unit) {
+private fun SettingsScreen(store:PlannerStore,requestPermission:()->Unit,onInfo:(String)->Unit) {
     val lang=store.english
     val context=androidx.compose.ui.platform.LocalContext.current
+    var pendingBackup by remember { mutableStateOf<String?>(null) }
+    val exportLauncher=rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
+        if(uri!=null) {
+            val result=runCatching { context.contentResolver.openOutputStream(uri)?.bufferedWriter(Charsets.UTF_8)?.use { it.write(store.exportBackup()) } ?: error("Cannot open file") }
+            onInfo(if(result.isSuccess)tr("სარეზერვო ასლი შენახულია","Backup saved") else tr("ასლის შენახვა ვერ მოხერხდა","Backup could not be saved"))
+        }
+    }
+    val importLauncher=rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if(uri!=null) {
+            val result=runCatching { context.contentResolver.openInputStream(uri)?.bufferedReader(Charsets.UTF_8)?.use { it.readText() } ?: error("Cannot read file") }
+            if(result.isSuccess) pendingBackup=result.getOrNull() else onInfo(tr("ფაილის წაკითხვა ვერ მოხერხდა","Cannot read backup file"))
+        }
+    }
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(14.dp)) {
         Heading(tr("პარამეტრები","Settings"),tr("დღიური შენს გემოზე","Make Diary yours"))
         Panel {
@@ -436,10 +533,23 @@ private fun SettingsScreen(store:PlannerStore,requestPermission:()->Unit) {
         Panel {
             Text(tr("მონაცემები და კონფიდენციალურობა","Data & privacy"),fontWeight=FontWeight.Bold)
             Text(tr("ყველაფერი ტელეფონში ინახება. არ არის ანგარიში, რეკლამები და მომხმარებლის თვალთვალი.","Everything is saved locally on your phone. No account, ads or analytics tracking."),fontSize=13.sp)
-            Text(tr("ექსპორტი და ღრუბლოვანი სინქრონიზაცია მომდევნო ვერსიების გეგმაშია.","Backup export and cloud sync are planned for later releases."),fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
+            Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick={exportLauncher.launch("DGIURI_backup_${LocalDate.now()}.json")},modifier=Modifier.weight(1f)) { Text(tr("ასლის შენახვა","Export backup"),fontSize=12.sp) }
+                OutlinedButton(onClick={importLauncher.launch(arrayOf("application/json","text/plain","application/octet-stream"))},modifier=Modifier.weight(1f)) { Text(tr("ასლის აღდგენა","Import backup"),fontSize=12.sp) }
+            }
+            Text(tr("ასლის აღდგენა ჩაანაცვლებს ამჟამინდელ საქმეებს; წინასწარ შეინახე სარეზერვო ასლი.","Import replaces your current tasks. Export a backup first."),fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
         }
         Spacer(Modifier.height(12.dp))
     }
+    if(pendingBackup!=null) AlertDialog(onDismissRequest={pendingBackup=null},
+        title={Text(tr("აღვადგინოთ სარეზერვო ასლი?","Restore backup?"))},
+        text={Text(tr("მიმდინარე ჩანაწერები ჩანაცვლდება. გაგრძელებამდე შეინახე მათი ასლი.","Current entries will be replaced. Back them up first."))},
+        confirmButton={Button(onClick={
+            val imported=store.importBackup(pendingBackup.orEmpty())
+            pendingBackup=null
+            onInfo(if(imported)tr("მონაცემები აღდგენილია","Backup restored") else tr("არასწორი ასლის ფაილია","Invalid backup file"))
+        }){Text(tr("აღდგენა","Restore"))}},
+        dismissButton={TextButton(onClick={pendingBackup=null}){Text(tr("გაუქმება","Cancel"))}})
 }
 
 @Composable
@@ -544,6 +654,11 @@ private fun TaskDialog(store:PlannerStore, old:PlanTask?, day:LocalDate, onClose
                 OutlinedButton(onClick={focusManager.clearFocus();keyboard?.hide();DatePickerDialog(context,{_,y,m,d->date=LocalDate.of(y,m+1,d)},date.year,date.monthValue-1,date.dayOfMonth).show()}){Text("▦ ${date}",fontSize=12.sp)}
                 OutlinedButton(onClick={focusManager.clearFocus();keyboard?.hide();showClock=!showClock}){Text("◷ ${time.ifBlank{tr("აირჩიე საათი","Choose time")}}",fontSize=12.sp)}
                 if(time.isNotEmpty()) TextButton(onClick={time=""}){Text("✕")}
+            }
+            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),horizontalArrangement=Arrangement.spacedBy(6.dp)) {
+                listOf(tr("დღეს","Today") to LocalDate.now(),tr("ხვალ","Tomorrow") to LocalDate.now().plusDays(1),tr("+7 დღე","+7 days") to date.plusDays(7)).forEach { (label,d) ->
+                    FilterChip(selected=date==d,onClick={date=d},label={Text(label,fontSize=11.sp)})
+                }
             }
             if(showClock) InlineClock(time.ifBlank { "09:00" },{time=it},{showClock=false},lang)
             Text(tr("ხანგრძლივობა (არასავალდებულო)","Duration (optional)"),fontSize=12.sp,fontWeight=FontWeight.SemiBold)

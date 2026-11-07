@@ -129,6 +129,34 @@ Other|Другое|其他|Otros|Sonstiges|Autre
 Notifications enabled|Уведомления включены|通知已启用|Notificaciones activadas|Benachrichtigungen aktiviert|Notifications activées
 Notification permission denied|Нет разрешения на уведомления|通知权限已拒绝|Permiso de notificaciones denegado|Benachrichtigungserlaubnis verweigert|Autorisation des notifications refusée
 Notifications available|Уведомления доступны|通知可用|Notificaciones disponibles|Benachrichtigungen verfügbar|Notifications disponibles
+
+Year|Год|年|Año|Jahr|Année
+12-month overview|Обзор 12 месяцев|全年概览|Resumen de 12 meses|12-Monats-Übersicht|Vue des 12 mois
+Year calendar|Календарь года|全年日历|Calendario anual|Jahreskalender|Calendrier annuel
+tasks|задач|任务|tareas|Aufgaben|tâches
+Quickly add a task...|Быстрая задача...|快速添加任务...|Añadir tarea rápida...|Aufgabe schnell hinzufügen...|Ajouter une tâche...
+Overdue tasks|Просроченные задачи|逾期任务|Tareas vencidas|Überfällige Aufgaben|Tâches en retard
+Move to today|На сегодня|移到今天|Mover a hoy|Auf heute verschieben|Déplacer à aujourd’hui
+Sort:|Сортировка:|排序：|Ordenar:|Sortieren:|Trier :
+Time|Время|时间|Hora|Zeit|Heure
+Name|Название|名称|Nombre|Name|Nom
+Status|Статус|状态|Estado|Status|Statut
+Tomorrow|Завтра|明天|Mañana|Morgen|Demain
+View|Посмотреть|查看|Ver|Anzeigen|Voir
++7 days|+7 дней|+7 天|+7 días|+7 Tage|+7 jours
+This month|В этом месяце|本月|Este mes|Diesen Monat|Ce mois-ci
+Day streak|Активных дней подряд|连续完成天数|Días seguidos|Tages-Serie|Jours consécutifs
+Export backup|Сохранить копию|导出备份|Exportar copia|Backup exportieren|Exporter une sauvegarde
+Import backup|Восстановить копию|导入备份|Importar copia|Backup importieren|Importer une sauvegarde
+Backup saved|Резервная копия сохранена|备份已保存|Copia guardada|Backup gespeichert|Sauvegarde enregistrée
+Backup could not be saved|Не удалось сохранить копию|备份保存失败|No se pudo guardar|Backup konnte nicht gespeichert werden|Échec de la sauvegarde
+Cannot read backup file|Не удалось прочитать файл|无法读取备份文件|No se pudo leer el archivo|Datei konnte nicht gelesen werden|Impossible de lire le fichier
+Import replaces your current tasks. Export a backup first.|Импорт заменит текущие задачи. Сначала сохраните копию.|导入将替换当前任务。请先备份。|La importación reemplaza las tareas actuales. Guarda una copia primero.|Import ersetzt aktuelle Aufgaben. Bitte erst sichern.|L’import remplace les tâches actuelles. Sauvegardez-les d’abord.
+Restore backup?|Восстановить резервную копию?|恢复备份？|¿Restaurar copia?|Backup wiederherstellen?|Restaurer la sauvegarde ?
+Current entries will be replaced. Back them up first.|Текущие записи будут заменены. Сначала сохраните копию.|当前记录将被替换。请先备份。|Se reemplazarán las entradas actuales. Haz una copia antes.|Aktuelle Einträge werden ersetzt. Bitte zuerst sichern.|Les entrées actuelles seront remplacées. Faites une sauvegarde.
+Restore|Восстановить|恢复|Restaurar|Wiederherstellen|Restaurer
+Backup restored|Данные восстановлены|备份已恢复|Copia restaurada|Backup wiederhergestellt|Sauvegarde restaurée
+Invalid backup file|Неверный файл копии|无效的备份文件|Archivo de copia inválido|Ungültige Sicherungsdatei|Fichier de sauvegarde invalide
     """.trimIndent().lineSequence().filter { it.isNotBlank() }.mapNotNull { line ->
         val parts = line.split('|')
         if (parts.size == 6) parts[0] to parts.drop(1) else null
