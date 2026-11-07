@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>დღიური · α 0.06 WEB TEST</title>
+<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>დღიური · α 0.06.1 WEB TEST</title>
 <style>
 :root{font-family:system-ui,-apple-system,"Noto Sans Georgian",sans-serif;font-size:14px;color:#203d32;background:#f8faf7;--bg:#f8faf7;--paper:#fff;--forest:#197e65;--ink:#203d32;--muted:#668175;--soft:#e5f4e9;--border:#dce9df;--gold:#e8ae35}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}body.dark{--bg:#142920;--paper:#243d32;--ink:#eef9f1;--muted:#bacfc1;--soft:#2f4d3b;--border:#466150;--forest:#7bdbb5;--gold:#f3bd55}
@@ -105,8 +105,26 @@ body.dark[data-theme="amber"]{--forest:#f6d39b;--soft:#504331;--border:#75634c;-
  .jokerBoard .penalty{font-size:9px;letter-spacing:-.3px}
  .jokerBoard th input{font-size:10px}
 }
+
+/* Alpha 0.06.1 — year overview and explicit year selection */
+.tabs.fourModes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.tabs.fourModes button{font-size:12px;padding:10px 2px;min-width:0;white-space:nowrap}
+.calendarNav{gap:3px}
+.calendarNav button{padding:5px 7px;flex-shrink:0}
+.calendarNav .todayBtn{font-size:14px;padding:7px 5px}
+.calendarDateControls{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;flex:1}
+.calendarDateControls b{font-size:14px;font-weight:800;line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.calYear{width:95px;max-width:100%;border:1px solid var(--border);border-radius:10px;background:var(--paper);color:var(--forest);padding:5px 7px;font-size:13px;font-weight:800;text-align:center}
+.yearGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.yearMonth{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:15px;min-width:0;min-height:91px;background:var(--paper);border:1px solid var(--border);color:var(--ink);padding:12px 4px;text-align:center}
+.yearMonth.selectedMonth{border:2px solid var(--forest);background:var(--soft)}
+.yearMonth .monthName{font-size:13px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;font-weight:800}
+.yearMonth .yearCount{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);height:18px}
+.yearMark{display:inline-block;background:var(--red);width:7px;height:7px;border-radius:50%}
+@media(min-width:520px){.yearGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.yearMonth{min-height:109px}}
+@media(max-width:360px){.yearGrid{gap:5px}.yearMonth{min-height:82px;padding:8px 1px}.yearMonth .monthName{font-size:11px}.calendarDateControls b{font-size:12px}.calYear{width:83px}.calendarNav .todayBtn{font-size:12px}}
 </style></head><body>
-<div class="shell"><header class="top"><div class="logo">✓</div><div><div class="brand">დღიური</div><div class="sub" data-i="tagline">შენი დღეები, ლამაზად დაგეგმილი</div></div><div class="alpha">α 0.06 · WEB</div></header>
+<div class="shell"><header class="top"><div class="logo">✓</div><div><div class="brand">დღიური</div><div class="sub" data-i="tagline">შენი დღეები, ლამაზად დაგეგმილი</div></div><div class="alpha">α 0.06.1 · WEB</div></header>
 <div id="banner" class="banner"></div><main class="main">
 
 <section id="home" class="page active">
@@ -124,8 +142,8 @@ body.dark[data-theme="amber"]{--forest:#f6d39b;--soft:#504331;--border:#75634c;-
 
 <section id="calendar" class="page">
 <div class="hrow"><div><h1 class="h1">კალენდარი</h1><span class="muted tiny">ნახე დღე, კვირა და თვე</span></div><button class="primary roundPlus" onclick="openTask()">＋</button></div>
-<div class="tabs"><button id="mode-day" onclick="mode='day';render()">დღე</button><button id="mode-week" onclick="mode='week';render()">კვირა</button><button id="mode-month" onclick="mode='month';render()">თვე</button></div>
-<div class="datehead"><button onclick="shift(-1)">‹</button><div><b id="calDate"></b></div><button onclick="shift(1)">›</button><button class="secondary" onclick="today()">დღეს</button></div>
+<div class="tabs fourModes"><button id="mode-day" onclick="mode='day';render()" data-l10n-ka="დღე" data-l10n-en="Day">დღე</button><button id="mode-week" onclick="mode='week';render()" data-l10n-ka="კვირა" data-l10n-en="Week">კვირა</button><button id="mode-month" onclick="mode='month';render()" data-l10n-ka="თვე" data-l10n-en="Month">თვე</button><button id="mode-year" onclick="mode='year';render()" data-l10n-ka="წელი" data-l10n-en="Year">წელი</button></div>
+<div class="datehead calendarNav"><button onclick="shift(-1)" aria-label="წინა პერიოდი">‹</button><div class="calendarDateControls"><b id="calDate"></b><select id="calYear" class="calYear" onchange="selectYear(this.value)" aria-label="წლის არჩევა"><option>2026</option></select></div><button onclick="shift(1)" aria-label="შემდეგი პერიოდი">›</button><button class="secondary todayBtn" onclick="today()" data-l10n-ka="დღეს" data-l10n-en="Today">დღეს</button></div>
 <div class="legend"><i></i> წითელი — დაგეგმილი საქმე</div><div id="calendarGrid"></div>
 <article class="panel"><div class="hrow"><b class="paneltitle">არჩეული დღის საქმეები</b><select id="calStatus" class="compact" onchange="calendarStatus=this.value;render()"><option value="all">ყველა</option><option value="undone">შეუსრულებელი</option><option value="done">შესრულებული</option></select></div><div id="calendarTasks"></div></article>
 </section>
@@ -172,7 +190,7 @@ function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function taskHtml(t,d){return `<div class="task ${done(t,d)?'done':''}"><input type="checkbox" aria-label="Complete" ${done(t,d)?'checked':''} onchange="toggleDone('${t.id}','${d}')"><div class="taskbody" onclick="openTask('${t.id}')"><div class="tasktitle">${esc(t.title)}</div><div class="taskmeta">${esc(t.time||'')} ${esc(t.category)} ${t.repeat!=='none'?'↻':''} ${t.reminder>=0&&t.time?'♩':''}</div></div><button class="star" aria-label="TOP 3" onclick="star('${t.id}','${d}')">${rank(t,d)?'★':'☆'}</button><button class="edit" aria-label="Edit" onclick="openTask('${t.id}')">✎</button></div>`}
 function setPage(p){page=p;document.querySelectorAll('.page').forEach(el=>el.classList.toggle('active',el.id===p));document.querySelectorAll('.bottom button').forEach(el=>el.classList.toggle('active',el.dataset.page===p))}
 function show(p){setPage(p);render();window.scrollTo(0,0)}
-function shift(n){const d=fromIso(selected);if(page==='calendar'&&mode==='week')d.setDate(d.getDate()+n*7);else if(page==='calendar'&&mode==='month')d.setMonth(d.getMonth()+n);else d.setDate(d.getDate()+n);selected=dateIso(d);render()}
+function shift(n){const d=fromIso(selected);if(page==='calendar'&&mode==='year')d.setFullYear(d.getFullYear()+n);else if(page==='calendar'&&mode==='week')d.setDate(d.getDate()+n*7);else if(page==='calendar'&&mode==='month')d.setMonth(d.getMonth()+n);else d.setDate(d.getDate()+n);selected=dateIso(d);render()}
 function today(){selected=dateIso(new Date());render()}
 function weekday(d){return d.toLocaleDateString(prefs.english?'en-US':'ka-GE',{weekday:'long'})}
 function dateLabel(d){return d.toLocaleDateString(prefs.english?'en-US':'ka-GE',{day:'numeric',month:'long',year:'numeric'})}
@@ -180,7 +198,7 @@ function dot(d){return forDay(d).length>0?'<em>•</em>':'<em>&nbsp;</em>'}
 function changeDate(d){selected=d;render()}
 function render(){document.body.classList.toggle('dark',!!prefs.dark);document.documentElement.lang=prefs.english?'en':'ka';document.querySelectorAll('[data-i]').forEach(el=>{const key=el.dataset.i;if(KEYS[key])el.firstChild&&el.children.length?null:el.textContent=KEYS[key][+!!prefs.english]});$('dark').checked=!!prefs.dark;$('language').value=prefs.english?'en':'ka';$('defaultReminder').value=String(prefs.reminder);const d=fromIso(selected);$('dateText').textContent=dateLabel(d);$('weekdayText').textContent=weekday(d);$('calDate').textContent=dateLabel(d);
 const td=forDay(selected),top=top3(selected);$('pcount').textContent=`${top.length}/3`;$('priorities').innerHTML=top.length?top.map((t,i)=>`<div class="priority"><b>${i+1}.</b><span class="text">${esc(t.title)} ${done(t,selected)?'✓':''}</span><button onclick="move('${t.id}',-1)">▲</button><button onclick="move('${t.id}',1)">▼</button></div>`).join(''):`<p class="empty">${L('დააჭირე ვარსკვლავს საქმეზე — სამეულს შენ თავად ირჩევ.','Star a task to choose your priorities yourself.')}</p>`;$('dailycount').textContent=`${td.filter(t=>done(t,selected)).length}/${td.length}`;$('tasks').innerHTML=td.map(t=>taskHtml(t,selected)).join('')||`<p class="empty">${L('ამ დღისთვის საქმე ჯერ არ არის.','No tasks for this day yet.')}</p>`;
-['day','week','month'].forEach(v=>$('mode-'+v).classList.toggle('active',mode===v));$('calendarGrid').innerHTML='';if(mode!=='day'){const start=new Date(d);const count=mode==='week'?7:42;if(mode==='week')start.setDate(start.getDate()-((start.getDay()+6)%7));else{start.setDate(1);start.setDate(start.getDate()-((start.getDay()+6)%7))}let h='<div class="'+mode+'">';for(let i=0;i<count;i++){const z=addDays(start,i),iso=dateIso(z);h+=`<button class="day ${iso===selected?'active':''} ${mode==='month'&&z.getMonth()!==d.getMonth()?'out':''}" onclick="changeDate('${iso}')"><small>${mode==='week'?weekday(z).slice(0,2):'&nbsp;'}</small>${z.getDate()}${dot(iso)}</button>`}h+='</div>';$('calendarGrid').innerHTML=h}$('calendarTasks').innerHTML=td.map(t=>taskHtml(t,selected)).join('')||`<p class="empty">${L('საქმეები არ არის','No tasks')}</p>`;
+['day','week','month','year'].forEach(v=>$('mode-'+v).classList.toggle('active',mode===v));$('calendarGrid').innerHTML='';if(mode==='week'||mode==='month'){const start=new Date(d);const count=mode==='week'?7:42;if(mode==='week')start.setDate(start.getDate()-((start.getDay()+6)%7));else{start.setDate(1);start.setDate(start.getDate()-((start.getDay()+6)%7))}let h='<div class="'+mode+'">';for(let i=0;i<count;i++){const z=addDays(start,i),iso=dateIso(z);h+=`<button class="day ${iso===selected?'active':''} ${mode==='month'&&z.getMonth()!==d.getMonth()?'out':''}" onclick="changeDate('${iso}')"><small>${mode==='week'?weekday(z).slice(0,2):'&nbsp;'}</small>${z.getDate()}${dot(iso)}</button>`}h+='</div>';$('calendarGrid').innerHTML=h}$('calendarTasks').innerHTML=td.map(t=>taskHtml(t,selected)).join('')||`<p class="empty">${L('საქმეები არ არის','No tasks')}</p>`;
 $('goalCards').innerHTML=goals.map(g=>{const n=tasks.filter(t=>t.goalId===g.id).reduce((sum,t)=>sum+Object.keys(t.completed||{}).length,0),pct=Math.min(100,Math.round(n/g.target*100));return `<article class="panel goal"><div class="hrow"><b>${esc(g.title)}</b><b>${Math.min(n,g.target)}/${g.target}</b></div><div class="bar" style="margin:12px 0"><div class="fill" style="width:${pct}%"></div></div><div class="hrow"><small class="muted">${pct}%</small><button class="ghost danger" onclick="removeGoal('${g.id}')">${L('წაშლა','Delete')}</button></div></article>`}).join('')||`<article class="panel"><div class="empty">${L('შექმენი მიზანი და დაუკავშირე დავალებები','Create a goal and link tasks to it')}</div></article>`;
 const dates=Array.from({length:7},(_,i)=>dateIso(addDays(new Date(),i-6)));let all=0,complete=0;const bars=dates.map(z=>{const arr=forDay(z),dn=arr.filter(t=>done(t,z)).length;all+=arr.length;complete+=dn;return `<div class="barcol"><div class="barrack"><div class="barfill" style="height:${arr.length?Math.round(dn/arr.length*100):0}%"></div></div><span>${weekday(fromIso(z)).slice(0,2)}</span><span class="muted">${dn}/${arr.length}</span></div>`}).join('');$('chart').innerHTML=bars;$('doneStat').textContent=complete;$('pctStat').textContent=`${all?Math.round(complete/all*100):0}%`;$('summary').textContent=all?L(`ბოლო 7 დღეში შეასრულე ${complete} საქმე, დაგეგმილი ${all}-დან.`,`You completed ${complete} of ${all} planned tasks in the last 7 days.`):L('დაამატე დავალებები და შედეგებიც აქ გამოჩნდება.','Add tasks to see your progress.');
 }
@@ -201,6 +219,15 @@ function quickAdd(){
 }
 function applyFilters(){
  statusTasks=$('statusTasks').value;sortTasks=$('sortTasks').value;searchTasks=$('searchTasks').value.trim().toLocaleLowerCase();render()
+}
+function selectYear(input){
+ const y=Number(input);if(!Number.isInteger(y)||y<1900||y>2200)return;
+ const d=fromIso(selected),m=d.getMonth(),day=Math.min(d.getDate(),new Date(y,m+1,0).getDate());
+ selected=dateIso(new Date(y,m,day,12));render();
+}
+function openMonth(month){
+ const d=fromIso(selected),y=d.getFullYear();
+ selected=dateIso(new Date(y,month,1,12));mode='month';render();
 }
 const baseRender=render;
 function pickTheme(theme){if(!['green','purple','blue','rose','amber'].includes(theme))return;prefs.color=theme;persist();render()}
@@ -223,7 +250,24 @@ render=function(){
   if(mode==='month'){start.setDate(1);start.setDate(start.getDate()-((start.getDay()+6)%7))}
   if(mode==='week')start.setDate(start.getDate()-((start.getDay()+6)%7));
   document.querySelectorAll('#calendarGrid .day').forEach((el,i)=>el.classList.toggle('has-task',forDay(dateIso(addDays(start,i))).length>0));
-  if(mode==='month')$('calDate').textContent=d.toLocaleDateString(prefs.english?'en-US':'ka-GE',{month:'long',year:'numeric'});
+  if(mode==='year'){
+    const y=d.getFullYear(),locale=prefs.english?'en-US':'ka-GE';
+    const cards=Array.from({length:12},(_,month)=>{
+      const count=tasks.filter(t=>{const start=fromIso(t.date),tYear=start.getFullYear(),tMonth=start.getMonth();return t.repeat==='none'?(tYear===y&&tMonth===month):start<=new Date(y,month+1,0,23,59,59)}).length;
+      const label=new Date(y,month,1).toLocaleDateString(locale,{month:'long'});
+      return '<button type="button" class="yearMonth '+(d.getMonth()===month?'selectedMonth':'')+'" onclick="openMonth('+month+')" aria-label="'+esc(label)+'"><span class="monthName">'+esc(label)+'</span><span class="yearCount">'+(count?'<i class="yearMark"></i>'+count+' '+(prefs.english?'tasks':'საქმე'):'&nbsp;')+'</span></button>';
+    }).join('');
+    $('calendarGrid').innerHTML='<div class="yearGrid">'+cards+'</div>';
+    $('calDate').textContent=prefs.english?'Full year':'მთელი წელი';
+  } else if(mode==='month')$('calDate').textContent=d.toLocaleDateString(prefs.english?'en-US':'ka-GE',{month:'long'});
+  else $('calDate').textContent=d.toLocaleDateString(prefs.english?'en-US':'ka-GE',{day:'numeric',month:'long'});
+  const year=d.getFullYear(),yearSel=$('calYear');
+  if(yearSel.dataset.base!==String(year)){
+    let opts='';
+    for(let y=1980;y<=2100;y++)opts+='<option value="'+y+'">'+y+'</option>';
+    yearSel.innerHTML=opts;yearSel.dataset.base=String(year)
+  }
+  yearSel.value=String(year);
  }
  if(page==='joker')jokerRender();
 };
