@@ -24,9 +24,15 @@ jobs:
           SDKM=$(find "${ANDROID_HOME:-/usr/local/lib/android/sdk}/cmdline-tools" -type f -name sdkmanager | head -1)
           "$SDKM" --install "platforms;android-36" "build-tools;36.0.0"
       - name: Compile DIARY native Android
-        run: gradle :app:assembleDebug --no-daemon --stacktrace --console=plain
+        run: gradle :app:assembleDebug :app:bundleRelease --no-daemon --stacktrace --console=plain
       - uses: actions/upload-artifact@v4
         with:
           name: DIARY_Alpha_0.04_Debug_APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+      - name: Upload unsigned AAB for private signing and Play Console
+        uses: actions/upload-artifact@v4
+        with:
+          name: DIARY_Alpha_0.04_Unsigned_AAB
+          path: app/build/outputs/bundle/release/*.aab
           if-no-files-found: error
