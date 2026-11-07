@@ -10,10 +10,21 @@ android {
         applicationId = "ge.weeklyplus.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
-        versionName = "0.04-alpha"
+        versionCode = 5
+        versionName = "0.11-alpha"
     }
-    buildTypes { release { isMinifyEnabled = false } }
+    signingConfigs {
+        create("diaryStable") {
+            storeFile = file(System.getenv("DGIURI_KEY_FILE") ?: "C:/Users/punis/Documents/DIARY_ReleaseSigning/WEEKLY_PLUS_Stable_2026.jks")
+            storePassword = System.getenv("DGIURI_KEY_PASSWORD") ?: ""
+            keyAlias = "weeklyplus"
+            keyPassword = System.getenv("DGIURI_KEY_PASSWORD") ?: ""
+        }
+    }
+    buildTypes { release {
+        isMinifyEnabled = false
+        signingConfig = signingConfigs.getByName("diaryStable")
+    } }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

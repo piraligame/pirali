@@ -1,16 +1,21 @@
-﻿# დღიური Alpha 0.04
+﻿# დღიური / DIARY Alpha 0.11
 
-Android offline planner. This isolated branch is not the PIRALI main game.
+Native Android planner update from Alpha 0.04. Existing package `ge.weeklyplus.app`, updated versionCode 5, versionName `0.11-alpha`, target SDK 36.
 
-- Calendar: day, week, month and **year** with 12-month overview. Navigation arrows change the selected view period.
-- Removed onboarding modal for existing and fresh installs.
-- Premium card styling, refined header, quick-add task input.
-- Overdue-task review and one-tap move to today.
-- Tasks sorted by time, name or completion status; Today/Tomorrow/7-days shortcuts in editor.
-- Monthly completion plus active-day streak in Insights.
-- Export/import JSON backups with confirmation and validation. Import replaces existing records by request only.
-- 7 languages preserved: Georgian, Russian, English, Chinese, Spanish, German, French.
+## Features
 
-Package: ge.weeklyplus.app | versionCode=4 | versionName=0.04-alpha
+- Timer: configurable countdown, persists when app is closed; Android notification/alarm after expiration.
+- Daily alarm: time, label, enable/disable; restarts after boot.
+- Android exact alarm special access is requested in the Alarm/Timer pages; while denied an inexact fallback is used, so alarm may be delayed.
+- Joker: 24 rounds / four players, totals and pulks, match history, JSON import/export; saved locally. Rules should be checked by game players for their house variant.
+- Removed Goals from visible navigation and task editing; preserves underlying legacy records for backward compatibility.
+- Dark theme choice, clearer settings dropdown and Georgian Gamers Guild, PIRALI and GEORGIA links.
+- Scrollable bottom navigation on narrow screens, to avoid clipping.
 
-**Important:** CI APKs use ephemeral debug signing. To update installed DIARY Alpha 0.03 Stable, use **the separately stable-signed 0.04 update APK** signed with the same 0.03 Stable certificate. Do not use CI debug APK as a phone update. Original data keys weeklyplus_v1 stay unchanged.
+## Release safety
+
+**Only use the stable-signed release APK as an update to existing Alpha 0.04.** Debug APK uses a different certificate and cannot update installations.
+
+Do not commit the private signing key, password or credentials to GitHub. The Gradle release signing reads `DGIURI_KEY_FILE` and `DGIURI_KEY_PASSWORD` from private environment variables.
+
+The developer has NOT reported runtime verification on a physical phone yet. Exact notification delivery can vary with Android battery settings, Do Not Disturb and permissions.

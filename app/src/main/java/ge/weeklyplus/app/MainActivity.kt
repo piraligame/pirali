@@ -47,6 +47,10 @@ class MainActivity : ComponentActivity() {
         ReminderScheduler.channel(this)
         setContent { WeeklyApp() }
     }
+    override fun onResume() {
+        super.onResume()
+        runCatching { DiaryClockScheduler.restore(this) }
+    }
 }
 
 @Composable
@@ -56,14 +60,14 @@ private fun WeeklyApp() {
     LaunchedEffect(store.onboarded) { if (!store.onboarded) store.finishOnboarding() }
     DiaryWords.code = store.language
     val lang = store.english
-    val colors = if (store.dark) darkColorScheme(primary = Color(0xFF79D9AF), secondary = Color(0xFF9BCDB5), background = Color(0xFF12241D), surface = Color(0xFF1D3228), surfaceVariant = Color(0xFF294639))
+    val colors = if (store.dark) darkColorScheme(primary = Color(0xFF79D9AF), secondary = Color(0xFF9BCDB5), background = Color(0xFF090D0C), surface = Color(0xFF17211D), surfaceVariant = Color(0xFF26362E))
         else lightColorScheme(primary = Pine, secondary = DarkPine, background = OffWhite, surface = Color.White, surfaceVariant = Mint)
     var page by remember { mutableStateOf("home") }
     var view by remember { mutableStateOf("day") }
     var date by remember { mutableStateOf(LocalDate.now()) }
     var editing by remember { mutableStateOf<PlanTask?>(null) }
     var creating by remember { mutableStateOf(false) }
-    var newGoal by remember { mutableStateOf(false) }
+    
     var notice by remember { mutableStateOf("") }
     var search by remember { mutableStateOf("") }
     var categoryFilter by remember { mutableStateOf("all") }
@@ -88,7 +92,10 @@ private fun WeeklyApp() {
                 Scaffold(
                     modifier = Modifier.weight(1f),
                     containerColor = MaterialTheme.colorScheme.background,
-                    bottomBar = { if (!tablet) NavigationBar(containerColor = MaterialTheme.colorScheme.surface) { NavItems(page,lang) { page=it } } },
+                    bottomBar = { if (!tablet) Surface(color=MaterialTheme.colorScheme.surface) {
+                        Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                            horizontalArrangement=Arrangement.spacedBy(2.dp)) { NavItems(page,lang) { page=it } }
+                    } },
                     snackbarHost = { if (notice.isNotEmpty()) SnackbarHost(hostState = remember { SnackbarHostState() }) }
                 ) { insets ->
                     Column(Modifier.fillMaxSize().padding(insets).padding(horizontal = if (tablet) 26.dp else 16.dp)) {
@@ -99,7 +106,7 @@ private fun WeeklyApp() {
                                 Text(DiaryWords.appName(), style=MaterialTheme.typography.titleLarge, fontWeight = FontWeight.ExtraBold)
                                 Text(tr("შენი დღეები, ლამაზად დაგეგმილი","Your days, beautifully planned"), style=MaterialTheme.typography.labelSmall, color=MaterialTheme.colorScheme.onSurfaceVariant)
                             }
-                            Text("α 0.04", style=MaterialTheme.typography.labelSmall, color=MaterialTheme.colorScheme.primary)
+                            Text("α 0.11", style=MaterialTheme.typography.labelSmall, color=MaterialTheme.colorScheme.primary)
                         }
                         if (notice.isNotEmpty()) {
                             Surface(color=Mint,shape=RoundedCornerShape(12.dp)) {
@@ -114,7 +121,9 @@ private fun WeeklyApp() {
                             when(page) {
                                 "home" -> HomeScreen(store,date,{date=it}, { creating=true }, { editing=it }, { notice=it })
                                 "calendar" -> CalendarScreen(store,date,{date=it},view,{view=it},{creating=true},{editing=it},{notice=it})
-                                "goals" -> GoalsScreen(store,{newGoal=true},{editing=it})
+                                "joker" -> DiaryJokerPage()
+                                "timer" -> DiaryTimerPage(::askPermission)
+                                "alarm" -> DiaryAlarmPage(::askPermission)
                                 "insights" -> InsightsScreen(store)
                                 "settings" -> SettingsScreen(store,::askPermission) { notice=it }
                             }
@@ -124,14 +133,16 @@ private fun WeeklyApp() {
             }
         }
         if (creating || editing!=null) TaskDialog(store, editing, date, onClose={ creating=false; editing=null }, onInfo={notice=it})
-        if (newGoal) GoalDialog(store) { newGoal=false }
+        
 
     }
 }
 
 @Composable
 private fun NavItems(current:String, english:Boolean, onChange:(String)->Unit) {
-    val tabs = listOf(Triple("home","⌂",tr("დღეს","Today")), Triple("calendar","▦",tr("კალენდარი","Calendar")), Triple("goals","◎",tr("მიზნები","Goals")), Triple("insights","▥",tr("შედეგები","Results")), Triple("settings","⚙",tr("პარამეტრები","Settings")))
+    val tabs = listOf(Triple("home","⌂",tr("დღეს","Today")),Triple("calendar","▦",tr("კალენდარი","Calendar")),
+        Triple("joker","♠","ჯოკერი"),Triple("timer","⏱","ტაიმერი"),Triple("alarm","⏰","მაღვიძარა"),
+        Triple("insights","▥",tr("შედეგები","Results")),Triple("settings","⚙",tr("პარამეტრები","Settings")))
     tabs.forEach { (key,icon,label) ->
         val selected = current==key
         // NavigationBarItem is only used inside NavigationBar; NavigationRailItem works only inside NavigationRail.
@@ -505,18 +516,13 @@ private fun SettingsScreen(store:PlannerStore,requestPermission:()->Unit,onInfo:
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(14.dp)) {
         Heading(tr("პარამეტრები","Settings"),tr("დღიური შენს გემოზე","Make Diary yours"))
         Panel {
-            SettingToggle(tr("მუქი რეჟიმი","Dark mode"),store.dark,store::changeDark)
+            DiaryThemeDropdown(store)
             HorizontalDivider()
             DiaryLanguageDropdown(store)
         }
         Panel {
             Text(tr("შეხსენების ნაგულისხმევი რეჟიმი","Reminder defaults"),fontWeight=FontWeight.Bold)
-            listOf(-1 to (tr("ხელით ჩართვა","Off until enabled")),0 to (tr("საქმის დაწყებისას","At task time")),5 to (tr("5 წუთით ადრე","5 minutes early")),15 to (tr("15 წუთით ადრე","15 minutes early")),30 to (tr("30 წუთით ადრე","30 minutes early")),1440 to (tr("1 დღით ადრე","1 day before"))).forEach { (v,label) ->
-                Row(Modifier.fillMaxWidth().clickable {store.changeReminderDefault(v)},verticalAlignment=Alignment.CenterVertically) {
-                    RadioButton(selected=store.reminderDefault==v,onClick={store.changeReminderDefault(v)})
-                    Text(label,fontSize=13.sp)
-                }
-            }
+            DiaryReminderMenu(store)
             Text(tr("არსებულ დავალებებს საკუთარი შეხსენების დრო უნარჩუნდება.","Existing tasks keep their own reminders."),fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
             FilledTonalButton(onClick=requestPermission) {Text(tr("ტელეფონის შეტყობინებების ჩართვა","Enable phone notifications"))}
             Text(tr("Android-ის ენერგოდაზოგვის გამო შეტყობინება შეიძლება დაგვიანდეს; ზუსტი მაღვიძარის ნებართვას აპი არ ითხოვს.","Reminders can arrive later due to Android battery rules; exact alarms are not requested."),fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
@@ -530,6 +536,7 @@ private fun SettingsScreen(store:PlannerStore,requestPermission:()->Unit,onInfo:
             }
             Text(tr("ჩუმ საათებში შეხსენება აღარ გაიგზავნება და მოგვიანებით არ გადაინაცვლებს.","Quiet hours suppress, not postpone, reminders."),fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
         }
+        Panel { DiaryCommunityLinks() }
         Panel {
             Text(tr("მონაცემები და კონფიდენციალურობა","Data & privacy"),fontWeight=FontWeight.Bold)
             Text(tr("ყველაფერი ტელეფონში ინახება. არ არის ანგარიში, რეკლამები და მომხმარებლის თვალთვალი.","Everything is saved locally on your phone. No account, ads or analytics tracking."),fontSize=13.sp)
@@ -562,9 +569,9 @@ private fun DiaryLanguageDropdown(store: PlannerStore) {
                 Text(DiaryWords.languageLabel(store.language), fontSize=12.sp, maxLines=1)
                 Text(" ▾", fontSize=11.sp)
             }
-            DropdownMenu(expanded=open,onDismissRequest={open=false}) {
+            DropdownMenu(expanded=open,onDismissRequest={open=false},containerColor=MaterialTheme.colorScheme.surface) {
                 DiaryWords.languages.forEach { (code,label) ->
-                    DropdownMenuItem(text={Text((if(code==store.language) "✓  " else "     ")+label)},
+                    DropdownMenuItem(text={Text((if(code==store.language) "✓  " else "     ")+label,color=MaterialTheme.colorScheme.onSurface)},
                         onClick={ store.changeLanguage(code); open=false })
                 }
             }
@@ -677,15 +684,7 @@ private fun TaskDialog(store:PlannerStore, old:PlanTask?, day:LocalDate, onClose
             }
             Row(horizontalArrangement=Arrangement.spacedBy(7.dp)) {
                 Box {OutlinedButton(onClick={reminderMenu=true}){Text(if(reminder<0)(tr("შეხსენების გარეშე","No reminder")) else (DiaryWords.reminderAhead(reminder)),fontSize=11.sp)}
-                    DropdownMenu(expanded=reminderMenu,onDismissRequest={reminderMenu=false}) { listOf(-1,0,5,15,30,1440).forEach { m ->DropdownMenuItem(text={Text(when(m){-1->tr("გამორთული","Off");0->tr("დაწყებისას","At start");1440->tr("1 დღით ადრე","1 day before");else->DiaryWords.minutesBefore(m)})},onClick={reminder=m;reminderMenu=false})} }
-                }
-            }
-            if(store.goals.isNotEmpty()) {
-                Box {OutlinedButton(onClick={goalMenu=true}){Text((if(goalId.isEmpty())(tr("მიზნის გარეშე","No linked goal")) else store.goals.firstOrNull{it.id==goalId}?.title ?: "—"),fontSize=11.sp)}
-                    DropdownMenu(expanded=goalMenu,onDismissRequest={goalMenu=false}) {
-                        DropdownMenuItem(text={Text(tr("მიზნის გარეშე","No goal"))},onClick={goalId="";goalMenu=false})
-                        store.goals.forEach {g->DropdownMenuItem(text={Text(g.title)},onClick={goalId=g.id;goalMenu=false})}
-                    }
+                    DropdownMenu(expanded=reminderMenu,onDismissRequest={reminderMenu=false},containerColor=MaterialTheme.colorScheme.surface) { listOf(-1,0,5,15,30,1440).forEach { m ->DropdownMenuItem(text={Text(when(m){-1->tr("გამორთული","Off");0->tr("დაწყებისას","At start");1440->tr("1 დღით ადრე","1 day before");else->DiaryWords.minutesBefore(m)})},onClick={reminder=m;reminderMenu=false})} }
                 }
             }
             OutlinedTextField(details,{details=it},label={Text(tr("შენიშვნა (არასავალდებულო)","Notes (optional)"))},minLines=2,modifier=Modifier.fillMaxWidth())
