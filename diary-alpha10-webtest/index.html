@@ -349,7 +349,7 @@ function toggleCustomSelect(id){
  }
  menu.hidden=false;trigger.setAttribute('aria-expanded','true');
  const current=menu.querySelector('button.chosen');
- if(current)current.scrollIntoView({block:'nearest'});
+ if(current)menu.scrollTop=Math.max(0,current.offsetTop-menu.offsetTop-(menu.clientHeight/3));
 }
 function chooseCustomSelect(id,val){
  const el=$(id);
@@ -546,7 +546,7 @@ let jokerHistory=[];
 let jokerHistoryLimit=15;
 try{
  const parsed=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');
- if(Array.isArray(parsed))jokerHistory=parsed.filter(x=>x&&typeof x.id==='string'&&x.joker&&Array.isArray(x.joker.players)).slice(0,3000)
+ if(Array.isArray(parsed))jokerHistory=parsed.filter(x=>x&&typeof x.id==='string'&&x.id.length<100&&x.joker&&Array.isArray(x.joker.players))
 }catch(e){console.warn('History storage',e)}
 function jokerHasContent(game=joker){
  return game.players.some(x=>String(x||'').trim())||game.bids.some(row=>row.some(x=>x!==null))||game.taken.some(row=>row.some(x=>x!==null))
@@ -598,7 +598,8 @@ function jokerHistoryRender(){
    const name=data.players[p]||L('მოთამაშე','Player')+' '+(p+1);
    return '<span><small>'+esc(name)+'</small><b>'+jokerTotalFor(data,p)+'</b></span>'
   }).join('');
-  return '<div class="historyCard"><div class="hrow"><div><b>'+esc(when)+'</b><div class="historyState '+(item.complete?'finished':'draft')+'">'+(item.complete?L('დასრულებული','Finished'):L('დაუმთავრებელი','Unfinished'))+'</div></div><div class="historyButtons"><button type="button" class="secondary" onclick="jokerHistoryOpen('+JSON.stringify(item.id)+')">'+L('გახსნა','Open')+'</button><button type="button" class="ghost danger" onclick="jokerHistoryDelete('+JSON.stringify(item.id)+')" aria-label="'+L('წაშლა','Delete')+'">✕</button></div></div><div class="historyScores">'+totals+'</div></div>'
+  const safeId=encodeURIComponent(item.id).replaceAll("'",'%27');
+  return '<div class="historyCard"><div class="hrow"><div><b>'+esc(when)+'</b><div class="historyState '+(item.complete?'finished':'draft')+'">'+(item.complete?L('დასრულებული','Finished'):L('დაუმთავრებელი','Unfinished'))+'</div></div><div class="historyButtons"><button type="button" class="secondary" onclick="jokerHistoryOpen(decodeURIComponent(&quot;'+safeId+'&quot;))">'+L('გახსნა','Open')+'</button><button type="button" class="ghost danger" onclick="jokerHistoryDelete(decodeURIComponent(&quot;'+safeId+'&quot;))" aria-label="'+L('წაშლა','Delete')+'">✕</button></div></div><div class="historyScores">'+totals+'</div></div>'
  }).join('');
  if(jokerHistory.length>jokerHistoryLimit)list.innerHTML+='<button class="secondary historyMore" onclick="jokerHistoryLimit+=15;jokerHistoryRender()">'+L('მეტის ნახვა','Show more')+'</button>'
 }
@@ -830,10 +831,10 @@ async function fireWebAlarm(title,detail,key){
 }
 async function enableWebAlerts(){
  prefs.webAlertsEnabled=true;persist();alarmAudioUnlock();
+ const permissionRequest=(typeof Notification!=='undefined'&&Notification.permission==='default')
+  ?Notification.requestPermission().catch(()=>null):Promise.resolve(null);
  if('serviceWorker' in navigator){try{await navigator.serviceWorker.register('./sw.js')}catch(e){console.warn('SW unsupported',e)}}
- if(typeof Notification!=='undefined'&&Notification.permission==='default'){
-  try{await Notification.requestPermission()}catch(e){}
- }
+ await permissionRequest;
  renderAlarmState();
  message(L('შეხსენებები ჩართულია გახსნილ გვერდზე','Alerts enabled while this page is open'))
 }
