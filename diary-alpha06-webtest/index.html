@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>დღიური · α 0.06 WEB TEST</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans Georgian",sans-serif;font-size:14px;color:#203d32;background:#f8faf7;--bg:#f8faf7;--paper:#fff;--forest:#197e65;--ink:#203d32;--muted:#668175;--soft:#e5f4e9;--border:#dce9df;--gold:#e8ae35}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}body.dark{--bg:#142920;--paper:#243d32;--ink:#eef9f1;--muted:#bacfc1;--soft:#2f4d3b;--border:#466150;--forest:#7bdbb5;--gold:#f3bd55}
+button,input,textarea,select{font:inherit}button{border:0;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #91cbb1;outline-offset:2px}
+.shell{max-width:1000px;margin:auto;min-height:100dvh;display:flex;flex-direction:column}.top{display:flex;align-items:center;gap:10px;padding:14px 15px 8px}.logo{background:#197e65;color:white;font-size:23px;font-weight:800;border-radius:14px;display:grid;place-items:center;width:46px;height:46px}.brand{font-size:19px;font-weight:900;letter-spacing:.4px}.sub{font-size:10px;color:var(--muted)}.alpha{margin-left:auto;font-size:12px;color:var(--forest);font-weight:700}.main{padding:12px 15px 110px;flex:1}.page{display:none}.page.active{display:block}.hrow{display:flex;align-items:center;justify-content:space-between;gap:8px}.h1{font-size:26px;margin:5px 0 2px;font-weight:820;letter-spacing:-.7px}.muted{color:var(--muted)}.tiny{font-size:11px}.primary{background:#197e65!important;color:white!important;padding:11px 16px;border-radius:13px;font-weight:700}.secondary{color:var(--forest);background:var(--soft);padding:10px 12px;border-radius:12px;font-weight:700}.ghost{background:transparent;color:var(--forest);padding:8px}.panel{background:var(--paper);border:1px solid var(--border);border-radius:22px;padding:15px;margin-top:14px}.accent{background:var(--soft);border:0}.paneltitle{font-weight:800;margin-bottom:10px;font-size:15px}.datehead{display:flex;align-items:center;justify-content:space-between;text-align:center;gap:5px;margin:12px 0}.datehead b{font-size:15px}.datehead small{display:block;color:var(--muted);font-size:11px}.datehead button{background:transparent;color:var(--forest);font-size:24px;padding:6px 12px}.priority{display:flex;gap:9px;align-items:center;background:var(--paper);border-radius:12px;padding:10px;margin-top:8px}.priority b{color:var(--forest)}.priority .text{flex:1;font-weight:650}.priority button{background:transparent;color:var(--forest)}.task{display:flex;align-items:center;border-bottom:1px solid var(--border);padding:9px 0;gap:8px}.task:last-child{border-bottom:0}.task input[type=checkbox]{width:20px;height:20px;accent-color:#197e65;flex-shrink:0}.taskbody{flex:1;min-width:0;cursor:pointer}.tasktitle{font-weight:650;overflow-wrap:anywhere}.task.done .tasktitle{text-decoration:line-through;opacity:.53}.taskmeta{font-size:10px;color:var(--muted);margin-top:3px}.star{background:none;color:var(--gold);font-size:26px;padding:3px}.edit{background:none;color:var(--muted);font-size:19px}.bottom{display:flex;background:var(--paper);border-top:1px solid var(--border);height:74px;position:fixed;bottom:0;left:0;right:0;z-index:4;padding-bottom:env(safe-area-inset-bottom)}.bottom button{background:transparent;color:var(--muted);flex:1;min-width:0;font-size:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}.bottom button.active{color:var(--forest);font-weight:800}.bottom .symbol{font-size:23px;border-radius:15px;padding:3px 12px}.bottom button.active .symbol{background:var(--soft)}.tabs{display:flex;gap:7px}.tabs button{flex:1;border-radius:11px;padding:10px 5px;background:var(--paper);color:var(--muted);border:1px solid var(--border)}.tabs button.active{background:#197e65;color:white}.week,.month{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:13px}.day{background:var(--paper);border:1px solid var(--border);border-radius:10px;text-align:center;padding:10px 2px;font-size:12px;color:var(--ink)}.day.active{background:#197e65;color:white}.day.out{opacity:.42}.day small{font-size:9px;display:block}.day em{display:block;color:var(--forest);font-style:normal}.day.active em{color:white}.metricrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.metric{background:var(--paper);border-radius:19px;padding:17px;border:1px solid var(--border)}.metric strong{font-size:31px;display:block;color:var(--forest)}.bar{height:9px;background:var(--border);border-radius:15px;overflow:hidden}.fill{height:100%;background:#197e65}.chart{display:flex;gap:9px;align-items:end;height:145px;margin-top:12px}.barcol{flex:1;display:flex;align-items:center;flex-direction:column;gap:4px;font-size:10px}.barrack{height:102px;background:var(--soft);width:100%;border-radius:6px;display:flex;align-items:end;overflow:hidden}.barfill{width:100%;background:#197e65;border-radius:6px}.settingsrow{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:11px 0}.settingsrow input{accent-color:#197e65}.settingsrow select{padding:9px;color:var(--ink);background:var(--paper);border:1px solid var(--border);border-radius:10px;max-width:180px}.goal{margin-top:12px}.categories{display:flex;gap:7px;flex-wrap:wrap}.pill{background:var(--soft);color:var(--ink);padding:6px 10px;border-radius:10px;font-size:11px}.banner{display:none;background:var(--soft);color:var(--ink);border-radius:12px;padding:10px;margin:4px 15px}.banner.visible{display:block}
+.overlay{position:fixed;inset:0;background:#091b14a8;z-index:10;display:none;align-items:center;justify-content:center;padding:10px}.overlay.show{display:flex}.dialog{width:min(500px,100%);max-height:95dvh;overflow:auto;background:var(--paper);border-radius:24px;padding:20px;box-shadow:0 15px 50px #0005}.dialog h2{margin:0 0 14px}label.field{display:block;font-weight:650;font-size:12px;color:var(--muted);margin:11px 0 5px}.fieldinput{width:100%;padding:11px;border:1px solid var(--border);border-radius:11px;background:var(--bg);color:var(--ink)}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dialogactions{display:flex;justify-content:end;gap:9px;margin-top:18px}.danger{color:#d55454}.empty{padding:15px 4px;color:var(--muted);font-size:12px}.hidden{display:none!important}
+@media(min-width:720px){.shell{display:grid;grid-template-columns:150px 1fr;grid-template-rows:auto 1fr}.top{grid-column:2}.main{grid-column:2;grid-row:2;padding-bottom:35px}.bottom{position:sticky;grid-column:1;grid-row:1/3;display:flex;flex-direction:column;height:100dvh;justify-content:center;border-right:1px solid var(--border);border-top:0;padding:15px}.bottom button{flex:0;padding:17px 0;font-size:12px}.bottom .symbol{font-size:26px}}
+
+:root{--red:#c83947;--lavender:#eaddf5;color-scheme:light}
+html,body{overflow-x:hidden}
+.shell{display:block;max-width:780px;width:100%;min-height:100dvh}
+.top{padding:calc(14px + env(safe-area-inset-top)) 16px 7px;min-height:78px}
+.brand{font-size:23px}.alpha{font-size:11px}
+.main{padding:8px 15px calc(87px + env(safe-area-inset-bottom));width:100%;min-width:0}
+.panel{border-radius:20px;padding:14px;margin-top:12px}.page{min-width:0}.h1{font-size:29px}
+.roundPlus{width:46px;height:46px;border-radius:50%;font-size:23px;padding:0}
+.quickadd{display:flex;gap:8px;border:1px solid var(--border);background:var(--paper);border-radius:17px;padding:9px;margin:9px 0}
+.quickadd input{background:transparent;color:var(--ink);border:1px solid var(--border);border-radius:13px;min-width:0;flex:1;padding:11px}
+.quickadd button{background:var(--soft);color:var(--forest);border-radius:50%;font-size:22px;width:42px;flex-shrink:0}
+.disclosure summary{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:15px;font-weight:850;cursor:pointer;list-style:none;min-height:32px}
+.disclosure summary::-webkit-details-marker{display:none}
+.disclosure[open] summary{margin-bottom:12px}
+.disclosure strong{color:var(--forest);font-weight:800}.disclosure#topFold{background:var(--soft)}
+.filterbox{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.filterbox input{grid-column:1/-1}
+.filterbox input,.filterbox select,.compact{background:var(--paper);color:var(--ink);min-width:0;border:1px solid var(--border);border-radius:11px;padding:10px;font-size:13px}
+.compact{max-width:43%;padding:7px}
+.hourRow{display:flex;gap:12px;border-bottom:1px solid var(--border);padding:10px 0;font-size:12px}.hourRow b{color:var(--forest)}
+.bottom{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));height:calc(69px + env(safe-area-inset-bottom));padding:0 4px env(safe-area-inset-bottom);box-shadow:0 -4px 20px #00000008}
+.bottom button{font-size:9px;gap:2px;padding:2px 0}
+.bottom .symbol{font-size:20px;padding:3px 8px}
+.banner{position:fixed;z-index:8;top:calc(85px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);margin:0;width:min(520px,calc(100% - 26px));box-shadow:0 6px 22px #0002;padding:14px;font-weight:750}
+.legend{display:flex;align-items:center;gap:6px;padding:9px 5px 0;color:var(--muted);font-size:11px}.legend i{display:block;background:var(--red);width:8px;height:8px;border-radius:50%}
+.month{gap:3px}.day{border:0;min-height:54px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;padding:5px 1px}
+.day.has-task:not(.active){background:#ffebed;color:#9d1724}.day.has-task em{color:var(--red);font-weight:bold}.day.active em{color:white}
+.jokerInfo{background:var(--soft);padding:12px;border-radius:15px;line-height:1.65;margin-top:15px;font-size:12px}
+.jokerbuttons{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.jokerbuttons button{font-size:12px}
+.jokerBoard{overflow:auto;overscroll-behavior-x:contain;background:var(--paper);border:1px solid var(--border);border-radius:14px;max-width:100%}
+.jokerBoard table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:12px}
+.jokerBoard th,.jokerBoard td{text-align:center;border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:5px}
+.jokerBoard th:first-child,.jokerBoard td:first-child{position:sticky;left:0;z-index:1;background:var(--paper);min-width:49px}
+.jokerBoard thead th{background:var(--soft);position:sticky;top:0;z-index:2}
+.jokerBoard thead th:first-child{z-index:3;background:var(--soft)}
+.jokerBoard input{border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);text-align:center;padding:8px 2px;width:76px;min-width:60px}
+.jokerBoard th input{width:112px;font-weight:700}
+.jokerBoard input:disabled{background:#ffeded;color:#ac1824}
+.jokerBoard .penalty{background:var(--soft);color:var(--forest);border-radius:7px;font-size:10px;padding:4px 6px;margin-top:4px}
+.jokerBoard .penalty.on{background:#ffd4da;color:#981721;font-weight:850}
+.jokerBoard tr.nine td:first-child{background:#f0e0f6}
+.jokerBoard tr.total td,.jokerBoard tr.total th{background:var(--soft)!important;color:var(--forest);font-weight:900;padding:12px}
+@media(min-width:720px){.shell{display:block;max-width:780px}.top,.main{grid-column:auto;grid-row:auto}.main{padding-bottom:105px}.bottom{position:fixed;grid-column:auto;grid-row:auto;display:grid;grid-template-columns:repeat(6,1fr);flex-direction:row;justify-content:initial;height:76px;border-top:1px solid var(--border);border-right:0;padding:0}.bottom button{flex:1;font-size:11px;padding:6px 0}}
+@media(max-width:360px){.main{padding-left:10px;padding-right:10px}.brand{font-size:20px}.alpha{font-size:10px}.bottom .symbol{font-size:18px;padding:2px 5px}.bottom button{font-size:8px}.datehead button{padding:5px 7px}.compact{max-width:48%}}
+
+/* DIARY 0.06 four-player on-screen layout, color themes and restored language setting */
+body[data-theme="green"]{--forest:#197e65;--soft:#e5f4e9;--accent-solid:#197e65}
+body[data-theme="purple"]{--forest:#7a4aa9;--soft:#f0e6fa;--border:#e6d7f1;--accent-solid:#7a4aa9}
+body[data-theme="blue"]{--forest:#2a6cb9;--soft:#e6f0ff;--border:#d8e6f3;--accent-solid:#2a6cb9}
+body[data-theme="rose"]{--forest:#b34278;--soft:#fce8f0;--border:#f1d9e3;--accent-solid:#b34278}
+body[data-theme="amber"]{--forest:#926119;--soft:#fff1dc;--border:#e9dfca;--accent-solid:#926119}
+body.dark[data-theme="green"]{--forest:#7bdbb5;--soft:#2f4d3b;--border:#466150;--accent-solid:#197e65}
+body.dark[data-theme="purple"]{--forest:#d9b9f6;--soft:#493656;--border:#67526e;--accent-solid:#68468e}
+body.dark[data-theme="blue"]{--forest:#9bc8ff;--soft:#2e455f;--border:#435a70;--accent-solid:#275d9a}
+body.dark[data-theme="rose"]{--forest:#fac1db;--soft:#54374a;--border:#6c5063;--accent-solid:#9a3266}
+body.dark[data-theme="amber"]{--forest:#f6d39b;--soft:#504331;--border:#75634c;--accent-solid:#96631d}
+.primary,.tabs button.active,.day.active{background:var(--accent-solid,#197e65)!important;color:#fff!important}
+.logo{background:var(--accent-solid,#197e65);box-shadow:0 3px 12px #00000012}
+.task input[type=checkbox]{accent-color:var(--accent-solid,#197e65)}
+.jokerbuttons{display:flex;align-items:center;justify-content:space-between}
+.fixedFour{color:var(--forest);font-weight:800;font-size:12px;background:var(--soft);padding:9px 11px;border-radius:12px}
+.jokerInfo{margin-top:10px}
+.jokerBoard{width:100%;overflow-x:hidden}
+.jokerBoard table{width:100%;min-width:0;max-width:100%;table-layout:fixed;border-collapse:separate}
+.jokerBoard .handcol{width:41px}
+.jokerBoard th,.jokerBoard td{min-width:0;max-width:none;overflow:hidden;padding:4px 2px}
+.jokerBoard th:first-child,.jokerBoard td:first-child{min-width:0!important;width:41px!important;white-space:nowrap;font-size:11px;padding:3px 0}
+.jokerBoard td input,.jokerBoard th input{box-sizing:border-box;display:block;width:100%!important;min-width:0!important;max-width:100%!important;margin:0;padding:6px 1px;line-height:1.2;font-size:12px;border-radius:7px}
+.jokerBoard th input{font-size:11px;font-weight:800;padding:8px 1px}
+.jokerBoard th input::placeholder{color:var(--muted);opacity:1}
+.jokerBoard .penalty{display:block;width:100%;font-size:10px;line-height:1.3;padding:4px 0;margin:4px 0 0;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.jokerBoard thead th:nth-child(2){background:#e0f1e7}
+.jokerBoard thead th:nth-child(3){background:#e4eefb}
+.jokerBoard thead th:nth-child(4){background:#f2e5fb}
+.jokerBoard thead th:nth-child(5){background:#ffedda}
+.jokerBoard tr:nth-child(even):not(.nine):not(.total) td:not(:first-child){background:color-mix(in srgb,var(--soft) 22%,var(--paper))}
+.jokerBoard tr.nine td:not(:first-child){background:color-mix(in srgb,#d6bcf1 17%,var(--paper))}
+.jokerBoard tr.nine td:first-child{background:#ead5f3!important}
+.jokerBoard tr:nth-child(13) td{border-top:2px solid #b48ad0}
+.jokerBoard tr:nth-child(21) td{border-top:2px solid #b48ad0}
+.jokerBoard tr.total td{font-variant-numeric:tabular-nums}
+.restoredLanguage{align-items:center}
+.languageSelect{min-width:138px;max-width:50%;padding:11px 12px;background:var(--paper);border:1px solid var(--border);border-radius:22px;color:var(--ink);font-size:14px;font-weight:700}
+.colorSettings .paneltitle{display:block}.palette{display:flex;gap:9px;flex-wrap:wrap;padding:9px 0 2px}
+.paletteBtn{display:grid;place-items:center;background:var(--paper);width:46px;height:46px;border:2px solid var(--border);border-radius:15px;padding:4px}
+.paletteBtn span{width:29px;height:29px;border-radius:50%;background:var(--swatch)}
+.paletteBtn.chosen{border-color:var(--forest);box-shadow:0 0 0 2px color-mix(in srgb,var(--forest) 16%,transparent)}
+.paletteBtn.chosen:after{content:"✓";position:absolute;color:white;font-size:16px;font-weight:900}
+.paletteBtn{position:relative}
+@media(max-width:360px){
+ .jokerBoard .handcol{width:34px}
+ .jokerBoard th:first-child,.jokerBoard td:first-child{width:34px!important;font-size:10px}
+ .jokerBoard th,.jokerBoard td{padding:4px 1px}
+ .jokerBoard td input{font-size:11px}
+ .jokerBoard .penalty{font-size:9px;letter-spacing:-.3px}
+ .jokerBoard th input{font-size:10px}
+}
+</style></head><body>
+<div class="shell"><header class="top"><div class="logo">✓</div><div><div class="brand">დღიური</div><div class="sub" data-i="tagline">შენი დღეები, ლამაზად დაგეგმილი</div></div><div class="alpha">α 0.06 · WEB</div></header>
+<div id="banner" class="banner"></div><main class="main">
+
+<section id="home" class="page active">
+<div class="hrow"><div><h1 class="h1">ჩემი დღე</h1><div class="muted tiny">მთავარზე კონცენტრირდი</div></div><button class="primary roundPlus" onclick="openTask()" aria-label="ახალი საქმე">＋</button></div>
+<div class="datehead"><button onclick="shift(-1)">‹</button><div><b id="dateText"></b><small id="weekdayText"></small></div><button onclick="shift(1)">›</button><button class="secondary" onclick="today()">დღეს</button></div>
+<div class="quickadd"><input id="quickTask" aria-label="სწრაფი დამატება" maxlength="160" placeholder="სწრაფად დაამატე საქმე..." onkeydown="if(event.key==='Enter')quickAdd()"><button onclick="quickAdd()">＋</button></div>
+<article class="panel"><div class="hrow"><b class="paneltitle">დღის საქმეები</b><strong id="dailycount"></strong></div><div id="tasks"></div></article>
+<details class="panel disclosure" id="filterFold"><summary>⌕ ძიება და დალაგება <span>⌄</span></summary><div class="filterbox">
+<input id="searchTasks" type="search" placeholder="საქმის ძიება..." oninput="applyFilters()">
+<select id="statusTasks" onchange="applyFilters()" aria-label="სტატუსის ფილტრი"><option value="all">ყველა</option><option value="undone">შეუსრულებელი</option><option value="done">შესრულებული</option></select>
+<select id="sortTasks" onchange="applyFilters()" aria-label="დალაგება"><option value="time">დრო</option><option value="new">ახალი</option><option value="status">სტატუსი</option></select></div></details>
+<details class="panel accent disclosure" id="topFold"><summary>★ TOP 3 <strong id="pcount">0/3</strong></summary><div id="priorities"></div></details>
+<details class="panel disclosure" id="hourFold"><summary>◷ საათობრივი განრიგი <strong id="hourCount">0</strong></summary><div id="hoursList"></div></details>
+</section>
+
+<section id="calendar" class="page">
+<div class="hrow"><div><h1 class="h1">კალენდარი</h1><span class="muted tiny">ნახე დღე, კვირა და თვე</span></div><button class="primary roundPlus" onclick="openTask()">＋</button></div>
+<div class="tabs"><button id="mode-day" onclick="mode='day';render()">დღე</button><button id="mode-week" onclick="mode='week';render()">კვირა</button><button id="mode-month" onclick="mode='month';render()">თვე</button></div>
+<div class="datehead"><button onclick="shift(-1)">‹</button><div><b id="calDate"></b></div><button onclick="shift(1)">›</button><button class="secondary" onclick="today()">დღეს</button></div>
+<div class="legend"><i></i> წითელი — დაგეგმილი საქმე</div><div id="calendarGrid"></div>
+<article class="panel"><div class="hrow"><b class="paneltitle">არჩეული დღის საქმეები</b><select id="calStatus" class="compact" onchange="calendarStatus=this.value;render()"><option value="all">ყველა</option><option value="undone">შეუსრულებელი</option><option value="done">შესრულებული</option></select></div><div id="calendarTasks"></div></article>
+</section>
+
+<section id="joker" class="page"><div class="hrow"><div><h1 class="h1" data-l10n-ka="🃏 ჯოკერი" data-l10n-en="🃏 Joker">🃏 ჯოკერი</h1><span class="muted tiny" data-l10n-ka="ქულების ფურცელი · 24 ტური" data-l10n-en="Score sheet · 24 rounds">ქულების ფურცელი · 24 ტური</span></div><button class="secondary" onclick="jokerReset()" data-l10n-ka="ახალი" data-l10n-en="New">ახალი</button></div>
+<div class="jokerInfo"><span data-l10n-ka="24 ტური: 1–8, 9×4, 8–1, 9×4. ჩაწერე ოთხივე სახელი და ქულები. ხიშტი: −200 ქულა." data-l10n-en="24 rounds: 1–8, four 9s, 8–1, four 9s. Enter four names and scores. Penalty: −200 points.">24 ტური: 1–8, 9×4, 8–1, 9×4. ჩაწერე ოთხივე სახელი და ქულები. ხიშტი: −200 ქულა.</span></div>
+<div class="jokerbuttons"><span class="fixedFour" data-l10n-ka="ოთხი მოთამაშე" data-l10n-en="Four players">ოთხი მოთამაშე</span><button class="secondary" onclick="jokerCsv()" data-l10n-ka="↓ ქულების ექსპორტი" data-l10n-en="↓ Export scores">↓ ქულების ექსპორტი</button></div>
+<div id="jokerBoard" class="jokerBoard" tabindex="0" aria-label="ჯოკერის ქულების ცხრილი"></div>
+<p class="muted tiny" data-l10n-ka="ოთხივე მოთამაშე ერთ ეკრანზეა. ქულები ინახება ამ ბრაუზერში." data-l10n-en="All four players fit on screen. Scores are saved in this browser.">ოთხივე მოთამაშე ერთ ეკრანზეა. ქულები ინახება ამ ბრაუზერში.</p></section>
+<section id="goals" class="page"><div class="hrow"><div><h1 class="h1" data-i="goals">ჩემი მიზნები</h1><span class="muted tiny" data-i="smallsteps">დიდი მიზნები პატარა ნაბიჯებით</span></div><button class="primary" onclick="openGoal()">＋</button></div><div id="goalCards"></div></section>
+<section id="insights" class="page"><h1 class="h1" data-i="results">ჩემი შედეგები</h1><div class="muted tiny" data-i="last7">ბოლო 7 დღე</div><div class="metricrow"><div class="metric"><strong id="doneStat">0</strong><span data-i="completed">შესრულებულია</span></div><div class="metric"><strong id="pctStat">0%</strong><span data-i="completion">შესრულება</span></div></div><article class="panel"><b class="paneltitle" data-i="progress">დღიური აქტივობა</b><div class="chart" id="chart"></div></article><article class="panel"><b class="paneltitle" data-i="summary">კვირის შეჯამება</b><p id="summary"></p></article></section>
+<section id="settings" class="page"><h1 class="h1" data-i="settings">პარამეტრები</h1><article class="panel"><div class="settingsrow"><b data-i="dark">მუქი რეჟიმი</b><input id="dark" type="checkbox" onchange="prefs.dark=this.checked;persist();render()"></div><div class="settingsrow restoredLanguage"><b data-l10n-ka="ენა" data-l10n-en="Language">ენა</b><select id="language" class="languageSelect" aria-label="ენის არჩევანი / Language" onchange="prefs.english=this.value==='en';persist();render()"><option value="ka">🇬🇪 ქართული</option><option value="en">🇬🇧 English</option></select></div></article><article class="panel colorSettings"><b class="paneltitle" data-l10n-ka="აპის ფერები" data-l10n-en="App colors">აპის ფერები</b><div class="palette" id="palette" role="group" aria-label="ფერების არჩევანი">
+<button type="button" class="paletteBtn" data-theme="green" onclick="pickTheme('green')" aria-label="მწვანე" title="მწვანე"><span style="--swatch:#1a8767"></span></button>
+<button type="button" class="paletteBtn" data-theme="purple" onclick="pickTheme('purple')" aria-label="იისფერი" title="იისფერი"><span style="--swatch:#865db6"></span></button>
+<button type="button" class="paletteBtn" data-theme="blue" onclick="pickTheme('blue')" aria-label="ლურჯი" title="ლურჯი"><span style="--swatch:#3978c3"></span></button>
+<button type="button" class="paletteBtn" data-theme="rose" onclick="pickTheme('rose')" aria-label="ვარდისფერი" title="ვარდისფერი"><span style="--swatch:#c35a8a"></span></button>
+<button type="button" class="paletteBtn" data-theme="amber" onclick="pickTheme('amber')" aria-label="ოქროსფერი" title="ოქროსფერი"><span style="--swatch:#b17c27"></span></button>
+</div><p class="muted tiny" data-l10n-ka="აირჩიე შენი საყვარელი ფერი — შეინახება ავტომატურად." data-l10n-en="Choose an accent color — saved automatically.">აირჩიე შენი საყვარელი ფერი — შეინახება ავტომატურად.</p></article><article class="panel"><b class="paneltitle" data-i="reminders">შეხსენებები</b><div class="settingsrow"><span data-i="defaultreminder">ნაგულისხმევი დრო</span><select id="defaultReminder" onchange="prefs.reminder=+this.value;persist()"><option value="-1">გამორთული</option><option value="0">დაწყებისას</option><option value="5">5 წუთით ადრე</option><option value="15">15 წუთით ადრე</option><option value="30">30 წუთით ადრე</option><option value="1440">1 დღით ადრე</option></select></div><div class="muted tiny" data-i="webnote">დემო HTML-ში სისტემური შეტყობინებები ფონურ რეჟიმში არ მუშაობს. რეალური Android აპისთვის ცალკე აწყობაა საჭირო.</div></article><article class="panel"><b class="paneltitle" data-i="privacy">მონაცემები და უსაფრთხოება</b><p class="muted tiny" data-i="storage">დემო გეგმებს ბრაუზერის ადგილობრივ მეხსიერებაში ინახავს. ფაილის სხვა ბრაუზერში გახსნამ შესაძლოა მონაცემები ვერ აღადგინოს. ამიტომ გამოიყენე სარეზერვო ასლი.</p><button class="secondary" onclick="exportData()" data-i="export">სარეზერვო ასლის ექსპორტი</button><label class="secondary" style="display:inline-block;cursor:pointer" data-i="import">ასლის იმპორტი<input type="file" accept="application/json,.json" style="display:none" onchange="importData(event)"></label></article></section></main>
+<nav class="bottom" id="nav"><button data-page="home" class="active" onclick="show('home')"><span class="symbol">⌂</span><span data-i="navhome">დღეს</span></button><button data-page="calendar" onclick="show('calendar')"><span class="symbol">▦</span><span data-i="calendar">კალენდარი</span></button><button data-page="goals" onclick="show('goals')"><span class="symbol">◎</span><span data-i="navgoals">მიზნები</span></button><button data-page="insights" onclick="show('insights')"><span class="symbol">▥</span><span data-i="navresults">შედეგები</span></button><button data-page="joker" onclick="show('joker')"><span class="symbol">🃏</span><span data-l10n-ka="ჯოკერი" data-l10n-en="Joker">ჯოკერი</span></button><button data-page="settings" onclick="show('settings')"><span class="symbol">⚙</span><span data-i="settings">პარამეტრები</span></button></nav></div>
+<div class="overlay" id="editor"><div class="dialog"><h2 id="editHeading">ახალი საქმე</h2><form id="taskForm" onsubmit="saveTask(event)"><label class="field" data-i="title">სათაური</label><input class="fieldinput" id="taskTitle" maxlength="160" required><div class="twocol"><div><label class="field" data-i="date">თარიღი</label><input class="fieldinput" type="date" id="taskDate" required></div><div><label class="field" data-i="time">საათი</label><input class="fieldinput" type="time" id="taskTime"></div></div><div class="twocol"><div><label class="field" data-i="category">კატეგორია</label><select class="fieldinput" id="taskCategory"></select></div><div><label class="field" data-i="repeat">განმეორება</label><select class="fieldinput" id="taskRepeat"><option value="none">ერთჯერადი</option><option value="daily">ყოველდღე</option><option value="weekly">ყოველკვირა</option><option value="monthly">ყოველთვე</option></select></div></div><div class="twocol"><div><label class="field" data-i="reminders">შეხსენება</label><select class="fieldinput" id="taskReminder"><option value="-1">გამორთული</option><option value="0">დაწყებისას</option><option value="5">5 წუთით ადრე</option><option value="15">15 წუთით ადრე</option><option value="30">30 წუთით ადრე</option><option value="1440">1 დღით ადრე</option></select></div><div><label class="field" data-i="goal">მიზანი</label><select class="fieldinput" id="taskGoal"></select></div></div><label class="field" data-i="notes">შენიშვნა</label><textarea class="fieldinput" rows="2" id="taskNotes"></textarea><div class="dialogactions"><button class="ghost danger" type="button" id="deleteTask" onclick="removeTask()" data-i="delete">წაშლა</button><button class="ghost" type="button" onclick="closeModal()" data-i="cancel">გაუქმება</button><button class="primary" type="submit" data-i="save">შენახვა</button></div></form></div></div>
+<div class="overlay" id="goalEditor"><div class="dialog"><h2 data-i="newgoal">ახალი მიზანი</h2><form onsubmit="saveGoal(event)"><label class="field" data-i="title">სათაური</label><input class="fieldinput" id="goalTitle" required maxlength="160"><label class="field" data-i="target">სამიზნე რაოდენობა</label><input class="fieldinput" id="goalTarget" type="number" min="1" max="100000" required value="10"><div class="dialogactions"><button class="ghost" type="button" onclick="closeModal()" data-i="cancel">გაუქმება</button><button class="primary" type="submit" data-i="save">შენახვა</button></div></form></div></div>
+<script>
+'use strict';
+const CATS=['სამუშაო','პირადი','ჯანმრთელობა','სწავლა','საყიდლები','სხვა'];
+const KEYS={tagline:['შენი დღეები, ლამაზად დაგეგმილი','Your days, beautifully planned'],myday:['ჩემი დღე','My day'],focus:['მთავარზე კონცენტრირდი','Focus on what matters'],today:['დღეს','Today'],timeline:['საათობრივი განრიგი','Hourly schedule'],calendar:['კალენდარი','Calendar'],day:['დღე','Day'],week:['კვირა','Week'],month:['თვე','Month'],selected:['არჩეული დღის საქმეები','Selected day tasks'],goals:['ჩემი მიზნები','My goals'],navgoals:['მიზნები','Goals'],smallsteps:['დიდი მიზნები პატარა ნაბიჯებით','Big goals, small steps'],results:['ჩემი შედეგები','My results'],navresults:['შედეგები','Results'],last7:['ბოლო 7 დღე','Last 7 days'],completed:['შესრულებულია','Completed'],completion:['შესრულება','Completion'],progress:['დღიური აქტივობა','Daily progress'],summary:['კვირის შეჯამება','Weekly summary'],settings:['პარამეტრები','Settings'],dark:['მუქი რეჟიმი','Dark mode'],english:['ინგლისური ენა','English language'],reminders:['შეხსენება','Reminder'],defaultreminder:['ნაგულისხმევი დრო','Default reminder'],privacy:['მონაცემები და უსაფრთხოება','Privacy & data'],storage:['დემო გეგმებს ბრაუზერის ადგილობრივ მეხსიერებაში ინახავს. სარეზერვო ასლიც შექმენი.','The preview saves to browser local storage. Export a backup too.'],webnote:['HTML დემოში სისტემური შეხსენებები ფონურ რეჟიმში არ მუშაობს. APK-ისთვის Android აწყობაა საჭირო.','Background notifications are not available in this HTML preview; an Android build is required.'],export:['სარეზერვო ასლის ექსპორტი','Export backup'],import:['ასლის იმპორტი','Import backup'],navhome:['დღეს','Today'],title:['სათაური','Title'],date:['თარიღი','Date'],time:['საათი','Time'],category:['კატეგორია','Category'],repeat:['განმეორება','Repeat'],goal:['მიზანი','Goal'],notes:['შენიშვნა','Notes'],delete:['წაშლა','Delete'],cancel:['გაუქმება','Cancel'],save:['შენახვა','Save'],newgoal:['ახალი მიზანი','New goal'],target:['სამიზნე რაოდენობა','Target count']};
+const $=id=>document.getElementById(id); const L=(ka,en)=>prefs.english?en:ka;
+function dateIso(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function fromIso(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12)}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+let selected=dateIso(new Date()),page='home',mode='month',editing=null;
+let prefs={english:false,dark:false,reminder:-1,color:'green'};let tasks=[],goals=[];
+try {const saved=JSON.parse(localStorage.getItem('weeklyplus_alpha001')||'{}'); prefs={...prefs,...saved.prefs};tasks=Array.isArray(saved.tasks)?saved.tasks:[];goals=Array.isArray(saved.goals)?saved.goals:[];}catch(e){console.warn(e)}
+function persist(){try{localStorage.setItem('weeklyplus_alpha001',JSON.stringify({prefs,tasks,goals}))}catch(e){message(L('შენახვა ამ ბრაუზერში ვერ მოხერხდა — ექსპორტი გამოიყენე','Browser storage failed. Use export.'))}}
+function message(s){$('banner').textContent=s;$('banner').classList.add('visible');setTimeout(()=>$('banner').classList.remove('visible'),5000)}
+function occurs(t,ds){if(ds<t.date)return false;const start=fromIso(t.date),d=fromIso(ds);if(t.repeat==='daily')return true;if(t.repeat==='weekly')return start.getDay()===d.getDay();if(t.repeat==='monthly')return start.getDate()===d.getDate();return ds===t.date}
+function forDay(d){return tasks.filter(t=>occurs(t,d)).sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'))}
+function done(t,d){return !!(t.completed&&t.completed[d])}
+function rank(t,d){return t.priorities&&t.priorities[d]||0}
+function top3(d){return forDay(d).filter(t=>rank(t,d)>0).sort((a,b)=>rank(a,d)-rank(b,d))}
+function toggleDone(id,ds){const t=tasks.find(x=>x.id===id);if(!t)return;t.completed=t.completed||{};if(t.completed[ds])delete t.completed[ds];else t.completed[ds]=true;persist();render()}
+function star(id,ds){const t=tasks.find(x=>x.id===id);if(!t)return;t.priorities=t.priorities||{};if(rank(t,ds))delete t.priorities[ds];else{const top=top3(ds);if(top.length>=3){message(L('TOP 3 უკვე შევსებულია — ჯერ ერთს მოხსენი ვარსკვლავი','TOP 3 is full — remove a star first'));return}t.priorities[ds]=(top.at(-1)?rank(top.at(-1),ds):0)+1}persist();render()}
+function move(id,delta){const top=top3(selected);const i=top.findIndex(t=>t.id===id),j=i+delta;if(j<0||j>=top.length)return;const a=top[i],b=top[j],v=rank(a,selected);a.priorities[selected]=rank(b,selected);b.priorities[selected]=v;persist();render()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function taskHtml(t,d){return `<div class="task ${done(t,d)?'done':''}"><input type="checkbox" aria-label="Complete" ${done(t,d)?'checked':''} onchange="toggleDone('${t.id}','${d}')"><div class="taskbody" onclick="openTask('${t.id}')"><div class="tasktitle">${esc(t.title)}</div><div class="taskmeta">${esc(t.time||'')} ${esc(t.category)} ${t.repeat!=='none'?'↻':''} ${t.reminder>=0&&t.time?'♩':''}</div></div><button class="star" aria-label="TOP 3" onclick="star('${t.id}','${d}')">${rank(t,d)?'★':'☆'}</button><button class="edit" aria-label="Edit" onclick="openTask('${t.id}')">✎</button></div>`}
+function setPage(p){page=p;document.querySelectorAll('.page').forEach(el=>el.classList.toggle('active',el.id===p));document.querySelectorAll('.bottom button').forEach(el=>el.classList.toggle('active',el.dataset.page===p))}
+function show(p){setPage(p);render();window.scrollTo(0,0)}
+function shift(n){const d=fromIso(selected);if(page==='calendar'&&mode==='week')d.setDate(d.getDate()+n*7);else if(page==='calendar'&&mode==='month')d.setMonth(d.getMonth()+n);else d.setDate(d.getDate()+n);selected=dateIso(d);render()}
+function today(){selected=dateIso(new Date());render()}
+function weekday(d){return d.toLocaleDateString(prefs.english?'en-US':'ka-GE',{weekday:'long'})}
+function dateLabel(d){return d.toLocaleDateString(prefs.english?'en-US':'ka-GE',{day:'numeric',month:'long',year:'numeric'})}
+function dot(d){return forDay(d).length>0?'<em>•</em>':'<em>&nbsp;</em>'}
+function changeDate(d){selected=d;render()}
+function render(){document.body.classList.toggle('dark',!!prefs.dark);document.documentElement.lang=prefs.english?'en':'ka';document.querySelectorAll('[data-i]').forEach(el=>{const key=el.dataset.i;if(KEYS[key])el.firstChild&&el.children.length?null:el.textContent=KEYS[key][+!!prefs.english]});$('dark').checked=!!prefs.dark;$('language').value=prefs.english?'en':'ka';$('defaultReminder').value=String(prefs.reminder);const d=fromIso(selected);$('dateText').textContent=dateLabel(d);$('weekdayText').textContent=weekday(d);$('calDate').textContent=dateLabel(d);
+const td=forDay(selected),top=top3(selected);$('pcount').textContent=`${top.length}/3`;$('priorities').innerHTML=top.length?top.map((t,i)=>`<div class="priority"><b>${i+1}.</b><span class="text">${esc(t.title)} ${done(t,selected)?'✓':''}</span><button onclick="move('${t.id}',-1)">▲</button><button onclick="move('${t.id}',1)">▼</button></div>`).join(''):`<p class="empty">${L('დააჭირე ვარსკვლავს საქმეზე — სამეულს შენ თავად ირჩევ.','Star a task to choose your priorities yourself.')}</p>`;$('dailycount').textContent=`${td.filter(t=>done(t,selected)).length}/${td.length}`;$('tasks').innerHTML=td.map(t=>taskHtml(t,selected)).join('')||`<p class="empty">${L('ამ დღისთვის საქმე ჯერ არ არის.','No tasks for this day yet.')}</p>`;
+['day','week','month'].forEach(v=>$('mode-'+v).classList.toggle('active',mode===v));$('calendarGrid').innerHTML='';if(mode!=='day'){const start=new Date(d);const count=mode==='week'?7:42;if(mode==='week')start.setDate(start.getDate()-((start.getDay()+6)%7));else{start.setDate(1);start.setDate(start.getDate()-((start.getDay()+6)%7))}let h='<div class="'+mode+'">';for(let i=0;i<count;i++){const z=addDays(start,i),iso=dateIso(z);h+=`<button class="day ${iso===selected?'active':''} ${mode==='month'&&z.getMonth()!==d.getMonth()?'out':''}" onclick="changeDate('${iso}')"><small>${mode==='week'?weekday(z).slice(0,2):'&nbsp;'}</small>${z.getDate()}${dot(iso)}</button>`}h+='</div>';$('calendarGrid').innerHTML=h}$('calendarTasks').innerHTML=td.map(t=>taskHtml(t,selected)).join('')||`<p class="empty">${L('საქმეები არ არის','No tasks')}</p>`;
+$('goalCards').innerHTML=goals.map(g=>{const n=tasks.filter(t=>t.goalId===g.id).reduce((sum,t)=>sum+Object.keys(t.completed||{}).length,0),pct=Math.min(100,Math.round(n/g.target*100));return `<article class="panel goal"><div class="hrow"><b>${esc(g.title)}</b><b>${Math.min(n,g.target)}/${g.target}</b></div><div class="bar" style="margin:12px 0"><div class="fill" style="width:${pct}%"></div></div><div class="hrow"><small class="muted">${pct}%</small><button class="ghost danger" onclick="removeGoal('${g.id}')">${L('წაშლა','Delete')}</button></div></article>`}).join('')||`<article class="panel"><div class="empty">${L('შექმენი მიზანი და დაუკავშირე დავალებები','Create a goal and link tasks to it')}</div></article>`;
+const dates=Array.from({length:7},(_,i)=>dateIso(addDays(new Date(),i-6)));let all=0,complete=0;const bars=dates.map(z=>{const arr=forDay(z),dn=arr.filter(t=>done(t,z)).length;all+=arr.length;complete+=dn;return `<div class="barcol"><div class="barrack"><div class="barfill" style="height:${arr.length?Math.round(dn/arr.length*100):0}%"></div></div><span>${weekday(fromIso(z)).slice(0,2)}</span><span class="muted">${dn}/${arr.length}</span></div>`}).join('');$('chart').innerHTML=bars;$('doneStat').textContent=complete;$('pctStat').textContent=`${all?Math.round(complete/all*100):0}%`;$('summary').textContent=all?L(`ბოლო 7 დღეში შეასრულე ${complete} საქმე, დაგეგმილი ${all}-დან.`,`You completed ${complete} of ${all} planned tasks in the last 7 days.`):L('დაამატე დავალებები და შედეგებიც აქ გამოჩნდება.','Add tasks to see your progress.');
+}
+function openTask(id){editing=id||null;const t=tasks.find(t=>t.id===id);$('editHeading').textContent=t?L('საქმის რედაქტირება','Edit task'):L('ახალი საქმე','New task');$('taskTitle').value=t?.title||'';$('taskDate').value=t?.date||selected;$('taskTime').value=t?.time||'';$('taskNotes').value=t?.details||'';$('taskCategory').innerHTML=CATS.map(c=>`<option value="${c}">${esc(c)}</option>`).join('');$('taskCategory').value=t?.category||'პირადი';$('taskRepeat').value=t?.repeat||'none';$('taskReminder').value=String(t?.reminder??prefs.reminder);$('taskGoal').innerHTML=`<option value="">${L('მიზნის გარეშე','No goal')}</option>`+goals.map(g=>`<option value="${g.id}">${esc(g.title)}</option>`).join('');$('taskGoal').value=t?.goalId||'';$('deleteTask').classList.toggle('hidden',!t);$('editor').classList.add('show')}
+function closeModal(){document.querySelectorAll('.overlay').forEach(x=>x.classList.remove('show'))}
+function saveTask(e){e.preventDefault();const title=$('taskTitle').value.trim(),date=$('taskDate').value,time=$('taskTime').value,reminder=+$('taskReminder').value;if(!title||!date)return;if(reminder>=0&&!time){message(L('შეხსენებისთვის საათიც მიუთითე','Choose a time for the reminder'));return}const t=tasks.find(x=>x.id===editing);const data={title,date,time,details:$('taskNotes').value,category:$('taskCategory').value,repeat:$('taskRepeat').value,reminder,goalId:$('taskGoal').value};if(t)Object.assign(t,data);else tasks.push({id:crypto.randomUUID?.()||('t'+Date.now()+Math.random()),...data,completed:{},priorities:{}});persist();closeModal();render();message(L('საქმე შენახულია','Task saved'))}
+function removeTask(){if(!editing)return;if(!confirm(L('ნამდვილად წავშალოთ საქმე?','Delete this task?')))return;tasks=tasks.filter(t=>t.id!==editing);persist();closeModal();render()}
+function openGoal(){$('goalTitle').value='';$('goalTarget').value='10';$('goalEditor').classList.add('show')}
+function saveGoal(e){e.preventDefault();const title=$('goalTitle').value.trim(),target=+$('goalTarget').value;if(!title||target<1)return;goals.push({id:crypto.randomUUID?.()||('g'+Date.now()+Math.random()),title,target});persist();closeModal();render()}
+function removeGoal(id){if(!confirm(L('მიზნის წაშლა? დაკავშირებული დავალებები დარჩება.','Delete goal? Linked tasks will remain.')))return;goals=goals.filter(g=>g.id!==id);tasks.forEach(t=>{if(t.goalId===id)t.goalId='' });persist();render()}
+function exportData(){const data=JSON.stringify({version:'0.06-web',exported:new Date().toISOString(),prefs,tasks,goals,joker},null,2),blob=new Blob([data],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='DIARY_Backup_'+dateIso(new Date())+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+async function importData(e){const f=e.target.files?.[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(!Array.isArray(obj.tasks)||!Array.isArray(obj.goals))throw Error('invalid');if(!confirm(L('ჩავანაცვლოთ არსებული მონაცემები?','Replace existing data?')))return;tasks=obj.tasks;goals=obj.goals;prefs={...prefs,...obj.prefs};if(obj.joker&&Array.isArray(obj.joker.players)&&Array.isArray(obj.joker.scores)&&Array.isArray(obj.joker.penalties)){joker={players:Array.from({length:4},(_,i)=>String(obj.joker.players[i]||'')),scores:obj.joker.scores.slice(0,24).map(row=>Array.from({length:4},(_,i)=>row[i]??null)),penalties:obj.joker.penalties.slice(0,24).map(row=>Array.from({length:4},(_,i)=>!!row[i]))};jokerSave()}persist();render();message(L('ასლი აღდგენილია','Backup restored'))}catch{message(L('ფაილი არასწორია','Invalid file'))}finally{e.target.value=''}}
+let statusTasks='all',sortTasks='time',searchTasks='',calendarStatus='all';
+function quickAdd(){
+ const el=$('quickTask'),title=el.value.trim();if(!title)return;
+ tasks.push({id:'t'+Date.now()+Math.random().toString(16).slice(2),title,date:selected,time:'',details:'',category:'პირადი',repeat:'none',reminder:-1,goalId:'',completed:{},priorities:{}});
+ el.value='';persist();render();message('საქმე შენახულია');
+}
+function applyFilters(){
+ statusTasks=$('statusTasks').value;sortTasks=$('sortTasks').value;searchTasks=$('searchTasks').value.trim().toLocaleLowerCase();render()
+}
+const baseRender=render;
+function pickTheme(theme){if(!['green','purple','blue','rose','amber'].includes(theme))return;prefs.color=theme;persist();render()}
+render=function(){
+ baseRender();
+ const colors=['green','purple','blue','rose','amber'];if(!colors.includes(prefs.color))prefs.color='green';
+ document.body.dataset.theme=prefs.color;
+ document.querySelectorAll('.paletteBtn').forEach(btn=>{const chosen=btn.dataset.theme===prefs.color;btn.classList.toggle('chosen',chosen);btn.setAttribute('aria-pressed',String(chosen))});
+ document.querySelectorAll('[data-l10n-ka]').forEach(el=>{el.textContent=el.getAttribute(prefs.english?'data-l10n-en':'data-l10n-ka')});
+ const ds=selected,all=forDay(ds);
+ let showing=all.filter(t=>(statusTasks==='all'||(statusTasks==='done'?done(t,ds):!done(t,ds)))&&(!searchTasks||(String(t.title)+' '+String(t.details||'')+' '+String(t.category||'')).toLocaleLowerCase().includes(searchTasks)));
+ if(sortTasks==='new')showing.sort((a,b)=>String(b.id).localeCompare(String(a.id)));
+ if(sortTasks==='status')showing.sort((a,b)=>Number(done(a,ds))-Number(done(b,ds)));
+ $('tasks').innerHTML=showing.map(t=>taskHtml(t,ds)).join('')||'<p class="empty">შესაბამისი საქმე არ მოიძებნა.</p>';
+ $('calendarTasks').innerHTML=all.filter(t=>calendarStatus==='all'||(calendarStatus==='done'?done(t,ds):!done(t,ds))).map(t=>taskHtml(t,ds)).join('')||'<p class="empty">შესაბამისი საქმე არ მოიძებნა.</p>';
+ const timed=all.filter(t=>t.time);$('hourCount').textContent=timed.length;
+ $('hoursList').innerHTML=timed.map(t=>'<div class="hourRow"><b>'+esc(t.time)+'</b><span>'+esc(t.title)+'</span></div>').join('')||'<p class="empty">დრო მითითებული არ არის.</p>';
+ if(page==='calendar'){
+  const d=fromIso(ds),start=new Date(d);
+  if(mode==='month'){start.setDate(1);start.setDate(start.getDate()-((start.getDay()+6)%7))}
+  if(mode==='week')start.setDate(start.getDate()-((start.getDay()+6)%7));
+  document.querySelectorAll('#calendarGrid .day').forEach((el,i)=>el.classList.toggle('has-task',forDay(dateIso(addDays(start,i))).length>0));
+  if(mode==='month')$('calDate').textContent=d.toLocaleDateString(prefs.english?'en-US':'ka-GE',{month:'long',year:'numeric'});
+ }
+ if(page==='joker')jokerRender();
+};
+const jokerRounds=[1,2,3,4,5,6,7,8,9,9,9,9,8,7,6,5,4,3,2,1,9,9,9,9];
+function newJoker(){return {players:['','','',''],scores:Array.from({length:24},()=>Array(4).fill(null)),penalties:Array.from({length:24},()=>Array(4).fill(false))}}
+let joker=newJoker();
+try{
+ const v=JSON.parse(localStorage.getItem('diary_alpha06_joker')||localStorage.getItem('diary_alpha05_joker')||'null');
+ if(v&&Array.isArray(v.scores)&&v.scores.length===24&&Array.isArray(v.penalties)&&v.penalties.length===24){
+  joker.players=Array.from({length:4},(_,i)=>{const name=String(v.players?.[i]||'');return /^მოთამაშე [1-4]$/.test(name)?'':name.slice(0,28)});
+  joker.scores=v.scores.map(row=>Array.from({length:4},(_,i)=>row?.[i]??null));
+  joker.penalties=v.penalties.map(row=>Array.from({length:4},(_,i)=>!!row?.[i]));
+ }
+}catch(e){console.warn(e)}
+function jokerSave(){try{localStorage.setItem('diary_alpha06_joker',JSON.stringify(joker))}catch(e){message('მონაცემები ვერ შეინახა')}}
+function jokerName(p,v){joker.players[p]=String(v).slice(0,28);jokerSave()}
+function jokerScore(r,p,v){const n=v===''?null:Number(v);if(n!==null&&(!Number.isInteger(n)||Math.abs(n)>999999))return;joker.scores[r][p]=n;jokerSave();jokerTotals()}
+function jokerPenalty(r,p){joker.penalties[r][p]=!joker.penalties[r][p];jokerSave();jokerRender()}
+function jokerTotal(p){return jokerRounds.reduce((sum,_,i)=>sum+(joker.penalties[i][p]?-200:(Number(joker.scores[i][p])||0)),0)}
+function jokerTotals(){joker.players.forEach((_,p)=>{const el=$('jokerTotal'+p);if(el)el.textContent=jokerTotal(p)})}
+function jokerRender(){
+ const el=$('jokerBoard');if(!el)return;
+ const heads=joker.players.map((name,p)=>'<th><input maxlength="28" aria-label="'+(prefs.english?'Player ':'მოთამაშე ')+(p+1)+'" placeholder="'+(prefs.english?'Name ':'სახელი ')+(p+1)+'" value="'+esc(name)+'" oninput="jokerName('+p+',this.value)" title="'+esc(name)+'"></th>').join('');
+ const lines=jokerRounds.map((hand,r)=>{
+  const cells=joker.players.map((_,p)=>{
+   const pen=!!joker.penalties[r][p],value=joker.scores[r][p];
+   return '<td><input type="number" inputmode="numeric" aria-label="'+(prefs.english?'Round ':'ტური ')+(r+1)+' '+(prefs.english?'player ':'მოთამაშე ')+(p+1)+'" '+(pen?'disabled':'')+' value="'+(value==null?'':Number(value))+'" oninput="jokerScore('+r+','+p+',this.value)"><button class="penalty '+(pen?'on':'')+'" onclick="jokerPenalty('+r+','+p+')" title="'+(prefs.english?'Penalty':'ხიშტი')+' −200">'+(pen?'✓ −200':(prefs.english?'−200':'ხიშტი'))+'</button></td>'
+  }).join('');
+  return '<tr class="'+(hand===9?'nine':'')+'"><td title="'+(prefs.english?'Round ':'ტური ')+(r+1)+'"><b>'+hand+'</b></td>'+cells+'</tr>'
+ }).join('');
+ el.innerHTML='<table><colgroup><col class="handcol"><col span="4"></colgroup><thead><tr><th>'+(prefs.english?'Round':'ტური')+'</th>'+heads+'</tr></thead><tbody>'+lines+'<tr class="total"><th>'+(prefs.english?'Total':'ჯამი')+'</th>'+joker.players.map((_,p)=>'<td id="jokerTotal'+p+'">'+jokerTotal(p)+'</td>').join('')+'</tr></tbody></table>'
+}
+function jokerReset(){if(!confirm('მიმდინარე ქულები წაიშლება. ახალი ფურცელი შევქმნათ?'))return;joker=newJoker();jokerSave();jokerRender()}
+function jokerCsv(){
+ const rows=[['ტური',...joker.players],...jokerRounds.map((hand,r)=>[String(r+1)+' ('+hand+')',...joker.players.map((_,p)=>joker.penalties[r][p]?-200:(joker.scores[r][p]??''))]),['ჯამი',...joker.players.map((_,p)=>jokerTotal(p))]];
+ const csv='\uFEFF'+rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');
+ const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='JOKER_'+dateIso(new Date())+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)
+}
+
+render();
+</script></body></html>
