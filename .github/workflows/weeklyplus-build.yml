@@ -41,6 +41,19 @@ jobs:
           "$SDKM" --install "platforms;android-36" "build-tools;36.0.0"
       - name: Compile installable debug APK
         run: gradle :app:assembleDebug --no-daemon --stacktrace
+      - name: Prepare APK signature verification and signing tool
+        run: |
+          SDKM=$(find "${ANDROID_HOME:-/usr/local/lib/android/sdk}/build-tools" -name apksigner -type f | sort -V | tail -n1)
+          echo "APK signer: $SDKM"
+          test -n "$SDKM"
+          mkdir -p .build/signer
+          cp "$(dirname "$SDKM")/lib/apksigner.jar" .build/signer/apksigner.jar
+          test -s .build/signer/apksigner.jar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WEEKLY_PLUS_APKSIGNER_TOOL
+          path: .build/signer/apksigner.jar
+          if-no-files-found: error
       - name: Upload APK as workflow artifact
         uses: actions/upload-artifact@v4
         with:
