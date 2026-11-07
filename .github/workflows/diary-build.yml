@@ -1,0 +1,32 @@
+name: DIARY Alpha 0.03 Android build
+on:
+  push:
+    branches: [diary-alpha003]
+    paths-ignore: ['apks/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Install Android SDK 36
+        run: |
+          SDKM=$(find "${ANDROID_HOME:-/usr/local/lib/android/sdk}/cmdline-tools" -type f -name sdkmanager | head -1)
+          "$SDKM" --install "platforms;android-36" "build-tools;36.0.0"
+      - name: Compile DIARY native Android
+        run: gradle :app:assembleDebug --no-daemon --stacktrace --console=plain
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DIARY_Alpha_0.03_Debug_APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
