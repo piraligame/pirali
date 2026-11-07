@@ -1,7 +1,7 @@
-name: WEEKLY+ Alpha 0.01 Android APK
+name: WEEKLY+ Alpha 0.02 Android APK
 on:
   push:
-    branches: [weekly-plus-alpha001]
+    branches: [weekly-plus-alpha002]
     paths-ignore: ['apks/**']
   workflow_dispatch:
 permissions:
@@ -26,6 +26,12 @@ jobs:
           tar -xJf /tmp/weeklyplus-source.tar.xz
           sed -i 's/onClick={store.finishOnboarding}/onClick={store.finishOnboarding()}/g' app/src/main/java/ge/weeklyplus/app/MainActivity.kt
           sed -i -e 's/setDark/changeDark/g' -e 's/setEnglish/changeEnglish/g' -e 's/setReminderDefault/changeReminderDefault/g' -e 's/setQuietEnabled/changeQuietEnabled/g' app/src/main/java/ge/weeklyplus/app/*.kt
+      - name: Apply WEEKLY+ Alpha 0.02 improvements
+        run: |
+          base64 -d .build/patch-alpha002.b64 | xz -d > /tmp/weeklyplus_patch.py
+          python /tmp/weeklyplus_patch.py
+          grep -q 'versionCode = 2' app/build.gradle.kts
+          grep -q 'InlineClock' app/src/main/java/ge/weeklyplus/app/MainActivity.kt
       - name: Install Android SDK 36
         run: |
           echo "ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}"
@@ -38,16 +44,16 @@ jobs:
       - name: Upload APK as workflow artifact
         uses: actions/upload-artifact@v4
         with:
-          name: WEEKLY_PLUS_Alpha_0.01_Debug_APK
+          name: WEEKLY_PLUS_Alpha_0.02_Debug_APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
       - name: Publish standalone installable APK to branch
         run: |
           mkdir -p apks
-          cp app/build/outputs/apk/debug/app-debug.apk apks/WEEKLY_PLUS_Alpha_0.01.apk
-          sha256sum apks/WEEKLY_PLUS_Alpha_0.01.apk
+          cp app/build/outputs/apk/debug/app-debug.apk apks/WEEKLY_PLUS_Alpha_0.02.apk
+          sha256sum apks/WEEKLY_PLUS_Alpha_0.02.apk
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f apks/WEEKLY_PLUS_Alpha_0.01.apk
-          git commit -m "Build WEEKLY+ Alpha 0.01 installable Android APK" || exit 0
+          git add -f apks/WEEKLY_PLUS_Alpha_0.02.apk
+          git commit -m "Build WEEKLY+ Alpha 0.02 installable Android APK" || exit 0
           git push
