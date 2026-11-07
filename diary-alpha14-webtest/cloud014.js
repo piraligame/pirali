@@ -162,3 +162,29 @@ onAuthStateChanged(auth,user=>{
  initializeUser(user);
 });
 window.addEventListener('online',()=>{if(bridge.dirty)scheduleSync()});
+
+async function verifyGoogleAuthSetup(){
+ const btn=document.getElementById('cloudGoogleLogin');
+ if(!btn)return;
+ try{
+  const url='https://identitytoolkit.googleapis.com/v1/projects?key='+encodeURIComponent(firebaseConfig.apiKey);
+  const response=await fetch(url,{cache:'no-store'});
+  if(!response.ok){
+   btn.disabled=true;
+   if(bridge.state!=='signed-in')uiStatus(label(
+    'Google-ით შესვლა ჯერ აქტივაციის პროცესშია (Firebase Authentication). ადგილობრივი ჩანაწერები შენარჩუნებულია.',
+    'Google sign-in setup is not finished yet (Firebase Authentication). Your local entries are safe.'));
+  }else{
+   btn.disabled=false;
+   if(bridge.state!=='signed-in')uiStatus(label(
+    'Google-ით შესვლა მზადაა შესამოწმებლად. მონაცემები პირველ შესვლაზე გაერთიანდება.',
+    'Google login can now be tested. Existing local data will be merged on first sign-in.'));
+  }
+ }catch(e){
+  console.warn('Auth setup check unavailable');
+  if(bridge.state!=='signed-in')uiStatus(label(
+   'Google-ის სერვერის გადამოწმება ვერ მოხერხდა. ადგილობრივი ჩანაწერები მუშაობს.',
+   'Could not check Google service. Local entries still work.'));
+ }
+}
+verifyGoogleAuthSetup();
