@@ -44,6 +44,24 @@ shift=function(n){
 };
 window.v20PickDay=function(iso){selected=iso;mode='day';render()};
 window.v20QuickNote=function(){journalNew();show('mydiary');document.getElementById('journalTitle')?.focus()};
+window.v20CopyFrom019=function(){
+ if(!confirm('ამავე ბრაუზერში შენახული 0.19-ის მონაცემები მხოლოდ 0.20 სატესტო ასლად დავაკოპიროთ? 0.19 ხელუხლებელი დარჩება.'))return;
+ const pairs=[
+ ['weeklyplus_alpha001','weeklyplus_alpha001_v20preview'],
+ ['diary_alpha10_joker','diary_alpha10_joker_v20preview'],
+ ['diary_alpha10_joker_history','diary_alpha10_joker_v20preview_history'],
+ ['diary_alpha11_clock','diary_alpha11_clock_v20preview'],
+ ['dgiuri_alpha13_journal','dgiuri_alpha13_journal_v20preview'],
+ ['dgiuri_alpha14_checklist','dgiuri_alpha14_checklist_v20preview']
+ ];
+ let copied=0;
+ for(const [origin,target] of pairs){
+  const data=localStorage.getItem(origin);
+  if(data!==null){try{JSON.parse(data);localStorage.setItem(target,data);copied++}catch(e){console.warn('Copy skipped',origin)}}
+ }
+ if(copied){location.reload()}else message('ამ ბრაუზერში 0.19-ის მონაცემები ვერ მოიძებნა; შეგიძლია JSON ასლის იმპორტიც.');
+};
+
 function v20Year(){
  if(page!=='calendar'||mode!=='year')return;
  const y=fromIso(selected).getFullYear(),current=dateIso(new Date());
