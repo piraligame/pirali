@@ -225,6 +225,7 @@ const v20BaseRender=render;
 render=function(){
  v20BaseRender();
  v20AddRepeatOptions();
+ $('calendar')?.classList.toggle('v20YearMode',mode==='year');
  $('mode-year')?.classList.toggle('active',mode==='year');
  v20Year();v20Widget();v20Week();
  if(page==='calendar'&&(mode==='month'||mode==='week')){
