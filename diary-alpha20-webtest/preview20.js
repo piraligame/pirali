@@ -57,7 +57,7 @@ function v20Year(){
    html+='<div class="v20week">'+week.map(s=>'<span>'+s+'</span>').join('')+'</div><div class="v20days">';
    for(let e=0;e<off;e++)html+='<span class="v20spacer"></span>';
    for(let day=1;day<=count;day++){
-      const ds=dateIso(new Date(y,m,day,12)),has=forDay(ds).length>0;
+      const ds=dateIso(new Date(y,m,day,12)),has=forDay(ds).length>0||diaryNotes.some(n=>dateIso(new Date(n.createdAt))===ds);
       html+='<button class="v20day '+(has?'marked ':'')+(ds===selected?'selected ':'')+(ds===current?'selected ':'')+(new Date(y,m,day).getDay()===0?'sun':'')+'" onclick="v20PickDay(\''+ds+'\')" title="'+ds+'">'+day+'</button>';
    }
    html+='</div></div>';
@@ -209,6 +209,15 @@ render=function(){
  v20AddRepeatOptions();
  $('mode-year')?.classList.toggle('active',mode==='year');
  v20Year();v20Widget();v20Week();
+ if(page==='calendar'&&(mode==='month'||mode==='week')){
+   const d=fromIso(selected),start=new Date(d);
+   if(mode==='month')start.setDate(1);
+   start.setDate(start.getDate()-((start.getDay()+6)%7));
+   document.querySelectorAll('#calendarGrid .day').forEach((el,i)=>{
+     const ds=dateIso(addDays(start,i));
+     if(diaryNotes.some(n=>dateIso(new Date(n.createdAt))===ds))el.classList.add('has-entry');
+   });
+ }
  if(page==='mydiary')journalRender();
 };
 v20AddPanel();
