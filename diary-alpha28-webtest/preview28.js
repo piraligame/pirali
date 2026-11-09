@@ -107,7 +107,7 @@ let toast;
 message=function(str){const el=g('banner');if(!el)return;clearTimeout(toast);el.textContent=str;el.classList.add('visible');toast=setTimeout(()=>el.classList.remove('visible'),3000)};
 const oldSet=setPage;setPage=function(p){oldSet(p);if(['notes28','hours28'].includes(p))document.querySelector('.bottom button[data-page="other"]')?.classList.add('active')};
 const oldShow=show;show=function(p){if(p==='calendar'&&page!=='calendar'){selected=dateIso(new Date());mode='day'}oldShow(p)};
-const oldRender=render;render=function(){oldRender();if(!loaded)init();calendar28();if(page==='notes28')d28RenderNotes();if(page==='hours28')d28RenderHours()};
+const oldRender=render;render=function(){oldRender();document.title='დღიური · α 0.28 WEB';if(!loaded)init();calendar28();if(page==='notes28')d28RenderNotes();if(page==='hours28')d28RenderHours()};
 const oldOpenTask=openTask;openTask=function(id){oldOpenTask(id);if(!id&&g('taskTime'))g('taskTime').value='12:00'};
 init();mode='day';render();
 })();
