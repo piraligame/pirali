@@ -1,0 +1,143 @@
+/* WEEKLY+ Android 0.28 visual alignment. Browser remains a separate runtime. */
+:root{
+  font-family:system-ui,-apple-system,"Noto Sans Georgian",Arial,sans-serif;
+  --bg:#F8FAF7;--paper:#FFFFFF;--ink:#37465c;--muted:#5f6d7c;
+  --forest:#196C56;--soft:#E5F4E9;--border:#d9dade;--gold:#d9ab33;
+  color-scheme:light;
+}
+body{background:var(--bg);color:var(--ink)}
+body.dark{
+  --bg:#090d0c;--paper:#17211d;--ink:#b8f5d4;--muted:#b7c9c0;
+  --forest:#83e9be;--soft:#26362e;--border:#35493f;--gold:#f3bd55;
+  color-scheme:dark;
+}
+.shell{background:var(--bg);max-width:940px}
+.top{
+  min-height:88px;padding:20px 16px 9px;align-items:center;
+  gap:10px;color:var(--ink);background:var(--bg);
+}
+.top .logo{
+  width:46px;height:46px;flex:0 0 46px;
+  border-radius:16px;background:linear-gradient(135deg,#126850,#29ab88);
+  color:white;font-size:24px;
+}
+.top .brand{font-size:23px;font-weight:900;letter-spacing:-.6px;line-height:1.12}
+.top .sub{font-size:11px;font-weight:650;line-height:1.35;color:var(--muted)}
+.top .alpha{font-weight:800;font-size:11px;color:var(--ink);white-space:nowrap}
+.main{padding:7px 16px calc(87px + env(safe-area-inset-bottom));max-width:940px}
+.h1{font-size:23px;font-weight:850;letter-spacing:-.3px;margin:8px 0 4px}
+.page>.hrow:first-child{min-height:43px;margin-bottom:5px}
+.page>.hrow:first-child .tiny{font-size:11px}
+.panel{
+  border:1px solid var(--border);border-radius:22px;
+  box-shadow:none;padding:17px;margin-top:13px;
+  background:var(--paper);color:var(--ink);
+}
+.paneltitle{font-size:16px;font-weight:850;line-height:1.4;color:var(--ink)}
+.muted,.tiny{color:var(--muted)}
+.primary{background:var(--forest)!important;border-radius:16px;color:white!important;font-weight:750}
+.secondary{
+  border:1px solid var(--border)!important;border-radius:22px!important;
+  background:var(--paper)!important;color:var(--ink)!important;
+  padding:9px 13px!important;font-weight:700
+}
+body.dark .primary{color:#10231a!important}
+.fieldinput, input:not([type=checkbox]):not([type=radio]){
+  color:var(--ink);border-color:var(--border)
+}
+input[type=checkbox]{accent-color:var(--forest)}
+.bottom{
+  height:66px;padding:0 3px env(safe-area-inset-bottom);
+  border-top:1px solid var(--border);background:var(--paper);box-shadow:none
+}
+.bottom button{color:var(--ink);font-size:9px;font-weight:550;gap:3px}
+.bottom .symbol{font-size:21px;padding:5px 9px;border-radius:17px;line-height:1.15;min-width:39px}
+.bottom button.active{color:var(--ink);font-weight:750}
+.bottom button.active .symbol{background:var(--soft);color:var(--ink)}
+#other>.hrow:first-child h1{font-size:25px;margin:0}
+#other>.hrow:first-child .muted{display:none}
+#other .addonsList{gap:12px;margin-top:14px}
+#other .addonTile{
+  min-height:58px;box-shadow:none;background:var(--paper);
+  border:0;border-radius:17px;padding:12px 14px;gap:12px
+}
+#other .addonCopy small{display:none}
+#other .addonIcon{
+  width:34px;flex:0 0 34px;height:34px;font-size:22px;
+  background:transparent;border-radius:0;color:var(--ink)
+}
+#other .addonCopy strong{font-size:17px;font-weight:850;line-height:1.3}
+#other .addonArrow{font-size:23px;color:var(--ink)}
+#other .addonFuture{display:none!important}
+#other .addonBack{margin-bottom:12px}
+#settings>#cloudAccountPanel{display:block!important}
+#settings .panel{background:var(--paper)}
+#settings .paneltitle{font-size:16px}
+#settings .colorSettings .paletteBtn{border-radius:13px;width:39px;height:39px}
+#settings .colorSettings .paletteBtn span{width:33px;height:33px;border-radius:11px}
+#settings .colorSettings .palette{gap:8px}
+#settings .settingsrow{min-height:46px}
+#settings h1{margin-top:3px}
+#settings #v20Privacy{display:none!important}
+#settings .fieldinput{background:var(--paper)}
+#calendar .tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+#calendar .tabs button{
+  border-radius:14px;padding:10px 2px;
+  background:var(--paper);color:var(--ink);font-size:12px;font-weight:700
+}
+#calendar .tabs button.active{background:var(--soft);border-color:var(--forest);color:var(--forest)}
+#calendarGrid .day{border:0;background:transparent;padding:4px 0;border-radius:12px}
+#calendarGrid .day.active{background:var(--soft);color:var(--ink)}
+#calendarGrid .day.has-entry .date-number{border-color:#d1293f}
+#cal28day .quickadd{background:var(--paper);border-color:var(--border);border-radius:21px}
+#cal28day .paneltitle{font-size:16px}
+#cal28list .paneltitle{font-size:16px}
+#cal28list .d28task{border-color:var(--border)}
+#cal28list .d28task button:last-child{font-weight:600;color:var(--ink)}
+#calendar .datehead button{color:var(--ink)}
+#calendar .datehead b{font-size:16px;font-weight:850}
+#calendar.v20YearMode #calendarGrid .v20month{border-color:var(--border)}
+#calendarGrid .v20monthTitle{color:var(--ink)}
+#calendarGrid .v20day{color:var(--ink)}
+#calendarGrid .v20day.marked{border-color:#d1293f!important}
+#notes28 .d28note{border-width:2px;background:var(--paper);color:var(--ink)}
+#notes28 .d28note span{color:var(--muted)}
+#hours28 .d28hour{border-color:var(--border)}
+#joker .jokerBoard{border-color:var(--border)}
+#joker .jokerBoard th,#joker .jokerBoard td{border-color:var(--border)}
+#joker .jokerBoard .jField select{background:var(--paper);color:var(--ink);border:1px solid var(--border);border-radius:7px}
+#clock .h1{font-size:23px}
+#compassWeb .compass28head{text-align:center;display:grid;gap:6px}
+#compassWeb .compass28head h2{font-size:23px;margin:0;font-weight:850}
+#compassWeb .compass28sub{font-size:12px;color:var(--muted)}
+#compassWeb .compass28dial{
+  position:relative;width:min(288px,calc(100vw - 70px));
+  aspect-ratio:1;margin:17px auto 7px;display:grid;place-items:center;
+  border:1px solid var(--border);border-radius:50%;background:var(--paper)
+}
+#compassWeb .compass28dial svg{width:100%;height:100%;overflow:visible}
+#compassWeb .compass28degrees{
+  font-size:38px;font-weight:900;text-align:center;letter-spacing:-.7px;
+}
+#compassWeb .compass28direction{font-size:17px;font-weight:800;text-align:center}
+#compassWeb .compass28message{text-align:center;font-size:12px;color:var(--muted);padding:6px 8px;line-height:1.5}
+#compassWeb .compass28action{display:flex;justify-content:center;margin-top:10px}
+#compassWeb .compass28label{font:800 18px system-ui,sans-serif;fill:var(--ink)}
+#compassWeb .compass28label.north{fill:#e24559;font-size:21px}
+#compassWeb .compass28needle{transform-origin:144px 144px;transition:transform .14s linear}
+#compassWeb .compass28needle .north{fill:#e24559}
+#compassWeb .compass28needle .south{fill:#94b7b0}
+#compassWeb .compass28circ{fill:none;stroke:#28866a;stroke-width:3}
+#compassWeb .compass28inner{fill:none;stroke:#6d9e8f;stroke-opacity:.45}
+#compassWeb .compass28tick{stroke:#879f96;stroke-width:1}
+#compassWeb .compass28tick.major{stroke:#388c73;stroke-width:2}
+body.v21Annual .top{padding:8px 12px 3px;min-height:48px}
+body.v21Annual #calendar .hrow .h1{font-size:19px}
+body.v21Annual .main{padding-top:1px}
+body.v21Annual #calendar .tabs button{padding:5px 2px}
+@media(max-width:370px){
+  .top{padding-left:12px;padding-right:12px}
+  .top .brand{font-size:20px}.top .sub{font-size:10px}
+  #other .addonCopy strong{font-size:15px}
+  #cal28list .d28task{grid-template-columns:55px 19px minmax(0,1fr);gap:5px}
+}
