@@ -1,0 +1,1454 @@
+<!doctype html>
+<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>დღიური · α 0.21 WEB PREVIEW (0.19 საფუძველი)</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans Georgian",sans-serif;font-size:14px;color:#203d32;background:#f8faf7;--bg:#f8faf7;--paper:#fff;--forest:#197e65;--ink:#203d32;--muted:#668175;--soft:#e5f4e9;--border:#dce9df;--gold:#e8ae35}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}body.dark{--bg:#142920;--paper:#243d32;--ink:#eef9f1;--muted:#bacfc1;--soft:#2f4d3b;--border:#466150;--forest:#7bdbb5;--gold:#f3bd55}
+button,input,textarea,select{font:inherit}button{border:0;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #91cbb1;outline-offset:2px}
+.shell{max-width:1000px;margin:auto;min-height:100dvh;display:flex;flex-direction:column}.top{display:flex;align-items:center;gap:10px;padding:14px 15px 8px}.logo{background:#197e65;color:white;font-size:23px;font-weight:800;border-radius:14px;display:grid;place-items:center;width:46px;height:46px}.brand{font-size:19px;font-weight:900;letter-spacing:.4px}.sub{font-size:10px;color:var(--muted)}.alpha{margin-left:auto;font-size:12px;color:var(--forest);font-weight:700}.main{padding:12px 15px 110px;flex:1}.page{display:none}.page.active{display:block}.hrow{display:flex;align-items:center;justify-content:space-between;gap:8px}.h1{font-size:26px;margin:5px 0 2px;font-weight:820;letter-spacing:-.7px}.muted{color:var(--muted)}.tiny{font-size:11px}.primary{background:#197e65!important;color:white!important;padding:11px 16px;border-radius:13px;font-weight:700}.secondary{color:var(--forest);background:var(--soft);padding:10px 12px;border-radius:12px;font-weight:700}.ghost{background:transparent;color:var(--forest);padding:8px}.panel{background:var(--paper);border:1px solid var(--border);border-radius:22px;padding:15px;margin-top:14px}.accent{background:var(--soft);border:0}.paneltitle{font-weight:800;margin-bottom:10px;font-size:15px}.datehead{display:flex;align-items:center;justify-content:space-between;text-align:center;gap:5px;margin:12px 0}.datehead b{font-size:15px}.datehead small{display:block;color:var(--muted);font-size:11px}.datehead button{background:transparent;color:var(--forest);font-size:24px;padding:6px 12px}.priority{display:flex;gap:9px;align-items:center;background:var(--paper);border-radius:12px;padding:10px;margin-top:8px}.priority b{color:var(--forest)}.priority .text{flex:1;font-weight:650}.priority button{background:transparent;color:var(--forest)}.task{display:flex;align-items:center;border-bottom:1px solid var(--border);padding:9px 0;gap:8px}.task:last-child{border-bottom:0}.task input[type=checkbox]{width:20px;height:20px;accent-color:#197e65;flex-shrink:0}.taskbody{flex:1;min-width:0;cursor:pointer}.tasktitle{font-weight:650;overflow-wrap:anywhere}.task.done .tasktitle{text-decoration:line-through;opacity:.53}.taskmeta{font-size:10px;color:var(--muted);margin-top:3px}.star{background:none;color:var(--gold);font-size:26px;padding:3px}.edit{background:none;color:var(--muted);font-size:19px}.bottom{display:flex;background:var(--paper);border-top:1px solid var(--border);height:74px;position:fixed;bottom:0;left:0;right:0;z-index:4;padding-bottom:env(safe-area-inset-bottom)}.bottom button{background:transparent;color:var(--muted);flex:1;min-width:0;font-size:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}.bottom button.active{color:var(--forest);font-weight:800}.bottom .symbol{font-size:23px;border-radius:15px;padding:3px 12px}.bottom button.active .symbol{background:var(--soft)}.tabs{display:flex;gap:7px}.tabs button{flex:1;border-radius:11px;padding:10px 5px;background:var(--paper);color:var(--muted);border:1px solid var(--border)}.tabs button.active{background:#197e65;color:white}.week,.month{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:13px}.day{background:var(--paper);border:1px solid var(--border);border-radius:10px;text-align:center;padding:10px 2px;font-size:12px;color:var(--ink)}.day.active{background:#197e65;color:white}.day.out{opacity:.42}.day small{font-size:9px;display:block}.day em{display:block;color:var(--forest);font-style:normal}.day.active em{color:white}.metricrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.metric{background:var(--paper);border-radius:19px;padding:17px;border:1px solid var(--border)}.metric strong{font-size:31px;display:block;color:var(--forest)}.bar{height:9px;background:var(--border);border-radius:15px;overflow:hidden}.fill{height:100%;background:#197e65}.chart{display:flex;gap:9px;align-items:end;height:145px;margin-top:12px}.barcol{flex:1;display:flex;align-items:center;flex-direction:column;gap:4px;font-size:10px}.barrack{height:102px;background:var(--soft);width:100%;border-radius:6px;display:flex;align-items:end;overflow:hidden}.barfill{width:100%;background:#197e65;border-radius:6px}.settingsrow{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:11px 0}.settingsrow input{accent-color:#197e65}.settingsrow select{padding:9px;color:var(--ink);background:var(--paper);border:1px solid var(--border);border-radius:10px;max-width:180px}.goal{margin-top:12px}.categories{display:flex;gap:7px;flex-wrap:wrap}.pill{background:var(--soft);color:var(--ink);padding:6px 10px;border-radius:10px;font-size:11px}.banner{display:none;background:var(--soft);color:var(--ink);border-radius:12px;padding:10px;margin:4px 15px}.banner.visible{display:block}
+.overlay{position:fixed;inset:0;background:#091b14a8;z-index:10;display:none;align-items:center;justify-content:center;padding:10px}.overlay.show{display:flex}.dialog{width:min(500px,100%);max-height:95dvh;overflow:auto;background:var(--paper);border-radius:24px;padding:20px;box-shadow:0 15px 50px #0005}.dialog h2{margin:0 0 14px}label.field{display:block;font-weight:650;font-size:12px;color:var(--muted);margin:11px 0 5px}.fieldinput{width:100%;padding:11px;border:1px solid var(--border);border-radius:11px;background:var(--bg);color:var(--ink)}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dialogactions{display:flex;justify-content:end;gap:9px;margin-top:18px}.danger{color:#d55454}.empty{padding:15px 4px;color:var(--muted);font-size:12px}.hidden{display:none!important}
+@media(min-width:720px){.shell{display:grid;grid-template-columns:150px 1fr;grid-template-rows:auto 1fr}.top{grid-column:2}.main{grid-column:2;grid-row:2;padding-bottom:35px}.bottom{position:sticky;grid-column:1;grid-row:1/3;display:flex;flex-direction:column;height:100dvh;justify-content:center;border-right:1px solid var(--border);border-top:0;padding:15px}.bottom button{flex:0;padding:17px 0;font-size:12px}.bottom .symbol{font-size:26px}}
+
+:root{--red:#c83947;--lavender:#eaddf5;color-scheme:light}
+html,body{overflow-x:hidden}
+.shell{display:block;max-width:780px;width:100%;min-height:100dvh}
+.top{padding:calc(14px + env(safe-area-inset-top)) 16px 7px;min-height:78px}
+.brand{font-size:23px}.alpha{font-size:11px}
+.main{padding:8px 15px calc(87px + env(safe-area-inset-bottom));width:100%;min-width:0}
+.panel{border-radius:20px;padding:14px;margin-top:12px}.page{min-width:0}.h1{font-size:29px}
+.roundPlus{width:46px;height:46px;border-radius:50%;font-size:23px;padding:0}
+.quickadd{display:flex;gap:8px;border:1px solid var(--border);background:var(--paper);border-radius:17px;padding:9px;margin:9px 0}
+.quickadd input{background:transparent;color:var(--ink);border:1px solid var(--border);border-radius:13px;min-width:0;flex:1;padding:11px}
+.quickadd button{background:var(--soft);color:var(--forest);border-radius:50%;font-size:22px;width:42px;flex-shrink:0}
+.disclosure summary{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:15px;font-weight:850;cursor:pointer;list-style:none;min-height:32px}
+.disclosure summary::-webkit-details-marker{display:none}
+.disclosure[open] summary{margin-bottom:12px}
+.disclosure strong{color:var(--forest);font-weight:800}.disclosure#topFold{background:var(--soft)}
+.filterbox{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.filterbox input{grid-column:1/-1}
+.filterbox input,.filterbox select,.compact{background:var(--paper);color:var(--ink);min-width:0;border:1px solid var(--border);border-radius:11px;padding:10px;font-size:13px}
+.compact{max-width:43%;padding:7px}
+.hourRow{display:flex;gap:12px;border-bottom:1px solid var(--border);padding:10px 0;font-size:12px}.hourRow b{color:var(--forest)}
+.bottom{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));height:calc(69px + env(safe-area-inset-bottom));padding:0 4px env(safe-area-inset-bottom);box-shadow:0 -4px 20px #00000008}
+.bottom button{font-size:9px;gap:2px;padding:2px 0}
+.bottom .symbol{font-size:20px;padding:3px 8px}
+.banner{position:fixed;z-index:8;top:calc(85px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);margin:0;width:min(520px,calc(100% - 26px));box-shadow:0 6px 22px #0002;padding:14px;font-weight:750}
+.legend{display:flex;align-items:center;gap:6px;padding:9px 5px 0;color:var(--muted);font-size:11px}.legend i{display:block;background:var(--red);width:8px;height:8px;border-radius:50%}
+.month{gap:3px}.day{border:0;min-height:54px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;padding:5px 1px}
+.day.has-task:not(.active){background:#ffebed;color:#9d1724}.day.has-task em{color:var(--red);font-weight:bold}.day.active em{color:white}
+.jokerInfo{background:var(--soft);padding:12px;border-radius:15px;line-height:1.65;margin-top:15px;font-size:12px}
+.jokerbuttons{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.jokerbuttons button{font-size:12px}
+.jokerBoard{overflow:auto;overscroll-behavior-x:contain;background:var(--paper);border:1px solid var(--border);border-radius:14px;max-width:100%}
+.jokerBoard table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:12px}
+.jokerBoard th,.jokerBoard td{text-align:center;border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:5px}
+.jokerBoard th:first-child,.jokerBoard td:first-child{position:sticky;left:0;z-index:1;background:var(--paper);min-width:49px}
+.jokerBoard thead th{background:var(--soft);position:sticky;top:0;z-index:2}
+.jokerBoard thead th:first-child{z-index:3;background:var(--soft)}
+.jokerBoard input{border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);text-align:center;padding:8px 2px;width:76px;min-width:60px}
+.jokerBoard th input{width:112px;font-weight:700}
+.jokerBoard input:disabled{background:#ffeded;color:#ac1824}
+.jokerBoard .penalty{background:var(--soft);color:var(--forest);border-radius:7px;font-size:10px;padding:4px 6px;margin-top:4px}
+.jokerBoard .penalty.on{background:#ffd4da;color:#981721;font-weight:850}
+.jokerBoard tr.nine td:first-child{background:#f0e0f6}
+.jokerBoard tr.total td,.jokerBoard tr.total th{background:var(--soft)!important;color:var(--forest);font-weight:900;padding:12px}
+@media(min-width:720px){.shell{display:block;max-width:780px}.top,.main{grid-column:auto;grid-row:auto}.main{padding-bottom:105px}.bottom{position:fixed;grid-column:auto;grid-row:auto;display:grid;grid-template-columns:repeat(6,1fr);flex-direction:row;justify-content:initial;height:76px;border-top:1px solid var(--border);border-right:0;padding:0}.bottom button{flex:1;font-size:11px;padding:6px 0}}
+@media(max-width:360px){.main{padding-left:10px;padding-right:10px}.brand{font-size:20px}.alpha{font-size:10px}.bottom .symbol{font-size:18px;padding:2px 5px}.bottom button{font-size:8px}.datehead button{padding:5px 7px}.compact{max-width:48%}}
+
+/* DIARY 0.06 four-player on-screen layout, color themes and restored language setting */
+body[data-theme="green"]{--forest:#197e65;--soft:#e5f4e9;--accent-solid:#197e65}
+body[data-theme="purple"]{--forest:#7a4aa9;--soft:#f0e6fa;--border:#e6d7f1;--accent-solid:#7a4aa9}
+body[data-theme="blue"]{--forest:#2a6cb9;--soft:#e6f0ff;--border:#d8e6f3;--accent-solid:#2a6cb9}
+body[data-theme="rose"]{--forest:#b34278;--soft:#fce8f0;--border:#f1d9e3;--accent-solid:#b34278}
+body[data-theme="amber"]{--forest:#926119;--soft:#fff1dc;--border:#e9dfca;--accent-solid:#926119}
+body.dark[data-theme="green"]{--forest:#7bdbb5;--soft:#2f4d3b;--border:#466150;--accent-solid:#197e65}
+body.dark[data-theme="purple"]{--forest:#d9b9f6;--soft:#493656;--border:#67526e;--accent-solid:#68468e}
+body.dark[data-theme="blue"]{--forest:#9bc8ff;--soft:#2e455f;--border:#435a70;--accent-solid:#275d9a}
+body.dark[data-theme="rose"]{--forest:#fac1db;--soft:#54374a;--border:#6c5063;--accent-solid:#9a3266}
+body.dark[data-theme="amber"]{--forest:#f6d39b;--soft:#504331;--border:#75634c;--accent-solid:#96631d}
+.primary,.tabs button.active,.day.active{background:var(--accent-solid,#197e65)!important;color:#fff!important}
+.logo{background:var(--accent-solid,#197e65);box-shadow:0 3px 12px #00000012}
+.task input[type=checkbox]{accent-color:var(--accent-solid,#197e65)}
+.jokerbuttons{display:flex;align-items:center;justify-content:space-between}
+.fixedFour{color:var(--forest);font-weight:800;font-size:12px;background:var(--soft);padding:9px 11px;border-radius:12px}
+.jokerInfo{margin-top:10px}
+.jokerBoard{width:100%;overflow-x:hidden}
+.jokerBoard table{width:100%;min-width:0;max-width:100%;table-layout:fixed;border-collapse:separate}
+.jokerBoard .handcol{width:41px}
+.jokerBoard th,.jokerBoard td{min-width:0;max-width:none;overflow:hidden;padding:4px 2px}
+.jokerBoard th:first-child,.jokerBoard td:first-child{min-width:0!important;width:41px!important;white-space:nowrap;font-size:11px;padding:3px 0}
+.jokerBoard td input,.jokerBoard th input{box-sizing:border-box;display:block;width:100%!important;min-width:0!important;max-width:100%!important;margin:0;padding:6px 1px;line-height:1.2;font-size:12px;border-radius:7px}
+.jokerBoard th input{font-size:11px;font-weight:800;padding:8px 1px}
+.jokerBoard th input::placeholder{color:var(--muted);opacity:1}
+.jokerBoard .penalty{display:block;width:100%;font-size:10px;line-height:1.3;padding:4px 0;margin:4px 0 0;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.jokerBoard thead th:nth-child(2){background:#e0f1e7}
+.jokerBoard thead th:nth-child(3){background:#e4eefb}
+.jokerBoard thead th:nth-child(4){background:#f2e5fb}
+.jokerBoard thead th:nth-child(5){background:#ffedda}
+.jokerBoard tr:nth-child(even):not(.nine):not(.total) td:not(:first-child){background:color-mix(in srgb,var(--soft) 22%,var(--paper))}
+.jokerBoard tr.nine td:not(:first-child){background:color-mix(in srgb,#d6bcf1 17%,var(--paper))}
+.jokerBoard tr.nine td:first-child{background:#ead5f3!important}
+.jokerBoard tr:nth-child(13) td{border-top:2px solid #b48ad0}
+.jokerBoard tr:nth-child(21) td{border-top:2px solid #b48ad0}
+.jokerBoard tr.total td{font-variant-numeric:tabular-nums}
+.restoredLanguage{align-items:center}
+.languageSelect{min-width:138px;max-width:50%;padding:11px 12px;background:var(--paper);border:1px solid var(--border);border-radius:22px;color:var(--ink);font-size:14px;font-weight:700}
+.colorSettings .paneltitle{display:block}.palette{display:flex;gap:9px;flex-wrap:wrap;padding:9px 0 2px}
+.paletteBtn{display:grid;place-items:center;background:var(--paper);width:46px;height:46px;border:2px solid var(--border);border-radius:15px;padding:4px}
+.paletteBtn span{width:29px;height:29px;border-radius:50%;background:var(--swatch)}
+.paletteBtn.chosen{border-color:var(--forest);box-shadow:0 0 0 2px color-mix(in srgb,var(--forest) 16%,transparent)}
+.paletteBtn.chosen:after{content:"✓";position:absolute;color:white;font-size:16px;font-weight:900}
+.paletteBtn{position:relative}
+@media(max-width:360px){
+ .jokerBoard .handcol{width:34px}
+ .jokerBoard th:first-child,.jokerBoard td:first-child{width:34px!important;font-size:10px}
+ .jokerBoard th,.jokerBoard td{padding:4px 1px}
+ .jokerBoard td input{font-size:11px}
+ .jokerBoard .penalty{font-size:9px;letter-spacing:-.3px}
+ .jokerBoard th input{font-size:10px}
+}
+
+/* Alpha 0.06.1 — year overview and explicit year selection */
+.tabs.fourModes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.tabs.fourModes button{font-size:12px;padding:10px 2px;min-width:0;white-space:nowrap}
+.calendarNav{gap:3px}
+.calendarNav button{padding:5px 7px;flex-shrink:0}
+.calendarNav .todayBtn{font-size:14px;padding:7px 5px}
+.calendarDateControls{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;flex:1}
+.calendarDateControls b{font-size:14px;font-weight:800;line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.calYear{width:95px;max-width:100%;border:1px solid var(--border);border-radius:10px;background:var(--paper);color:var(--forest);padding:5px 7px;font-size:13px;font-weight:800;text-align:center}
+.yearGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.yearMonth{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:15px;min-width:0;min-height:91px;background:var(--paper);border:1px solid var(--border);color:var(--ink);padding:12px 4px;text-align:center}
+.yearMonth.selectedMonth{border:2px solid var(--forest);background:var(--soft)}
+.yearMonth .monthName{font-size:13px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;font-weight:800}
+.yearMonth .yearCount{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);height:18px}
+.yearMark{display:inline-block;background:var(--red);width:7px;height:7px;border-radius:50%}
+@media(min-width:520px){.yearGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.yearMonth{min-height:109px}}
+@media(max-width:360px){.yearGrid{gap:5px}.yearMonth{min-height:82px;padding:8px 1px}.yearMonth .monthName{font-size:11px}.calendarDateControls b{font-size:12px}.calYear{width:83px}.calendarNav .todayBtn{font-size:12px}}
+
+/* Alpha 0.07 — compact 4-player Georgian Joker scoring, no intro text */
+.jokerHeading{margin:9px 0 15px;align-items:center}
+.jokerHeading .h1{margin:0;font-size:29px}
+.jokerActions{display:flex;gap:6px}.jokerActions button{padding:9px 12px;font-size:13px}
+.jokerBoard{width:100%;max-width:100%;overflow-x:hidden;border:1px solid var(--border);border-radius:14px}
+.jokerBoard table{table-layout:fixed;width:100%;min-width:0;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+.jokerBoard .handcol{width:36px}
+.jokerBoard th,.jokerBoard td{min-width:0;overflow:hidden;text-align:center;vertical-align:middle;border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:5px 2px}
+.jokerBoard th:first-child,.jokerBoard td:first-child{min-width:0!important;width:36px!important;padding:4px 1px}
+.jokerBoard thead th{position:sticky;top:0;z-index:2;background:var(--soft)}
+.jokerBoard thead th:first-child{position:sticky;left:0;z-index:3;font-size:9px;color:var(--forest);background:var(--soft)}
+.jokerBoard .playerHead{padding:7px 2px}
+.jokerBoard .playerHead input{display:block;box-sizing:border-box;min-width:0!important;max-width:100%!important;width:100%!important;background:var(--paper);color:var(--ink);border:1px solid var(--border);border-radius:7px;padding:9px 1px;font-size:11px;font-weight:900;line-height:1.25;text-align:center;text-overflow:ellipsis}
+.jokerBoard thead th.player0{background:#e0f1e7}
+.jokerBoard thead th.player1{background:#e4eefb}
+.jokerBoard thead th.player2{background:#f2e5fb}
+.jokerBoard thead th.player3{background:#ffedda}
+.jokerBoard .jPair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;width:100%;min-width:0}
+.jokerBoard .jField{display:flex;flex-direction:column;gap:2px;min-width:0;color:var(--muted);font-size:9px;font-weight:800}
+.jokerBoard .jField span{white-space:nowrap}
+.jokerBoard .jField select{box-sizing:border-box;width:100%!important;max-width:100%;min-width:0!important;display:block;background:var(--paper);color:var(--ink);border:1px solid var(--border);border-radius:7px;padding:6px 0;min-height:34px;text-align:center;text-align-last:center;appearance:none;-webkit-appearance:none;font-weight:850;font-size:15px}
+.jokerBoard .jField select:focus{outline:1px solid var(--forest);border-color:var(--forest)}
+.jokerBoard .jPoints{display:block;line-height:1.1;min-height:25px;margin-top:4px;padding:5px 0;border-radius:6px;font-size:12px;background:var(--soft);color:var(--muted)}
+.jokerBoard .jPoints.positive{color:var(--forest);font-weight:950}
+.jokerBoard .jPoints.negative{color:#a8202d;background:#ffdfe2}
+.jokerBoard .jRound.nine th:first-child{background:#ead8f7!important;color:#6a3698}
+.jokerBoard .jRound.group2 th:first-child{background:#e8efff}
+.jokerBoard .jSection th,.jokerBoard .jSection td{background:color-mix(in srgb,var(--soft) 80%,var(--paper))!important;border-top:2px solid var(--forest);padding:9px 1px}
+.jokerBoard .jSection th{font-size:10px;white-space:normal;color:var(--forest)}
+.jokerBoard .jSection strong{font-weight:950;font-size:14px;color:var(--forest)}
+.jokerBoard .jCumulative{display:block;font-size:9px;margin-top:5px;font-weight:700;color:var(--muted);white-space:nowrap}
+.jokerBoard .jGrandTotal th,.jokerBoard .jGrandTotal td{background:var(--forest)!important;color:white!important;padding:13px 1px;font-size:15px;font-weight:950}
+@media(max-width:365px){
+ .jokerBoard .handcol{width:31px}
+ .jokerBoard th:first-child,.jokerBoard td:first-child{width:31px!important}
+ .jokerBoard th,.jokerBoard td{padding:4px 1px}
+ .jokerBoard .jField{font-size:8px}
+ .jokerBoard .jField select{font-size:14px;min-height:32px}
+ .jokerBoard .jPair{gap:2px}
+ .jokerBoard .playerHead input{font-size:10px;padding:7px 1px}
+ .jokerBoard .jPoints{font-size:11px}
+}
+@media(min-width:600px){
+ .jokerBoard .handcol{width:55px}
+ .jokerBoard th:first-child,.jokerBoard td:first-child{width:55px!important}
+ .jokerBoard td{padding:7px 6px}
+ .jokerBoard .jPair{gap:10px}
+ .jokerBoard .jField{font-size:12px}
+ .jokerBoard .jField select{min-height:39px}
+ .jokerBoard .playerHead input{font-size:14px}
+}
+
+/* Alpha 0.08 – in-app, light-language/reminder dropdowns; no Android system picker */
+.inlineDropdown{position:relative;flex:0 0 auto;min-width:150px;max-width:61%;text-align:right}
+.inlineTrigger{display:inline-flex;align-items:center;justify-content:space-between;gap:10px;max-width:100%;min-width:148px;padding:11px 13px;border:1px solid var(--border);background:var(--paper);border-radius:22px;color:var(--ink);font-weight:750;font-size:13px;line-height:1.5;text-align:left;white-space:nowrap}
+.inlineTrigger[aria-expanded="true"]{border-color:var(--forest);box-shadow:0 0 0 2px color-mix(in srgb,var(--forest) 16%,transparent)}
+.inlineOptions{position:absolute;top:calc(100% + 4px);right:0;min-width:205px;width:max-content;max-width:min(85vw,260px);max-height:min(400px,53vh);overflow-y:auto;overscroll-behavior:contain;z-index:40;padding:6px 0;background:#f5edf9;color:#22232b;border:1px solid #e9dced;box-shadow:0 8px 20px #00000025;border-radius:5px;text-align:left}
+.inlineOptions[hidden]{display:none!important}
+.inlineOptions button{display:block;background:transparent;color:#2b2930;border:0;width:100%;font-size:14px;line-height:1.55;text-align:left;padding:10px 16px;white-space:nowrap;cursor:pointer}
+.inlineOptions button.chosen{font-weight:800;background:#e6d9f0}
+.inlineOptions button.chosen:before{content:"✓";display:inline-block;color:#285c49;width:18px;margin-left:-8px;margin-right:3px}
+.inlineOptions button:focus-visible{outline:2px solid var(--forest);outline-offset:-2px}
+.reminderOptions{min-width:220px}
+body.dark .inlineTrigger{background:var(--paper);color:var(--ink)}
+body.dark .inlineOptions{background:#f5edf9;color:#24212a}
+.restoredLanguage{overflow:visible!important}
+.settingsrow{overflow:visible!important;position:relative}
+@media(max-width:360px){.inlineDropdown{max-width:62%;min-width:135px}.inlineTrigger{min-width:130px;font-size:12px;padding:10px 9px}.inlineOptions{max-width:86vw}.settingsrow b{max-width:35%}}
+
+/* Alpha 0.09: end-of-pulka premium and wipe-out, with visible adjustment */
+.jokerBoard .jSection td{padding-top:8px!important;padding-bottom:8px!important}
+.jokerBoard .jAdjustment{display:block;border-radius:6px;padding:3px 1px;margin:5px 0 2px;line-height:1.2;min-height:18px;font-size:9px;font-weight:850;overflow-wrap:anywhere}
+.jokerBoard .jAdjustment.jBonus{color:#147a4f;background:#def6e6}
+.jokerBoard .jAdjustment.jDeduction{color:#b32333;background:#ffe0e4}
+.jokerBoard .jAdjustment.jPending{font-weight:650;color:var(--muted)}
+.jokerBoard .jAdjustment.jNeutral{color:var(--muted);font-weight:650}
+.jokerBoard .jPoints.jErased{text-decoration:line-through;text-decoration-thickness:2px;color:#a73445!important;background:#ffe6e9!important;opacity:.84}
+.jokerBoard .jCumulative{font-size:9px;margin-top:5px}
+@media(max-width:360px){.jokerBoard .jAdjustment{font-size:8px;padding:3px 0;letter-spacing:-.15px}}
+
+/* Diary Alpha 0.10: compact on-page selectors, stored Joker matches, reminder diagnostics */
+.nativeHidden{display:none!important}
+.customSelect{width:auto;max-width:100%;min-width:0;text-align:left}
+.customSelect .inlineTrigger{min-width:0;width:100%;max-width:100%;color:var(--ink);background:var(--paper);padding:10px 12px;border-radius:12px;white-space:nowrap;font-size:13px}
+.customSelect .inlineOptions{min-width:180px;max-width:min(78vw,270px)}
+.calendarFilter{width:142px;max-width:47%}
+.calendarYear{width:92px;max-width:100%}
+.calendarYear .inlineTrigger{font-weight:800;justify-content:center;padding:6px 7px;font-size:13px}
+.yearChoices{max-height:40vh;min-width:120px!important}
+.filterbox .customSelect{min-width:0;max-width:100%;width:100%}
+.filterbox .customSelect .inlineOptions{min-width:170px;max-width:74vw}
+.filterbox .customSelect .inlineTrigger{font-size:12px;padding:10px 7px}
+.historyFold{margin:16px 0 0}
+.historyFold summary{font-size:14px}
+#jokerHistoryCount{color:var(--forest)}
+.historyCard{margin:10px 0;border:1px solid var(--border);border-radius:13px;padding:12px;background:var(--bg)}
+.historyCard .hrow{gap:5px;align-items:flex-start}
+.historyCard b{font-size:12px}
+.historyState{display:inline-block;font-size:10px;color:var(--forest);margin-top:5px}
+.historyState.draft{color:var(--muted)}
+.historyButtons{display:flex;gap:5px}
+.historyButtons button{font-size:11px;padding:8px 10px}
+.historyScores{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:11px}
+.historyScores span{text-align:center;min-width:0;background:var(--paper);border-radius:9px;padding:8px 2px}
+.historyScores small{font-size:10px;display:block;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.historyScores b{display:block;font-size:15px;color:var(--forest);margin-top:4px;font-variant-numeric:tabular-nums}
+.historyMore{width:100%;margin-top:9px}
+.jokerActions{gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.jokerActions .historySave{padding:8px 10px}
+.alarmSettings .paneltitle{margin:0}
+.alarmLed{width:10px;height:10px;border-radius:50%;background:#b0b5b1}
+.alarmLed.on{background:#20a57d}
+.alarmControls{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:8px}
+.alarmControls button{font-size:12px;padding:10px}
+.webAlarm{position:fixed;z-index:200;bottom:calc(83px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(500px,calc(100% - 28px));background:var(--paper);border:2px solid var(--forest);border-radius:16px;box-shadow:0 9px 40px #0004;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.webAlarm[hidden]{display:none!important}
+.webAlarm strong{font-size:18px;color:var(--forest)}
+.webAlarm p{margin:6px 0 0;font-size:13px;overflow-wrap:anywhere}
+.webAlarm button{background:var(--soft);color:var(--ink);border-radius:10px;font-size:18px;padding:7px 12px}
+@media(max-width:360px){.calendarFilter{width:120px}.historyScores b{font-size:12px}.jokerActions .historySave{font-size:12px}}
+
+/* Alpha 0.11: alpha 0.10 layout retained; only clock slot and dark popup readability. */
+body.dark{--bg:#070a08;--paper:#17201b;--ink:#f4faf6;--muted:#b6cbbd;--soft:#263b30;--border:#41584a;--forest:#8ce5bd;--gold:#f3bd55}
+body.dark .inlineOptions{background:#111c16!important;color:var(--ink)!important;border:1px solid #557362!important;border-radius:11px!important}
+body.dark .inlineOptions button{color:var(--ink)!important;background:transparent!important}
+body.dark .inlineOptions button:hover,body.dark .inlineOptions button:focus-visible,body.dark .inlineOptions button.chosen{background:#2b4a39!important;color:#fff!important}
+body.dark .inlineOptions button.chosen:before{color:#a2efc8!important}
+body.dark .inlineTrigger{background:var(--paper)!important;color:var(--ink)!important}
+body.dark select,body.dark select option,body.dark .fieldinput{color:var(--ink)!important;background:var(--paper)!important}
+body.dark .jokerBoard .jField select{color:var(--ink)!important;background:var(--paper)!important}
+.clockDigits{text-align:center;font-size:clamp(32px,10vw,52px);font-variant-numeric:tabular-nums;font-weight:900;letter-spacing:1px;color:var(--forest);padding:16px 0}
+.clockInputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:7px 0 15px}
+.clockInputs label,.clockAlarmEdit label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted);min-width:0}
+.clockInputs input{background:var(--paper);color:var(--ink);border:1px solid var(--border);border-radius:12px;width:100%;min-width:0;padding:11px 5px;text-align:center;font-size:19px}
+.clockAlarmEdit{display:grid;grid-template-columns:1fr 1.3fr;gap:9px;margin:12px 0}
+.clockAlarmEdit .fieldinput{width:100%;max-width:100%;min-width:0;padding:11px;font-size:13px}
+#clock .alarmControls{margin-top:10px}
+#clock .alarmSettings{margin-top:13px}
+#clock [hidden]{display:none!important}
+.diaryLinks{display:grid;gap:3px}
+.diaryLink{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--border);padding:10px 3px}
+.diaryLink:last-child{border:0}
+.diaryLink img,.diaryLinkIcon{height:44px;width:44px;border-radius:12px;object-fit:cover;flex:0 0 44px}
+.diaryLinkIcon{display:grid;place-items:center;font-size:15px;font-weight:850;color:white;background:#207bad}
+.diaryLinkInfo{flex:1;min-width:0}
+.diaryLinkInfo b{display:block;font-size:13px}
+.diaryLinkInfo small{display:block;margin-top:3px;font-size:11px;color:var(--muted)}
+.diaryLinkArrow{color:var(--forest);font-size:20px}
+@media(max-width:365px){.clockAlarmEdit{grid-template-columns:1fr 1fr}.clockDigits{font-size:36px}}
+
+/* Alpha 0.13: compact four-tab navigation and add-ons; keep alpha 0.10/12 design. */
+.bottom{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+@media(min-width:720px){.bottom{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
+.tabs.threeModes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.tabs.threeModes button{font-size:13px;padding:10px 3px;min-width:0}
+.addonBack{margin:6px 0 12px}
+.addonBack button{padding:8px 12px;font-size:12px}
+.addonsList{display:grid;gap:10px;margin-top:18px}
+.addonTile{display:flex;align-items:center;gap:12px;text-align:left;width:100%;min-width:0;border-radius:18px;border:1px solid var(--border);background:var(--paper);color:var(--ink);padding:15px 13px}
+.addonTile:active{transform:scale(.993)}
+.addonIcon{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border-radius:14px;background:var(--soft);font-size:23px;color:var(--forest)}
+.addonCopy{display:grid;gap:4px;min-width:0;flex:1}
+.addonCopy strong{font-size:15px}
+.addonCopy small{font-size:11px;line-height:1.4;color:var(--muted)}
+.addonArrow{font-size:27px;color:var(--forest)}
+.addonFuture{margin-top:18px}
+.addonFuture p{margin:7px 0 0}
+.journalEditor{margin-top:16px}
+.journalEditor .paneltitle{font-size:16px}
+.journalBody{resize:vertical;min-height:160px;line-height:1.55;font-size:14px}
+.journalEditor .fieldinput{font-size:14px}
+.journalEditor .dialogactions{margin:8px 0 0}
+.journalHistory .hrow{gap:9px}
+#journalCount{color:var(--forest)}
+#journalSearch{margin:13px 0 2px;background:var(--paper)}
+.journalItem{margin-top:12px;border:1px solid var(--border);border-radius:14px;background:var(--bg);padding:13px}
+.journalItem h3{font-size:15px;font-weight:800;margin:0 0 7px;overflow-wrap:anywhere}
+.journalItem .noteMeta{font-size:11px;color:var(--muted);line-height:1.55}
+.journalItem .noteText{white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0;color:var(--ink);line-height:1.55;font-size:13px;max-height:260px;overflow-y:auto}
+.journalItem .noteActions{display:flex;gap:9px;justify-content:flex-end}
+.journalItem .noteActions button{font-size:12px}
+body.dark .jokerBoard thead th.player0{background:#193e32!important}
+body.dark .jokerBoard thead th.player1{background:#213748!important}
+body.dark .jokerBoard thead th.player2{background:#372943!important}
+body.dark .jokerBoard thead th.player3{background:#483426!important}
+body.dark .jokerBoard .playerHead input,
+body.dark .jokerBoard thead th input{background:#17231d!important;color:#f5fff9!important;-webkit-text-fill-color:#f5fff9!important;border:1px solid #61756a!important;caret-color:#fff!important}
+body.dark .jokerBoard .playerHead input::placeholder{color:#b5c9bc!important;-webkit-text-fill-color:#b5c9bc!important}
+body.dark .jokerBoard .jField select{background:#17231d!important;color:#f5fff9!important}
+
+/* Alpha 0.15 — 6 destinations, two accents, independent checklist and Google sync. */
+body[data-theme="cyan"]{--forest:#067e86;--soft:#d9f5f4;--border:#cae7e7;--accent-solid:#087f86}
+body.dark[data-theme="cyan"]{--forest:#85ecea;--soft:#1e4245;--border:#376468;--accent-solid:#087f86}
+body[data-theme="slate"]{--forest:#506174;--soft:#e6eaf0;--border:#cbd4df;--accent-solid:#586575}
+body.dark[data-theme="slate"]{--forest:#bcc8de;--soft:#2d3647;--border:#4b5668;--accent-solid:#566378}
+.bottom{grid-template-columns:repeat(6,minmax(0,1fr))!important;padding-inline:2px}
+.bottom button{font-size:9px;min-width:0;padding-inline:1px}
+.bottom .symbol{font-size:20px;padding:3px 6px}
+@media(min-width:720px){.bottom{grid-template-columns:repeat(6,minmax(0,1fr))!important}}
+@media(max-width:350px){.bottom button{font-size:8px}.bottom .symbol{font-size:18px;padding:3px 4px}}
+#listForm{margin-top:8px}
+#listForm input{min-width:0}
+.listFilters{display:flex;gap:4px;flex-wrap:wrap}
+.listFilters .chip{padding:7px 6px;border-radius:10px;background:var(--paper);border:1px solid var(--border);color:var(--muted);font-size:10px}
+.listFilters .chip.active{background:var(--soft);color:var(--forest);font-weight:800;border-color:var(--forest)}
+#list .bar{width:100%;height:8px;border-radius:99px;background:var(--soft);overflow:hidden;margin:13px 0}
+#list .barfill{display:block;height:100%;border-radius:99px;background:var(--accent-solid,#197e65);transition:width .3s}
+.listRow{display:flex;align-items:start;gap:10px;padding:14px 4px;border-bottom:1px solid var(--border);min-width:0}
+.listRow:last-child{border-bottom:0}
+.listRow input[type=checkbox]{width:22px;height:22px;flex:0 0 22px;margin:0;accent-color:var(--accent-solid,#197e65);cursor:pointer}
+.listText{flex:1;min-width:0;font-size:14px;line-height:1.5;overflow-wrap:anywhere;white-space:pre-line}
+.listRow.done .listText{color:#d13b4a!important;text-decoration:line-through;text-decoration-color:#e02942;text-decoration-thickness:2px;opacity:.94}
+body.dark .listRow.done .listText{color:#ff7d8a!important;text-decoration-color:#ff516a}
+.listActions{display:flex;gap:3px}
+.listActions button{background:transparent;border:0;padding:3px 4px;color:var(--muted);font-size:17px;min-width:27px}
+.listActions button.danger{color:#d04b58}
+#listStatsPanel p{margin:10px 0 0}
+#cloudAccountPanel{margin:13px 0}
+#cloudAccountPanel .cloudGoogleButton{display:inline-flex;gap:12px;align-items:center;margin:14px 0 3px;font-size:13px}
+.cloudGoogleButton span:first-child{display:grid;place-items:center;border-radius:50%;width:24px;height:24px;background:#fff;color:#4285f4;font-family:Arial,sans-serif;font-size:17px;font-weight:bold}
+#cloudStatus{line-height:1.5;margin:12px 0 0}
+.cloudAccount{display:flex;align-items:center;gap:10px;margin:12px 0}
+.cloudAccount img{width:43px;height:43px;border-radius:50%;object-fit:cover}
+.cloudUser{display:flex;flex-direction:column;gap:4px;min-width:0}
+.cloudUser strong,.cloudUser small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cloudUser small{color:var(--muted);font-size:12px}
+.alarmVolume{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--muted);margin:13px 0}
+.alarmVolume input{accent-color:var(--forest);flex:1;min-width:100px}
+.alarmVolume span{min-width:42px;text-align:right;font-weight:800;color:var(--forest)}
+#list .empty{text-align:center}
+
+/* Alpha 0.15 — mobile-first checklist input and buttons. No app-wide layout changes. */
+#listForm.quickadd{
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ align-items:center!important;gap:8px!important;flex-wrap:nowrap!important;margin:8px 0 14px!important;
+ padding:0!important;box-sizing:border-box!important;
+}
+#listForm.quickadd #listInput{
+ display:block!important;min-width:0!important;width:100%!important;max-width:100%!important;
+ flex:unset!important;box-sizing:border-box!important;margin:0!important;height:48px!important;
+ border-radius:12px!important;padding:0 13px!important;font-size:13px!important;
+ text-overflow:ellipsis!important;
+}
+#listForm.quickadd .listAddButton{
+ display:inline-flex!important;flex:none!important;flex-direction:row!important;align-items:center!important;
+ justify-content:center!important;gap:4px!important;width:auto!important;min-width:107px!important;
+ max-width:126px!important;height:48px!important;min-height:48px!important;
+ margin:0!important;padding:0 11px!important;box-sizing:border-box!important;
+ white-space:nowrap!important;overflow:hidden!important;word-break:keep-all!important;
+ font-size:12px!important;font-weight:800!important;line-height:1!important;writing-mode:horizontal-tb!important;
+ text-align:center!important;border-radius:12px!important;letter-spacing:0!important;
+}
+#listForm.quickadd .listAddIcon{display:inline!important;flex:none!important;line-height:1!important;font-size:18px!important;font-weight:700!important;white-space:nowrap!important}
+#listForm.quickadd .listAddCaption{display:inline!important;line-height:1.1!important;white-space:nowrap!important}
+#listForm.quickadd .listAddButton:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+#list .hrow:has(.listFilters){display:flex!important;align-items:center!important;flex-wrap:wrap!important;gap:10px!important}
+#list .listFilters{display:flex!important;justify-content:flex-end!important;gap:5px!important;flex-wrap:nowrap!important;max-width:100%!important}
+#list .listFilters .chip{white-space:nowrap!important;word-break:keep-all!important;font-size:11px!important;padding:8px 8px!important;min-width:0!important}
+@media(max-width:360px){
+ #listForm.quickadd{gap:6px!important}
+ #listForm.quickadd .listAddButton{min-width:94px!important;padding:0 6px!important;font-size:11px!important}
+ #list .listFilters .chip{font-size:10px!important;padding:7px 6px!important}
+}
+
+/* Alpha 0.17 — no horizontal tab scroll; each of six buttons owns one sixth. */
+.bottom{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;width:100%;max-width:100%;gap:0;overflow:hidden}
+.bottom button{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:0;width:100%;max-width:100%;overflow:hidden;padding-inline:1px}
+.bottom button span:last-child{max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.2;text-align:center}
+@media(max-width:380px){.bottom button{font-size:8px}.bottom .symbol{font-size:18px;padding:2px 4px}}
+#home #filterFold,#home #topFold{display:none!important}
+#hourFold summary{width:100%;user-select:none}
+#hourFold summary::after{content:"⌄";font-size:22px;color:var(--forest);line-height:1}
+#hourFold[open] summary::after{content:"⌃"}
+.listActions .pinButton{font-size:17px}
+.listActions .pinButton.active{background:var(--soft);color:var(--forest);border-radius:12px}
+
+/* Alpha 0.18: palette applies to TEXT, not the page background. */
+body[data-theme]{--soft:#e5f4e9;--border:#dce9df}
+body.dark[data-theme]{--soft:#263b30;--border:#41584a}
+body[data-theme="green"]{--ink:#164B38;--muted:#24634F}
+body.dark[data-theme="green"]{--ink:#B8F5D4;--muted:#9FDCBF}
+body[data-theme="purple"]{--ink:#563877;--muted:#694989}
+body.dark[data-theme="purple"]{--ink:#D9BFF7;--muted:#CBADE8}
+body[data-theme="blue"]{--ink:#1B4D83;--muted:#285E98}
+body.dark[data-theme="blue"]{--ink:#C0DBFF;--muted:#A9CCF5}
+body[data-theme="rose"]{--ink:#762C49;--muted:#8D4160}
+body.dark[data-theme="rose"]{--ink:#FFD1E1;--muted:#F0B8D1}
+body[data-theme="amber"]{--ink:#5D421D;--muted:#735323}
+body.dark[data-theme="amber"]{--ink:#FFE0A8;--muted:#F1CD91}
+body[data-theme="cyan"]{--ink:#155258;--muted:#21656B}
+body.dark[data-theme="cyan"]{--ink:#BAF3F2;--muted:#97E0DF}
+body[data-theme="slate"]{--ink:#37465C;--muted:#4B5C73}
+body.dark[data-theme="slate"]{--ink:#D6E1F1;--muted:#BBCBDD}
+/* Themed text on every screen: the accent follows the selected palette. */
+body[data-theme]{color:var(--ink)}
+body[data-theme] :is(.brand,.sub,.alpha,.h1,.paneltitle,.hrow,.muted,.tiny,.empty,.listText,.diaryLinkInfo,.datehead,.weekdays,.calendarYear,.settingsrow,.addonsList,.addonCopy,.journalItem,.journalHistory,.cloudUser,.jokerInfo,.jokerBoard,.clockDigits,.clockDisplay,.result,.progressStat,.disclosure,.banner){color:var(--ink)}
+body[data-theme] :is(input,textarea,select,.fieldinput,.languageSelect,.compact){color:var(--ink)}
+body[data-theme] :is(input,textarea)::placeholder{color:var(--muted);opacity:1}
+body[data-theme] :is(h1,h2,h3,h4,summary,label,small,strong,b):not(.primary *):not(.day.active *){color:var(--ink)}
+body[data-theme] .bottom button{color:var(--ink)}
+body[data-theme] .bottom button.active{color:var(--forest)}
+body[data-theme] :is(.primary,.tabs button.active,.day.active),
+body[data-theme] :is(.primary,.tabs button.active,.day.active) :is(span,b,strong,small){color:#fff!important}
+body[data-theme] .logo{color:#fff!important}
+body[data-theme] .listRow.done .listText{color:#c83947!important}
+body.dark[data-theme] .listRow.done .listText{color:#ff8692!important}
+body[data-theme] .listActions .danger{color:#c83947}
+body[data-theme] :is(.danger,.error,.alert-error){color:#c83947}
+body.dark[data-theme] :is(.danger,.error,.alert-error){color:#ff8692}
+
+/* Alpha 0.19: red circular outline on days with task/reminder, date remains visible. */
+#calendarGrid .day .date-number {
+ display:grid;place-items:center;width:32px;height:32px;
+ border:2px solid transparent;border-radius:50%;margin-inline:auto;
+ font-weight:750;font-variant-numeric:tabular-nums;line-height:1;
+ color:inherit;
+}
+#calendarGrid .day.has-entry .date-number {border-color:#d1293f}
+#calendarGrid .day.has-entry:not(.active) .date-number {color:var(--ink)!important}
+#calendarGrid .day.has-entry.active .date-number {border-color:#ff4257;color:#fff!important}
+#calendarGrid .day.out.has-entry {opacity:.82}
+
+#filterFold,#topFold,#journalSearch,.task .star,#cloudAccountPanel{display:none!important}
+.v20banner{background:var(--soft);padding:11px;border-radius:13px;font-size:12px;line-height:1.5;margin:8px 0}
+.v20actions{display:flex;gap:9px;flex-wrap:wrap;margin:8px 0}
+#calendar .tabs.threeModes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.v20year{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:15px}
+.v20month{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:7px 3px;min-width:0}
+.v20monthTitle{background:transparent;color:var(--ink);font-weight:800;font-size:13px;width:100%;margin-bottom:8px}
+.v20week,.v20days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center}
+.v20week{font-size:8px;color:var(--muted);margin-bottom:3px}
+.v20day{border-radius:50%;color:var(--ink);background:transparent;min-width:0;height:19px;font-size:9px;padding:0;position:relative}
+.v20day.sun{color:#df6171}
+.v20day.marked::after{content:"";position:absolute;inset:1px 0;border:1.4px solid #e34755;border-radius:50%;pointer-events:none}
+.v20day.selected{background:var(--soft);font-weight:900}
+.v20spacer{height:19px}
+.v20pin{padding:7px 10px;border-radius:10px;background:var(--soft);color:var(--forest)}
+.v20Pinned{border-left:4px solid var(--forest);padding-left:10px}
+.v20widget{border-radius:17px;background:var(--paper);border:1px solid var(--border);padding:14px;margin-top:12px}
+.v20category{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--forest);margin-right:4px}
+.v20attached img{max-width:70px;max-height:70px;object-fit:cover;border-radius:10px}
+@media(max-width:380px){.v20year{gap:4px;margin-left:-7px;margin-right:-7px}.v20month{padding:6px 1px}.v20day{font-size:8px;height:18px}.v20spacer{height:18px}.v20week{font-size:7px}}
+@media(min-width:650px){.v20year{gap:14px}.v20day{font-size:12px;height:29px}.v20spacer{height:29px}}
+
+#calendar:not(.v20YearMode) .calendarYear{display:none!important}
+#calendar.v20YearMode .calendarYear{display:flex}
+#calendar:not(.v20YearMode) #calYearTrigger{display:none!important}
+#v20Widget{display:none}
+
+/* 0.21 compact 12-month full-viewport year calendar */
+body.v21Annual .top{min-height:50px;padding:5px 12px 2px}
+body.v21Annual .top .logo{width:33px;height:33px;border-radius:9px;font-size:17px}
+body.v21Annual .top .brand{font-size:17px}
+body.v21Annual .top .sub{display:none}
+body.v21Annual .main{padding-top:2px}
+body.v21Annual #calendar .hrow .muted{display:none}
+body.v21Annual #calendar .hrow .h1{font-size:20px;margin:2px}
+body.v21Annual #calendar .hrow .roundPlus{width:31px;height:31px;font-size:18px}
+body.v21Annual #calendar .tabs{margin:3px 0}
+body.v21Annual #calendar .tabs button{padding:5px 2px}
+body.v21Annual #calendar .datehead{margin:1px 0;min-height:27px}
+body.v21Annual #calendar .datehead button{padding:3px}
+body.v21Annual #calendar .legend{display:none}
+body.v21Annual #calendar > article.panel{display:none}
+body.v21Annual #calendarGrid{overflow:hidden;margin-top:3px;height:55dvh}
+body.v21Annual .v20year{height:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:4px;margin:0}
+body.v21Annual .v20month{height:100%;display:flex;flex-direction:column;padding:2px;overflow:hidden;border-radius:8px}
+body.v21Annual .v20monthTitle{flex:0 0 auto;font-size:11px;line-height:15px;margin:0;padding:0}
+body.v21Annual .v20week{flex:0 0 auto;font-size:7px;margin:0}
+body.v21Annual .v20days{flex:1;grid-auto-rows:minmax(0,1fr);align-content:stretch}
+body.v21Annual .v20day{width:100%;height:100%;font-size:clamp(7px,1.6vw,10px)}
+body.v21Annual .v20spacer{height:auto}
+
+</style></head><body>
+<div class="shell"><header class="top"><div class="logo">✓</div><div><div class="brand">დღიური</div><div class="sub" data-i="tagline">შენი დღეები, ლამაზად დაგეგმილი</div></div><div class="alpha">α 0.21 · WEB</div></header>
+<div id="banner" class="banner"></div><div id="webAlarm" class="webAlarm" role="alertdialog" aria-live="assertive" aria-labelledby="webAlarmTitle" hidden><div><strong id="webAlarmTitle">⏰ შეხსენება</strong><p id="webAlarmText"></p></div><button type="button" onclick="dismissWebAlarm()" aria-label="Dismiss">✕</button></div><main class="main">
+
+<section id="list" class="page active">
+<div class="hrow"><div><h1 class="h1" data-v14="listTitle">☑ საერთო სია</h1>
+<div class="muted tiny" data-v14="listDesc">შენი დიდი საერთო სია • შესრულებისას წითლად გადაიხაზება</div></div></div>
+<article class="panel">
+<form class="quickadd" id="listForm" onsubmit="listAdd(event)">
+<input type="text" id="listInput" maxlength="200" required autocomplete="off" placeholder="საქმის დამატება..." aria-label="სიის ახალი საქმე">
+<button type="submit" class="primary listAddButton" aria-label="საქმის დამატება"><span class="listAddIcon" aria-hidden="true">＋</span><span class="listAddCaption" data-v14="listAddShort">დამატება</span></button>
+</form>
+<div class="hrow" style="margin:8px 0 2px"><strong id="listProgress">0/0</strong>
+<div class="listFilters" role="group" aria-label="Filter list">
+<button class="chip active" type="button" data-list-filter="open" onclick="listFilterSet('open')" data-v14="listOpen">შესასრულებელი</button>
+<button class="chip" type="button" data-list-filter="done" onclick="listFilterSet('done')" data-v14="listDone">შესრულებული</button>
+<button class="chip" type="button" data-list-filter="all" onclick="listFilterSet('all')" data-v14="listAll">ყველა</button>
+</div></div>
+<div class="bar" aria-hidden="true"><span class="barfill" id="listProgressFill" style="width:0%"></span></div>
+<div id="listItems" class="listItems"></div>
+</article></section>
+<section id="home" class="page">
+<div class="hrow"><div><h1 class="h1" data-tx="My day">ჩემი დღე</h1><div class="muted tiny" data-tx="Focus on what matters">მთავარზე კონცენტრირდი</div></div><button class="primary roundPlus" onclick="openTask()" aria-label="ახალი საქმე">＋</button></div>
+<div class="datehead"><button onclick="shift(-1)">‹</button><div><b id="dateText"></b><small id="weekdayText"></small></div><button onclick="shift(1)">›</button><button class="secondary" onclick="today()" data-tx="Today">დღეს</button></div>
+<div class="quickadd"><input id="quickTask" data-placeholder-en="Quick add a task..." aria-label="სწრაფი დამატება" maxlength="160" placeholder="სწრაფად დაამატე საქმე..." onkeydown="if(event.key==='Enter')quickAdd()"><button onclick="quickAdd()">＋</button></div>
+<article class="panel"><div class="hrow"><b class="paneltitle" data-tx="Today’s tasks">დღის საქმეები</b><strong id="dailycount"></strong></div><div id="tasks"></div></article>
+<details class="panel disclosure" id="filterFold"><summary><span data-tx="Search and sort">ძიება და დალაგება</span><span>⌄</span></summary><div class="filterbox">
+<input id="searchTasks" type="search" data-placeholder-en="Search by task..." placeholder="საქმის ძიება..." oninput="applyFilters()">
+<select id="statusTasks" class="nativeHidden" onchange="applyFilters()" aria-label="სტატუსის ფილტრი" aria-hidden="true" tabindex="-1"><option value="all">ყველა</option><option value="undone">შეუსრულებელი</option><option value="done">შესრულებული</option></select><div class="inlineDropdown customSelect" data-for-select="statusTasks"><button type="button" class="inlineTrigger" id="statusTasksTrigger" onclick="toggleCustomSelect('statusTasks')" aria-expanded="false" aria-controls="statusTasksMenu">ყველა ▾</button><div id="statusTasksMenu" class="inlineOptions" role="listbox" hidden></div></div>
+<select id="sortTasks" class="nativeHidden" onchange="applyFilters()" aria-hidden="true" tabindex="-1"><option value="time">დრო</option><option value="new">ახალი</option><option value="status">სტატუსი</option></select><div class="inlineDropdown customSelect" data-for-select="sortTasks"><button type="button" class="inlineTrigger" id="sortTasksTrigger" onclick="toggleCustomSelect('sortTasks')" aria-expanded="false" aria-controls="sortTasksMenu">დრო ▾</button><div id="sortTasksMenu" class="inlineOptions" role="listbox" hidden></div></div></div></details>
+<details class="panel accent disclosure" id="topFold"><summary>★ TOP <strong id="pcount">0</strong></summary><div id="priorities"></div></details>
+<details class="panel disclosure" id="hourFold"><summary>◷ <span data-tx="Hourly schedule">საათობრივი განრიგი</span><strong id="hourCount">0</strong></summary><div id="hoursList"></div></details>
+</section>
+
+<section id="calendar" class="page">
+<div class="hrow"><div><h1 class="h1" data-tx="Calendar">კალენდარი</h1><span class="muted tiny" data-tx="Show day, week and month">ნახე დღე, კვირა და თვე</span></div><button class="primary roundPlus" onclick="openTask()">＋</button></div>
+<div class="tabs threeModes"><button id="mode-day" onclick="mode='day';render()" data-l10n-ka="დღე" data-l10n-en="Day">დღე</button><button id="mode-week" onclick="mode='week';render()" data-l10n-ka="კვირა" data-l10n-en="Week">კვირა</button><button id="mode-month" onclick="mode='month';render()" data-l10n-ka="თვე" data-l10n-en="Month">თვე</button><button id="mode-year" onclick="mode='year';render()" data-l10n-ka="წელი" data-l10n-en="Year">წელი</button></div>
+<div class="datehead calendarNav"><button onclick="shift(-1)" aria-label="წინა პერიოდი">‹</button><div class="calendarDateControls"><b id="calDate"></b><select id="calYear" class="calYear nativeHidden" onchange="selectYear(this.value)" aria-hidden="true" tabindex="-1"><option value="2026">2026</option></select><div class="inlineDropdown customSelect calendarYear" data-for-select="calYear"><button type="button" class="inlineTrigger" id="calYearTrigger" onclick="toggleCustomSelect('calYear')" aria-expanded="false" aria-controls="calYearMenu">2026 ▾</button><div id="calYearMenu" class="inlineOptions yearChoices" role="listbox" hidden></div></div></div><button onclick="shift(1)" aria-label="შემდეგი პერიოდი">›</button><button class="secondary todayBtn" onclick="today()" data-l10n-ka="დღეს" data-l10n-en="Today">დღეს</button></div>
+<div class="legend"><i></i><span data-tx="Red means a planned task">წითელი — დაგეგმილი საქმე</span></div><div id="calendarGrid"></div>
+<article class="panel"><div class="hrow"><b class="paneltitle" data-tx="Selected day tasks">არჩეული დღის საქმეები</b><select id="calStatus" class="compact nativeHidden" onchange="calendarStatus=this.value;render()" aria-hidden="true" tabindex="-1"><option value="all">ყველა</option><option value="undone">შეუსრულებელი</option><option value="done">შესრულებული</option></select><div class="inlineDropdown customSelect calendarFilter" data-for-select="calStatus"><button type="button" class="inlineTrigger" id="calStatusTrigger" onclick="toggleCustomSelect('calStatus')" aria-haspopup="listbox" aria-expanded="false" aria-controls="calStatusMenu">ყველა ▾</button><div id="calStatusMenu" class="inlineOptions" role="listbox" hidden></div></div></div><div id="calendarTasks"></div></article>
+</section>
+
+<section id="joker" class="page"><div class="addonBack"><button class="secondary" onclick="show('other')" data-v13="back">‹ სხვა</button></div>
+<div class="hrow jokerHeading"><h1 class="h1" data-l10n-ka="🃏 ჯოკერი" data-l10n-en="🃏 Joker">🃏 ჯოკერი</h1>
+<div class="jokerActions"><button class="secondary historySave" onclick="jokerArchive(true)" data-l10n-ka="შენახვა" data-l10n-en="Save">შენახვა</button><button class="secondary" onclick="jokerCsv()" title="CSV" aria-label="CSV">↓</button><button class="secondary" onclick="jokerReset()" data-l10n-ka="ახალი" data-l10n-en="New">ახალი</button></div></div>
+<div id="jokerBoard" class="jokerBoard" aria-label="ჯოკერის ქულების ფურცელი"></div>
+<details id="jokerHistoryFold" class="panel disclosure historyFold" ontoggle="if(this.open)jokerHistoryRender()"><summary><span data-l10n-ka="ნათამაშები ჯოკერის ისტორია" data-l10n-en="Joker game history">ნათამაშები ჯოკერის ისტორია</span><strong id="jokerHistoryCount">0</strong></summary><div id="jokerHistoryList"></div></details></section>
+<section id="clock" class="page"><div class="addonBack"><button class="secondary" onclick="show('other')" data-v13="back">‹ სხვა</button></div>
+<div class="hrow"><div><h1 class="h1" data-l10n-ka="⏱ საათი" data-l10n-en="⏱ Clock">⏱ საათი</h1><span class="muted tiny" data-v12="clockSub">ტაიმერი და მაღვიძარა</span></div></div>
+<article class="panel"><b class="paneltitle" data-l10n-ka="ტაიმერი" data-l10n-en="Countdown timer">ტაიმერი</b>
+<div class="clockDigits" id="clockDigits" aria-live="off">00:05:00</div>
+<div class="clockInputs" id="clockInputs">
+<label data-v12-label="hours">საათი<input type="number" id="clockH" min="0" max="168" inputmode="numeric" value="0"></label>
+<label data-v12-label="minutes">წუთი<input type="number" id="clockM" min="0" max="59" inputmode="numeric" value="5"></label>
+<label data-v12-label="seconds">წამი<input type="number" id="clockS" min="0" max="59" inputmode="numeric" value="0"></label></div>
+<div class="alarmControls"><button class="primary" id="clockStart" type="button" onclick="diaryTimerStart()">▶ დაწყება</button><button class="secondary" id="clockCancel" type="button" onclick="diaryTimerCancel()" hidden>✕ გაუქმება</button></div>
+<p class="muted tiny" data-v12="timerInfo">სიგნალი მუშაობს მხოლოდ ბრაუზერის ღია გვერდზე. დახურულ გვერდზე ფონური მაღვიძარა გარანტირებული არ არის.</p></article>
+<article class="panel"><b class="paneltitle" data-l10n-ka="მაღვიძარა" data-l10n-en="Alarm clock">მაღვიძარა</b>
+<div class="clockAlarmEdit"><label data-v12-label="time">დრო<input class="fieldinput" type="time" id="clockAlarmTime" value="08:00"></label><label data-v12-label="name">სახელი<input class="fieldinput" type="text" id="clockAlarmLabel" maxlength="80" value="მაღვიძარა"></label></div>
+<div class="alarmControls"><button class="primary" id="clockAlarmOn" type="button" onclick="diaryDailyAlarmSave()">⏰ ჩართვა</button><button class="secondary" id="clockAlarmOff" type="button" onclick="diaryDailyAlarmStop()" hidden>გამორთვა</button></div>
+<p id="clockAlarmStatus" class="muted tiny"></p>
+<div class="alarmVolume"><label for="browserAlarmVolume" data-v14="alarmVolume">🔊 ბრაუზერის სიგნალის სიმძლავრე</label><input id="browserAlarmVolume" type="range" min="10" max="100" step="5" value="95" oninput="alarmVolumeChanged(this.value)">
+<span id="browserAlarmVolumeValue">95%</span></div>
+<p class="muted tiny" data-v14="alarmCaution">ბრაუზერი ვერ იყენებს ტელეფონის სისტემურ მაღვიძარას და ვერ ცვლის ტელეფონის ხმის პარამეტრებს. დახურულ გვერდზე ზარი გარანტირებული არ არის.</p>
+</article>
+<article class="panel alarmSettings"><div class="hrow"><b class="paneltitle" data-l10n-ka="შეხსენების შემოწმება" data-l10n-en="Reminder check">შეხსენების შემოწმება</b><span class="alarmLed" id="alarmLed"></span></div>
+<p class="muted tiny" data-l10n-ka="სატესტო ვებვერსია: ხმა და შეტყობინება მუშაობს მხოლოდ მაშინ, როდესაც გვერდი გახსნილია. დახურულ ბრაუზერში საიმედო მაღვიძარა არ მუშაობს." data-l10n-en="Web preview: sound and alerts only while this page is open. A closed browser cannot provide reliable alarms.">სატესტო ვებვერსია: ხმა და შეტყობინება მუშაობს მხოლოდ მაშინ, როდესაც გვერდი გახსნილია. დახურულ ბრაუზერში საიმედო მაღვიძარა არ მუშაობს.</p>
+<div class="alarmControls"><button class="secondary" id="webAlertsToggle" onclick="toggleWebAlerts()" data-l10n-ka="შეხსენების ჩართვა" data-l10n-en="Enable alerts">შეხსენების ჩართვა</button><button class="secondary" onclick="testWebAlarm()" data-l10n-ka="ტესტი 5 წამში" data-l10n-en="Test in 5 seconds">ტესტი 5 წამში</button></div>
+<p id="alarmStatusText" class="tiny muted" aria-live="polite"></p></article></section>
+<section id="insights" class="page"><h1 class="h1" data-i="results">ჩემი შედეგები</h1><div class="muted tiny" data-i="last7">ბოლო 7 დღე</div><div class="metricrow"><div class="metric"><strong id="doneStat">0</strong><span data-i="completed">შესრულებულია</span></div><div class="metric"><strong id="pctStat">0%</strong><span data-i="completion">შესრულება</span></div></div><article class="panel"><b class="paneltitle" data-i="progress">დღიური აქტივობა</b><div class="chart" id="chart"></div></article><article class="panel" id="listStatsPanel"><b class="paneltitle" data-v14="listStatsTitle">საერთო სიის შედეგები</b><p id="listStatsText" class="muted tiny">0/0</p></article><article class="panel"><b class="paneltitle" data-i="summary">კვირის შეჯამება</b><p id="summary"></p></article></section>
+<section id="other" class="page">
+<div class="hrow"><div><h1 class="h1" data-v13="other">სხვა</h1><div class="muted tiny" data-v13="otherIntro">ჩემი დამატებითი განყოფილებები</div></div></div>
+<div class="addonsList">
+<button type="button" class="addonTile" onclick="journalOpen()"><span class="addonIcon">✎</span><span class="addonCopy"><strong data-v13="journal">ჩემი დღიური</strong><small data-v13="journalIntro">ჩანაწერები, თარიღები და ისტორია</small></span><span class="addonArrow">›</span></button>
+<button type="button" class="addonTile" onclick="show('joker')"><span class="addonIcon">🃏</span><span class="addonCopy"><strong data-v13="joker">ჯოკერი</strong><small data-v13="jokerIntro">ქულები და ნათამაშები პარტიები</small></span><span class="addonArrow">›</span></button>
+<button type="button" class="addonTile" onclick="show('clock')"><span class="addonIcon">⏱</span><span class="addonCopy"><strong data-v13="clock">საათი</strong><small data-v13="clockIntro">ტაიმერი და მაღვიძარა</small></span><span class="addonArrow">›</span></button>
+
+</div>
+<article class="panel addonFuture"><strong data-v13="future">დამატებითი მოდულები</strong><p class="muted tiny" data-v13="futureIntro">მომდევნო განახლებებში ახალი ფუნქციები აქ დაემატება.</p></article>
+<button type="button" class="addonTile" onclick="show('compassWeb')"><span class="addonIcon">🧭</span><span class="addonCopy"><strong>კომპასი</strong><small>ორიენტაცია • სენსორის ჩვენება</small></span><span class="addonArrow">›</span></button>
+</section>
+<section id="mydiary" class="page">
+<div class="addonBack"><button class="secondary" onclick="show('other')" data-v13="back">‹ სხვა</button></div>
+<div class="hrow"><div><h1 class="h1" data-v13="journal">ჩემი დღიური</h1><div class="muted tiny" data-v13="journalIntro">ჩანაწერები, თარიღები და ისტორია</div></div></div>
+<article class="panel journalEditor"><form id="journalForm" onsubmit="journalSave(event)">
+<div class="hrow"><b class="paneltitle" id="journalEditorTitle" data-v13="newEntry">ახალი ჩანაწერი</b><span class="tiny muted" id="journalEditNotice"></span></div>
+<label class="field" for="journalTitle" data-v13="entryTitle">სათაური (არასავალდებულო)</label>
+<input class="fieldinput" id="journalTitle" maxlength="160" autocomplete="off" placeholder="ჩანაწერის სათაური">
+<label class="field" for="journalBody" data-v13="entryBody">ჩანაწერი</label>
+<textarea class="fieldinput journalBody" id="journalBody" rows="7" maxlength="30000" required placeholder="ჩაწერე შენი ფიქრები..."></textarea>
+<label class="field" for="v20Attachments">📎 ფოტო ან ფაილი (საცდელი)</label><input class="fieldinput" id="v20Attachments" type="file" multiple accept="image/*,.pdf,.txt"><div id="v20Files"></div><p class="muted tiny" data-v13="notePrivacy">ჩანაწერები ამ ბრაუზერში ინახება. ასლის შესაქმნელად გამოიყენე პარამეტრები.</p>
+<div class="dialogactions"><button type="button" id="journalCancel" class="secondary" onclick="journalNew()" hidden data-v13="cancel">გაუქმება</button><button type="submit" class="primary" id="journalSaveButton" data-v13="saveEntry">შენახვა</button></div>
+</form></article>
+<article class="panel journalHistory"><div class="hrow"><b class="paneltitle" data-v13="entryHistory">ჩანაწერების ისტორია</b><strong id="journalCount">0</strong></div>
+<input type="search" id="journalSearch" class="fieldinput" oninput="journalSearchChanged(this.value)" placeholder="ძებნა..." aria-label="ჩანაწერების ძიება">
+<div id="journalItems"></div></article>
+</section>
+<section id="compassWeb" class="page">
+<div class="addonBack"><button class="secondary" onclick="show('other')">‹ სხვა</button></div>
+<h1 class="h1">🧭 კომპასი</h1><article class="panel"><p class="muted">მობილურ ბრაუზერში სენსორის მხარდაჭერა შეიძლება შეზღუდული იყოს. Android APK-ში კომპასი ცალკე მუშაობს.</p>
+<div style="margin:20px auto;width:205px;height:205px;border:3px solid var(--forest);border-radius:50%;display:grid;place-items:center"><span id="v21Needle" style="font-size:100px;color:#d33d50">▲</span></div>
+<p style="text-align:center;font-size:24px;font-weight:800" id="v21Heading">—°</p>
+<button class="primary" onclick="v21StartCompass()">სენსორის ჩართვა</button></article></section>
+<section id="settings" class="page"><h1 class="h1" data-i="settings">პარამეტრები</h1><article class="panel" id="cloudAccountPanel">
+<b class="paneltitle" data-v14="cloudTitle">Google ანგარიში და სინქრონიზაცია</b>
+<p class="muted tiny" data-v14="cloudInfo">Google-ით შესვლის შემდეგ შენი სიები, ჩანაწერები, ჯოკერი და სტატისტიკა დაუკავშირდება შენს ანგარიშს. სერვერთან დაკავშირება აუცილებელია.</p>
+<div id="cloudSignedOut"><button id="cloudGoogleLogin" class="primary cloudGoogleButton" onclick="window.dgiuriCloud?.login()" type="button"><span aria-hidden="true">G</span> <span data-v14="cloudLogin">Google-ით შესვლა</span></button></div>
+<div id="cloudSignedIn" hidden><div class="cloudAccount"><img id="cloudAvatar" alt="" hidden><div class="cloudUser"><strong id="cloudUserName"></strong><small id="cloudUserEmail"></small></div></div><div class="hrow" style="gap:8px;flex-wrap:wrap;margin-top:11px">
+<button type="button" class="secondary" onclick="window.dgiuriCloud?.syncNow()" data-v14="cloudSync">სინქრონიზაცია</button>
+<button type="button" class="secondary" onclick="window.dgiuriCloud?.logout()" data-v14="cloudLogout">გასვლა</button></div></div>
+<p class="tiny muted" id="cloudStatus" aria-live="polite"></p>
+</article><article class="panel"><div class="settingsrow"><b data-i="dark">მუქი რეჟიმი</b><div class="inlineDropdown" id="themeDropdown"><button type="button" class="inlineTrigger" id="themeTrigger" onclick="toggleSettingMenu('theme')" aria-expanded="false" aria-controls="themeMenu">☀ ღია ▾</button><div class="inlineOptions" id="themeMenu" hidden role="listbox"><button type="button" role="option" data-dark="false" onclick="chooseTheme(false)">☀ ღია</button><button type="button" role="option" data-dark="true" onclick="chooseTheme(true)">☾ შავი / მუქი</button></div></div></div><div class="settingsrow restoredLanguage"><b data-l10n-ka="ენა" data-l10n-en="Language">ენა</b><div class="inlineDropdown" id="languageDropdown"><button type="button" class="inlineTrigger" id="languageTrigger" onclick="toggleSettingMenu('language')" aria-expanded="false" aria-controls="languageMenu">🇬🇪 ქართული ▾</button><div class="inlineOptions" id="languageMenu" hidden role="listbox" aria-label="Language"><button type="button" role="option" data-lang="ka" onclick="chooseLanguage('ka')">🇬🇪 ქართული</button><button type="button" role="option" data-lang="ru" onclick="chooseLanguage('ru')">🇷🇺 Русский</button><button type="button" role="option" data-lang="en" onclick="chooseLanguage('en')">🇬🇧 English</button><button type="button" role="option" data-lang="es" onclick="chooseLanguage('es')">🇪🇸 Español</button><button type="button" role="option" data-lang="fr" onclick="chooseLanguage('fr')">🇫🇷 Français</button><button type="button" role="option" data-lang="de" onclick="chooseLanguage('de')">🇩🇪 Deutsch</button><button type="button" role="option" data-lang="nl" onclick="chooseLanguage('nl')">🇳🇱 Nederlands</button><button type="button" role="option" data-lang="zh" onclick="chooseLanguage('zh')">🇨🇳 简体中文</button></div></div></div></article><article class="panel colorSettings"><b class="paneltitle" data-l10n-ka="აპის ფერები" data-l10n-en="App colors">აპის ფერები</b><div class="palette" id="palette" role="group" aria-label="ფერების არჩევანი">
+<button type="button" class="paletteBtn" data-theme="green" onclick="pickTheme('green')" aria-label="მწვანე" title="მწვანე"><span style="--swatch:#1a8767"></span></button>
+<button type="button" class="paletteBtn" data-theme="purple" onclick="pickTheme('purple')" aria-label="იისფერი" title="იისფერი"><span style="--swatch:#865db6"></span></button>
+<button type="button" class="paletteBtn" data-theme="blue" onclick="pickTheme('blue')" aria-label="ლურჯი" title="ლურჯი"><span style="--swatch:#3978c3"></span></button>
+<button type="button" class="paletteBtn" data-theme="rose" onclick="pickTheme('rose')" aria-label="ვარდისფერი" title="ვარდისფერი"><span style="--swatch:#c35a8a"></span></button>
+<button type="button" class="paletteBtn" data-theme="amber" onclick="pickTheme('amber')" aria-label="ოქროსფერი" title="ოქროსფერი"><span style="--swatch:#b17c27"></span></button>
+<button type="button" class="paletteBtn" data-theme="cyan" onclick="pickTheme('cyan')" aria-label="ცისფერი" title="ცისფერი"><span style="--swatch:#109ba0"></span></button>
+<button type="button" class="paletteBtn" data-theme="slate" onclick="pickTheme('slate')" aria-label="გრაფიტისფერი" title="გრაფიტისფერი"><span style="--swatch:#586575"></span></button>
+</div><p class="muted tiny" data-l10n-ka="აირჩიე შენი საყვარელი ფერი — შეინახება ავტომატურად." data-l10n-en="Choose an accent color — saved automatically.">აირჩიე შენი საყვარელი ფერი — შეინახება ავტომატურად.</p></article><article class="panel"><b class="paneltitle" data-i="reminders">შეხსენებები</b><div class="settingsrow"><span data-i="defaultreminder">ნაგულისხმევი დრო</span><div class="inlineDropdown" id="reminderDropdown"><button type="button" class="inlineTrigger" id="reminderTrigger" onclick="toggleSettingMenu('reminder')" aria-expanded="false" aria-controls="reminderMenu">გამორთული ▾</button><div class="inlineOptions reminderOptions" id="reminderMenu" hidden role="listbox" aria-label="Reminder"><button type="button" role="option" data-reminder="-1" onclick="chooseReminder(-1)"></button><button type="button" role="option" data-reminder="0" onclick="chooseReminder(0)"></button><button type="button" role="option" data-reminder="5" onclick="chooseReminder(5)"></button><button type="button" role="option" data-reminder="15" onclick="chooseReminder(15)"></button><button type="button" role="option" data-reminder="30" onclick="chooseReminder(30)"></button><button type="button" role="option" data-reminder="1440" onclick="chooseReminder(1440)"></button></div></div></div><div class="muted tiny" data-i="webnote">დემო HTML-ში სისტემური შეტყობინებები ფონურ რეჟიმში არ მუშაობს. რეალური Android აპისთვის ცალკე აწყობაა საჭირო.</div></article>
+<article class="panel" id="diaryLinksPanel"><b class="paneltitle" data-v12="community">ჩვენი საზოგადოება და თამაშები</b>
+<div class="diaryLinks">
+<a class="diaryLink" href="https://www.facebook.com/share/1FTD6S8ifN/" target="_blank" rel="noopener noreferrer"><img loading="lazy" src="../diary-alpha19-webtest/assets/ggg-user-012.webp" alt="Georgian Gamers Guild logo"><span class="diaryLinkInfo"><b>Georgian Gamers Guild</b><small>Facebook • <span data-v12="facebook">ჩვენი საზოგადოება</span></small></span><span class="diaryLinkArrow">↗</span></a>
+<a class="diaryLink" href="https://play.google.com/apps/testing/ge.piraligame.pirali" target="_blank" rel="noopener noreferrer"><img loading="lazy" src="../diary-alpha19-webtest/assets/pirali.png" alt="PIRALI icon"><span class="diaryLinkInfo"><b>PIRALI • ფირალი</b><small>Google Play • <span data-v12="testers">მხოლოდ დაშვებული ტესტერებისთვის</span></small></span><span class="diaryLinkArrow">↗</span></a>
+<a class="diaryLink" href="https://play.google.com/apps/testing/com.piraligame.georgia" target="_blank" rel="noopener noreferrer"><img loading="lazy" src="../diary-alpha19-webtest/assets/georgia.png" alt="GEORGIA icon"><span class="diaryLinkInfo"><b>GEORGIA: Narikala Defense</b><small>Google Play • <span data-v12="testers">მხოლოდ დაშვებული ტესტერებისთვის</span></small></span><span class="diaryLinkArrow">↗</span></a>
+</div></article><article class="panel"><b class="paneltitle" data-i="privacy">მონაცემები და უსაფრთხოება</b><p class="muted tiny" data-i="storage">დემო გეგმებს ბრაუზერის ადგილობრივ მეხსიერებაში ინახავს. ფაილის სხვა ბრაუზერში გახსნამ შესაძლოა მონაცემები ვერ აღადგინოს. ამიტომ გამოიყენე სარეზერვო ასლი.</p><button class="secondary" onclick="exportData()" data-i="export">სარეზერვო ასლის ექსპორტი</button><label class="secondary" style="display:inline-block;cursor:pointer" data-i="import">ასლის იმპორტი<input type="file" accept="application/json,.json" style="display:none" onchange="importData(event)"></label></article></section></main>
+<nav class="bottom" id="nav">
+<button data-page="list" class="active" onclick="show('list')"><span class="symbol">☑</span><span data-v14="list">სია</span></button>
+<button data-page="home" onclick="show('home')"><span class="symbol">⌂</span><span data-i="navhome">დღეს</span></button>
+<button data-page="calendar" onclick="show('calendar')"><span class="symbol">▦</span><span data-i="calendar">კალენდარი</span></button>
+<button data-page="insights" onclick="show('insights')"><span class="symbol">▥</span><span data-i="navresults">შედეგები</span></button>
+<button data-page="other" onclick="show('other')"><span class="symbol">⊞</span><span data-v13="other">სხვა</span></button>
+<button data-page="settings" onclick="show('settings')"><span class="symbol">⚙</span><span data-i="settings">პარამეტრები</span></button>
+</nav></div>
+<div class="overlay" id="editor"><div class="dialog"><h2 id="editHeading">ახალი საქმე</h2><form id="taskForm" onsubmit="saveTask(event)"><label class="field" data-i="title">სათაური</label><input class="fieldinput" id="taskTitle" maxlength="160" required><div class="twocol"><div><label class="field" data-i="date">თარიღი</label><input class="fieldinput" type="date" id="taskDate" required></div><div><label class="field" data-i="time">საათი</label><input class="fieldinput" type="time" id="taskTime"></div></div><div class="twocol"><div><label class="field" data-i="category">კატეგორია</label><select class="fieldinput" id="taskCategory"></select></div><div><label class="field" data-i="repeat">განმეორება</label><select class="fieldinput" id="taskRepeat"><option value="none">ერთჯერადი</option><option value="daily">ყოველდღე</option><option value="weekly">ყოველკვირა</option><option value="monthly">ყოველთვე</option></select></div></div><div class="twocol"><div><label class="field" data-i="reminders">შეხსენება</label><select class="fieldinput" id="taskReminder"><option value="-1">გამორთული</option><option value="0">დაწყებისას</option><option value="5">5 წუთით ადრე</option><option value="15">15 წუთით ადრე</option><option value="30">30 წუთით ადრე</option><option value="1440">1 დღით ადრე</option></select></div></div><label class="field" data-i="notes">შენიშვნა</label><textarea class="fieldinput" rows="2" id="taskNotes"></textarea><div class="dialogactions"><button class="ghost danger" type="button" id="deleteTask" onclick="removeTask()" data-i="delete">წაშლა</button><button class="ghost" type="button" onclick="closeModal()" data-i="cancel">გაუქმება</button><button class="primary" type="submit" data-i="save">შენახვა</button></div></form></div></div>
+<script>
+'use strict';
+const CATS=['სამუშაო','პირადი','ჯანმრთელობა','სწავლა','საყიდლები','სხვა'];
+const CAT_EN=['Work','Personal','Health','Study','Shopping','Other'];
+const categoryLabel=ka=>L(ka,CAT_EN[CATS.indexOf(ka)]||ka);
+const KEYS={tagline:['შენი დღეები, ლამაზად დაგეგმილი','Your days, beautifully planned'],myday:['ჩემი დღე','My day'],focus:['მთავარზე კონცენტრირდი','Focus on what matters'],today:['დღეს','Today'],timeline:['საათობრივი განრიგი','Hourly schedule'],calendar:['კალენდარი','Calendar'],day:['დღე','Day'],week:['კვირა','Week'],month:['თვე','Month'],selected:['არჩეული დღის საქმეები','Selected day tasks'],goals:['ჩემი მიზნები','My goals'],navgoals:['მიზნები','Goals'],smallsteps:['დიდი მიზნები პატარა ნაბიჯებით','Big goals, small steps'],results:['ჩემი შედეგები','My results'],navresults:['შედეგები','Results'],last7:['ბოლო 7 დღე','Last 7 days'],completed:['შესრულებულია','Completed'],completion:['შესრულება','Completion'],progress:['დღიური აქტივობა','Daily progress'],summary:['კვირის შეჯამება','Weekly summary'],settings:['პარამეტრები','Settings'],dark:['მუქი რეჟიმი','Dark mode'],english:['ინგლისური ენა','English language'],reminders:['შეხსენება','Reminder'],defaultreminder:['ნაგულისხმევი დრო','Default reminder'],privacy:['მონაცემები და უსაფრთხოება','Privacy & data'],storage:['დემო გეგმებს ბრაუზერის ადგილობრივ მეხსიერებაში ინახავს. სარეზერვო ასლიც შექმენი.','The preview saves to browser local storage. Export a backup too.'],webnote:['HTML დემოში სისტემური შეხსენებები ფონურ რეჟიმში არ მუშაობს. APK-ისთვის Android აწყობაა საჭირო.','Background notifications are not available in this HTML preview; an Android build is required.'],export:['სარეზერვო ასლის ექსპორტი','Export backup'],import:['ასლის იმპორტი','Import backup'],navhome:['დღეს','Today'],title:['სათაური','Title'],date:['თარიღი','Date'],time:['საათი','Time'],category:['კატეგორია','Category'],repeat:['განმეორება','Repeat'],goal:['მიზანი','Goal'],notes:['შენიშვნა','Notes'],delete:['წაშლა','Delete'],cancel:['გაუქმება','Cancel'],save:['შენახვა','Save'],newgoal:['ახალი მიზანი','New goal'],target:['სამიზნე რაოდენობა','Target count']};
+const $=id=>document.getElementById(id); const LANGS=[["ka","🇬🇪 ქართული"],["ru","🇷🇺 Русский"],["en","🇬🇧 English"],["es","🇪🇸 Español"],["fr","🇫🇷 Français"],["de","🇩🇪 Deutsch"],["nl","🇳🇱 Nederlands"],["zh","🇨🇳 简体中文"]];
+const REMINDER_LABELS=[[-1,'გამორთული','Off'],[0,'დაწყებისას','At start'],[5,'5 წუთით ადრე','5 minutes before'],[15,'15 წუთით ადრე','15 minutes before'],[30,'30 წუთით ადრე','30 minutes before'],[1440,'1 დღით ადრე','1 day before']];
+const WORDS={"Your days, beautifully planned":{"ru":"Твои дни — красиво спланированы","zh":"让每一天井井有条","es":"Tus días, bien organizados","de":"Deine Tage, schön geplant","fr":"Vos journées, bien organisées","nl":"Je dagen, mooi gepland"},"Welcome to Diary":{"ru":"Добро пожаловать в Дневник","zh":"欢迎使用日记","es":"Bienvenido a Diario","de":"Willkommen bei Tagebuch","fr":"Bienvenue dans Journal"},"Your plans stay private and on this phone. Choose a default reminder rule. You can change it later.":{"ru":"Планы хранятся только на этом телефоне. Выберите время напоминания. Его можно изменить позже.","zh":"计划仅保存在此手机上。请选择默认提醒时间，之后可以修改。","es":"Tus planes se guardan solo en este teléfono. Elige un recordatorio predeterminado. Podrás cambiarlo.","de":"Deine Pläne bleiben auf diesem Handy. Wähle eine Standarderinnerung; du kannst sie später ändern.","fr":"Vos projets restent sur ce téléphone. Choisissez un rappel par défaut, modifiable ensuite."},"Off until I enable":{"ru":"Выключено, пока не включу","zh":"暂不提醒","es":"Desactivado hasta activarlo","de":"Aus, bis ich es aktiviere","fr":"Désactivé jusqu'à activation"},"15 min before":{"ru":"За 15 минут","zh":"提前 15 分钟","es":"15 min antes","de":"15 Min. vorher","fr":"15 min avant","nl":"15 min van tevoren"},"At the start time":{"ru":"В назначенное время","zh":"开始时","es":"A la hora de inicio","de":"Zur Startzeit","fr":"À l'heure prévue","nl":"Bij aanvang"},"Start planning":{"ru":"Начать планирование","zh":"开始规划","es":"Empezar a planificar","de":"Planung starten","fr":"Commencer à planifier"},"Today":{"ru":"Сегодня","zh":"今天","es":"Hoy","de":"Heute","fr":"Aujourd'hui","nl":"Vandaag"},"Calendar":{"ru":"Календарь","zh":"日历","es":"Calendario","de":"Kalender","fr":"Calendrier","nl":"Kalender"},"Goals":{"ru":"Цели","zh":"目标","es":"Objetivos","de":"Ziele","fr":"Objectifs","nl":"Doelen"},"Results":{"ru":"Результаты","zh":"结果","es":"Resultados","de":"Ergebnisse","fr":"Résultats","nl":"Resultaten"},"Settings":{"ru":"Настройки","zh":"设置","es":"Ajustes","de":"Einstellungen","fr":"Paramètres","nl":"Instellingen"},"My day":{"ru":"Мой день","zh":"我的一天","es":"Mi día","de":"Mein Tag","fr":"Ma journée","nl":"Mijn dag"},"Focus on what matters":{"ru":"Сосредоточьтесь на главном","zh":"专注重要事项","es":"Concéntrate en lo importante","de":"Konzentriere dich auf das Wesentliche","fr":"Concentrez-vous sur l'essentiel","nl":"Focus op wat belangrijk is"},"Tap a star on any task to choose your priorities.":{"ru":"Нажмите звезду рядом с задачей, чтобы выбрать главное.","zh":"点击任务旁的星标，选出优先事项。","es":"Toca la estrella de una tarea para marcarla como prioritaria.","de":"Tippe bei einer Aufgabe auf den Stern, um Prioritäten zu wählen.","fr":"Touchez l'étoile d'une tâche pour définir vos priorités."},"Hourly schedule":{"ru":"Расписание по часам","zh":"小时日程","es":"Horario por horas","de":"Stundenplan","fr":"Planning horaire","nl":"Uurplanning"},"Search tasks":{"ru":"Поиск задач","zh":"搜索任务","es":"Buscar tareas","de":"Aufgaben suchen","fr":"Rechercher des tâches","nl":"Taken zoeken"},"All":{"ru":"Все","zh":"全部","es":"Todos","de":"Alle","fr":"Tous","nl":"Alle"},"To do":{"ru":"Предстоит","zh":"待办","es":"Pendientes","de":"Offen","fr":"À faire","nl":"Niet voltooid"},"Done":{"ru":"Выполнено","zh":"已完成","es":"Hecho","de":"Erledigt","fr":"Terminé","nl":"Voltooid"},"No tasks yet. Make your first plan!":{"ru":"Пока нет задач. Добавьте первую!","zh":"暂无任务，创建第一个计划吧！","es":"Aún no hay tareas. ¡Crea la primera!","de":"Noch keine Aufgaben. Erstelle deinen ersten Plan!","fr":"Pas encore de tâches. Créez votre premier projet !"},"No matches for this filter":{"ru":"Нет подходящих задач","zh":"没有匹配的任务","es":"Sin tareas coincidentes","de":"Keine passenden Aufgaben","fr":"Aucune tâche correspondante","nl":"Geen overeenkomende taken"},"TOP 3 is full. Unstar a task first.":{"ru":"В ТОП-3 уже три задачи. Сначала снимите звезду с одной.","zh":"前三项已满，请先取消一项的星标。","es":"El TOP 3 está completo. Quita primero una estrella.","de":"Die TOP 3 sind voll. Entferne zuerst einen Stern.","fr":"Le TOP 3 est plein. Retirez d'abord une étoile."},"See your plans at a glance":{"ru":"Все планы как на ладони","zh":"快速查看计划","es":"Consulta tus planes de un vistazo","de":"Deine Pläne auf einen Blick","fr":"Vos projets en un coup d'œil"},"Day":{"ru":"День","zh":"日","es":"Día","de":"Tag","fr":"Jour","nl":"Dag"},"Week":{"ru":"Неделя","zh":"周","es":"Semana","de":"Woche","fr":"Semaine","nl":"Week"},"Month":{"ru":"Месяц","zh":"月","es":"Mes","de":"Monat","fr":"Mois","nl":"Maand"},"Tasks for selected day":{"ru":"Задачи на выбранный день","zh":"所选日期的任务","es":"Tareas del día seleccionado","de":"Aufgaben für den gewählten Tag","fr":"Tâches du jour sélectionné","nl":"Taken op de gekozen dag"},"No tasks":{"ru":"Нет задач","zh":"没有任务","es":"Sin tareas","de":"Keine Aufgaben","fr":"Aucune tâche","nl":"Geen taken"},"My goals":{"ru":"Мои цели","zh":"我的目标","es":"Mis objetivos","de":"Meine Ziele","fr":"Mes objectifs","nl":"Mijn doelen"},"Big things, small steps":{"ru":"Большие цели — маленькие шаги","zh":"大目标，小步前进","es":"Grandes metas, pequeños pasos","de":"Große Ziele, kleine Schritte","fr":"Grands objectifs, petits pas","nl":"Grote doelen, kleine stappen"},"Set a goal and link tasks to it to track your progress.":{"ru":"Создайте цель и привяжите к ней задачи, чтобы видеть прогресс.","zh":"创建目标并关联任务，跟踪进度。","es":"Crea un objetivo y vincula tareas para seguir el progreso.","de":"Erstelle ein Ziel und verknüpfe Aufgaben, um deinen Fortschritt zu sehen.","fr":"Créez un objectif et associez-lui des tâches pour suivre vos progrès."},"Delete goal":{"ru":"Удалить цель","zh":"删除目标","es":"Eliminar objetivo","de":"Ziel löschen","fr":"Supprimer l'objectif"},"Delete goal?":{"ru":"Удалить цель?","zh":"删除目标？","es":"¿Eliminar objetivo?","de":"Ziel löschen?","fr":"Supprimer l'objectif ?"},"Linked tasks will remain.":{"ru":"Связанные задачи сохранятся.","zh":"关联任务将保留。","es":"Las tareas vinculadas se conservarán.","de":"Verknüpfte Aufgaben bleiben erhalten.","fr":"Les tâches associées seront conservées."},"Delete":{"ru":"Удалить","zh":"删除","es":"Eliminar","de":"Löschen","fr":"Supprimer","nl":"Verwijderen"},"Cancel":{"ru":"Отмена","zh":"取消","es":"Cancelar","de":"Abbrechen","fr":"Annuler","nl":"Annuleren"},"My results":{"ru":"Мои результаты","zh":"我的成果","es":"Mis resultados","de":"Meine Ergebnisse","fr":"Mes résultats","nl":"Mijn resultaten"},"Last 7 days":{"ru":"Последние 7 дней","zh":"最近 7 天","es":"Últimos 7 días","de":"Letzte 7 Tage","fr":"7 derniers jours","nl":"Afgelopen 7 dagen"},"Completed":{"ru":"Выполнено","zh":"已完成","es":"Completadas","de":"Erledigt","fr":"Terminées","nl":"Voltooid"},"Completion":{"ru":"Выполнение","zh":"完成率","es":"Cumplimiento","de":"Erfüllung","fr":"Achèvement","nl":"Voltooiing"},"Daily progress":{"ru":"Прогресс по дням","zh":"每日进度","es":"Progreso diario","de":"Tagesfortschritt","fr":"Progression quotidienne","nl":"Dagelijkse voortgang"},"Your week":{"ru":"Ваша неделя","zh":"本周总结","es":"Tu semana","de":"Deine Woche","fr":"Votre semaine","nl":"Jouw week"},"Add tasks to start seeing results.":{"ru":"Добавьте задачи, чтобы увидеть результаты.","zh":"添加任务即可查看统计结果。","es":"Añade tareas para ver resultados.","de":"Füge Aufgaben hinzu, um Ergebnisse zu sehen.","fr":"Ajoutez des tâches pour voir les résultats."},"Make Diary yours":{"ru":"Настройте Дневник под себя","zh":"个性化日记","es":"Personaliza Diario","de":"Passe Tagebuch an","fr":"Personnalisez Journal"},"Dark mode":{"ru":"Тёмная тема","zh":"深色模式","es":"Modo oscuro","de":"Dunkelmodus","fr":"Mode sombre","nl":"Donkere modus"},"Language":{"ru":"Язык","zh":"语言","es":"Idioma","de":"Sprache","fr":"Langue","nl":"Taal"},"Reminder defaults":{"ru":"Напоминания по умолчанию","zh":"默认提醒","es":"Recordatorios predeterminados","de":"Standarderinnerungen","fr":"Rappels par défaut"},"Off until enabled":{"ru":"Выключено до включения","zh":"未启用","es":"Desactivado hasta activarlo","de":"Aus, bis aktiviert","fr":"Désactivés jusqu'à activation","nl":"Uitgeschakeld"},"At task time":{"ru":"В начале задачи","zh":"任务开始时","es":"A la hora de la tarea","de":"Zur Aufgabenzeit","fr":"À l'heure de la tâche","nl":"Bij aanvang"},"5 minutes early":{"ru":"За 5 минут","zh":"提前 5 分钟","es":"5 minutos antes","de":"5 Minuten vorher","fr":"5 minutes avant","nl":"5 minuten van tevoren"},"15 minutes early":{"ru":"За 15 минут","zh":"提前 15 分钟","es":"15 minutos antes","de":"15 Minuten vorher","fr":"15 minutes avant","nl":"15 minuten van tevoren"},"30 minutes early":{"ru":"За 30 минут","zh":"提前 30 分钟","es":"30 minutos antes","de":"30 Minuten vorher","fr":"30 minutes avant","nl":"30 minuten van tevoren"},"1 day before":{"ru":"За 1 день","zh":"提前1天","es":"1 día antes","de":"1 Tag vorher","fr":"1 jour avant","nl":"1 dag van tevoren"},"Existing tasks keep their own reminders.":{"ru":"У существующих задач настройки напоминаний сохраняются.","zh":"已有任务保留各自的提醒设置。","es":"Las tareas existentes conservan sus recordatorios.","de":"Bestehende Aufgaben behalten ihre Erinnerungen.","fr":"Les tâches existantes conservent leurs rappels."},"Enable phone notifications":{"ru":"Включить уведомления","zh":"启用手机通知","es":"Activar notificaciones","de":"Handybenachrichtigungen aktivieren","fr":"Activer les notifications"},"Reminders can arrive later due to Android battery rules; exact alarms are not requested.":{"ru":"Из-за экономии заряда Android уведомления могут задерживаться.","zh":"由于 Android 省电机制，提醒可能延迟。","es":"Los avisos pueden retrasarse por el ahorro de batería de Android.","de":"Androids Energiesparen kann Erinnerungen verzögern.","fr":"L'économie d'énergie d'Android peut retarder les rappels."},"Quiet hours":{"ru":"Тихие часы","zh":"免打扰时段","es":"Horas de silencio","de":"Ruhezeiten","fr":"Heures calmes"},"Quiet hours suppress, not postpone, reminders.":{"ru":"В тихие часы напоминания отменяются, а не откладываются.","zh":"免打扰时段内不会发送提醒，也不会延后。","es":"Las horas de silencio suprimen los avisos, no los posponen.","de":"In Ruhezeiten werden Erinnerungen unterdrückt, nicht verschoben.","fr":"Les heures calmes suppriment les rappels sans les reporter."},"Data & privacy":{"ru":"Данные и конфиденциальность","zh":"数据与隐私","es":"Datos y privacidad","de":"Daten und Datenschutz","fr":"Données et confidentialité","nl":"Gegevens en privacy"},"Everything is saved locally on your phone. No account, ads or analytics tracking.":{"ru":"Всё хранится на телефоне. Нет регистрации, рекламы и слежения.","zh":"所有数据仅保存在手机上，无需账号、无广告、无跟踪。","es":"Todo se guarda en tu móvil. Sin cuenta, anuncios ni seguimiento.","de":"Alles bleibt auf deinem Handy. Kein Konto, keine Werbung, kein Tracking.","fr":"Tout reste sur votre téléphone, sans compte, publicité ni suivi."},"Backup export and cloud sync are planned for later releases.":{"ru":"Экспорт копии и синхронизация появятся в будущих версиях.","zh":"备份导出和云同步将在后续版本提供。","es":"La exportación y sincronización llegarán en futuras versiones.","de":"Backup-Export und Cloud-Synchronisierung sind für später geplant.","fr":"L'exportation et la synchronisation cloud sont prévues plus tard."},"Pick an hour":{"ru":"Выберите час","zh":"选择小时","es":"Elige una hora","de":"Stunde wählen","fr":"Choisir une heure"},"Minutes":{"ru":"Минуты","zh":"分钟","es":"Minutos","de":"Minuten","fr":"Minutes"},"Exact minute:":{"ru":"Точные минуты:","zh":"精确分钟：","es":"Minuto exacto:","de":"Genaue Minute:","fr":"Minute exacte :"},"New task":{"ru":"Новая задача","zh":"新任务","es":"Nueva tarea","de":"Neue Aufgabe","fr":"Nouvelle tâche","nl":"Nieuwe taak"},"Edit task":{"ru":"Редактировать задачу","zh":"编辑任务","es":"Editar tarea","de":"Aufgabe bearbeiten","fr":"Modifier la tâche","nl":"Taak bewerken"},"Title":{"ru":"Название","zh":"标题","es":"Título","de":"Titel","fr":"Titre","nl":"Titel"},"Choose time":{"ru":"Выбрать время","zh":"选择时间","es":"Elegir hora","de":"Zeit wählen","fr":"Choisir l'heure"},"Duration (optional)":{"ru":"Длительность (необязательно)","zh":"时长（可选）","es":"Duración (opcional)","de":"Dauer (optional)","fr":"Durée (facultatif)"},"None":{"ru":"Нет","zh":"无","es":"Ninguna","de":"Keine","fr":"Aucune","nl":"Geen"},"Daily":{"ru":"Ежедневно","zh":"每天","es":"Diario","de":"Täglich","fr":"Quotidien","nl":"Dagelijks"},"Weekly":{"ru":"Еженедельно","zh":"每周","es":"Semanal","de":"Wöchentlich","fr":"Hebdomadaire","nl":"Wekelijks"},"Monthly":{"ru":"Ежемесячно","zh":"每月","es":"Mensual","de":"Monatlich","fr":"Mensuel","nl":"Maandelijks"},"Once":{"ru":"Один раз","zh":"一次","es":"Una vez","de":"Einmalig","fr":"Une fois","nl":"Eenmalig"},"No reminder":{"ru":"Без напоминаний","zh":"无提醒","es":"Sin recordatorio","de":"Keine Erinnerung","fr":"Sans rappel","nl":"Geen herinnering"},"Off":{"ru":"Выключено","zh":"关闭","es":"Desactivado","de":"Aus","fr":"Désactivé","nl":"Uitgeschakeld"},"At start":{"ru":"В начале","zh":"开始时","es":"Al comienzo","de":"Beim Start","fr":"Au début","nl":"Bij aanvang"},"No linked goal":{"ru":"Без связанной цели","zh":"无关联目标","es":"Sin objetivo vinculado","de":"Kein verknüpftes Ziel","fr":"Sans objectif lié","nl":"Geen gekoppeld doel"},"No goal":{"ru":"Без цели","zh":"无目标","es":"Sin objetivo","de":"Ohne Ziel","fr":"Sans objectif","nl":"Geen doel"},"Notes (optional)":{"ru":"Заметки (необязательно)","zh":"备注（可选）","es":"Notas (opcional)","de":"Notizen (optional)","fr":"Notes (facultatif)"},"Task duplicated":{"ru":"Задача скопирована","zh":"已复制任务","es":"Tarea duplicada","de":"Aufgabe dupliziert","fr":"Tâche dupliquée"},"Duplicate":{"ru":"Дублировать","zh":"复制","es":"Duplicar","de":"Duplizieren","fr":"Dupliquer"},"Delete task":{"ru":"Удалить задачу","zh":"删除任务","es":"Eliminar tarea","de":"Aufgabe löschen","fr":"Supprimer la tâche"},"Enter a title":{"ru":"Введите название","zh":"请输入标题","es":"Escribe un título","de":"Titel eingeben","fr":"Saisissez un titre"},"Choose a time for this reminder":{"ru":"Укажите время для напоминания","zh":"请为提醒选择时间","es":"Elige una hora para el recordatorio","de":"Wähle eine Uhrzeit für die Erinnerung","fr":"Choisissez l'heure du rappel"},"Task saved":{"ru":"Задача сохранена","zh":"任务已保存","es":"Tarea guardada","de":"Aufgabe gespeichert","fr":"Tâche enregistrée","nl":"Taak opgeslagen"},"Save":{"ru":"Сохранить","zh":"保存","es":"Guardar","de":"Speichern","fr":"Enregistrer","nl":"Opslaan"},"Delete task?":{"ru":"Удалить задачу?","zh":"删除任务？","es":"¿Eliminar tarea?","de":"Aufgabe löschen?","fr":"Supprimer la tâche ?"},"New goal":{"ru":"Новая цель","zh":"新目标","es":"Nuevo objetivo","de":"Neues Ziel","fr":"Nouvel objectif","nl":"Nieuw doel"},"Goal title":{"ru":"Название цели","zh":"目标名称","es":"Nombre del objetivo","de":"Zielname","fr":"Nom de l'objectif","nl":"Doelnaam"},"Target count":{"ru":"Целевое количество","zh":"目标次数","es":"Cantidad objetivo","de":"Zielanzahl","fr":"Nombre cible","nl":"Streefgetal"},"Link tasks to this goal when creating or editing a task.":{"ru":"Привязывайте задачи к цели при создании или редактировании.","zh":"创建或编辑任务时可将其关联到此目标。","es":"Vincula tareas a este objetivo al crearlas o editarlas.","de":"Verknüpfe Aufgaben beim Erstellen oder Bearbeiten mit diesem Ziel.","fr":"Associez des tâches à cet objectif lors de leur création ou modification."},"Create":{"ru":"Создать","zh":"创建","es":"Crear","de":"Erstellen","fr":"Créer"},"Work":{"ru":"Работа","zh":"工作","es":"Trabajo","de":"Arbeit","fr":"Travail","nl":"Werk"},"Personal":{"ru":"Личное","zh":"个人","es":"Personal","de":"Privat","fr":"Personnel","nl":"Persoonlijk"},"Health":{"ru":"Здоровье","zh":"健康","es":"Salud","de":"Gesundheit","fr":"Santé","nl":"Gezondheid"},"Study":{"ru":"Учёба","zh":"学习","es":"Estudios","de":"Lernen","fr":"Études","nl":"Studie"},"Shopping":{"ru":"Покупки","zh":"购物","es":"Compras","de":"Einkaufen","fr":"Achats","nl":"Boodschappen"},"Other":{"ru":"Другое","zh":"其他","es":"Otros","de":"Sonstiges","fr":"Autre","nl":"Overig"},"Notifications enabled":{"ru":"Уведомления включены","zh":"通知已启用","es":"Notificaciones activadas","de":"Benachrichtigungen aktiviert","fr":"Notifications activées"},"Notification permission denied":{"ru":"Нет разрешения на уведомления","zh":"通知权限已拒绝","es":"Permiso de notificaciones denegado","de":"Benachrichtigungserlaubnis verweigert","fr":"Autorisation des notifications refusée"},"Notifications available":{"ru":"Уведомления доступны","zh":"通知可用","es":"Notificaciones disponibles","de":"Benachrichtigungen verfügbar","fr":"Notifications disponibles"},"Year":{"nl":"Jaar","ru":"Год","es":"Año","fr":"Année","de":"Jahr","zh":"年"},"Selected day tasks":{"nl":"Taken op de gekozen dag","ru":"Задачи выбранного дня","es":"Tareas del día seleccionado","fr":"Tâches du jour sélectionné","de":"Aufgaben des gewählten Tages","zh":"所选日期的任务"},"Big goals, small steps":{"nl":"Grote doelen, kleine stappen","ru":"Большие цели — маленькие шаги","es":"Grandes metas, pequeños pasos","fr":"Grands objectifs, petits pas","de":"Große Ziele, kleine Schritte","zh":"大目标，小步前进"},"Reminder":{"nl":"Herinnering","ru":"Напоминание","es":"Recordatorio","fr":"Rappel","de":"Erinnerung","zh":"提醒"},"Reminders":{"nl":"Herinneringen","ru":"Напоминания","es":"Recordatorios","fr":"Rappels","de":"Erinnerungen","zh":"提醒"},"Default reminder":{"nl":"Standaardherinnering","ru":"Напоминать","es":"Recordatorio predeterminado","fr":"Rappel par défaut","de":"Standarderinnerung","zh":"默认提醒"},"Privacy & data":{"nl":"Privacy en gegevens","ru":"Данные и конфиденциальность","es":"Datos y privacidad","fr":"Données et confidentialité","de":"Daten und Datenschutz","zh":"隐私与数据"},"Date":{"nl":"Datum","ru":"Дата","es":"Fecha","fr":"Date","de":"Datum","zh":"日期"},"Time":{"nl":"Tijd","ru":"Время","es":"Hora","fr":"Heure","de":"Uhrzeit","zh":"时间"},"Category":{"nl":"Categorie","ru":"Категория","es":"Categoría","fr":"Catégorie","de":"Kategorie","zh":"类别"},"Repeat":{"nl":"Herhalen","ru":"Повтор","es":"Repetir","fr":"Répéter","de":"Wiederholen","zh":"重复"},"Goal":{"nl":"Doel","ru":"Цель","es":"Objetivo","fr":"Objectif","de":"Ziel","zh":"目标"},"Notes":{"nl":"Notities","ru":"Заметки","es":"Notas","fr":"Notes","de":"Notizen","zh":"备注"},"No tasks for this day yet.":{"nl":"Nog geen taken voor deze dag.","ru":"На этот день задач пока нет.","es":"Aún no hay tareas para este día.","fr":"Pas encore de tâches pour ce jour.","de":"Für diesen Tag gibt es noch keine Aufgaben.","zh":"当天暂无任务。"},"Task search":{"nl":"Taken zoeken"},"Search and sort":{"nl":"Zoeken en sorteren","ru":"Поиск и сортировка","es":"Buscar y ordenar","fr":"Rechercher et trier","de":"Suchen und sortieren","zh":"搜索与排序"},"All tasks":{"nl":"Alle taken"},"Unfinished":{"nl":"Niet voltooid","ru":"Невыполненные","es":"Pendientes","fr":"À faire","de":"Offen","zh":"未完成"},"Finished":{"nl":"Voltooid","ru":"Выполненные","es":"Completadas","fr":"Terminées","de":"Erledigt","zh":"已完成"},"Sort":{"nl":"Sorteren","ru":"Сортировка","es":"Ordenar","fr":"Trier","de":"Sortieren","zh":"排序"},"New":{"nl":"Nieuw","ru":"Новые","es":"Nuevas","fr":"Nouvelles","de":"Neu","zh":"最新"},"Status":{"nl":"Status","ru":"Статус","es":"Estado","fr":"Statut","de":"Status","zh":"状态"},"Today’s tasks":{"nl":"Taken van vandaag","ru":"Задачи дня","es":"Tareas de hoy","fr":"Tâches du jour","de":"Heutige Aufgaben","zh":"今日任务"},"See day, week and month":{"nl":"Bekijk dag, week en maand"},"Red means a planned task":{"nl":"Rood betekent geplande taak","ru":"Красный — есть задача","es":"Rojo: tarea planificada","fr":"Rouge : tâche prévue","de":"Rot: Aufgabe geplant","zh":"红色表示已计划任务"},"Joker":{"nl":"Joker","ru":"Джокер","es":"Joker","fr":"Joker","de":"Joker","zh":"小丑"},"Score sheet":{"nl":"Scoreblad","ru":"Лист очков","es":"Tabla de puntos","fr":"Feuille de scores","de":"Punkteliste","zh":"计分表"},"New sheet":{"nl":"Nieuw blad"},"Bid":{"nl":"Bod","ru":"Заявка","es":"Pedido","fr":"Annonce","de":"Ansage","zh":"叫牌"},"Won":{"nl":"Gewonnen","ru":"Взял","es":"Ganó","fr":"Pris","de":"Gewonnen","zh":"赢得"},"Cards":{"nl":"Kaarten","ru":"Карты","es":"Cartas","fr":"Cartes","de":"Karten","zh":"牌数"},"SUM":{"nl":"Som","ru":"Сумма","es":"Suma","fr":"Somme","de":"Summe","zh":"小计"},"TOTAL":{"nl":"TOTAAL","ru":"ИТОГО","es":"TOTAL","fr":"TOTAL","de":"GESAMT","zh":"总计"},"Total":{"nl":"Totaal","ru":"Всего","es":"Total","fr":"Total","de":"Gesamt","zh":"总计"},"Player name":{"nl":"Spelernaam","ru":"Имя игрока","es":"Nombre del jugador","fr":"Nom du joueur","de":"Spielername","zh":"玩家姓名"},"Name":{"nl":"Naam","ru":"Имя","es":"Nombre","fr":"Nom","de":"Name","zh":"名字"},"Tasks":{"nl":"taken","ru":"задач","es":"tareas","fr":"tâches","de":"Aufgaben","zh":"任务"},"Full year":{"nl":"Heel jaar","ru":"Весь год","es":"Año completo","fr":"Année entière","de":"Ganzes Jahr","zh":"全年"},"View by year":{"nl":"Jaaroverzicht"},"App colors":{"nl":"App-kleuren","ru":"Цвета приложения","es":"Colores de la aplicación","fr":"Couleurs de l'application","de":"App-Farben","zh":"应用颜色"},"Choose an accent color — saved automatically.":{"nl":"Kies een accentkleur — wordt automatisch opgeslagen.","ru":"Выберите цвет — он сохранится автоматически.","es":"Elige un color; se guardará automáticamente.","fr":"Choisissez une couleur ; elle sera enregistrée automatiquement.","de":"Wähle eine Farbe – sie wird automatisch gespeichert.","zh":"选择颜色，自动保存。"},"Export backup":{"nl":"Back-up exporteren","ru":"Экспорт копии","es":"Exportar copia","fr":"Exporter une sauvegarde","de":"Sicherung exportieren","zh":"导出备份"},"Import backup":{"nl":"Back-up importeren","ru":"Импорт копии","es":"Importar copia","fr":"Importer une sauvegarde","de":"Sicherung importieren","zh":"导入备份"},"At start time":{"nl":"Bij aanvang"},"Export scores":{"nl":"Scores exporteren"},"Draft":{"nl":"Concept"},"Weekly summary":{"nl":"Weekoverzicht","ru":"Итоги недели","es":"Resumen semanal","fr":"Bilan hebdomadaire","de":"Wochenübersicht","zh":"每周总结"},"Add tasks to see your progress.":{"nl":"Voeg taken toe om je voortgang te zien."},"No matches":{"nl":"Geen resultaten","ru":"Нет совпадений","es":"Sin coincidencias","fr":"Aucun résultat","de":"Keine Treffer","zh":"无匹配结果"},"No time set":{"nl":"Geen tijd ingesteld.","ru":"Время не указано.","es":"Sin hora asignada.","fr":"Aucune heure définie.","de":"Keine Uhrzeit festgelegt.","zh":"尚未设置时间。"},"Task saved successfully":{"nl":"Taak opgeslagen"},"Task deleted":{"nl":"Taak verwijderd"},"Default time":{"nl":"Standaardtijd","ru":"Время по умолчанию","es":"Hora predeterminada","fr":"Heure par défaut","de":"Standardzeit","zh":"默认时间"},"My plans":{"nl":"Mijn plannen"},"TOP 3 is full — remove a star first":{"nl":"TOP 3 is vol — verwijder eerst een ster.","ru":"ТОП-3 заполнен — сначала снимите звезду.","es":"El TOP 3 está lleno: quita una estrella.","fr":"Le TOP 3 est plein : retirez une étoile.","de":"Die TOP 3 sind voll – entferne zuerst einen Stern.","zh":"前三项已满，请先移除一颗星。"},"Star a task to choose your priorities yourself.":{"nl":"Markeer zelf maximaal drie taken met een ster.","ru":"Отметьте до трёх задач звёздочкой.","es":"Marca hasta tres tareas con estrellas.","fr":"Marquez jusqu'à trois tâches par une étoile.","de":"Markiere bis zu drei Aufgaben mit einem Stern.","zh":"为最多三项任务点亮星标。"},"Browser storage failed. Use export.":{"nl":"Opslaan in de browser is mislukt. Exporteer een back-up.","ru":"Ошибка сохранения в браузере. Экспортируйте копию.","es":"Error al guardar en el navegador. Exporta una copia.","fr":"Échec de l'enregistrement. Exportez une sauvegarde.","de":"Browser-Speicherung fehlgeschlagen. Exportiere eine Sicherung.","zh":"浏览器保存失败，请导出备份。"},"Create a goal and link tasks to it":{"nl":"Maak een doel en koppel er taken aan.","ru":"Создайте цель и привяжите задачи.","es":"Crea un objetivo y vincula tareas.","fr":"Créez un objectif et associez des tâches.","de":"Erstelle ein Ziel und verknüpfe Aufgaben.","zh":"创建目标并关联任务。"},"Delete this task?":{"nl":"Deze taak verwijderen?","ru":"Удалить эту задачу?","es":"¿Eliminar esta tarea?","fr":"Supprimer cette tâche ?","de":"Diese Aufgabe löschen?","zh":"删除此任务？"},"Delete goal? Linked tasks will remain.":{"nl":"Doel verwijderen? Gekoppelde taken blijven staan.","ru":"Удалить цель? Связанные задачи сохранятся.","es":"¿Eliminar objetivo? Las tareas vinculadas seguirán.","fr":"Supprimer l'objectif ? Les tâches associées resteront.","de":"Ziel löschen? Verknüpfte Aufgaben bleiben erhalten.","zh":"删除目标？关联任务仍将保留。"},"Replace existing data?":{"nl":"Bestaande gegevens vervangen?","ru":"Заменить существующие данные?","es":"¿Reemplazar los datos existentes?","fr":"Remplacer les données existantes ?","de":"Vorhandene Daten ersetzen?","zh":"替换现有数据？"},"Backup restored":{"nl":"Back-up hersteld","ru":"Копия восстановлена","es":"Copia restaurada","fr":"Sauvegarde restaurée","de":"Sicherung wiederhergestellt","zh":"备份已恢复"},"Invalid file":{"nl":"Ongeldig bestand","ru":"Неверный файл","es":"Archivo inválido","fr":"Fichier invalide","de":"Ungültige Datei","zh":"文件无效"},"Choose a time for the reminder":{"nl":"Kies ook een tijd voor de herinnering.","ru":"Укажите время для напоминания.","es":"Elige una hora para el recordatorio.","fr":"Choisissez une heure pour le rappel.","de":"Wähle eine Uhrzeit für die Erinnerung.","zh":"请为提醒设置时间。"},"Quick add a task...":{"nl":"Snel een taak toevoegen...","ru":"Быстро добавить задачу...","es":"Añade una tarea...","fr":"Ajouter une tâche...","de":"Aufgabe schnell hinzufügen...","zh":"快速添加任务..."},"Search by task...":{"nl":"Zoek naar taken...","ru":"Поиск задачи...","es":"Buscar tarea...","fr":"Rechercher une tâche...","de":"Aufgabe suchen...","zh":"搜索任务..."},"Show day, week and month":{"nl":"Bekijk dag, week en maand","ru":"День, неделя, месяц","es":"Día, semana y mes","fr":"Jour, semaine et mois","de":"Tag, Woche und Monat","zh":"查看日、周和月"},"Selected day's tasks":{"nl":"Taken van de gekozen dag"},"Week summary":{"nl":"Weekoverzicht"},"Scores could not be saved":{"nl":"Scores konden niet worden opgeslagen"},"Bids cannot add up to all cards":{"nl":"De som van de biedingen mag niet gelijk zijn aan het aantal kaarten.","ru":"Сумма заявок не должна равняться числу карт.","es":"Los pedidos no pueden sumar todas las cartas.","fr":"Le total des annonces ne peut pas égaler le nombre de cartes.","de":"Die Ansagen dürfen nicht genau die Kartenzahl ergeben.","zh":"叫牌总数不能等于牌数。"},"Too many tricks recorded":{"nl":"Te veel slagen geregistreerd.","ru":"Сумма взяток превышает число карт.","es":"Demasiadas bazas registradas.","fr":"Trop de plis enregistrés.","de":"Zu viele Stiche erfasst.","zh":"赢得的墩数超过牌数。"},"Start new sheet? Current scores will be erased.":{"nl":"Nieuw blad beginnen? Huidige scores worden gewist.","ru":"Начать новый лист? Текущие очки удалятся.","es":"¿Crear hoja nueva? Se borrarán los puntos.","fr":"Nouvelle feuille ? Les scores actuels seront effacés.","de":"Neues Blatt? Die aktuellen Punkte werden gelöscht.","zh":"新建计分表？当前分数将清除。"},"Bids":{"nl":"Biedingen"},"Took":{"nl":"Behaald"},"Player":{"nl":"Speler","ru":"Игрок","es":"Jugador","fr":"Joueur","de":"Spieler","zh":"玩家"},"Round":{"nl":"Ronde"},"Planned task":{"nl":"Geplande taak"},"Default reminder time":{"nl":"Standaardherinnering"},"The preview saves to browser local storage. Export a backup too.":{"nl":"Deze test slaat gegevens in de browser op. Exporteer ook een back-up.","ru":"Демо хранит данные в браузере. Сохраните резервную копию.","es":"La vista previa guarda los datos en el navegador. Exporta una copia.","fr":"La démo conserve les données dans le navigateur. Exportez une sauvegarde.","de":"Diese Vorschau speichert Daten im Browser. Exportiere eine Sicherung.","zh":"预览数据保存在浏览器中，请导出备份。"},"Background notifications are not available in this HTML preview; an Android build is required.":{"nl":"Deze webversie kan geen meldingen op de achtergrond sturen. Daarvoor is een Android-app nodig.","ru":"В HTML-версии фоновые уведомления недоступны. Нужна версия для Android.","es":"Las notificaciones en segundo plano requieren la aplicación Android.","fr":"Les notifications en arrière-plan nécessitent l'application Android.","de":"Hintergrundbenachrichtigungen erfordern die Android-App.","zh":"网页预览无法后台通知，需要 Android 应用。"},"The four bids cannot add up to the hand size":{"ru":"Сумма заявок не может равняться числу карт","es":"La suma de pedidos no puede igualar el número de cartas","fr":"La somme des annonces ne peut pas égaler le nombre de cartes","de":"Die Summe der Ansagen darf nicht der Kartenzahl entsprechen","nl":"De som van de biedingen mag niet gelijk zijn aan het aantal kaarten","zh":"四人的叫牌总数不能等于牌数"},"Could not save the score sheet":{"ru":"Не удалось сохранить очки.","es":"No se pudieron guardar los puntos.","fr":"Impossible d'enregistrer les scores.","de":"Punktestand konnte nicht gespeichert werden.","nl":"Scores konden niet worden opgeslagen.","zh":"无法保存分数。"},"5 minutes before":{"ru":"За 5 минут","es":"5 minutos antes","fr":"5 minutes avant","de":"5 Minuten vorher","nl":"5 minuten van tevoren","zh":"提前5分钟"},"15 minutes before":{"ru":"За 15 минут","es":"15 minutos antes","fr":"15 minutes avant","de":"15 Minuten vorher","nl":"15 minuten van tevoren","zh":"提前15分钟"},"30 minutes before":{"ru":"За 30 минут","es":"30 minutos antes","fr":"30 minutes avant","de":"30 Minuten vorher","nl":"30 minuten van tevoren","zh":"提前30分钟"},"Year overview":{"ru":"Обзор года","es":"Vista anual","fr":"Vue annuelle","de":"Jahresübersicht","nl":"Jaaroverzicht","zh":"年度概览"}};
+Object.assign(WORDS,{"Bonus":{"ru":"Премия","es":"Prima","fr":"Prime","de":"Prämie","nl":"Bonus","zh":"奖励"},"Deduction":{"ru":"Списание","es":"Descuento","fr":"Déduction","de":"Abzug","nl":"Aftrek","zh":"扣分"},"Pending":{"ru":"Не завершено","es":"Pendiente","fr":"En cours","de":"Offen","nl":"Nog bezig","zh":"尚未完成"},"Best round result deducted":{"ru":"Лучшая сдача этапа вычтена","es":"Se descuenta la mejor mano","fr":"Meilleur score déduit","de":"Bestes Ergebnis abgezogen","nl":"Beste score afgetrokken","zh":"该阶段最高分已扣除"}});
+Object.assign(WORDS,{"Joker game history":{"ru":"История игр в джокер","es":"Historial de partidas de Joker","fr":"Historique des parties de Joker","de":"Joker-Spielverlauf","nl":"Joker-spelgeschiedenis","zh":"小丑游戏历史"},"Reminder check":{"ru":"Проверка напоминаний","es":"Prueba de recordatorios","fr":"Test des rappels","de":"Erinnerungstest","nl":"Herinnering testen","zh":"提醒测试"},"Enable alerts":{"ru":"Включить напоминания","es":"Activar avisos","fr":"Activer les alertes","de":"Benachrichtigungen aktivieren","nl":"Meldingen inschakelen","zh":"开启提醒"},"Disable alerts":{"ru":"Выключить напоминания","es":"Desactivar avisos","fr":"Désactiver les alertes","de":"Benachrichtigungen ausschalten","nl":"Meldingen uitschakelen","zh":"关闭提醒"},"Test in 5 seconds":{"ru":"Тест через 5 секунд","es":"Prueba en 5 segundos","fr":"Test dans 5 secondes","de":"Test in 5 Sekunden","nl":"Test over 5 seconden","zh":"5秒后测试"},"Web preview: sound and alerts only while this page is open. A closed browser cannot provide reliable alarms.":{"ru":"Веб-версия: звук и уведомления доступны только при открытой странице. В закрытом браузере будильник ненадёжен.","es":"Versión web: sonido y avisos solo con la página abierta. El navegador cerrado no garantiza alarmas.","fr":"Version web : sons et alertes seulement si la page reste ouverte. Navigateur fermé, les alarmes ne sont pas fiables.","de":"Webversion: Ton und Hinweise nur bei geöffneter Seite. Bei geschlossenem Browser sind Wecker unzuverlässig.","nl":"Webversie: geluid en meldingen alleen als de pagina open is. Een gesloten browser heeft geen betrouwbare wekker.","zh":"网页版仅在页面打开时提供声音和提醒，关闭浏览器后无法保证闹钟正常响起。"},"No history yet. Finished games will be saved automatically.":{"ru":"История пуста. Завершённые игры сохраняются автоматически.","es":"Aún no hay historial. Las partidas terminadas se guardan automáticamente.","fr":"Aucun historique. Les parties terminées sont enregistrées automatiquement.","de":"Noch kein Verlauf. Beendete Spiele werden automatisch gespeichert.","nl":"Nog geen geschiedenis. Voltooide spellen worden automatisch opgeslagen.","zh":"暂无历史记录，完成的游戏会自动保存。"},"Finished":{"ru":"Завершена","es":"Finalizada","fr":"Terminée","de":"Abgeschlossen","nl":"Voltooid","zh":"已完成"},"Unfinished":{"ru":"Не завершена","es":"Sin terminar","fr":"Inachevée","de":"Nicht abgeschlossen","nl":"Onvoltooid","zh":"未完成"},"Open":{"ru":"Открыть","es":"Abrir","fr":"Ouvrir","de":"Öffnen","nl":"Openen","zh":"打开"},"Show more":{"ru":"Показать ещё","es":"Ver más","fr":"Voir plus","de":"Mehr anzeigen","nl":"Meer tonen","zh":"查看更多"},"There is no game to save yet":{"ru":"Пока нет игры для сохранения","es":"Aún no hay partida que guardar","fr":"Aucune partie à enregistrer","de":"Noch kein Spiel zum Speichern","nl":"Nog geen spel om op te slaan","zh":"暂无可保存的游戏"},"Joker sheet saved to history":{"ru":"Лист джокера сохранён в истории","es":"Hoja de Joker guardada en el historial","fr":"Feuille Joker enregistrée dans l'historique","de":"Joker-Blatt im Verlauf gespeichert","nl":"Jokerblad opgeslagen in geschiedenis","zh":"小丑计分表已保存到历史记录"},"Could not save game history — export a backup":{"ru":"Не удалось сохранить историю — экспортируйте копию","es":"No se pudo guardar el historial; exporta una copia","fr":"Impossible d'enregistrer l'historique — exportez une sauvegarde","de":"Verlauf konnte nicht gespeichert werden – Backup exportieren","nl":"Kon geschiedenis niet opslaan — exporteer back-up","zh":"无法保存历史记录，请导出备份"},"Open saved game? Current sheet will also be saved in history.":{"ru":"Открыть игру? Текущий лист также сохранится в истории.","es":"¿Abrir la partida guardada? La hoja actual también se guardará.","fr":"Ouvrir la partie ? La feuille actuelle sera aussi enregistrée.","de":"Gespeichertes Spiel öffnen? Das aktuelle Blatt wird ebenfalls gespeichert.","nl":"Opgeslagen spel openen? Het huidige blad wordt ook bewaard.","zh":"打开已保存的游戏？当前计分表也会存入历史记录。"},"Delete this game from history?":{"ru":"Удалить игру из истории?","es":"¿Eliminar esta partida del historial?","fr":"Supprimer cette partie de l'historique ?","de":"Dieses Spiel aus dem Verlauf löschen?","nl":"Dit spel uit de geschiedenis verwijderen?","zh":"从历史记录中删除这场游戏？"},"Web alerts are enabled while this page stays open":{"ru":"Оповещения включены, пока страница открыта","es":"Avisos activos mientras esta página esté abierta","fr":"Alertes actives tant que cette page reste ouverte","de":"Hinweise aktiv, solange diese Seite geöffnet ist","nl":"Meldingen aan zolang deze pagina open is","zh":"页面打开期间已开启提醒"},"Web alerts are off — enable them to test":{"ru":"Веб-оповещения выключены — включите их для теста","es":"Avisos desactivados; actívalos para probar","fr":"Alertes désactivées — activez-les pour tester","de":"Hinweise aus – zum Testen aktivieren","nl":"Meldingen uit — inschakelen om te testen","zh":"提醒已关闭，开启后可测试"},"Test alarm in 5 seconds":{"ru":"Тестовый будильник через 5 секунд","es":"Alarma de prueba en 5 segundos","fr":"Alarme test dans 5 secondes","de":"Testalarm in 5 Sekunden","nl":"Testalarm over 5 seconden","zh":"5秒后测试闹钟"},"Test alarm":{"ru":"Тестовый будильник","es":"Alarma de prueba","fr":"Alarme test","de":"Testalarm","nl":"Testalarm","zh":"测试闹钟"},"Alerts enabled while this page is open":{"ru":"Оповещения работают при открытой странице","es":"Avisos activos mientras la página esté abierta","fr":"Alertes actives quand la page est ouverte","de":"Hinweise aktiv, solange die Seite geöffnet ist","nl":"Meldingen aan zolang de pagina open is","zh":"页面打开时提醒已开启"},"Player":{"ru":"Игрок","es":"Jugador","fr":"Joueur","de":"Spieler","nl":"Speler","zh":"玩家"}});
+const L=(ka,en)=>{const code=prefs.language||'ka';if(code==='ka')return ka;if(code==='en')return en;return WORDS[en]?.[code]||en};
+const localeTag=()=>({ka:'ka-GE',en:'en-US',ru:'ru-RU',es:'es-ES',fr:'fr-FR',de:'de-DE',nl:'nl-NL',zh:'zh-CN'})[prefs.language]||'ka-GE';
+function toggleSettingMenu(which){
+ const id=['language','reminder','theme'].includes(which)?which:'language';
+ for(const name of ['language','reminder','theme']){
+  const menu=$(name+'Menu'),trigger=$(name+'Trigger');const willOpen=name===id&&menu.hidden;
+  menu.hidden=!willOpen;trigger.setAttribute('aria-expanded',String(willOpen));
+ }
+}
+function closeSettingsMenus(){for(const name of ['language','reminder','theme']){$(name+'Menu').hidden=true;$(name+'Trigger').setAttribute('aria-expanded','false')}closeCustomSelects()}
+function chooseLanguage(code){if(!LANGS.some(([key])=>key===code))return;prefs.language=code;prefs.english=code==='en';persist();closeSettingsMenus();render()}
+function chooseReminder(value){if(!REMINDER_LABELS.some(([n])=>n===value))return;prefs.reminder=value;persist();closeSettingsMenus();render()}
+
+
+function closeCustomSelects(){
+ for(const key of ['calStatus','statusTasks','sortTasks','calYear']){
+  const menu=$(key+'Menu'),trigger=$(key+'Trigger');
+  if(menu)menu.hidden=true;
+  if(trigger)trigger.setAttribute('aria-expanded','false')
+ }
+}
+function syncCustomSelect(id){
+ const el=$(id),trigger=$(id+'Trigger');
+ if(!el||!trigger)return;
+ const selectedOption=el.options[el.selectedIndex];
+ trigger.textContent=(selectedOption?.textContent||el.value)+' ▾'
+}
+function syncCustomSelects(){['calStatus','statusTasks','sortTasks','calYear'].forEach(syncCustomSelect)}
+function toggleCustomSelect(id){
+ const menu=$(id+'Menu'),trigger=$(id+'Trigger'),select=$(id);
+ if(!menu||!select)return;
+ const opening=menu.hidden;
+ closeSettingsMenus();
+ closeCustomSelects();
+ if(!opening)return;
+ menu.replaceChildren();
+ for(const opt of select.options){
+  const b=document.createElement('button');
+  b.type='button';b.setAttribute('role','option');
+  b.dataset.value=opt.value;
+  b.textContent=opt.textContent;
+  const chosen=opt.value===select.value;
+  b.classList.toggle('chosen',chosen);
+  b.setAttribute('aria-selected',String(chosen));
+  b.onclick=()=>chooseCustomSelect(id,opt.value);
+  menu.appendChild(b)
+ }
+ menu.hidden=false;trigger.setAttribute('aria-expanded','true');
+ const current=menu.querySelector('button.chosen');
+ if(current)menu.scrollTop=Math.max(0,current.offsetTop-menu.offsetTop-(menu.clientHeight/3));
+}
+function chooseCustomSelect(id,val){
+ const el=$(id);
+ if(!el)return;
+ el.value=val;
+ closeCustomSelects();
+ el.dispatchEvent(new Event('change',{bubbles:true}));
+ syncCustomSelect(id)
+}
+function localizeOptions(){
+ const data={
+  statusTasks:[['all','ყველა','All'],['undone','შეუსრულებელი','Unfinished'],['done','შესრულებული','Finished']],
+  calStatus:[['all','ყველა','All'],['undone','შეუსრულებელი','Unfinished'],['done','შესრულებული','Finished']],
+  sortTasks:[['time','დრო','Time'],['new','ახალი','New'],['status','სტატუსი','Status']],
+  taskRepeat:[['none','ერთჯერადი','Once'],['daily','ყოველდღე','Daily'],['weekly','ყოველკვირა','Weekly'],['monthly','ყოველთვე','Monthly']],
+  taskReminder:[['-1','გამორთული','Off'],['0','დაწყებისას','At start'],['5','5 წუთით ადრე','5 minutes before'],['15','15 წუთით ადრე','15 minutes before'],['30','30 წუთით ადრე','30 minutes before'],['1440','1 დღით ადრე','1 day before']]
+ };
+ for(const [id,options] of Object.entries(data)){
+  const sel=$(id);if(!sel)continue;
+  for(const [v,ka,en] of options){const option=[...sel.options].find(o=>o.value===v);if(option)option.textContent=L(ka,en)}
+ }
+ for(const input of document.querySelectorAll('[data-placeholder-en]')){
+  const en=input.dataset.placeholderEn;const ka=en==='Quick add a task...'?'სწრაფად დაამატე საქმე...':'საქმის ძიება...';
+  input.placeholder=L(ka,en)
+ }
+ for(const el of document.querySelectorAll('[data-tx]')){
+  const en=el.dataset.tx;const ka=el.getAttribute('data-ka')||({
+  'My day':'ჩემი დღე','Focus on what matters':'მთავარზე კონცენტრირდი','Today':'დღეს',
+  'Today’s tasks':'დღის საქმეები','Search and sort':'ძიება და დალაგება',
+  'Hourly schedule':'საათობრივი განრიგი','Calendar':'კალენდარი',
+  'Show day, week and month':'ნახე დღე, კვირა და თვე','Red means a planned task':'წითელი — დაგეგმილი საქმე',
+  'Selected day tasks':'არჩეული დღის საქმეები'})[en]||en;
+  el.textContent=L(ka,en)
+ }
+ document.querySelector('.brand').textContent={
+ ka:'დღიური',ru:'Дневник',en:'Diary',es:'Diario',fr:'Journal',de:'Tagebuch',nl:'Dagboek',zh:'日记'
+ }[prefs.language]||'დღიური';
+ document.title=L('დღიური','Diary')+' · Alpha 0.15';
+}
+function renderDropdowns(){
+ const current=LANGS.find(([code])=>code===prefs.language)||LANGS[0];
+ $('languageTrigger').textContent=current[1]+' ▾';
+ document.querySelectorAll('#languageMenu [data-lang]').forEach(btn=>{const on=btn.dataset.lang===current[0];btn.classList.toggle('chosen',on);btn.setAttribute('aria-selected',String(on))});
+ const label=REMINDER_LABELS.find(([n])=>n===Number(prefs.reminder))||REMINDER_LABELS[0];
+ $('reminderTrigger').textContent=L(label[1],label[2])+' ▾';
+ document.querySelectorAll('#reminderMenu [data-reminder]').forEach(btn=>{const n=Number(btn.dataset.reminder),it=REMINDER_LABELS.find(([x])=>x===n);btn.textContent=L(it[1],it[2]);btn.classList.toggle('chosen',n===Number(prefs.reminder));btn.setAttribute('aria-selected',String(n===Number(prefs.reminder)))});
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.inlineDropdown'))closeSettingsMenus()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSettingsMenus()});
+
+function dateIso(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function fromIso(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12)}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+let selected=dateIso(new Date()),page='list',mode='month',editing=null;
+let prefs={english:false,dark:false,reminder:-1,color:'green',language:null};let tasks=[],goals=[];
+try {const saved=JSON.parse(localStorage.getItem('weeklyplus_alpha001_v20preview')||'{}'); prefs={...prefs,...saved.prefs};tasks=Array.isArray(saved.tasks)?saved.tasks:[];goals=Array.isArray(saved.goals)?saved.goals:[];}catch(e){console.warn(e)}
+if(!LANGS.some(([code])=>code===prefs.language))prefs.language=prefs.english?'en':'ka';
+prefs.english=prefs.language==='en';
+function persist(){try{localStorage.setItem('weeklyplus_alpha001_v20preview',JSON.stringify({prefs,tasks,goals}))}catch(e){message(L('შენახვა ამ ბრაუზერში ვერ მოხერხდა — ექსპორტი გამოიყენე','Browser storage failed. Use export.'))}}
+function message(s){$('banner').textContent=s;$('banner').classList.add('visible');setTimeout(()=>$('banner').classList.remove('visible'),5000)}
+function occurs(t,ds){if(ds<t.date)return false;const start=fromIso(t.date),d=fromIso(ds);if(t.repeat==='daily')return true;if(t.repeat==='weekly')return start.getDay()===d.getDay();if(t.repeat==='monthly')return start.getDate()===d.getDate();return ds===t.date}
+function forDay(d){return tasks.filter(t=>occurs(t,d)).sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'))}
+function done(t,d){return !!(t.completed&&t.completed[d])}
+function rank(t,d){return t.priorities&&t.priorities[d]||0}
+function top3(d){return forDay(d).filter(t=>rank(t,d)>0).sort((a,b)=>rank(a,d)-rank(b,d))}
+function toggleDone(id,ds){const t=tasks.find(x=>x.id===id);if(!t)return;t.completed=t.completed||{};if(t.completed[ds])delete t.completed[ds];else t.completed[ds]=true;persist();render()}
+function star(id,ds){const t=tasks.find(x=>x.id===id);if(!t)return;t.priorities=t.priorities||{};if(rank(t,ds))delete t.priorities[ds];else{const top=top3(ds);t.priorities[ds]=(top.at(-1)?rank(top.at(-1),ds):0)+1}persist();render()}
+function move(id,delta){const top=top3(selected);const i=top.findIndex(t=>t.id===id),j=i+delta;if(j<0||j>=top.length)return;const a=top[i],b=top[j],v=rank(a,selected);a.priorities[selected]=rank(b,selected);b.priorities[selected]=v;persist();render()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function taskHtml(t,d){return `<div class="task ${done(t,d)?'done':''}"><input type="checkbox" aria-label="Complete" ${done(t,d)?'checked':''} onchange="toggleDone('${t.id}','${d}')"><div class="taskbody" onclick="openTask('${t.id}')"><div class="tasktitle">${esc(t.title)}</div><div class="taskmeta">${esc(t.time||'')} ${esc(categoryLabel(t.category))} ${t.repeat!=='none'?'↻':''} ${t.reminder>=0&&t.time?'♩':''}</div></div><button class="star" aria-label="TOP 3" onclick="star('${t.id}','${d}')">${rank(t,d)?'★':'☆'}</button><button class="edit" aria-label="Edit" onclick="openTask('${t.id}')">✎</button></div>`}
+function setPage(p){page=p;document.querySelectorAll('.page').forEach(el=>el.classList.toggle('active',el.id===p));document.querySelectorAll('.bottom button').forEach(el=>el.classList.toggle('active',el.dataset.page===p||(el.dataset.page==='other'&&['joker','clock','mydiary','compassWeb'].includes(p))))}
+function show(p){setPage(p);render();window.scrollTo(0,0)}
+function shift(n){const d=fromIso(selected);if(page==='calendar'&&mode==='week')d.setDate(d.getDate()+n*7);else if(page==='calendar'&&mode==='month')d.setMonth(d.getMonth()+n);else d.setDate(d.getDate()+n);selected=dateIso(d);render()}
+function today(){selected=dateIso(new Date());render()}
+function weekday(d){return d.toLocaleDateString(localeTag(),{weekday:'long'})}
+function dateLabel(d){return d.toLocaleDateString(localeTag(),{day:'numeric',month:'long',year:'numeric'})}
+function dot(d){return forDay(d).length>0?'<em>•</em>':'<em>&nbsp;</em>'}
+function changeDate(d){selected=d;if(page==="calendar"&&(mode==="month"||mode==="week"))mode="day";render()}
+function render(){document.body.classList.toggle('dark',!!prefs.dark);document.documentElement.lang=prefs.language||'ka';document.querySelectorAll('[data-i]').forEach(el=>{const key=el.dataset.i;if(KEYS[key])el.children.length?((el.firstChild&&el.firstChild.nodeType===3)?el.firstChild.nodeValue=L(...KEYS[key]):null):el.textContent=L(...KEYS[key])});renderDropdowns();const d=fromIso(selected);$('dateText').textContent=dateLabel(d);$('weekdayText').textContent=weekday(d);$('calDate').textContent=dateLabel(d);
+const td=forDay(selected),top=top3(selected);$('pcount').textContent=`${top.length}`;$('priorities').innerHTML=top.length?top.map((t,i)=>`<div class="priority"><b>${i+1}.</b><span class="text">${esc(t.title)} ${done(t,selected)?'✓':''}</span><button onclick="move('${t.id}',-1)">▲</button><button onclick="move('${t.id}',1)">▼</button></div>`).join(''):`<p class="empty">${L('დააჭირე ვარსკვლავს საქმეზე — სამეულს შენ თავად ირჩევ.','Star a task to choose your priorities yourself.')}</p>`;$('dailycount').textContent=`${td.filter(t=>done(t,selected)).length}/${td.length}`;$('tasks').innerHTML=td.map(t=>taskHtml(t,selected)).join('')||`<p class="empty">${L('ამ დღისთვის საქმე ჯერ არ არის.','No tasks for this day yet.')}</p>`;
+['day','week','month'].forEach(v=>$('mode-'+v).classList.toggle('active',mode===v));$('calendarGrid').innerHTML='';if(mode==='week'||mode==='month'){const start=new Date(d);const count=mode==='week'?7:42;if(mode==='week')start.setDate(start.getDate()-((start.getDay()+6)%7));else{start.setDate(1);start.setDate(start.getDate()-((start.getDay()+6)%7))}let h='<div class="'+mode+'">';for(let i=0;i<count;i++){const z=addDays(start,i),iso=dateIso(z);h+=`<button class="day ${forDay(iso).length?'has-entry':''} ${iso===selected?'active':''} ${mode==='month'&&z.getMonth()!==d.getMonth()?'out':''}" onclick="changeDate('${iso}')"><small>${mode==='week'?weekday(z).slice(0,2):'&nbsp;'}</small><span class="date-number">${z.getDate()}</span>${dot(iso)}</button>`}h+='</div>';$('calendarGrid').innerHTML=h}$('calendarTasks').innerHTML=td.map(t=>taskHtml(t,selected)).join('')||`<p class="empty">${L('საქმეები არ არის','No tasks')}</p>`;
+const dates=Array.from({length:7},(_,i)=>dateIso(addDays(new Date(),i-6)));let all=0,complete=0;const bars=dates.map(z=>{const arr=forDay(z),dn=arr.filter(t=>done(t,z)).length;all+=arr.length;complete+=dn;return `<div class="barcol"><div class="barrack"><div class="barfill" style="height:${arr.length?Math.round(dn/arr.length*100):0}%"></div></div><span>${weekday(fromIso(z)).slice(0,2)}</span><span class="muted">${dn}/${arr.length}</span></div>`}).join('');$('chart').innerHTML=bars;$('doneStat').textContent=complete;$('pctStat').textContent=`${all?Math.round(complete/all*100):0}%`;$('summary').textContent=all?L(`ბოლო 7 დღეში შეასრულე ${complete} საქმე, დაგეგმილი ${all}-დან.`,`You completed ${complete} of ${all} planned tasks in the last 7 days.`):L('დაამატე დავალებები და შედეგებიც აქ გამოჩნდება.','Add tasks to see your progress.');
+}
+function openTask(id){editing=id||null;const t=tasks.find(t=>t.id===id);$('editHeading').textContent=t?L('საქმის რედაქტირება','Edit task'):L('ახალი საქმე','New task');$('taskTitle').value=t?.title||'';$('taskDate').value=t?.date||selected;$('taskTime').value=t?.time||'';$('taskNotes').value=t?.details||'';$('taskCategory').innerHTML=CATS.map(c=>`<option value="${c}">${esc(categoryLabel(c))}</option>`).join('');$('taskCategory').value=t?.category||'პირადი';$('taskRepeat').value=t?.repeat||'none';$('taskReminder').value=String(t?.reminder??prefs.reminder);$('deleteTask').classList.toggle('hidden',!t);$('editor').classList.add('show')}
+function closeModal(){document.querySelectorAll('.overlay').forEach(x=>x.classList.remove('show'))}
+function saveTask(e){e.preventDefault();const title=$('taskTitle').value.trim(),date=$('taskDate').value,time=$('taskTime').value,reminder=+$('taskReminder').value;if(!title||!date)return;if(reminder>=0&&!time){message(L('შეხსენებისთვის საათიც მიუთითე','Choose a time for the reminder'));return}const t=tasks.find(x=>x.id===editing);const data={title,date,time,details:$('taskNotes').value,category:$('taskCategory').value,repeat:$('taskRepeat').value,reminder,goalId:t?.goalId||''};if(t)Object.assign(t,data);else tasks.push({id:crypto.randomUUID?.()||('t'+Date.now()+Math.random()),...data,completed:{},priorities:{}});persist();closeModal();render();message(L('საქმე შენახულია','Task saved'))}
+function removeTask(){if(!editing)return;if(!confirm(L('ნამდვილად წავშალოთ საქმე?','Delete this task?')))return;tasks=tasks.filter(t=>t.id!==editing);persist();closeModal();render()}
+function exportData(){const data=JSON.stringify({version:'0.15-web',exported:new Date().toISOString(),prefs,tasks,goals,checklist,diaryClock,diaryNotes,joker,jokerHistory},null,2),blob=new Blob([data],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='DIARY_Backup_'+dateIso(new Date())+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+async function importData(e){const f=e.target.files?.[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(!Array.isArray(obj.tasks)||!Array.isArray(obj.goals))throw Error('invalid');if(!confirm(L('ჩავანაცვლოთ არსებული მონაცემები?','Replace existing data?')))return;tasks=obj.tasks;goals=obj.goals;prefs={...prefs,...obj.prefs};if(obj.joker&&Array.isArray(obj.joker.players)){joker=jokerImport(obj.joker);jokerSave()}
+if(Array.isArray(obj.jokerHistory)){jokerHistory=obj.jokerHistory.filter(x=>x&&typeof x.id==='string'&&x.joker&&Array.isArray(x.joker.players));historyPersist()}
+if(Array.isArray(obj.diaryNotes)){diaryNotes=journalClean(obj.diaryNotes);journalPersist()}
+if(Array.isArray(obj.checklist)){checklist=listClean(obj.checklist);listPersist()}
+if(obj.diaryClock&&typeof obj.diaryClock==='object'){diaryClock={...diaryClock,...obj.diaryClock};saveDiaryClock()}
+persist();render();message(L('ასლი აღდგენილია','Backup restored'))}catch{message(L('ფაილი არასწორია','Invalid file'))}finally{e.target.value=''}}
+let statusTasks='all',sortTasks='time',searchTasks='',calendarStatus='all';
+function quickAdd(){
+ const el=$('quickTask'),title=el.value.trim();if(!title)return;
+ tasks.push({id:'t'+Date.now()+Math.random().toString(16).slice(2),title,date:selected,time:'',details:'',category:'პირადი',repeat:'none',reminder:-1,goalId:'',completed:{},priorities:{}});
+ el.value='';persist();render();message(L('საქმე შენახულია','Task saved'));
+}
+function applyFilters(){
+ statusTasks=$('statusTasks').value;sortTasks=$('sortTasks').value;searchTasks=$('searchTasks').value.trim().toLocaleLowerCase();render()
+}
+function selectYear(input){
+ const y=Number(input);if(!Number.isInteger(y)||y<1900||y>2200)return;
+ const d=fromIso(selected),m=d.getMonth(),day=Math.min(d.getDate(),new Date(y,m+1,0).getDate());
+ selected=dateIso(new Date(y,m,day,12));render();
+}
+function openMonth(month){
+ const d=fromIso(selected),y=d.getFullYear();
+ selected=dateIso(new Date(y,month,1,12));mode='month';render();
+}
+const baseRender=render;
+function pickTheme(theme){if(!['green','purple','blue','rose','amber','cyan','slate'].includes(theme))return;prefs.color=theme;persist();render()}
+render=function(){
+ baseRender();
+ localizeOptions();
+ syncCustomSelects();
+ if(page==='joker')jokerHistoryRender();
+ renderAlarmState();
+ const colors=['green','purple','blue','rose','amber','cyan','slate'];if(!colors.includes(prefs.color))prefs.color='green';
+ document.body.dataset.theme=prefs.color;
+ document.querySelectorAll('.paletteBtn').forEach(btn=>{const chosen=btn.dataset.theme===prefs.color;btn.classList.toggle('chosen',chosen);btn.setAttribute('aria-pressed',String(chosen))});
+ document.querySelectorAll('[data-l10n-ka]').forEach(el=>{el.textContent=L(el.getAttribute('data-l10n-ka'),el.getAttribute('data-l10n-en'))});
+ const ds=selected,all=forDay(ds);
+ let showing=all.filter(t=>(statusTasks==='all'||(statusTasks==='done'?done(t,ds):!done(t,ds)))&&(!searchTasks||(String(t.title)+' '+String(t.details||'')+' '+String(t.category||'')).toLocaleLowerCase().includes(searchTasks)));
+ if(sortTasks==='new')showing.sort((a,b)=>String(b.id).localeCompare(String(a.id)));
+ if(sortTasks==='status')showing.sort((a,b)=>Number(done(a,ds))-Number(done(b,ds)));
+ $('tasks').innerHTML=showing.map(t=>taskHtml(t,ds)).join('')||'<p class="empty">'+L('შესაბამისი საქმე არ მოიძებნა.','No matches')+'</p>';
+ $('calendarTasks').innerHTML=all.filter(t=>calendarStatus==='all'||(calendarStatus==='done'?done(t,ds):!done(t,ds))).map(t=>taskHtml(t,ds)).join('')||'<p class="empty">შესაბამისი საქმე არ მოიძებნა.</p>';
+ const timed=all.filter(t=>t.time);$('hourCount').textContent=timed.length;
+ $('hoursList').innerHTML=timed.map(t=>'<div class="hourRow"><b>'+esc(t.time)+'</b><span>'+esc(t.title)+'</span></div>').join('')||'<p class="empty">'+L('დრო მითითებული არ არის.','No time set')+'</p>';
+ if(page==='calendar'){
+  const d=fromIso(ds),start=new Date(d);
+  if(mode==='month'){start.setDate(1);start.setDate(start.getDate()-((start.getDay()+6)%7))}
+  if(mode==='week')start.setDate(start.getDate()-((start.getDay()+6)%7));
+  document.querySelectorAll('#calendarGrid .day').forEach((el,i)=>el.classList.toggle('has-task',forDay(dateIso(addDays(start,i))).length>0));
+  if(mode==='month')$('calDate').textContent=d.toLocaleDateString(localeTag(),{month:'long'});
+  else $('calDate').textContent=d.toLocaleDateString(localeTag(),{day:'numeric',month:'long'});
+  const year=d.getFullYear(),yearSel=$('calYear');
+  if(yearSel.dataset.base!==String(year)){
+    let opts='';
+    for(let y=1980;y<=2100;y++)opts+='<option value="'+y+'">'+y+'</option>';
+    yearSel.innerHTML=opts;yearSel.dataset.base=String(year)
+  }
+  yearSel.value=String(year);
+ }
+ if(page==='joker')jokerRender();
+};
+const jokerRounds=[1,2,3,4,5,6,7,8,9,9,9,9,8,7,6,5,4,3,2,1,9,9,9,9];
+
+function newJoker(){
+ return {sessionId:'jg-'+Date.now()+'-'+Math.random().toString(36).slice(2,8),startedAt:Date.now(),players:['','','',''],
+ bids:Array.from({length:24},()=>Array(4).fill(null)),
+ taken:Array.from({length:24},()=>Array(4).fill(null))}
+}
+function jokerImport(src){
+ const dst=newJoker();if(!src||typeof src!=='object')return dst;
+ if(typeof src.sessionId==='string'&&src.sessionId.length<100)dst.sessionId=src.sessionId;
+ if(Number.isFinite(src.startedAt))dst.startedAt=src.startedAt;
+ if(Array.isArray(src.players))dst.players=Array.from({length:4},(_,p)=>{
+  const name=String(src.players[p]||'').slice(0,28);
+  return /^მოთამაშე [1-4]$/.test(name)?'':name
+ });
+ if(Array.isArray(src.bids)&&src.bids.length===24&&Array.isArray(src.taken)&&src.taken.length===24){
+  for(let r=0;r<24;r++)for(let p=0;p<4;p++){
+   for(const key of ['bids','taken']){
+    const v=src[key][r]?.[p];
+    dst[key][r][p]=Number.isInteger(v)&&v>=0&&v<=jokerRounds[r]?v:null
+   }
+  }
+ }
+ // Older Alpha 0.06 scores were manual values, not bids/taken: keep names only.
+ return dst;
+}
+let joker=newJoker();
+try{
+ const prev=localStorage.getItem('diary_alpha10_joker_v20preview')||localStorage.getItem('diary_alpha07_joker_v20preview')||localStorage.getItem('diary_alpha06_joker_v20preview')||localStorage.getItem('diary_alpha05_joker_v20preview');
+ joker=jokerImport(JSON.parse(prev||'null'))
+}catch(e){console.warn('joker restore',e)}
+
+const HISTORY_KEY='diary_alpha10_joker_v20preview_history';
+let jokerHistory=[];
+let jokerHistoryLimit=15;
+try{
+ const parsed=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');
+ if(Array.isArray(parsed))jokerHistory=parsed.filter(x=>x&&typeof x.id==='string'&&x.id.length<100&&x.joker&&Array.isArray(x.joker.players))
+}catch(e){console.warn('History storage',e)}
+function jokerHasContent(game=joker){
+ return game.players.some(x=>String(x||'').trim())||game.bids.some(row=>row.some(x=>x!==null))||game.taken.some(row=>row.some(x=>x!==null))
+}
+function jokerIsComplete(game=joker){
+ return game.bids.every(row=>row.every(x=>Number.isInteger(x)))&&game.taken.every(row=>row.every(x=>Number.isInteger(x)))
+}
+function historyPersist(){
+ try{localStorage.setItem(HISTORY_KEY,JSON.stringify(jokerHistory));return true}
+ catch(e){message(L('ისტორიის შენახვა ვერ მოხერხდა — გააკეთე სარეზერვო ასლი','Could not save game history — export a backup'));return false}
+}
+function jokerHistoryEntry(game){
+ const copy=jokerImport(game);
+ return {id:copy.sessionId,startedAt:copy.startedAt,updatedAt:Date.now(),complete:jokerIsComplete(copy),
+  joker:copy,totals:Array.from({length:4},(_,p)=>jokerTotalFor(copy,p))}
+}
+function jokerTotalFor(game,p){
+ const active=joker;
+ joker=game;
+ try{return jokerTotal(p)}
+ finally{joker=active}
+}
+function jokerArchive(manual=false){
+ if(!jokerHasContent()){
+  if(manual)message(L('შესანახი თამაში ჯერ არ არის','There is no game to save yet'));
+  return false
+ }
+ if(!manual&&!jokerIsComplete())return false;
+ const item=jokerHistoryEntry(joker);
+ const existing=jokerHistory.findIndex(x=>x.id===item.id);
+ if(existing>=0)jokerHistory[existing]=item;else jokerHistory.unshift(item);
+ jokerHistory.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+ const ok=historyPersist();
+ if(manual&&ok)message(L('ჯოკერის ფურცელი ისტორიაში შენახულია','Joker sheet saved to history'));
+ if(ok)jokerHistoryRender();
+ return ok
+}
+function jokerHistoryRender(){
+ const count=$('jokerHistoryCount'),list=$('jokerHistoryList');if(!count||!list)return;
+ count.textContent=jokerHistory.length;
+ if(!$('jokerHistoryFold').open)return;
+ const shown=jokerHistory.slice(0,jokerHistoryLimit);
+ if(!shown.length){list.innerHTML='<p class="empty">'+L('ისტორია ჯერ ცარიელია. დასრულებული თამაშები ავტომატურად შეინახება.','No history yet. Finished games will be saved automatically.')+'</p>';return}
+ list.innerHTML=shown.map(item=>{
+  const data=jokerImport(item.joker);
+  const dt=new Date(item.updatedAt||item.startedAt||Date.now());
+  const when=Number.isNaN(dt.getTime())?'':dt.toLocaleDateString(localeTag(),{year:'numeric',month:'short',day:'numeric'})+' · '+dt.toLocaleTimeString(localeTag(),{hour:'2-digit',minute:'2-digit'});
+  const totals=Array.from({length:4},(_,p)=>{
+   const name=data.players[p]||L('მოთამაშე','Player')+' '+(p+1);
+   return '<span><small>'+esc(name)+'</small><b>'+jokerTotalFor(data,p)+'</b></span>'
+  }).join('');
+  const safeId=encodeURIComponent(item.id).replaceAll("'",'%27');
+  return '<div class="historyCard"><div class="hrow"><div><b>'+esc(when)+'</b><div class="historyState '+(item.complete?'finished':'draft')+'">'+(item.complete?L('დასრულებული','Finished'):L('დაუმთავრებელი','Unfinished'))+'</div></div><div class="historyButtons"><button type="button" class="secondary" onclick="jokerHistoryOpen(decodeURIComponent(&quot;'+safeId+'&quot;))">'+L('გახსნა','Open')+'</button><button type="button" class="ghost danger" onclick="jokerHistoryDelete(decodeURIComponent(&quot;'+safeId+'&quot;))" aria-label="'+L('წაშლა','Delete')+'">✕</button></div></div><div class="historyScores">'+totals+'</div></div>'
+ }).join('');
+ if(jokerHistory.length>jokerHistoryLimit)list.innerHTML+='<button class="secondary historyMore" onclick="jokerHistoryLimit+=15;jokerHistoryRender()">'+L('მეტის ნახვა','Show more')+'</button>'
+}
+function jokerHistoryOpen(id){
+ const item=jokerHistory.find(x=>x.id===id);if(!item)return;
+ if(joker.sessionId!==id&&jokerHasContent()){
+  if(!confirm(L('გავხსნათ შენახული თამაში? მიმდინარე ფურცელიც ისტორიაში შეინახება.','Open saved game? Current sheet will also be saved in history.')))return;
+  jokerArchive(true)
+ }
+ joker=jokerImport(item.joker);
+ jokerSave();jokerRender();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function jokerHistoryDelete(id){
+ if(!jokerHistory.some(x=>x.id===id))return;
+ if(!confirm(L('წავშალოთ ეს თამაში ისტორიიდან?','Delete this game from history?')))return;
+ jokerHistory=jokerHistory.filter(x=>x.id!==id);
+ historyPersist();jokerHistoryRender()
+}
+
+function jokerSave(){
+ try{localStorage.setItem('diary_alpha10_joker_v20preview',JSON.stringify(joker))}
+ catch(e){message(L('ქულები ვერ შეინახა','Could not save the score sheet'))}
+}
+function jokerName(p,value){joker.players[p]=String(value).slice(0,28);jokerSave();if(jokerIsComplete())jokerArchive(false)}
+function jokerPoints(hand,bid,taken){
+ if(bid===null||taken===null)return null;
+ if(!Number.isInteger(bid)||!Number.isInteger(taken)||bid<0||taken<0||bid>hand||taken>hand)return null;
+ if(bid===taken){
+  if(bid===hand&&bid>0)return hand*100;
+  return 50+50*bid;
+ }
+ if(bid>0&&taken===0)return -200;
+ return 10*taken
+}
+function jokerPointAt(r,p){return jokerPoints(jokerRounds[r],joker.bids[r][p],joker.taken[r][p])}
+function jokerRangeTotal(p,a,b){let s=0;for(let r=a;r<b;r++)s+=jokerPointAt(r,p)??0;return s}
+const JOKER_PULKAS=[[0,8],[8,12],[12,20],[20,24]];
+// The pulka rules used for this sheet:
+// 0 premiums: no adjustments;
+// 1 premium: +winner's best hand, -everyone else's own best hand;
+// 2+ premiums: only the qualifying players receive their own bonuses.
+function jokerPulkaResult(group){
+ const bounds=JOKER_PULKAS[group];
+ if(!bounds)return null;
+ const [a,b]=bounds;
+ const completed=Array.from({length:4},(_,p)=>{
+  for(let r=a;r<b;r++)if(joker.bids[r][p]===null||joker.taken[r][p]===null)return false;
+  return true
+ }).every(Boolean);
+ const raw=Array.from({length:4},(_,p)=>jokerRangeTotal(p,a,b));
+ const best=Array(4).fill(0),bestRound=Array(4).fill(-1);
+ for(let p=0;p<4;p++)for(let r=a;r<b;r++){
+  const score=jokerPointAt(r,p);
+  if(score!==null&&score>best[p]){best[p]=score;bestRound[p]=r}
+ }
+ const premiumPlayers=completed?Array.from({length:4},(_,p)=>p).filter(p=>{
+  for(let r=a;r<b;r++)if(joker.bids[r][p]!==joker.taken[r][p])return false;
+  return true
+ }):[];
+ const adjustment=Array(4).fill(0);
+ if(completed&&premiumPlayers.length){
+  for(const p of premiumPlayers)adjustment[p]=best[p];
+  if(premiumPlayers.length===1){
+   for(let p=0;p<4;p++)if(p!==premiumPlayers[0])adjustment[p]=-best[p]
+  }
+ }
+ const totals=raw.map((sum,p)=>sum+adjustment[p]);
+ return {completed,raw,best,bestRound,premiumPlayers,adjustment,totals}
+}
+function jokerCumulative(p,throughGroup){
+ let total=0;
+ for(let g=0;g<=throughGroup;g++)total+=jokerPulkaResult(g).totals[p];
+ return total
+}
+function jokerTotal(p){return jokerCumulative(p,3)}
+function jokerAdjustmentLabel(info,p){
+ if(!info.completed)return L('ჯერ არ დასრულებულა','Pending');
+ const n=info.adjustment[p];
+ if(n>0)return L('პრემია','Bonus')+' +'+n;
+ if(n<0)return L('მოშლა','Deduction')+' '+n;
+ return '—'
+}
+function jokerAdjustmentClass(info,p){
+ if(!info.completed)return 'jPending';
+ return info.adjustment[p]>0?'jBonus':info.adjustment[p]<0?'jDeduction':'jNeutral'
+}
+function jokerScoreLabel(n){return n===null?'—':(n>0?'+':'')+n}
+function jokerOptions(hand,value){
+ let opts='<option value=""'+(value===null?' selected':'')+'>—</option>';
+ for(let n=0;n<=hand;n++)opts+='<option value="'+n+'"'+(n===value?' selected':'')+'>'+n+'</option>';
+ return opts
+}
+function jokerSelect(r,p,type,value){
+ const n=value===''?null:Number(value),hand=jokerRounds[r];
+ if(n!==null&&(!Number.isInteger(n)||n<0||n>hand)){jokerRender();return}
+ const proposed=joker[type][r].map((x,i)=>i===p?n:x);
+ if(type==='bids'&&proposed.every(x=>x!==null)&&proposed.reduce((a,b)=>a+b,0)===hand){
+  message(L('ოთხი ნათქვამის ჯამი კარტების რაოდენობას არ უნდა უდრიდეს','Bids cannot add up to all cards'));
+  document.getElementById('j-bids-'+r+'-'+p).value=joker.bids[r][p]??'';return
+ }
+ if(type==='taken'&&proposed.reduce((a,b)=>a+(b??0),0)>hand){
+  message(L('აღებულთა ჯამი კარტების რაოდენობას აჭარბებს','Too many tricks recorded'));
+  document.getElementById('j-taken-'+r+'-'+p).value=joker.taken[r][p]??'';return
+ }
+ joker[type][r][p]=n;jokerSave();jokerRefresh();if(jokerIsComplete())jokerArchive(false)
+}
+function jokerRefresh(){
+ const result=JOKER_PULKAS.map((_,g)=>jokerPulkaResult(g));
+ for(let r=0;r<24;r++)for(let p=0;p<4;p++){
+  const cell=document.getElementById('j-points-'+r+'-'+p);
+  if(!cell)continue;
+  const n=jokerPointAt(r,p),g=r<8?0:r<12?1:r<20?2:3,info=result[g];
+  const wiped=info.completed&&info.adjustment[p]<0&&info.bestRound[p]===r;
+  cell.textContent=jokerScoreLabel(n);
+  cell.classList.toggle('negative',n!==null&&n<0);
+  cell.classList.toggle('positive',n!==null&&n>0);
+  cell.classList.toggle('jErased',wiped);
+  cell.title=wiped?L('პულკის საუკეთესო ქულა მოიშალა','Best round result deducted'):''
+ }
+ for(let g=0;g<4;g++){
+  const info=result[g];
+  for(let p=0;p<4;p++){
+   const sub=document.getElementById('j-sub-'+g+'-'+p);
+   const label=document.getElementById('j-adjust-'+g+'-'+p);
+   const cum=document.getElementById('j-cum-'+g+'-'+p);
+   if(sub)sub.textContent=info.totals[p];
+   if(label){
+    label.textContent=jokerAdjustmentLabel(info,p);
+    label.className='jAdjustment '+jokerAdjustmentClass(info,p)
+   }
+   if(cum)cum.textContent=jokerCumulative(p,g)
+  }
+ }
+ for(let p=0;p<4;p++){
+  const el=document.getElementById('jokerTotal'+p);
+  if(el)el.textContent=jokerTotal(p)
+ }
+}
+function jokerRender(){
+ const root=document.getElementById('jokerBoard');if(!root)return;
+ const en=prefs.language!=='ka',heads=joker.players.map((name,p)=>'<th class="playerHead player'+p+'"><input maxlength="28" aria-label="'+L('მოთამაშის სახელი','Player name')+' '+(p+1)+'" placeholder="'+L('სახელი ','Name ')+(p+1)+'" value="'+esc(name)+'" oninput="jokerName('+p+',this.value)"></th>').join('');
+ let rows='';
+ for(let r=0;r<24;r++){
+  const hand=jokerRounds[r],group=r<8?0:r<12?1:r<20?2:3;
+  const cells=joker.players.map((_,p)=>{
+   const bid=joker.bids[r][p],taken=joker.taken[r][p],pts=jokerPointAt(r,p);
+   return '<td><div class="jPair">'+
+   '<label class="jField"><span>'+L('თქვა','Bid')+'</span><select id="j-bids-'+r+'-'+p+'" aria-label="'+L('თქვა','Bid')+' '+(r+1)+' / '+(p+1)+'" onchange="jokerSelect('+r+','+p+',\'bids\',this.value)">'+jokerOptions(hand,bid)+'</select></label>'+
+   '<label class="jField"><span>'+L('აიღო','Won')+'</span><select id="j-taken-'+r+'-'+p+'" aria-label="'+L('აიღო','Won')+' '+(r+1)+' / '+(p+1)+'" onchange="jokerSelect('+r+','+p+',\'taken\',this.value)">'+jokerOptions(hand,taken)+'</select></label></div>'+
+   '<strong id="j-points-'+r+'-'+p+'" class="jPoints '+(pts!==null&&pts<0?'negative':pts!==null&&pts>0?'positive':'')+'">'+jokerScoreLabel(pts)+'</strong></td>'
+  }).join('');
+  rows+='<tr class="jRound group'+group+(hand===9?' nine':'')+'"><th scope="row">'+hand+'</th>'+cells+'</tr>';
+  if([7,11,19,23].includes(r)){
+   const g=[7,11,19,23].indexOf(r),info=jokerPulkaResult(g);
+   const subs=joker.players.map((_,p)=>'<td><strong id="j-sub-'+g+'-'+p+'">'+info.totals[p]+'</strong><small id="j-adjust-'+g+'-'+p+'" class="jAdjustment '+jokerAdjustmentClass(info,p)+'">'+jokerAdjustmentLabel(info,p)+'</small><small class="jCumulative">'+L('სულ ','Total ')+'<span id="j-cum-'+g+'-'+p+'">'+jokerCumulative(p,g)+'</span></small></td>').join('');
+   rows+='<tr class="jSection"><th>'+L('ჯამი','SUM')+'</th>'+subs+'</tr>'
+  }
+ }
+ rows+='<tr class="jGrandTotal"><th>'+L('სულ','TOTAL')+'</th>'+joker.players.map((_,p)=>'<td id="jokerTotal'+p+'">'+jokerTotal(p)+'</td>').join('')+'</tr>';
+ root.innerHTML='<table><colgroup><col class="handcol"><col span="4"></colgroup><thead><tr><th>'+L('კარტი','Cards')+'</th>'+heads+'</tr></thead><tbody>'+rows+'</tbody></table>';
+ jokerRefresh()
+}
+function jokerReset(){
+ if(!confirm(L('ახალი ფურცელი გავხსნათ? მიმდინარე ქულები წაიშლება.','Start new sheet? Current scores will be erased.')))return;
+ jokerArchive(true);joker=newJoker();jokerSave();jokerRender();jokerHistoryRender()
+}
+function jokerCsv(){
+ const names=joker.players.map((n,i)=>n||('მოთამაშე '+(i+1)));
+ const data=[['ტური','კარტი',...names.flatMap(n=>[n+' თქვა',n+' აიღო',n+' ქულა'])]];
+ for(let r=0;r<24;r++){
+  data.push([r+1,jokerRounds[r],...names.flatMap((_,p)=>[joker.bids[r][p]??'',joker.taken[r][p]??'',jokerPointAt(r,p)??''])]);
+  if([7,11,19,23].includes(r)){
+   const g=[7,11,19,23].indexOf(r),info=jokerPulkaResult(g);
+   data.push(['პულკის ხელების ჯამი','',...names.flatMap((_,p)=>['','',info.raw[p]])]);
+   data.push(['პრემია / მოშლა','',...names.flatMap((_,p)=>['','',info.completed?info.adjustment[p]:''])]);
+   data.push(['პულკის საბოლოო ჯამი','',...names.flatMap((_,p)=>['','',info.totals[p]])]);
+   data.push(['დაგროვილი ქულები','',...names.flatMap((_,p)=>['','',jokerCumulative(p,g)])])
+  }
+ }
+ data.push(['სულ','',...names.flatMap((_,p)=>['','',jokerTotal(p)])]);
+ const csv='\uFEFF'+data.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');
+ const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+ const anchor=document.createElement('a');anchor.href=url;anchor.download='JOKER_0.10_'+dateIso(new Date())+'.csv';anchor.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1500)
+}
+
+let diaryAudio=null;
+let alarmTimer=null;
+let firedAlarms=new Set();
+try{
+ const fired=JSON.parse(localStorage.getItem('diary_alpha10_alarm_fired_v20preview')||'[]');
+ if(Array.isArray(fired))firedAlarms=new Set(fired.slice(-250))
+}catch(e){}
+function alarmAudioUnlock(){
+ const Ctor=window.AudioContext||window.webkitAudioContext;
+ if(!Ctor)return;
+ try{diaryAudio=diaryAudio||new Ctor();if(diaryAudio.state==='suspended')diaryAudio.resume().catch(()=>{})}catch(e){}
+}
+function soundWebAlarm(){
+ try{
+  if(diaryAudio&&diaryAudio.state!=='running')diaryAudio.resume().catch(()=>{});
+  if(diaryAudio){
+   [0,.22,.44].forEach((offset,i)=>{
+    const osc=diaryAudio.createOscillator(),gain=diaryAudio.createGain(),start=diaryAudio.currentTime+offset;
+    osc.type='sine';osc.frequency.value=i===1?660:880;gain.gain.setValueAtTime(.0001,start);
+    gain.gain.exponentialRampToValueAtTime(.17,start+.02);
+    gain.gain.exponentialRampToValueAtTime(.0001,start+.18);
+    osc.connect(gain);gain.connect(diaryAudio.destination);osc.start(start);osc.stop(start+.2)
+   })
+  }
+  if(navigator.vibrate)navigator.vibrate([160,100,160])
+ }catch(e){console.warn('Alarm audio',e)}
+}
+function dismissWebAlarm(){
+ $('webAlarm').hidden=true;if(navigator.vibrate)navigator.vibrate(0)
+}
+async function fireWebAlarm(title,detail,key){
+ $('webAlarmTitle').textContent='⏰ '+L('შეხსენება','Reminder');
+ $('webAlarmText').textContent=title+(detail?' · '+detail:'');
+ $('webAlarm').hidden=false;
+ soundWebAlarm();
+ if(typeof Notification!=='undefined'&&Notification.permission==='granted'&&'serviceWorker' in navigator){
+  try{
+   const reg=await navigator.serviceWorker.ready;
+   await reg.showNotification(L('შეხსენება','Reminder'),{body:title,tag:'diary-reminder-'+key,renotify:false})
+  }catch(e){console.warn('System notification unavailable',e)}
+ }
+}
+async function toggleWebAlerts(){
+ if(prefs.webAlertsEnabled){
+  prefs.webAlertsEnabled=false;persist();renderAlarmState();return
+ }
+ await enableWebAlerts()
+}
+async function enableWebAlerts(){
+ prefs.webAlertsEnabled=true;persist();alarmAudioUnlock();
+ const permissionRequest=(typeof Notification!=='undefined'&&Notification.permission==='default')
+  ?Notification.requestPermission().catch(()=>null):Promise.resolve(null);
+ if('serviceWorker' in navigator){try{await navigator.serviceWorker.register('./sw.js')}catch(e){console.warn('SW unsupported',e)}}
+ await permissionRequest;
+ renderAlarmState();
+ message(L('შეხსენებები ჩართულია გახსნილ გვერდზე','Alerts enabled while this page is open'))
+}
+function testWebAlarm(){
+ alarmAudioUnlock();
+ if(alarmTimer)clearTimeout(alarmTimer);
+ $('alarmStatusText').textContent=L('ტესტი ჩაირთვება 5 წამში','Test alarm in 5 seconds');
+ alarmTimer=setTimeout(()=>{fireWebAlarm(L('სატესტო მაღვიძარა','Test alarm'),'', 'test-'+Date.now());renderAlarmState()},5000)
+}
+function renderAlarmState(){
+ const el=$('alarmStatusText'),led=$('alarmLed');if(!el)return;
+ const active=!!prefs.webAlertsEnabled;
+ led?.classList.toggle('on',active);
+ const toggle=$('webAlertsToggle');
+ if(toggle)toggle.textContent=active?L('შეხსენების გამორთვა','Disable alerts'):L('შეხსენების ჩართვა','Enable alerts');
+ el.textContent=active?L('ვებშეხსენება აქტიურია, სანამ გვერდი გახსნილია','Web alerts are enabled while this page stays open'):L('ვებშეხსენება გამორთულია — ჩართე ტესტისთვის','Web alerts are off — enable them to test')
+}
+function alarmOccurrenceDate(day,time){
+ const parts=String(day).split('-').map(Number),clock=String(time).split(':').map(Number);
+ if(parts.length!==3||clock.length<2||!Number.isInteger(clock[0])||!Number.isInteger(clock[1])||clock[0]>23||clock[1]>59)return null;
+ return new Date(parts[0],parts[1]-1,parts[2],clock[0],clock[1],0,0)
+}
+function dueRemindersAt(nowMs){
+ const result=[],today=new Date(nowMs);
+ const minDay=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+ for(let dayShift=0;dayShift<=1;dayShift++){
+  const d=addDays(minDay,dayShift),iso=dateIso(d);
+  for(const t of tasks){
+   if(!t.time||!Number.isInteger(Number(t.reminder))||Number(t.reminder)<0||!occurs(t,iso)||done(t,iso))continue;
+   const scheduled=alarmOccurrenceDate(iso,t.time);if(!scheduled)continue;
+   const due=scheduled.getTime()-Number(t.reminder)*60000;
+   if(nowMs>=due&&nowMs-due<=90000){
+    const key=String(t.id)+'|'+iso+'|'+t.reminder+'|'+t.time;
+    result.push({task:t,key,due,day:iso})
+   }
+  }
+ }
+ return result
+}
+function checkWebReminders(){
+ if(!prefs.webAlertsEnabled||document.visibilityState==='hidden')return;
+ const due=dueRemindersAt(Date.now()).filter(item=>!firedAlarms.has(item.key));
+ if(!due.length)return;
+ for(const item of due)firedAlarms.add(item.key);
+ if(firedAlarms.size>250)firedAlarms=new Set([...firedAlarms].slice(-200));
+ try{localStorage.setItem('diary_alpha10_alarm_fired_v20preview',JSON.stringify([...firedAlarms]))}catch(e){}
+ const first=due[0];
+ fireWebAlarm(first.task.title,due.length>1?'+'+(due.length-1):'',first.key)
+}
+window.addEventListener('focus',checkWebReminders);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checkWebReminders()});
+setInterval(checkWebReminders,15000);
+
+if(jokerIsComplete())jokerArchive(false);
+
+// Alpha 0.11: standalone clock in the original Goals slot; retain 0.10 Joker, tasks and visual design.
+const diaryDropdownOriginal=renderDropdowns;
+renderDropdowns=function(){
+ diaryDropdownOriginal();
+ const trigger=$('themeTrigger'),menu=$('themeMenu');
+ if(!trigger||!menu)return;
+ trigger.textContent=prefs.dark?'☾ შავი / მუქი ▾':'☀ ღია ▾';
+ menu.querySelectorAll('[data-dark]').forEach(b=>{const chosen=(b.dataset.dark==='true')===!!prefs.dark;b.classList.toggle('chosen',chosen);b.setAttribute('aria-selected',String(chosen))})
+};
+function chooseTheme(isDark){prefs.dark=!!isDark;persist();closeSettingsMenus();render()}
+const DIARY_CLOCK_KEY='diary_alpha11_clock_v20preview';
+let diaryClock={timerUntil:0,dailyEnabled:false,dailyTime:'08:00',dailyLabel:'მაღვიძარა',nextDaily:0};
+try{diaryClock={...diaryClock,...JSON.parse(localStorage.getItem(DIARY_CLOCK_KEY)||'{}')}}catch(e){console.warn('clock storage',e)}
+function saveDiaryClock(){try{localStorage.setItem(DIARY_CLOCK_KEY,JSON.stringify(diaryClock))}catch(e){console.warn('clock save',e)}}
+function durationString(ms){const secs=Math.max(0,Math.ceil(ms/1000));const p=n=>String(n).padStart(2,'0');return p(Math.floor(secs/3600))+':'+p(Math.floor(secs/60)%60)+':'+p(secs%60)}
+function diaryNextTime(hhmm){const [h,m]=hhmm.split(':').map(Number),now=new Date(),dt=new Date();dt.setHours(h,m,0,0);if(dt<=now)dt.setDate(dt.getDate()+1);return dt.getTime()}
+function diaryTimerStart(){
+ const h=Number($('clockH').value),m=Number($('clockM').value),s=Number($('clockS').value),sec=h*3600+m*60+s;
+ if(![h,m,s].every(Number.isInteger)||h<0||m<0||m>59||s<0||s>59||sec<1||sec>604800){message(L('შეიყვანე დრო 1 წამიდან 7 დღემდე','Enter 1 second to 7 days'));return}
+ alarmAudioUnlock();diaryClock.timerUntil=Date.now()+sec*1000;saveDiaryClock();diaryClockRender();message(L('ტაიმერი ჩართულია','Timer started'))
+}
+function diaryTimerCancel(){diaryClock.timerUntil=0;saveDiaryClock();diaryClockRender()}
+function diaryDailyAlarmSave(){
+ const time=$('clockAlarmTime').value,label=$('clockAlarmLabel').value.trim()||'მაღვიძარა';
+ if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)){message('აირჩიე დრო');return}
+ alarmAudioUnlock();diaryClock.dailyTime=time;diaryClock.dailyLabel=label.slice(0,80);diaryClock.dailyEnabled=true;
+ diaryClock.nextDaily=diaryNextTime(time);saveDiaryClock();diaryClockRender();message(L('მაღვიძარა ჩართულია','Alarm enabled'))
+}
+function diaryDailyAlarmStop(){diaryClock.dailyEnabled=false;diaryClock.nextDaily=0;saveDiaryClock();diaryClockRender()}
+function diaryClockRender(){
+ const cd=$('clockDigits');if(!cd)return;
+ const running=diaryClock.timerUntil>Date.now();
+ cd.textContent=running?durationString(diaryClock.timerUntil-Date.now()):'00:05:00';
+ $('clockInputs').hidden=running;$('clockStart').hidden=running;$('clockCancel').hidden=!running;
+ const time=$('clockAlarmTime'),label=$('clockAlarmLabel');
+ if(document.activeElement!==time)time.value=diaryClock.dailyTime;
+ if(document.activeElement!==label)label.value=diaryClock.dailyLabel;
+ $('clockAlarmOn').hidden=diaryClock.dailyEnabled;$('clockAlarmOff').hidden=!diaryClock.dailyEnabled;
+ $('clockAlarmStatus').textContent=diaryClock.dailyEnabled?
+ L('ჩართულია • შემდეგი: ','Enabled • next: ')+new Date(diaryClock.nextDaily).toLocaleString(localeTag()):
+ L('მაღვიძარა გამორთულია','Alarm disabled');
+}
+function diaryClockTick(){
+ const now=Date.now();
+ if(diaryClock.timerUntil&&now>=diaryClock.timerUntil){
+   const late=now-diaryClock.timerUntil;diaryClock.timerUntil=0;saveDiaryClock();
+   if(late<=90000)fireWebAlarm(L('ტაიმერი დასრულდა','Timer finished'),'','clock-timer-'+now);
+   diaryClockRender()
+ }
+ if(diaryClock.dailyEnabled&&diaryClock.nextDaily&&now>=diaryClock.nextDaily){
+   const late=now-diaryClock.nextDaily,old=diaryClock.nextDaily;
+   diaryClock.nextDaily=diaryNextTime(diaryClock.dailyTime);saveDiaryClock();
+   if(late<=90000)fireWebAlarm(diaryClock.dailyLabel,'','clock-daily-'+old);
+   diaryClockRender()
+ }
+ if(page==='clock'&&diaryClock.timerUntil>now){const d=$('clockDigits');if(d)d.textContent=durationString(diaryClock.timerUntil-now)}
+}
+const diaryOriginalRender=render;
+render=function(){diaryOriginalRender();diaryClockRender()};
+setInterval(diaryClockTick,700);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)diaryClockTick()});
+
+
+/* Alpha 0.12: localized additions only; original 0.10 UI/Joker kept unchanged. */
+const V12_LANGS=['ka','en','ru','es','fr','de','nl','zh'];
+const V12_LABELS={
+clockSub:['ტაიმერი და მაღვიძარა','Timer and alarm','Таймер и будильник','Temporizador y alarma','Minuteur et réveil','Timer und Wecker','Timer en wekker','计时器和闹钟'],
+timerInfo:['სიგნალი მუშაობს მხოლოდ ბრაუზერის ღია გვერდზე. დახურულ გვერდზე ფონური მაღვიძარა გარანტირებული არ არის.','The sound works only while this browser page is open. Closed-browser alarms are not guaranteed.','Звук работает только при открытой странице. Сигнал в закрытом браузере не гарантирован.','El sonido funciona solo con la página abierta. No hay garantía con el navegador cerrado.','Le son fonctionne avec la page ouverte. Le réveil ne fonctionne pas toujours après fermeture.','Der Ton funktioniert bei geöffneter Seite. Bei geschlossenem Browser ist der Alarm nicht garantiert.','Het geluid werkt zolang de pagina open is. Geen wekgarantie bij een gesloten browser.','只有打开页面时才会发出声音。关闭浏览器后无法保证闹钟响铃。'],
+hours:['საათი','Hours','Часы','Horas','Heures','Stunden','Uren','小时'],
+minutes:['წუთი','Minutes','Минуты','Minutos','Minutes','Minuten','Minuten','分钟'],
+seconds:['წამი','Seconds','Секунды','Segundos','Secondes','Sekunden','Seconden','秒'],
+time:['დრო','Time','Время','Hora','Heure','Uhrzeit','Tijd','时间'],
+name:['სახელი','Name','Название','Nombre','Nom','Name','Naam','名称'],
+community:['ჩვენი საზოგადოება და თამაშები','Our community and games','Наше сообщество и игры','Nuestra comunidad y juegos','Notre communauté et nos jeux','Unsere Community und Spiele','Onze community en games','我们的社区和游戏'],
+facebook:['ჩვენი საზოგადოება','Our gaming community','Наше игровое сообщество','Nuestra comunidad de jugadores','Notre communauté de joueurs','Unsere Gaming-Community','Onze gamingcommunity','我们的游戏社区'],
+testers:['მხოლოდ დაშვებული ტესტერებისთვის','Approved testers only','Только для допущенных тестировщиков','Solo para probadores autorizados','Réservé aux testeurs autorisés','Nur für zugelassene Tester','Alleen voor toegelaten testers','仅限获准测试者'],
+start:['▶ დაწყება','▶ Start','▶ Начать','▶ Iniciar','▶ Démarrer','▶ Start','▶ Start','▶ 开始'],
+cancel:['✕ გაუქმება','✕ Cancel','✕ Отмена','✕ Cancelar','✕ Annuler','✕ Abbrechen','✕ Annuleren','✕ 取消'],
+alarmOn:['⏰ ჩართვა','⏰ Enable','⏰ Включить','⏰ Activar','⏰ Activer','⏰ Einschalten','⏰ Aanzetten','⏰ 启用'],
+alarmOff:['გამორთვა','Disable','Выключить','Desactivar','Désactiver','Ausschalten','Uitzetten','关闭'],
+alarmEnabled:['ჩართულია • შემდეგი: ','Enabled • next: ','Включён • следующий: ','Activada • siguiente: ','Activé • prochain : ','Aktiv • nächster: ','Actief • volgende: ','已启用 • 下次：'],
+alarmDisabled:['მაღვიძარა გამორთულია','Alarm disabled','Будильник выключен','Alarma desactivada','Réveil désactivé','Wecker ausgeschaltet','Wekker uitgeschakeld','闹钟已关闭'],
+themeLight:['☀ ღია','☀ Light','☀ Светлая','☀ Claro','☀ Clair','☀ Hell','☀ Licht','☀ 浅色'],
+themeDark:['☾ შავი / მუქი','☾ Black / Dark','☾ Чёрная / Тёмная','☾ Negro / Oscuro','☾ Noir / Sombre','☾ Schwarz / Dunkel','☾ Zwart / Donker','☾ 黑色 / 深色'],
+topHint:['მონიშნე ვარსკვლავით რამდენი საქმეც გინდა.','Star as many tasks as you want.','Отмечайте звёздочкой любое число задач.','Marca con estrellas todas las tareas que quieras.','Marquez autant de tâches que souhaité.','Markiere beliebig viele Aufgaben.','Markeer zoveel taken als je wilt.','为任意数量的任务加星标。'],
+clock:['საათი','Clock','Часы','Reloj','Horloge','Uhr','Klok','时钟'],
+timer:['ტაიმერი','Countdown timer','Таймер','Temporizador','Minuteur','Countdown','Timer','倒计时'],
+alarm:['მაღვიძარა','Alarm clock','Будильник','Alarma','Réveil','Wecker','Wekker','闹钟'],
+reminder:['შეხსენების შემოწმება','Reminder check','Проверка напоминаний','Prueba de recordatorios','Test de rappel','Erinnerungstest','Herinneringstest','提醒测试'],
+selectedTasks:['არჩეული დღის საქმეები','Selected day tasks','Дела выбранного дня','Tareas del día elegido','Tâches du jour choisi','Aufgaben des gewählten Tags','Taken op gekozen dag','所选日期的任务'],
+calendarLegend:['წითელი — დაგეგმილი საქმე','Red marks planned tasks','Красным отмечены запланированные дела','Rojo = tarea programada','Rouge = tâche planifiée','Rot = geplante Aufgabe','Rood = geplande taak','红色表示已计划的任务']
+};
+function v12(k){const row=V12_LABELS[k];return row?(row[Math.max(0,V12_LANGS.indexOf(prefs.language))]||row[0]):k}
+function v12Translate(){
+ document.querySelectorAll('[data-v12]').forEach(el=>el.textContent=v12(el.dataset.v12));
+ document.querySelectorAll('[data-v12-label]').forEach(el=>{const n=[...el.childNodes].find(x=>x.nodeType===Node.TEXT_NODE);if(n)n.nodeValue=v12(el.dataset.v12Label)});
+ for(const [id,key] of [['clockStart','start'],['clockCancel','cancel'],['clockAlarmOn','alarmOn'],['clockAlarmOff','alarmOff']]){const el=$(id);if(el)el.textContent=v12(key)}
+ const stat=$('clockAlarmStatus');if(stat)stat.textContent=diaryClock.dailyEnabled?v12('alarmEnabled')+new Date(diaryClock.nextDaily).toLocaleString(localeTag()):v12('alarmDisabled');
+ if($('themeTrigger'))$('themeTrigger').textContent=v12(prefs.dark?'themeDark':'themeLight')+' ▾';
+ for(const [flag,key] of [['false','themeLight'],['true','themeDark']]){const el=document.querySelector('#themeMenu [data-dark="'+flag+'"]');if(el)el.textContent=v12(key)}
+ const map=[['#clock [data-l10n-en="Clock"]','clock'],['#clock [data-l10n-en="Countdown timer"]','timer'],['#clock [data-l10n-en="Alarm clock"]','alarm'],['#clock [data-l10n-en="Reminder check"]','reminder'],['#nav [data-page="clock"] span:last-child','clock'],['#calendar .legend span','calendarLegend'],['#calendarTasks','selectedTasks']];
+ for(const [selector,key] of map){let el=document.querySelector(selector);if(key==='selectedTasks')el=el?.closest('.panel')?.querySelector('.paneltitle');if(el)el.textContent=v12(key)}
+ const empty=$('priorities')?.querySelector('.empty');if(empty)empty.textContent=v12('topHint');
+}
+const v12Render=render;
+render=function(){v12Render();v12Translate()};
+
+
+/* Alpha 0.13 Add-ons / My Diary — local-only note store. */
+const V13_WORDS={
+other:['სხვა','Other','Другое','Otros','Autres','Weitere','Overige','其他'],
+otherIntro:['ჩემი დამატებითი განყოფილებები','Additional sections','Дополнительные разделы','Secciones adicionales','Sections supplémentaires','Weitere Bereiche','Extra onderdelen','附加功能'],
+journal:['ჩემი დღიური','My diary','Мой дневник','Mi diario','Mon journal','Mein Tagebuch','Mijn dagboek','我的日记'],
+journalIntro:['ჩანაწერები, თარიღები და ისტორია','Notes, dates and history','Записи, даты и история','Notas, fechas e historial','Notes, dates et historique','Notizen, Daten und Verlauf','Notities, datums en geschiedenis','笔记、日期和历史'],
+joker:['ჯოკერი','Joker','Джокер','Joker','Joker','Joker','Joker','小丑牌'],
+jokerIntro:['ქულები და ნათამაშები პარტიები','Scores and match history','Очки и история партий','Puntos e historial','Scores et historique','Punkte und Spielverlauf','Scores en spelgeschiedenis','得分和对局历史'],
+clock:['საათი','Clock','Часы','Reloj','Horloge','Uhr','Klok','时钟'],
+clockIntro:['ტაიმერი და მაღვიძარა','Timer and alarm','Таймер и будильник','Temporizador y alarma','Minuteur et réveil','Timer und Wecker','Timer en wekker','计时器和闹钟'],
+results:['შედეგები','Results','Результаты','Resultados','Résultats','Ergebnisse','Resultaten','结果'],
+resultsIntro:['შესრულებული საქმეების სტატისტიკა','Completed tasks and statistics','Выполненные задачи и статистика','Tareas completadas y estadísticas','Tâches terminées et statistiques','Erledigte Aufgaben und Statistiken','Voltooide taken en statistieken','任务完成情况与统计'],
+future:['დამატებითი მოდულები','More add-ons','Новые дополнения','Más complementos','Autres modules','Weitere Erweiterungen','Meer uitbreidingen','更多扩展'],
+futureIntro:['მომდევნო განახლებებში ახალი ფუნქციები აქ დაემატება.','New features can be added here in future updates.','В будущих обновлениях здесь появятся новые функции.','Aquí aparecerán nuevas funciones en próximas versiones.','De nouvelles fonctions apparaîtront ici plus tard.','Neue Funktionen kommen in späteren Updates hierhin.','Hier komen later nieuwe functies bij.','未来更新将在此添加新功能。'],
+back:['‹ სხვა','‹ Other','‹ Другое','‹ Otros','‹ Autres','‹ Weitere','‹ Overige','‹ 返回'],
+newEntry:['ახალი ჩანაწერი','New entry','Новая запись','Nueva entrada','Nouvelle note','Neuer Eintrag','Nieuwe notitie','新笔记'],
+editEntry:['ჩანაწერის რედაქტირება','Edit entry','Изменить запись','Editar entrada','Modifier la note','Eintrag bearbeiten','Notitie bewerken','编辑笔记'],
+entryTitle:['სათაური (არასავალდებულო)','Title (optional)','Заголовок (необязательно)','Título (opcional)','Titre (facultatif)','Titel (optional)','Titel (optioneel)','标题（可选）'],
+entryBody:['ჩანაწერი','Your note','Текст записи','Tu nota','Votre note','Deine Notiz','Je notitie','笔记内容'],
+notePrivacy:['ჩანაწერები ამ ბრაუზერში ინახება. ასლის შესაქმნელად გამოიყენე პარამეტრები.','Entries are saved in this browser. Export a backup in Settings.','Записи сохраняются в этом браузере. Сделайте копию в настройках.','Se guardan en este navegador. Exporta una copia en Ajustes.','Sauvegardé dans ce navigateur. Exportez une copie dans Réglages.','Einträge werden im Browser gespeichert. Exportiere ein Backup in Einstellungen.','Notities worden in de browser opgeslagen. Exporteer een back-up via Instellingen.','笔记保存在此浏览器中。请在设置中导出备份。'],
+cancel:['გაუქმება','Cancel','Отмена','Cancelar','Annuler','Abbrechen','Annuleren','取消'],
+saveEntry:['შენახვა','Save entry','Сохранить','Guardar','Enregistrer','Speichern','Opslaan','保存'],
+entryHistory:['ჩანაწერების ისტორია','Entry history','История записей','Historial de notas','Historique des notes','Eintragsverlauf','Notitiegeschiedenis','笔记历史'],
+entryPlaceholder:['ჩაწერე შენი ფიქრები...','Write your thoughts...','Запишите свои мысли...','Escribe tus ideas...','Écrivez vos pensées...','Schreibe deine Gedanken...','Schrijf je gedachten...','写下你的想法…'],
+titlePlaceholder:['ჩანაწერის სათაური','Entry title','Название записи','Título de la nota','Titre de la note','Titel des Eintrags','Titel van de notitie','笔记标题'],
+search:['ძებნა...','Search notes...','Поиск записей...','Buscar notas...','Rechercher...','Notizen suchen...','Notities zoeken...','搜索笔记…'],
+noEntries:['ჩანაწერები ჯერ არ არის. შექმენი პირველი.','No entries yet. Write your first note.','Записей пока нет. Создайте первую.','Aún no hay notas. Crea la primera.','Aucune note. Écrivez votre première note.','Noch keine Einträge. Erstelle den ersten.','Nog geen notities. Maak je eerste notitie.','还没有笔记，写下第一条吧。'],
+noMatches:['ჩანაწერი ვერ მოიძებნა.','No matching entries.','Записи не найдены.','No se encontraron notas.','Aucune note trouvée.','Keine passenden Notizen.','Geen notities gevonden.','未找到笔记。'],
+untitled:['უსათაურო ჩანაწერი','Untitled entry','Без названия','Sin título','Sans titre','Ohne Titel','Zonder titel','无标题'],
+created:['შექმნილია','Created','Создано','Creado','Créé','Erstellt','Gemaakt','创建于'],
+edited:['ბოლოს შეიცვალა','Last edited','Изменено','Editado','Modifié','Bearbeitet','Bewerkt','最后修改'],
+edit:['რედაქტირება','Edit','Изменить','Editar','Modifier','Bearbeiten','Bewerken','编辑'],
+delete:['წაშლა','Delete','Удалить','Eliminar','Supprimer','Löschen','Verwijderen','删除'],
+saved:['ჩანაწერი შენახულია','Entry saved','Запись сохранена','Nota guardada','Note enregistrée','Eintrag gespeichert','Notitie opgeslagen','笔记已保存'],
+removed:['ჩანაწერი წაშლილია','Entry deleted','Запись удалена','Nota eliminada','Note supprimée','Eintrag gelöscht','Notitie verwijderd','笔记已删除'],
+deleteConfirm:['წავშალოთ ეს ჩანაწერი?','Delete this entry?','Удалить запись?','¿Eliminar esta nota?','Supprimer cette note ?','Diesen Eintrag löschen?','Deze notitie verwijderen?','删除此笔记？'],
+emptyBody:['ჩაწერე ტექსტი.','Write a note first.','Напишите текст.','Escribe una nota.','Écrivez une note.','Schreibe einen Text.','Schrijf eerst een notitie.','请先输入笔记。']
+};
+function v13(k){const a=V13_WORDS[k];return a?(a[Math.max(0,V12_LANGS.indexOf(prefs.language))]||a[0]):k}
+const JOURNAL_KEY='dgiuri_alpha13_journal_v20preview';
+function journalClean(items){return items.filter(x=>x&&typeof x==='object'&&typeof x.id==='string'&&x.id.length<=150&&typeof x.body==='string'&&Number.isFinite(Number(x.createdAt))).slice(0,5000).map(x=>({id:String(x.id),title:String(x.title||'').slice(0,160),body:String(x.body).slice(0,30000),createdAt:Number(x.createdAt),updatedAt:Number.isFinite(Number(x.updatedAt))?Number(x.updatedAt):Number(x.createdAt)}))}
+let diaryNotes=[];
+try{const saved=JSON.parse(localStorage.getItem(JOURNAL_KEY)||'[]');if(Array.isArray(saved))diaryNotes=journalClean(saved)}catch(e){console.warn('Diary notes could not be loaded',e)}
+let journalEditing=null,journalSearch='';
+function journalPersist(){try{localStorage.setItem(JOURNAL_KEY,JSON.stringify(diaryNotes))}catch(e){message(L('ჩანაწერის შენახვა ვერ მოხერხდა — შეამოწმე თავისუფალი მეხსიერება.','Note storage failed: check browser free space.'))}}
+function journalNew(){
+ journalEditing=null;
+ $('journalTitle').value='';$('journalBody').value='';
+ $('journalCancel').hidden=true;$('journalEditNotice').textContent='';
+ $('journalEditorTitle').textContent=v13('newEntry');
+}
+function journalOpen(){journalNew();show('mydiary')}
+function journalDate(n){try{return new Intl.DateTimeFormat(localeTag(),{dateStyle:'medium',timeStyle:'short'}).format(new Date(n))}catch{return new Date(n).toLocaleString()}}
+function journalSearchChanged(query){journalSearch=query;journalRender()}
+function journalRender(){
+ if(!$('journalItems'))return;
+ $('journalCount').textContent=String(diaryNotes.length);
+ const query=journalSearch.toLocaleLowerCase();
+ const list=diaryNotes.filter(n=>!query||(n.title+' '+n.body).toLocaleLowerCase().includes(query)).slice().sort((a,b)=>b.createdAt-a.createdAt);
+ $('journalItems').innerHTML=list.map(n=>
+ '<section class="journalItem"><h3>'+esc(n.title||v13('untitled'))+'</h3>'+
+ '<div class="noteMeta">'+v13('created')+': '+esc(journalDate(n.createdAt))+
+ (n.updatedAt>n.createdAt?'<div>'+v13('edited')+': '+esc(journalDate(n.updatedAt))+'</div>':'')+'</div>'+
+ '<div class="noteText">'+esc(n.body)+'</div><div class="noteActions">'+
+ '<button class="secondary" data-note-action="edit" data-note-id="'+esc(n.id)+'" onclick="journalEdit(this.dataset.noteId)">'+v13('edit')+'</button>'+
+ '<button class="ghost danger" data-note-action="delete" data-note-id="'+esc(n.id)+'" onclick="journalDelete(this.dataset.noteId)">'+v13('delete')+'</button></div></section>'
+ ).join('')||'<p class="empty">'+v13(query?'noMatches':'noEntries')+'</p>';
+}
+function journalSave(e){
+ e.preventDefault();
+ const body=$('journalBody').value.trim(),title=$('journalTitle').value.trim();
+ if(!body){message(v13('emptyBody'));return}
+ const now=Date.now();
+ if(journalEditing){
+  const item=diaryNotes.find(n=>n.id===journalEditing);
+  if(item){item.title=title;item.body=body;item.updatedAt=now}
+ }else{
+  diaryNotes.unshift({id:'note-'+now+'-'+Math.random().toString(36).slice(2,9),title,body,createdAt:now,updatedAt:now})
+ }
+ journalPersist();journalNew();journalRender();message(v13('saved'));
+}
+function journalEdit(id){
+ const note=diaryNotes.find(n=>n.id===id);if(!note)return;
+ journalEditing=note.id;$('journalTitle').value=note.title;$('journalBody').value=note.body;
+ $('journalCancel').hidden=false;$('journalEditorTitle').textContent=v13('editEntry');
+ $('journalEditNotice').textContent=journalDate(note.createdAt);
+ document.querySelector('.journalEditor').scrollIntoView({behavior:'smooth',block:'start'});
+ $('journalBody').focus();
+}
+function journalDelete(id){
+ const note=diaryNotes.find(n=>n.id===id);if(!note||!confirm(v13('deleteConfirm')))return;
+ diaryNotes=diaryNotes.filter(n=>n.id!==id);
+ journalPersist();if(journalEditing===id)journalNew();journalRender();message(v13('removed'));
+}
+function v13Translate(){
+ document.querySelectorAll('[data-v13]').forEach(el=>el.textContent=v13(el.dataset.v13));
+ $('journalTitle').placeholder=v13('titlePlaceholder');
+ $('journalBody').placeholder=v13('entryPlaceholder');
+ $('journalSearch').placeholder=v13('search');
+ $('journalSearch').setAttribute('aria-label',v13('search'));
+ $('journalEditorTitle').textContent=journalEditing?v13('editEntry'):v13('newEntry');
+ $('journalSaveButton').textContent=v13('saveEntry');
+  if(page==='mydiary')journalRender();
+ if(page==='calendar')syncCustomSelects(); // Year select is populated after the legacy render; refresh trigger last.
+}
+const v13BaseRender=render;
+render=function(){v13BaseRender();v13Translate()};
+
+render();
+</script>
+<script src="../diary-alpha20-webtest/additions14.js"></script>
+<script src="../diary-alpha20-webtest/preview20.js"></script>
+<script src="./preview21.js"></script>
+</body></html>
