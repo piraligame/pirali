@@ -80,7 +80,7 @@ function applyCloudData(data,{initial=false}={}){
    const storeMain=JSON.stringify({prefs,tasks,goals});
    localStorage.setItem('weeklyplus_alpha001_v20preview',storeMain);
    localStorage.setItem('diary_alpha10_joker_v20preview',JSON.stringify(joker));
-   localStorage.setItem('diary_alpha10_joker_v20preview_history_v20preview',JSON.stringify(jokerHistory));
+   localStorage.setItem('diary_alpha10_joker_v20preview_history',JSON.stringify(jokerHistory));
    localStorage.setItem('dgiuri_alpha13_journal_v20preview',JSON.stringify(diaryNotes));
    localStorage.setItem(LIST_STORAGE,JSON.stringify(checklist));
    localStorage.setItem(DIARY_CLOCK_KEY,JSON.stringify(diaryClock));
@@ -97,7 +97,7 @@ function resetForAccountChange(){
   diaryClock={timerUntil:0,dailyEnabled:false,dailyTime:'08:00',dailyLabel:'მაღვიძარა',nextDaily:0};
   localStorage.setItem('weeklyplus_alpha001_v20preview',JSON.stringify({prefs,tasks,goals}));
   localStorage.setItem('diary_alpha10_joker_v20preview',JSON.stringify(joker));
-  localStorage.setItem('diary_alpha10_joker_v20preview_history_v20preview',JSON.stringify(jokerHistory));
+  localStorage.setItem('diary_alpha10_joker_v20preview_history',JSON.stringify(jokerHistory));
   localStorage.setItem('dgiuri_alpha13_journal_v20preview',JSON.stringify(diaryNotes));
   localStorage.setItem(LIST_STORAGE,JSON.stringify(checklist));
   localStorage.setItem(DIARY_CLOCK_KEY,JSON.stringify(diaryClock));
